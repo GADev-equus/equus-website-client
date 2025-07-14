@@ -1,14 +1,195 @@
-/* App specific styles */
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* Mobile-first design for Equus Systems landing page */
+
+/* Base styles */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f8f9fa;
 }
 
-h1 {
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+  color: white;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.logo {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.5px;
+}
+
+.tagline {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+/* Main content */
+.main {
+  flex: 1;
+  padding: 2rem 1rem;
+  max-width: 100%;
+}
+
+/* Hero section */
+.hero {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem 0;
+}
+
+.hero-title {
   font-size: 2rem;
+  font-weight: 600;
   margin-bottom: 1rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: #333;
-  line-height: 1.2;
+  color: #2c3e50;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Services section */
+.services {
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: #2c3e50;
+}
+
+.service-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+}
+
+.service-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #3498db;
+}
+
+.service-card h4 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+.service-card p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* About section */
+.about {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.about-text {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.about-text em {
+  color: #3498db;
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* Footer */
+.footer {
+  background: #2c3e50;
+  color: white;
+  padding: 2rem 1rem;
+  text-align: center;
+  margin-top: auto;
+}
+
+.holding-notice {
+  padding: 1rem;
+  background: rgba(231, 76, 60, 0.1);
+  border: 2px solid #e74c3c;
+  border-radius: 8px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.holding-notice p {
+  margin-bottom: 0.5rem;
+}
+
+.holding-notice p:last-child {
+  margin-bottom: 0;
+  opacity: 0.8;
+}
+
+/* Tablet styles */
+@media (min-width: 768px) {
+  .main {
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .service-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .logo {
+    font-size: 3rem;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 1024px) {
+  .header {
+    padding: 3rem 2rem;
+  }
+  
+  .main {
+    padding: 4rem 2rem;
+  }
+  
+  .hero {
+    padding: 3rem 0;
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+  }
+  
+  .service-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
