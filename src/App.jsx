@@ -1,4 +1,5 @@
 import './App.css'
+import ContactForm from './components/ContactForm'
 
 function App() {
   return (
@@ -40,6 +41,11 @@ function App() {
             <em>Equus</em> means "horse" in Latin, symbolizing strength, reliability, and forward momentum. 
             At Equus Systems, we embody these qualities in our approach to AI consulting and solutions development.
           </p>
+        </section>
+
+        <section className="contact">
+          <h3 className="section-title">CONTACT US</h3>
+          <ContactForm />
         </section>
       </main>
 
