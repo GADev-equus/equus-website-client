@@ -8,39 +8,12 @@ import ContactForm from '@/components/ContactForm';
 
 const Home = () => {
   return (
-    <div className="min-h-screen flex flex-col" style={{ 
-      borderColor: 'var(--equus-border-color)',
-      backgroundColor: 'var(--equus-background-dark)',
-      border: 'var(--equus-border-width) solid var(--equus-border-color)'
+    <div style={{ 
+      maxWidth: 'var(--equus-max-width-container)',
+      margin: '0 auto',
+      padding: 'var(--equus-spacing-lg) var(--equus-spacing-sm)',
+      width: '100%'
     }}>
-      {/* Header with gradient background */}
-      <header className="text-white text-center" style={{ 
-        background: 'var(--equus-gradient-primary)',
-        padding: 'var(--equus-spacing-lg) var(--equus-spacing-sm)'
-      }}>
-        <h1 className="font-bold" style={{ 
-          fontSize: '2.5rem', 
-          letterSpacing: 'var(--equus-letter-spacing-tight)',
-          fontFamily: 'var(--equus-font-display)',
-          marginBottom: 'var(--equus-spacing-xs)'
-        }}>
-          EQUUS SYSTEMS
-        </h1>
-        <p className="opacity-90 font-light" style={{ 
-          fontSize: '1.1rem' 
-        }}>
-          ADVANCED AI SOLUTIONS & CONSULTING
-        </p>
-      </header>
-
-      {/* Main content */}
-      <main style={{ 
-        flex: 1,
-        maxWidth: 'var(--equus-max-width-container)',
-        margin: '0 auto',
-        padding: 'var(--equus-spacing-lg) var(--equus-spacing-sm)',
-        width: '100%'
-      }}>
         {/* Hero section */}
         <section className="equus-section" style={{ 
           paddingTop: 'var(--equus-spacing-xl)', 
@@ -184,28 +157,6 @@ const Home = () => {
             <ContactForm />
           </div>
         </section>
-      </main>
-
-      {/* Footer with gradient background */}
-      <footer className="text-white text-center mt-auto" style={{ 
-        background: 'var(--equus-gradient-primary)',
-        padding: 'var(--equus-spacing-lg) var(--equus-spacing-sm)'
-      }}>
-        <div className="rounded-lg mx-auto" style={{ 
-          background: 'rgba(231, 76, 60, 0.1)', 
-          border: 'var(--equus-border-width) solid var(--equus-accent)',
-          borderRadius: 'var(--equus-border-radius)',
-          maxWidth: 'var(--equus-max-width-notice)',
-          padding: 'var(--equus-spacing-sm)'
-        }}>
-          <p className="font-bold" style={{ 
-            marginBottom: 'var(--equus-spacing-xs)' 
-          }}>This is a temporary holding page</p>
-          <p className="opacity-80" style={{ 
-            margin: '0' 
-          }}>Our full website is currently under development</p>
-        </div>
-      </footer>
     </div>
   );
 };

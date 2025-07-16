@@ -9,6 +9,8 @@ import { AuthProvider } from '@/contexts/AuthContext';
 import ProtectedRoute from '@/components/shared/ProtectedRoute';
 import AdminRoute from '@/components/shared/AdminRoute';
 import { LoadingSpinnerCenter } from '@/components/ui/loading-spinner';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 // Critical pages - loaded immediately
 import Home from '@/pages/Home';
@@ -28,8 +30,16 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="min-h-screen bg-background">
-          <main id="main-content">
+        <div style={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          backgroundColor: 'var(--equus-background-dark)',
+          border: 'var(--equus-border-width) solid var(--equus-border-color)'
+        }}>
+          <Header />
+          
+          <main id="main-content" style={{ flex: 1 }}>
             <Suspense fallback={<LoadingSpinnerCenter size="lg" text="Loading..." />}>
               <Routes>
                 {/* Public Routes */}
@@ -71,6 +81,8 @@ function App() {
               </Routes>
             </Suspense>
           </main>
+          
+          <Footer />
         </div>
       </Router>
     </AuthProvider>

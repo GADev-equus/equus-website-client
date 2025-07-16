@@ -17,7 +17,6 @@ const ResetPassword = () => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: 'var(--equus-background-dark)',
       padding: 'var(--equus-spacing-sm)'
     }}>
       <SkipLink />
