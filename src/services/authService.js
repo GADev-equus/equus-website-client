@@ -43,11 +43,20 @@ class AuthService {
   }
 
   /**
-   * User sign up
+   * User sign up (alias for signup)
    * @param {Object} userData - User registration data
    * @returns {Promise} - Registration result
    */
   async signUp(userData) {
+    return this.signup(userData);
+  }
+
+  /**
+   * User signup
+   * @param {Object} userData - User registration data
+   * @returns {Promise} - Registration result
+   */
+  async signup(userData) {
     try {
       const response = await httpService.post('/api/auth/signup', userData);
       return {
@@ -61,13 +70,23 @@ class AuthService {
   }
 
   /**
-   * User sign in
+   * User sign in (alias for login)
    * @param {Object} credentials - Login credentials
    * @returns {Promise} - Login result
    */
   async signIn(credentials) {
+    return this.login(credentials.email, credentials.password);
+  }
+
+  /**
+   * User login
+   * @param {string} email - User email
+   * @param {string} password - User password
+   * @returns {Promise} - Login result
+   */
+  async login(email, password) {
     try {
-      const response = await httpService.post('/api/auth/signin', credentials);
+      const response = await httpService.post('/api/auth/signin', { email, password });
       
       if (response.token && response.user) {
         this.setAuthData(response.token, response.refreshToken, response.user);
@@ -263,6 +282,9 @@ class AuthService {
     httpService.setDefaultHeaders({
       Authorization: `Bearer ${token}`
     });
+
+    // Setup automatic token refresh
+    this.setupTokenRefresh();
   }
 
   /**
@@ -281,6 +303,7 @@ class AuthService {
     this.refreshToken = null;
     this.user = null;
     this.clearStorage();
+    this.clearTokenRefresh();
     
     // Remove authorization header
     httpService.setDefaultHeaders({
@@ -392,10 +415,107 @@ class AuthService {
       return true;
     }
   }
+
+  /**
+   * Get token expiration time
+   * @returns {Date|null} - Token expiration date
+   */
+  getTokenExpiration() {
+    if (!this.token) return null;
+    
+    try {
+      const payload = JSON.parse(atob(this.token.split('.')[1]));
+      return new Date(payload.exp * 1000);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  /**
+   * Setup automatic token refresh
+   */
+  setupTokenRefresh() {
+    if (this.refreshInterval) {
+      clearInterval(this.refreshInterval);
+    }
+
+    if (!this.token || !this.refreshToken) return;
+
+    const checkAndRefresh = async () => {
+      const expiration = this.getTokenExpiration();
+      if (!expiration) return;
+
+      // Refresh token 5 minutes before expiration
+      const refreshTime = expiration.getTime() - (5 * 60 * 1000);
+      const now = Date.now();
+
+      if (now >= refreshTime) {
+        try {
+          await this.refreshAuthToken();
+        } catch (error) {
+          console.error('Automatic token refresh failed:', error);
+          this.clearAuth();
+        }
+      }
+    };
+
+    // Check every minute
+    this.refreshInterval = setInterval(checkAndRefresh, 60000);
+    
+    // Initial check
+    checkAndRefresh();
+  }
+
+  /**
+   * Clear token refresh interval
+   */
+  clearTokenRefresh() {
+    if (this.refreshInterval) {
+      clearInterval(this.refreshInterval);
+      this.refreshInterval = null;
+    }
+  }
+
+  /**
+   * Initialize auth service with HTTP interceptors
+   */
+  initializeInterceptors() {
+    // Add token to requests
+    httpService.addRequestInterceptor(async (config) => {
+      if (this.token && !config.headers.Authorization) {
+        config.headers.Authorization = `Bearer ${this.token}`;
+      }
+      return config;
+    });
+
+    // Handle auth errors
+    httpService.addErrorInterceptor(async (error) => {
+      if (error.status === 401 && this.isAuthenticated()) {
+        // Try to refresh token
+        if (this.refreshToken) {
+          try {
+            const result = await this.refreshAuthToken();
+            if (!result.success) {
+              this.clearAuth();
+            }
+          } catch (refreshError) {
+            this.clearAuth();
+          }
+        } else {
+          this.clearAuth();
+        }
+      }
+    });
+  }
 }
 
 // Create singleton instance
 const authService = new AuthService();
+
+// Initialize interceptors
+if (typeof window !== 'undefined') {
+  authService.initializeInterceptors();
+}
 
 export default authService;
 export { AuthService };

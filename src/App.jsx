@@ -1,62 +1,80 @@
-import './App.css'
-import ContactForm from './components/ContactForm'
+/**
+ * App Component - Main application component with routing
+ * Sets up React Router with authentication and admin routes
+ */
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
+import { AuthProvider } from '@/contexts/AuthContext';
+import ProtectedRoute from '@/components/shared/ProtectedRoute';
+import AdminRoute from '@/components/shared/AdminRoute';
+import { LoadingSpinnerCenter } from '@/components/ui/loading-spinner';
+
+// Critical pages - loaded immediately
+import Home from '@/pages/Home';
+import Unauthorized from '@/pages/Unauthorized';
+import NotFound from '@/pages/NotFound';
+import EmailVerification from '@/pages/auth/EmailVerification';
+
+// Lazy-loaded pages - loaded on demand
+const SignIn = lazy(() => import('@/pages/auth/SignIn'));
+const SignUp = lazy(() => import('@/pages/auth/SignUp'));
+const ResetPassword = lazy(() => import('@/pages/auth/ResetPassword'));
+const Dashboard = lazy(() => import('@/pages/admin/Dashboard'));
+const Users = lazy(() => import('@/pages/admin/Users'));
+const Analytics = lazy(() => import('@/pages/admin/Analytics'));
 
 function App() {
   return (
-    <div className="app">
-      <header className="header">
-        <h1 className="logo">EQUUS SYSTEMS</h1>
-        <p className="tagline">ADVANCED AI SOLUTIONS & CONSULTING</p>
-      </header>
-
-      <main className="main">
-        <section className="hero">
-          <h2 className="hero-title">EMPOWERING YOUR BUSINESS WITH AI</h2>
-          <p className="hero-subtitle">
-            Like the steadfast horse from which our name derives, we provide reliable and powerful AI solutions to propel your business forward.
-          </p>
-        </section>
-
-        <section className="services">
-          <h3 className="section-title">OUR SERVICES</h3>
-          <div className="service-grid">
-            <div className="service-card">
-              <h4>AI Consulting</h4>
-              <p>Strategic guidance to integrate AI into your business processes</p>
-            </div>
-            <div className="service-card">
-              <h4>Custom AI Solutions</h4>
-              <p>Tailored artificial intelligence systems designed for your specific needs</p>
-            </div>
-            <div className="service-card">
-              <h4>Implementation Support</h4>
-              <p>End-to-end assistance in deploying AI technologies</p>
-            </div>
-          </div>
-        </section>
-
-        <section className="about">
-          <h3 className="section-title">ABOUT EQUUS</h3>
-          <p className="about-text">
-            <em>Equus</em> means "horse" in Latin, symbolizing strength, reliability, and forward momentum. 
-            At Equus Systems, we embody these qualities in our approach to AI consulting and solutions development.
-          </p>
-        </section>
-
-        <section className="contact">
-          <h3 className="section-title">CONTACT US</h3>
-          <ContactForm />
-        </section>
-      </main>
-
-      <footer className="footer">
-        <div className="holding-notice">
-          <p><strong>This is a temporary holding page</strong></p>
-          <p>Our full website is currently under development</p>
+    <AuthProvider>
+      <Router>
+        <div className="min-h-screen bg-background">
+          <main id="main-content">
+            <Suspense fallback={<LoadingSpinnerCenter size="lg" text="Loading..." />}>
+              <Routes>
+                {/* Public Routes */}
+                <Route path="/" element={<Home />} />
+                <Route path="/unauthorized" element={<Unauthorized />} />
+                
+                {/* Authentication Routes */}
+                <Route path="/auth/signin" element={<SignIn />} />
+                <Route path="/auth/signup" element={<SignUp />} />
+                <Route path="/auth/reset-password" element={<ResetPassword />} />
+                <Route path="/auth/verify-email" element={<EmailVerification />} />
+                
+                {/* Protected Routes */}
+                <Route path="/dashboard" element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                } />
+                
+                {/* Admin Routes */}
+                <Route path="/admin/dashboard" element={
+                  <AdminRoute>
+                    <Dashboard />
+                  </AdminRoute>
+                } />
+                <Route path="/admin/users" element={
+                  <AdminRoute>
+                    <Users />
+                  </AdminRoute>
+                } />
+                <Route path="/admin/analytics" element={
+                  <AdminRoute>
+                    <Analytics />
+                  </AdminRoute>
+                } />
+                
+                {/* 404 Route */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+          </main>
         </div>
-      </footer>
-    </div>
-  )
+      </Router>
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;
