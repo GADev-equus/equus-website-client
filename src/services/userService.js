@@ -415,10 +415,163 @@ class UserService {
       lastLoginFormatted: user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : 'Never'
     };
   }
+
+  /**
+   * Get current user profile
+   * @returns {Promise} - User profile
+   */
+  async getCurrentProfile() {
+    try {
+      const response = await httpService.get('/api/users/profile');
+      return {
+        success: true,
+        data: response,
+        user: response.user || response.data || response
+      };
+    } catch (error) {
+      return this.handleUserError(error);
+    }
+  }
+
+  /**
+   * Update current user profile
+   * @param {Object} userData - Updated user data
+   * @returns {Promise} - Update result
+   */
+  async updateProfile(userData) {
+    try {
+      const response = await httpService.put('/api/users/profile', userData);
+      return {
+        success: true,
+        data: response,
+        user: response.user || response.data || response,
+        message: response.message || 'Profile updated successfully'
+      };
+    } catch (error) {
+      return this.handleUserError(error);
+    }
+  }
+
+  /**
+   * Change user password
+   * @param {Object} passwordData - Password change data
+   * @returns {Promise} - Change result
+   */
+  async changePassword(passwordData) {
+    try {
+      const response = await httpService.put('/api/users/password', passwordData);
+      return {
+        success: true,
+        data: response,
+        message: response.message || 'Password changed successfully'
+      };
+    } catch (error) {
+      return this.handleUserError(error);
+    }
+  }
+
+  /**
+   * Delete user account
+   * @returns {Promise} - Delete result
+   */
+  async deleteAccount() {
+    try {
+      const response = await httpService.delete('/api/users/account');
+      return {
+        success: true,
+        data: response,
+        message: response.message || 'Account deleted successfully'
+      };
+    } catch (error) {
+      return this.handleUserError(error);
+    }
+  }
+
+  /**
+   * Format users list for display
+   * @param {Array} users - Users array
+   * @returns {Array} - Formatted users array
+   */
+  formatUsersForDisplay(users) {
+    return users.map(user => this.formatUserForDisplay(user));
+  }
+
+  /**
+   * Get user statistics summary
+   * @returns {Object} - Statistics summary
+   */
+  getUserStatsSummary(users) {
+    const total = users.length;
+    const active = users.filter(u => u.status === 'active').length;
+    const inactive = users.filter(u => u.status === 'inactive').length;
+    const suspended = users.filter(u => u.status === 'suspended').length;
+    const admins = users.filter(u => u.role === 'admin').length;
+    const regularUsers = users.filter(u => u.role === 'user').length;
+    
+    return {
+      total,
+      active,
+      inactive,
+      suspended,
+      admins,
+      regularUsers,
+      activePercentage: total > 0 ? Math.round((active / total) * 100) : 0,
+      adminPercentage: total > 0 ? Math.round((admins / total) * 100) : 0
+    };
+  }
+
+  /**
+   * Batch process users
+   * @param {Array} users - Users to process
+   * @param {Function} processor - Processing function
+   * @returns {Array} - Processed results
+   */
+  async batchProcessUsers(users, processor) {
+    const results = [];
+    const batchSize = 10;
+    
+    for (let i = 0; i < users.length; i += batchSize) {
+      const batch = users.slice(i, i + batchSize);
+      const batchResults = await Promise.all(
+        batch.map(user => processor(user))
+      );
+      results.push(...batchResults);
+    }
+    
+    return results;
+  }
 }
 
 // Create singleton instance
 const userService = new UserService();
+
+// Add caching for user data
+if (typeof window !== 'undefined') {
+  userService.cache = new Map();
+  userService.cacheTimeout = 5 * 60 * 1000; // 5 minutes
+  
+  // Override getUserById to add caching
+  const originalGetUserById = userService.getUserById.bind(userService);
+  userService.getUserById = async function(userId) {
+    const cacheKey = `user_${userId}`;
+    const cached = this.cache.get(cacheKey);
+    
+    if (cached && Date.now() - cached.timestamp < this.cacheTimeout) {
+      return cached.data;
+    }
+    
+    const result = await originalGetUserById(userId);
+    
+    if (result.success) {
+      this.cache.set(cacheKey, {
+        data: result,
+        timestamp: Date.now()
+      });
+    }
+    
+    return result;
+  };
+}
 
 export default userService;
 export { UserService };

@@ -1,18 +1,17 @@
-/* Contact Form Styles - Matches existing App.css design system */
+/* Contact Form Styles - Uses Equus design system variables */
 
-/* Import font variables from parent */
 .contact-form-container {
-  font-family: var(--font-family-base);
-  max-width: 1000px;
+  font-family: var(--equus-font-base);
+  max-width: var(--equus-max-width-container);
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 var(--equus-spacing-sm);
 }
 
 .contact-form-wrapper {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  border-left: 4px solid #3498db;
+  background: var(--equus-background-white);
+  border-radius: var(--equus-border-radius);
+  box-shadow: var(--equus-box-shadow);
+  border-left: var(--equus-border-accent) solid var(--equus-primary);
   overflow: hidden;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -21,39 +20,39 @@
 
 /* Contact Info Section */
 .contact-info {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  padding: 2rem;
+  background: linear-gradient(135deg, var(--equus-background-primary) 0%, #e9ecef 100%);
+  padding: var(--equus-spacing-lg);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
 .contact-info h4 {
-  font-family: var(--font-family-display, 'Bungee', sans-serif);
+  font-family: var(--equus-font-display);
   font-size: 1.4rem;
-  color: #2c3e50;
-  margin-bottom: 1rem;
-  line-height: 1.3;
+  color: var(--equus-secondary);
+  margin-bottom: var(--equus-spacing-sm);
+  line-height: var(--equus-line-height-base);
 }
 
 .contact-intro {
   font-size: 1rem;
-  color: #666;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
+  color: var(--equus-text-secondary);
+  line-height: var(--equus-line-height-base);
+  margin-bottom: var(--equus-spacing-md);
 }
 
 /* Services Preview */
 .services-preview {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--equus-spacing-md);
 }
 
 .service-preview-item {
-  margin-bottom: 1.25rem;
-  padding: 1rem;
+  margin-bottom: var(--equus-spacing-sm);
+  padding: var(--equus-spacing-sm);
   background: rgba(255, 255, 255, 0.7);
-  border-radius: 6px;
-  border-left: 3px solid #3498db;
+  border-radius: var(--equus-border-radius);
+  border-left: 3px solid var(--equus-primary);
 }
 
 .service-preview-item:last-child {
@@ -61,34 +60,34 @@
 }
 
 .service-preview-item h5 {
-  font-family: var(--font-family-alt, 'Sen', sans-serif);
+  font-family: var(--equus-font-alt);
   font-size: 1rem;
   font-weight: 600;
-  color: #2c3e50;
-  margin-bottom: 0.5rem;
-  line-height: 1.3;
+  color: var(--equus-secondary);
+  margin-bottom: var(--equus-spacing-xs);
+  line-height: var(--equus-line-height-base);
 }
 
 .service-preview-item p {
   font-size: 0.9rem;
-  color: #666;
-  line-height: 1.5;
+  color: var(--equus-text-secondary);
+  line-height: var(--equus-line-height-base);
   margin: 0;
 }
 
 /* Contact CTA */
 .contact-cta {
   background: rgba(52, 152, 219, 0.1);
-  padding: 1rem;
-  border-radius: 6px;
-  margin-bottom: 1.5rem;
+  padding: var(--equus-spacing-sm);
+  border-radius: var(--equus-border-radius);
+  margin-bottom: var(--equus-spacing-md);
 }
 
 .contact-cta p {
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 var(--equus-spacing-xs) 0;
   font-size: 0.95rem;
-  line-height: 1.5;
-  color: #2c3e50;
+  line-height: var(--equus-line-height-base);
+  color: var(--equus-secondary);
 }
 
 .contact-cta p:last-child {
@@ -96,7 +95,7 @@
 }
 
 .contact-cta strong {
-  color: #3498db;
+  color: var(--equus-primary);
 }
 
 /* Contact Details */
@@ -107,20 +106,20 @@
 .contact-item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--equus-spacing-xs);
   font-size: 0.9rem;
-  color: #666;
-  padding: 0.5rem 0;
+  color: var(--equus-text-secondary);
+  padding: var(--equus-spacing-xs) 0;
 }
 
 .contact-item strong {
-  color: #2c3e50;
+  color: var(--equus-secondary);
   min-width: 120px;
 }
 
 /* Contact Form Section */
 .contact-form {
-  padding: 2rem;
+  padding: var(--equus-spacing-lg);
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -128,19 +127,19 @@
 
 /* Form Groups */
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--equus-spacing-md);
 }
 
 .form-group:last-of-type {
-  margin-bottom: 2rem;
+  margin-bottom: var(--equus-spacing-lg);
 }
 
 /* Form Labels */
 .form-label {
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--equus-spacing-xs);
   font-weight: 600;
-  color: #2c3e50;
+  color: var(--equus-secondary);
   font-size: 1rem;
 }
 
@@ -148,19 +147,19 @@
 .form-input {
   width: 100%;
   padding: 0.75rem;
-  border: 2px solid #e1e8ed;
-  border-radius: 4px;
+  border: var(--equus-border-width) solid #e1e8ed;
+  border-radius: var(--equus-border-radius);
   font-size: 1rem;
-  font-family: inherit;
-  line-height: 1.5;
+  font-family: var(--equus-font-base);
+  line-height: var(--equus-line-height-base);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  background-color: #fff;
+  background-color: var(--equus-background-white);
   box-sizing: border-box;
 }
 
 .form-input:focus {
   outline: none;
-  border-color: #3498db;
+  border-color: var(--equus-primary);
   box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
 }
 
@@ -177,12 +176,12 @@ textarea.form-input {
 
 /* Input States */
 .form-input.error {
-  border-color: #e74c3c;
+  border-color: var(--equus-accent);
   background-color: #fdf2f2;
 }
 
 .form-input.error:focus {
-  border-color: #e74c3c;
+  border-color: var(--equus-accent);
   box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
 }
 
@@ -198,12 +197,12 @@ textarea.form-input {
 
 /* Error Messages */
 .error-message {
-  color: #e74c3c;
+  color: var(--equus-accent);
   font-size: 0.875rem;
-  margin-top: 0.25rem;
+  margin-top: var(--equus-spacing-xs);
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: var(--equus-spacing-xs);
 }
 
 .error-message::before {
@@ -216,23 +215,23 @@ textarea.form-input {
   font-size: 0.75rem;
   color: #7f8c8d;
   text-align: right;
-  margin-top: 0.25rem;
+  margin-top: var(--equus-spacing-xs);
 }
 
 /* Form Actions */
 .form-actions {
   display: flex;
   justify-content: center;
-  margin-top: 2rem;
+  margin-top: var(--equus-spacing-lg);
 }
 
 /* Submit Button */
 .submit-button {
-  background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+  background: var(--equus-gradient-primary);
   color: white;
   border: none;
-  padding: 1rem 2rem;
-  border-radius: 4px;
+  padding: var(--equus-spacing-sm) var(--equus-spacing-lg);
+  border-radius: var(--equus-border-radius);
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -241,7 +240,7 @@ textarea.form-input {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: var(--equus-spacing-xs);
   position: relative;
   overflow: hidden;
 }
@@ -282,14 +281,14 @@ textarea.form-input {
 
 /* Status Messages */
 .status-message {
-  margin-top: 1.5rem;
-  padding: 1rem;
-  border-radius: 4px;
+  margin-top: var(--equus-spacing-md);
+  padding: var(--equus-spacing-sm);
+  border-radius: var(--equus-border-radius);
   display: flex;
   align-items: flex-start;
-  gap: 0.75rem;
+  gap: var(--equus-spacing-sm);
   font-size: 0.95rem;
-  line-height: 1.5;
+  line-height: var(--equus-line-height-base);
   animation: fadeIn 0.3s ease-in;
 }
 
@@ -330,7 +329,7 @@ textarea.form-input {
 /* Responsive Design */
 @media (max-width: 768px) {
   .contact-form-container {
-    padding: 0 0.5rem;
+    padding: 0 var(--equus-spacing-xs);
   }
 
   .contact-form-wrapper {
@@ -340,12 +339,12 @@ textarea.form-input {
 
   .contact-info {
     order: 1;
-    padding: 1.5rem;
+    padding: var(--equus-spacing-md);
   }
 
   .contact-form {
     order: 2;
-    padding: 1.5rem;
+    padding: var(--equus-spacing-md);
   }
 
   .contact-info h4 {
@@ -353,8 +352,8 @@ textarea.form-input {
   }
 
   .service-preview-item {
-    padding: 0.8rem;
-    margin-bottom: 1rem;
+    padding: var(--equus-spacing-sm);
+    margin-bottom: var(--equus-spacing-sm);
   }
 
   .service-preview-item h5 {
@@ -366,7 +365,7 @@ textarea.form-input {
   }
 
   .contact-cta {
-    padding: 0.8rem;
+    padding: var(--equus-spacing-sm);
   }
 
   .contact-cta p {
@@ -381,7 +380,7 @@ textarea.form-input {
   .contact-item {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.25rem;
+    gap: var(--equus-spacing-xs);
   }
 
   .contact-item strong {
@@ -391,44 +390,44 @@ textarea.form-input {
 
 @media (max-width: 480px) {
   .contact-form-container {
-    padding: 0 0.25rem;
+    padding: 0 var(--equus-spacing-xs);
   }
 
   .contact-form-wrapper {
-    border-radius: 6px;
+    border-radius: var(--equus-border-radius);
     margin: 0;
   }
 
   .contact-info {
-    padding: 1rem;
+    padding: var(--equus-spacing-sm);
   }
 
   .contact-form {
-    padding: 1rem;
+    padding: var(--equus-spacing-sm);
   }
 
   .contact-info h4 {
     font-size: 1.1rem;
-    margin-bottom: 0.8rem;
+    margin-bottom: var(--equus-spacing-sm);
   }
 
   .contact-intro {
     font-size: 0.9rem;
-    margin-bottom: 1rem;
+    margin-bottom: var(--equus-spacing-sm);
   }
 
   .services-preview {
-    margin-bottom: 1rem;
+    margin-bottom: var(--equus-spacing-sm);
   }
 
   .service-preview-item {
-    padding: 0.6rem;
-    margin-bottom: 0.8rem;
+    padding: var(--equus-spacing-xs);
+    margin-bottom: var(--equus-spacing-sm);
   }
 
   .service-preview-item h5 {
     font-size: 0.9rem;
-    margin-bottom: 0.4rem;
+    margin-bottom: var(--equus-spacing-xs);
   }
 
   .service-preview-item p {
@@ -437,8 +436,8 @@ textarea.form-input {
   }
 
   .contact-cta {
-    padding: 0.6rem;
-    margin-bottom: 1rem;
+    padding: var(--equus-spacing-xs);
+    margin-bottom: var(--equus-spacing-sm);
   }
 
   .contact-cta p {
@@ -451,26 +450,26 @@ textarea.form-input {
   }
 
   .submit-button {
-    padding: 0.875rem 1.5rem;
+    padding: 0.875rem var(--equus-spacing-md);
     font-size: 0.95rem;
   }
 }
 
 /* Focus Management */
 .form-input:focus-visible {
-  outline: 2px solid #3498db;
+  outline: var(--equus-border-width) solid var(--equus-primary);
   outline-offset: 2px;
 }
 
 .submit-button:focus-visible {
-  outline: 2px solid #3498db;
+  outline: var(--equus-border-width) solid var(--equus-primary);
   outline-offset: 2px;
 }
 
 /* High Contrast Mode Support */
 @media (prefers-contrast: high) {
   .form-input {
-    border-width: 2px;
+    border-width: var(--equus-border-width);
   }
 
   .form-input:focus {
@@ -478,7 +477,7 @@ textarea.form-input {
   }
 
   .submit-button {
-    border: 2px solid currentColor;
+    border: var(--equus-border-width) solid currentColor;
   }
 }
 
