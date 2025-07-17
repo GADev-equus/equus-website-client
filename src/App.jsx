@@ -22,7 +22,8 @@ import EmailVerification from '@/pages/auth/EmailVerification';
 const SignIn = lazy(() => import('@/pages/auth/SignIn'));
 const SignUp = lazy(() => import('@/pages/auth/SignUp'));
 const ResetPassword = lazy(() => import('@/pages/auth/ResetPassword'));
-const Dashboard = lazy(() => import('@/pages/admin/Dashboard'));
+const UserDashboard = lazy(() => import('@/pages/user/Dashboard'));
+const AdminDashboard = lazy(() => import('@/pages/admin/Dashboard'));
 const Users = lazy(() => import('@/pages/admin/Users'));
 const Analytics = lazy(() => import('@/pages/admin/Analytics'));
 
@@ -55,14 +56,14 @@ function App() {
                 {/* Protected Routes */}
                 <Route path="/dashboard" element={
                   <ProtectedRoute>
-                    <Dashboard />
+                    <UserDashboard />
                   </ProtectedRoute>
                 } />
                 
                 {/* Admin Routes */}
                 <Route path="/admin/dashboard" element={
                   <AdminRoute>
-                    <Dashboard />
+                    <AdminDashboard />
                   </AdminRoute>
                 } />
                 <Route path="/admin/users" element={

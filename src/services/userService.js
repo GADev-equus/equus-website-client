@@ -488,6 +488,57 @@ class UserService {
   }
 
   /**
+   * Get current user's activity statistics
+   * @returns {Promise} - User activity stats
+   */
+  async getCurrentUserActivity() {
+    try {
+      const response = await httpService.get('/api/users/profile/activity');
+      return {
+        success: true,
+        data: response,
+        activity: response.activity || response.data || response
+      };
+    } catch (error) {
+      return this.handleUserError(error);
+    }
+  }
+
+  /**
+   * Get current user's referral information
+   * @returns {Promise} - Referral info
+   */
+  async getCurrentUserReferrals() {
+    try {
+      const response = await httpService.get('/api/users/profile/referrals');
+      return {
+        success: true,
+        data: response,
+        referrals: response.referrals || response.data || response
+      };
+    } catch (error) {
+      return this.handleUserError(error);
+    }
+  }
+
+  /**
+   * Get current user's security status
+   * @returns {Promise} - Security status
+   */
+  async getCurrentUserSecurity() {
+    try {
+      const response = await httpService.get('/api/users/profile/security');
+      return {
+        success: true,
+        data: response,
+        security: response.security || response.data || response
+      };
+    } catch (error) {
+      return this.handleUserError(error);
+    }
+  }
+
+  /**
    * Format users list for display
    * @param {Array} users - Users array
    * @returns {Array} - Formatted users array

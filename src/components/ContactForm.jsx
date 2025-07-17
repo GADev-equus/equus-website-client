@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import contactService, { rateLimiter } from '../services/contactService.js';
 import './ContactForm.css';
 
@@ -347,6 +348,44 @@ const ContactForm = () => {
                 'Send Message'
               )}
             </button>
+          </div>
+
+          <div className="signin-invitation" style={{
+            textAlign: 'center',
+            marginTop: '1.5rem',
+            padding: '1rem',
+            backgroundColor: 'rgba(0, 123, 255, 0.05)',
+            borderRadius: '8px',
+            border: '1px solid rgba(0, 123, 255, 0.1)'
+          }}>
+            <p style={{ 
+              margin: '0 0 0.5rem 0',
+              color: 'var(--color-text-secondary, #666)',
+              fontSize: '0.95rem'
+            }}>
+              Ready to unlock your personalised AI journey?
+            </p>
+            <p style={{ 
+              margin: '0 0 0.5rem 0',
+              color: 'var(--color-text-secondary, #666)',
+              fontSize: '0.95rem'
+            }}>
+              Join our community!
+            </p>
+            <Link 
+              to="/auth/signin" 
+              style={{
+                color: '#0056b3',
+                textDecoration: 'none',
+                fontWeight: '600',
+                fontSize: '1rem',
+                transition: 'color 0.2s ease'
+              }}
+              onMouseEnter={(e) => e.target.style.color = '#003d82'}
+              onMouseLeave={(e) => e.target.style.color = '#0056b3'}
+            >
+              Sign in or register →
+            </Link>
           </div>
 
           {submitStatus && (
