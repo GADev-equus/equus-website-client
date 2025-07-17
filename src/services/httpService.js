@@ -4,9 +4,8 @@
  * Enhanced with interceptors and automatic token management
  */
 
-const API_BASE_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://equus-website-api.onrender.com' 
-  : 'http://localhost:8000';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 
+  (import.meta.env.PROD ? 'https://equus-website-api.onrender.com' : 'http://localhost:8000');
 
 class HttpService {
   constructor(baseURL = API_BASE_URL) {
@@ -32,7 +31,14 @@ class HttpService {
    * @returns {Promise} - API response
    */
   async request(endpoint, options = {}) {
-    const url = `${this.baseURL}${endpoint}`;
+    // Validate endpoint
+    if (endpoint === undefined || endpoint === null) {
+      throw new HttpError('Endpoint is required', 400, { endpoint });
+    }
+    
+    // Ensure endpoint starts with /
+    const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+    const url = `${this.baseURL}${cleanEndpoint}`;
     
     let config = {
       method: 'GET',

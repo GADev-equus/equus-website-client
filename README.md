@@ -174,11 +174,21 @@ The client communicates with a Node.js/Express backend:
 
 ## Environment Variables
 
-Create a `.env` file in the client directory:
+### Development Environment
+Create a `.env.development` file in the client directory:
 ```env
 VITE_API_URL=http://localhost:8000
 VITE_APP_NAME=Equus Website
 ```
+
+### Production Environment
+Create a `.env.production` file in the client directory:
+```env
+VITE_API_URL=https://equus-website-api.onrender.com
+VITE_APP_NAME=Equus Website
+```
+
+**Note**: Environment variables in Vite must be prefixed with `VITE_` to be accessible in the client code.
 
 ## Production Deployment
 
