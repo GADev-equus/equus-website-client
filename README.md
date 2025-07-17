@@ -31,16 +31,20 @@ client/
 │   ├── components/                # Reusable UI components
 │   │   ├── ui/                   # Base UI components (buttons, forms, etc.)
 │   │   ├── forms/                # Form components (auth, contact, etc.)
+│   │   ├── layout/               # Layout components (UserLayout, AdminLayout)
 │   │   ├── shared/               # Shared components (routing, navigation)
-│   │   ├── Header.jsx            # Main navigation header
-│   │   └── Footer.jsx            # Site footer
+│   │   ├── Header.jsx            # Main navigation header (clickable)
+│   │   ├── Footer.jsx            # Site footer (reduced height)
+│   │   └── ContactForm.jsx       # Contact form with validation
 │   ├── pages/                    # Page components
-│   │   ├── Home.jsx              # Landing page
+│   │   ├── Home.jsx              # Landing page with contact form
 │   │   ├── auth/                 # Authentication pages
 │   │   │   ├── SignIn.jsx        # User login page
 │   │   │   ├── SignUp.jsx        # User registration page
 │   │   │   ├── ResetPassword.jsx # Password reset page
 │   │   │   └── EmailVerification.jsx # Email verification page
+│   │   ├── user/                 # User dashboard pages
+│   │   │   └── Dashboard.jsx     # Personal user dashboard
 │   │   ├── admin/                # Admin dashboard pages
 │   │   │   ├── Dashboard.jsx     # Admin dashboard
 │   │   │   ├── Users.jsx         # User management
@@ -51,6 +55,8 @@ client/
 │   │   └── AuthContext.jsx       # Authentication context
 │   ├── services/                 # API service layer
 │   │   ├── authService.js        # Authentication API calls
+│   │   ├── userService.js        # User management API calls
+│   │   ├── contactService.js     # Contact form service
 │   │   └── httpService.js        # HTTP client wrapper
 │   └── utils/                    # Utility functions
 ├── public/                       # Static assets
@@ -80,18 +86,24 @@ client/
 
 ### 🎨 UI Components
 - **Reusable UI Library** (buttons, forms, cards, alerts)
-- **AuthForm Component** for all authentication flows
+- **AuthForm Component** for all authentication flows with consistent styling
+- **ContactForm Component** with validation and rate limiting
+- **Layout Components** (UserLayout, AdminLayout) for role-based interfaces
 - **Loading States** and error handling
 - **Responsive Design** patterns
 - **Accessibility Features** (skip links, ARIA labels)
+- **Consistent Form Styling** across all components
 
 ### 🛡️ Security Features
 - **JWT Token Management** with automatic refresh
 - **Protected Route Components** for authentication
 - **Admin Route Guards** for role-based access
-- **Input Validation** on all forms
+- **Real-time Input Validation** on all forms
+- **Button Disable Logic** until validation passes
+- **Required Field Indicators** (*) for user clarity
 - **Error Boundary** handling
 - **Secure Token Storage** in localStorage
+- **Rate Limiting** on contact form submissions
 
 ## Development
 
@@ -149,7 +161,7 @@ The client communicates with a Node.js/Express backend:
 - `/auth/verify-email` - Email verification page
 
 ### Protected Routes
-- `/dashboard` - User dashboard (requires authentication)
+- `/dashboard` - User dashboard (requires authentication) - Personal user interface
 
 ### Admin Routes
 - `/admin/dashboard` - Admin dashboard (requires admin role)
@@ -176,6 +188,29 @@ VITE_APP_NAME=Equus Website
 4. Set up proper HTTPS and security headers
 5. Configure backend CORS for production domain
 
+## Recent Improvements
+
+### Form Consistency & Validation (Latest)
+- **✅ Unified Form Styling**: All forms now use consistent design with light background, blue left border, and matching button styles
+- **✅ Real-time Validation**: Button disable logic implemented across all forms until validation passes
+- **✅ Required Field Indicators**: Asterisks (*) added to all required fields for user clarity
+- **✅ Contact Form Integration**: Professional contact form with rate limiting and database storage
+- **✅ Layout Optimization**: Fixed header/footer with scrollable content, reduced component heights
+
+### User Experience Enhancements
+- **✅ Dashboard Separation**: Distinct user and admin dashboards with role-appropriate interfaces
+- **✅ Clickable Header**: Logo/header now navigates to home page
+- **✅ Improved Navigation**: Users redirect to dashboard after login instead of home
+- **✅ Contact Form CTA**: Added invitation to sign in/register below contact form
+- **✅ Fixed Layout**: Proper header/footer positioning with scrollable main content
+
+### Technical Improvements
+- **✅ AuthForm Validation**: Comprehensive form validation with real-time feedback
+- **✅ Button State Management**: Proper disabled states with visual feedback
+- **✅ Label Consistency**: Left-aligned labels across all forms
+- **✅ Error Handling**: Enhanced error messaging and status indicators
+- **✅ Authentication Flow**: Fixed email verification and password reset URLs
+
 ## Contributing
 
 1. Follow the existing component structure
@@ -184,3 +219,5 @@ VITE_APP_NAME=Equus Website
 4. Include form validation for user inputs
 5. Test authentication flows thoroughly
 6. Maintain responsive design principles
+7. Ensure form consistency with required field indicators
+8. Use the unified form styling patterns
