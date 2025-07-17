@@ -48,7 +48,8 @@ client/
 │   │   ├── admin/                # Admin dashboard pages
 │   │   │   ├── Dashboard.jsx     # Admin dashboard
 │   │   │   ├── Users.jsx         # User management
-│   │   │   └── Analytics.jsx     # Analytics dashboard
+│   │   │   ├── Analytics.jsx     # User analytics dashboard
+│   │   │   └── PageViews.jsx     # Page views analytics dashboard
 │   │   ├── Unauthorized.jsx      # 403 access denied page
 │   │   └── NotFound.jsx          # 404 error page
 │   ├── contexts/                 # React contexts
@@ -57,6 +58,7 @@ client/
 │   │   ├── authService.js        # Authentication API calls
 │   │   ├── userService.js        # User management API calls
 │   │   ├── contactService.js     # Contact form service
+│   │   ├── analyticsService.js   # Analytics data service
 │   │   └── httpService.js        # HTTP client wrapper
 │   └── utils/                    # Utility functions
 ├── public/                       # Static assets
@@ -151,6 +153,12 @@ The client communicates with a Node.js/Express backend:
 - `GET /api/users` - Admin: List all users
 - `PUT /api/users/:id/role` - Admin: Update user role
 
+### Analytics Endpoints (Admin Only)
+- `GET /api/analytics/overview` - Get analytics overview
+- `GET /api/analytics/traffic` - Get traffic analytics
+- `GET /api/analytics/performance` - Get performance metrics
+- `GET /api/analytics/users` - Get user analytics
+
 ## Route Structure
 
 ### Public Routes
@@ -166,7 +174,8 @@ The client communicates with a Node.js/Express backend:
 ### Admin Routes
 - `/admin/dashboard` - Admin dashboard (requires admin role)
 - `/admin/users` - User management (requires admin role)
-- `/admin/analytics` - Analytics dashboard (requires admin role)
+- `/admin/analytics` - User analytics dashboard (requires admin role)
+- `/admin/page-views` - Page views analytics dashboard (requires admin role)
 
 ### Error Routes
 - `/unauthorized` - 403 access denied
@@ -200,7 +209,16 @@ VITE_APP_NAME=Equus Website
 
 ## Recent Improvements
 
-### Form Consistency & Validation (Latest)
+### Page Views Analytics System (Latest)
+- **✅ Analytics Dashboard**: Complete page views analytics with 4 comprehensive tabs (Overview, Traffic, Performance, Users)
+- **✅ Real-time Data Collection**: Automatic tracking of page views, sessions, and user activity
+- **✅ Admin Integration**: Easy access via admin dashboard with "📄 Page Views Analytics" button
+- **✅ Time Period Filters**: Support for 1h, 24h, 7d, 30d, 90d analytics periods
+- **✅ Session Tracking**: UUID-based session management with visitor analytics
+- **✅ Performance Monitoring**: Response time and error rate tracking
+- **✅ User Analytics**: Authenticated vs anonymous user differentiation
+
+### Form Consistency & Validation
 - **✅ Unified Form Styling**: All forms now use consistent design with light background, blue left border, and matching button styles
 - **✅ Real-time Validation**: Button disable logic implemented across all forms until validation passes
 - **✅ Required Field Indicators**: Asterisks (*) added to all required fields for user clarity

@@ -26,6 +26,7 @@ const UserDashboard = lazy(() => import('@/pages/user/Dashboard'));
 const AdminDashboard = lazy(() => import('@/pages/admin/Dashboard'));
 const Users = lazy(() => import('@/pages/admin/Users'));
 const Analytics = lazy(() => import('@/pages/admin/Analytics'));
+const PageViews = lazy(() => import('@/pages/admin/PageViews'));
 
 function App() {
   return (
@@ -79,6 +80,11 @@ function App() {
                 <Route path="/admin/analytics" element={
                   <AdminRoute>
                     <Analytics />
+                  </AdminRoute>
+                } />
+                <Route path="/admin/page-views" element={
+                  <AdminRoute>
+                    <PageViews />
                   </AdminRoute>
                 } />
                 
