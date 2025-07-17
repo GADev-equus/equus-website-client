@@ -67,7 +67,8 @@ const PasswordResetForm = () => {
 
       const result = await authService.resetPassword({
         token,
-        newPassword: data.password
+        newPassword: data.password,
+        confirmPassword: data.confirmPassword
       });
       
       if (result.success) {
