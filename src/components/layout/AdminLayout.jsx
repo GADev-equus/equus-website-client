@@ -19,6 +19,7 @@ const AdminLayout = ({ children, title = 'Admin Dashboard' }) => {
     { name: 'Dashboard', href: '/admin/dashboard', icon: '📊' },
     { name: 'Users', href: '/admin/users', icon: '👥' },
     { name: 'Analytics', href: '/admin/analytics', icon: '📈' },
+    { name: 'Page Views', href: '/admin/page-views', icon: '📄' },
   ];
 
   const isActiveRoute = (href) => location.pathname === href;

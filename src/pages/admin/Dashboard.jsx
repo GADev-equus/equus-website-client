@@ -211,6 +211,11 @@ const Dashboard = () => {
                   📈 View Analytics
                 </Button>
               </Link>
+              <Link to="/admin/page-views">
+                <Button variant="outline" className="w-full justify-start">
+                  📄 Page Views Analytics
+                </Button>
+              </Link>
               <Button 
                 variant="outline" 
                 className="w-full justify-start"
