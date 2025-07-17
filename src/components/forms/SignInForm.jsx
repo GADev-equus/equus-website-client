@@ -15,8 +15,6 @@ const SignInForm = () => {
   const location = useLocation();
   const { login } = useAuth();
 
-  const from = location.state?.from?.pathname || '/dashboard';
-
   const handleSignIn = async (data) => {
     try {
       setLoading(true);
@@ -25,8 +23,12 @@ const SignInForm = () => {
       const result = await login(data.email, data.password);
       
       if (result.success) {
-        // Navigate to intended page or home
-        navigate(from, { replace: true });
+        // Determine redirect path based on user role
+        const redirectPath = location.state?.from?.pathname || 
+          (result.user.role === 'admin' ? '/admin/dashboard' : '/dashboard');
+        
+        // Navigate to role-appropriate dashboard
+        navigate(redirectPath, { replace: true });
       } else {
         setError(result.message || 'Sign in failed. Please try again.');
       }
