@@ -9,8 +9,7 @@ import { SkipLink } from '@/components/ui/skip-link';
 
 const SignIn = () => {
   return (
-    <div style={{
-      minHeight: '100vh',
+    <div style={{      
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',

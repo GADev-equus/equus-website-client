@@ -32,15 +32,20 @@ function App() {
     <AuthProvider>
       <Router>
         <div style={{
-          minHeight: '100vh',
+          height: '100vh',
           display: 'flex',
           flexDirection: 'column',
           backgroundColor: 'var(--equus-background-dark)',
-          border: 'var(--equus-border-width) solid var(--equus-border-color)'
+          border: 'var(--equus-border-width) solid var(--equus-border-color)',
+          overflow: 'hidden'
         }}>
           <Header />
           
-          <main id="main-content" style={{ flex: 1 }}>
+          <main id="main-content" style={{ 
+            flex: 1,
+            overflow: 'auto',
+            minHeight: 0
+          }}>
             <Suspense fallback={<LoadingSpinnerCenter size="lg" text="Loading..." />}>
               <Routes>
                 {/* Public Routes */}

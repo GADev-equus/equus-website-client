@@ -10,16 +10,16 @@ const Header = () => {
   return (
     <header style={{ 
       background: 'var(--equus-gradient-primary)',
-      padding: 'var(--equus-spacing-lg) var(--equus-spacing-sm)',
+      padding: '1rem 0.5rem',
       color: 'white',
       textAlign: 'center'
     }}>
       <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
         <h1 className="font-bold" style={{ 
-          fontSize: '2.5rem', 
+          fontSize: '1.8rem', 
           letterSpacing: 'var(--equus-letter-spacing-tight)',
           fontFamily: 'var(--equus-font-display)',
-          marginBottom: 'var(--equus-spacing-xs)',
+          marginBottom: '0.25rem',
           cursor: 'pointer',
           transition: 'opacity 0.2s ease'
         }}>
@@ -27,7 +27,7 @@ const Header = () => {
         </h1>
       </Link>
       <p className="opacity-90 font-light" style={{ 
-        fontSize: '1.1rem' 
+        fontSize: '0.9rem' 
       }}>
         ADVANCED AI SOLUTIONS & CONSULTING
       </p>
