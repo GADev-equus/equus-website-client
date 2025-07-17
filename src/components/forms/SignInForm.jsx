@@ -15,7 +15,7 @@ const SignInForm = () => {
   const location = useLocation();
   const { login } = useAuth();
 
-  const from = location.state?.from?.pathname || '/';
+  const from = location.state?.from?.pathname || '/dashboard';
 
   const handleSignIn = async (data) => {
     try {
