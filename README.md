@@ -83,6 +83,7 @@ client/
 - **Email Verification** system
 - **Protected Routes** with role-based access
 - **Admin Routes** for administrative functions
+- **Role-Based Redirects** (admin → admin dashboard, user → user dashboard)
 - **Automatic Token Refresh** for seamless UX
 - **Session Management** with localStorage
 
@@ -117,7 +118,7 @@ client/
 
 ### Authentication Flow
 1. **Registration**: User signs up → Email verification → Account activated
-2. **Login**: User signs in → JWT token issued → Access granted
+2. **Login**: User signs in → JWT token issued → Role-based redirect (admin/user dashboard)
 3. **Password Reset**: User requests reset → Email sent → Password updated
 4. **Protected Access**: Token validated → Route access granted/denied
 
@@ -228,7 +229,7 @@ VITE_APP_NAME=Equus Website
 ### User Experience Enhancements
 - **✅ Dashboard Separation**: Distinct user and admin dashboards with role-appropriate interfaces
 - **✅ Clickable Header**: Logo/header now navigates to home page
-- **✅ Improved Navigation**: Users redirect to dashboard after login instead of home
+- **✅ Role-Based Navigation**: Admin users redirect to admin dashboard, regular users to user dashboard after login
 - **✅ Contact Form CTA**: Added invitation to sign in/register below contact form
 - **✅ Fixed Layout**: Proper header/footer positioning with scrollable main content
 
