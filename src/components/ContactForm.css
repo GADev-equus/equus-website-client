@@ -141,6 +141,7 @@
   font-weight: 600;
   color: var(--equus-secondary);
   font-size: 1rem;
+  text-align: left;
 }
 
 /* Form Inputs */

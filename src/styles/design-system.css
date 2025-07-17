@@ -12,8 +12,8 @@
   --equus-text-secondary: #666;
   --equus-text-light: rgba(255, 255, 255, 0.9);
   --equus-background-primary: #f8f9fa;
-  --equus-background-dark: rgba(51, 51, 51, 1);
-  --equus-background-white: #ffffff;
+  --equus-background-dark: rgba(12, 12, 12, 1);
+  --equus-background-white: rgba(220,220,220,1);
   --equus-border-color: #3498db;
 
   /* Gradients */
