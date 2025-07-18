@@ -4,7 +4,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import analyticsService from '../services/analyticsService';
+import httpService from '../services/httpService';
 
 export const usePageViews = (period = '30d') => {
   const [pageViews, setPageViews] = useState(null);
@@ -17,7 +17,8 @@ export const usePageViews = (period = '30d') => {
         setLoading(true);
         setError(null);
         
-        const response = await analyticsService.getOverview(period);
+        // Use the public endpoint that doesn't require authentication
+        const response = await httpService.get(`/api/analytics/public/page-views?period=${period}`);
         
         if (response.success && response.data?.totalPageViews !== undefined) {
           setPageViews(response.data.totalPageViews);

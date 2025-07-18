@@ -5,14 +5,19 @@
  */
 
 import usePageViews from '../hooks/usePageViews';
-import analyticsService from '../services/analyticsService';
 
 const Footer = () => {
   const { pageViews, hasData } = usePageViews('30d');
 
   const formatPageViews = (count) => {
     if (!count) return null;
-    return analyticsService.formatNumber(count);
+    if (count >= 1000000) {
+      return (count / 1000000).toFixed(1) + 'M';
+    }
+    if (count >= 1000) {
+      return (count / 1000).toFixed(1) + 'K';
+    }
+    return count.toString();
   };
   return (
     <footer style={{ 
