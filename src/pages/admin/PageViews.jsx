@@ -145,9 +145,11 @@ const PageViews = () => {
 
   return (
     <AdminLayout title="Page Views Analytics">
-      <div className="space-y-6">
+      <div className="space-y-8">
+        {/* Enhanced spacing section */}
+        <div className="equus-section">
         {error && (
-          <Card className="border-destructive">
+          <Card className="border-destructive equus-card">
             <CardContent className="p-4">
               <p className="text-destructive text-sm">{error}</p>
               <Button variant="outline" size="sm" onClick={loadAnalytics} className="mt-2">
@@ -158,7 +160,7 @@ const PageViews = () => {
         )}
 
         {/* Period Selector */}
-        <Card>
+        <Card className="equus-card">
           <CardHeader>
             <CardTitle>Analytics Period</CardTitle>
             <CardDescription>Select time period for analytics data</CardDescription>
@@ -186,7 +188,7 @@ const PageViews = () => {
         </Card>
 
         {/* Tab Navigation */}
-        <Card>
+        <Card className="equus-card">
           <CardContent className="p-4">
             <div className="flex flex-wrap gap-2">
               <TabButton
@@ -221,8 +223,8 @@ const PageViews = () => {
         {activeTab === 'overview' && (
           <div className="space-y-6">
             {/* Key Metrics */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <Card>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 equus-gap-lg">
+              <Card className="equus-card">
                 <CardHeader className="pb-2">
                   <CardDescription>Total Page Views</CardDescription>
                   <CardTitle className="text-2xl">{formatNumber(analytics.overview.totalPageViews)}</CardTitle>
@@ -232,7 +234,7 @@ const PageViews = () => {
                 </CardContent>
               </Card>
               
-              <Card>
+              <Card className="equus-card">
                 <CardHeader className="pb-2">
                   <CardDescription>Unique Visitors</CardDescription>
                   <CardTitle className="text-2xl text-blue-600">
@@ -244,7 +246,7 @@ const PageViews = () => {
                 </CardContent>
               </Card>
               
-              <Card>
+              <Card className="equus-card">
                 <CardHeader className="pb-2">
                   <CardDescription>Authenticated Views</CardDescription>
                   <CardTitle className="text-2xl text-green-600">
@@ -258,7 +260,7 @@ const PageViews = () => {
                 </CardContent>
               </Card>
               
-              <Card>
+              <Card className="equus-card">
                 <CardHeader className="pb-2">
                   <CardDescription>Avg Response Time</CardDescription>
                   <CardTitle className="text-2xl text-purple-600">
@@ -272,8 +274,8 @@ const PageViews = () => {
             </div>
 
             {/* Top Pages & Status Codes */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card>
+            <div className="grid grid-cols-1 lg:grid-cols-2 equus-gap-xl">
+              <Card className="equus-card">
                 <CardHeader>
                   <CardTitle>Top Pages</CardTitle>
                   <CardDescription>Most visited pages</CardDescription>
@@ -297,7 +299,7 @@ const PageViews = () => {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="equus-card">
                 <CardHeader>
                   <CardTitle>Status Code Distribution</CardTitle>
                   <CardDescription>HTTP response status codes</CardDescription>
@@ -327,8 +329,8 @@ const PageViews = () => {
         {activeTab === 'traffic' && (
           <div className="space-y-6">
             {/* User Type Breakdown */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card>
+            <div className="grid grid-cols-1 lg:grid-cols-2 equus-gap-xl">
+              <Card className="equus-card">
                 <CardHeader>
                   <CardTitle>User Type Breakdown</CardTitle>
                   <CardDescription>Authenticated vs anonymous users</CardDescription>
@@ -357,7 +359,7 @@ const PageViews = () => {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="equus-card">
                 <CardHeader>
                   <CardTitle>HTTP Methods</CardTitle>
                   <CardDescription>Request methods distribution</CardDescription>
@@ -380,7 +382,7 @@ const PageViews = () => {
             </div>
 
             {/* Traffic Over Time */}
-            <Card>
+            <Card className="equus-card">
               <CardHeader>
                 <CardTitle>Traffic Over Time</CardTitle>
                 <CardDescription>Page views and visitors over selected period</CardDescription>
@@ -429,7 +431,7 @@ const PageViews = () => {
             </Card>
 
             {/* Top Referrers */}
-            <Card>
+            <Card className="equus-card">
               <CardHeader>
                 <CardTitle>Top Referrers</CardTitle>
                 <CardDescription>Traffic sources</CardDescription>
@@ -456,7 +458,7 @@ const PageViews = () => {
         {activeTab === 'performance' && (
           <div className="space-y-6">
             {/* Overall Performance Stats */}
-            <Card>
+            <Card className="equus-card">
               <CardHeader>
                 <CardTitle>Overall Performance</CardTitle>
                 <CardDescription>System performance metrics</CardDescription>
@@ -492,7 +494,7 @@ const PageViews = () => {
             </Card>
 
             {/* Page Performance Details */}
-            <Card>
+            <Card className="equus-card">
               <CardHeader>
                 <CardTitle>Page Performance</CardTitle>
                 <CardDescription>Individual page performance metrics</CardDescription>
@@ -539,7 +541,7 @@ const PageViews = () => {
         {activeTab === 'users' && (
           <div className="space-y-6">
             {/* User Activity Summary */}
-            <Card>
+            <Card className="equus-card">
               <CardHeader>
                 <CardTitle>User Activity Summary</CardTitle>
                 <CardDescription>Authenticated user activity metrics</CardDescription>
@@ -569,7 +571,7 @@ const PageViews = () => {
             </Card>
 
             {/* Top Active Users */}
-            <Card>
+            <Card className="equus-card">
               <CardHeader>
                 <CardTitle>Most Active Users</CardTitle>
                 <CardDescription>Top users by page views</CardDescription>
@@ -609,7 +611,7 @@ const PageViews = () => {
         )}
 
         {/* Refresh Button */}
-        <Card>
+        <Card className="equus-card">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <p className="text-sm text-muted-foreground">
@@ -621,6 +623,7 @@ const PageViews = () => {
             </div>
           </CardContent>
         </Card>
+        </div>
       </div>
     </AdminLayout>
   );

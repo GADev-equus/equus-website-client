@@ -119,9 +119,11 @@ const Analytics = () => {
 
   return (
     <AdminLayout title="Analytics">
-      <div className="space-y-6">
+      <div className="space-y-8">
+        {/* Enhanced spacing section */}
+        <div className="equus-section">
         {error && (
-          <Card className="border-destructive">
+          <Card className="border-destructive equus-card">
             <CardContent className="p-4">
               <p className="text-destructive text-sm">{error}</p>
               <Button variant="outline" size="sm" onClick={loadAnalytics} className="mt-2">
@@ -132,7 +134,7 @@ const Analytics = () => {
         )}
 
         {/* Period Selector */}
-        <Card>
+        <Card className="equus-card">
           <CardHeader>
             <CardTitle>Analytics Period</CardTitle>
             <CardDescription>Select time period for analytics data</CardDescription>
@@ -159,8 +161,8 @@ const Analytics = () => {
         </Card>
 
         {/* User Statistics Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 equus-gap-lg">
+          <Card className="equus-card">
             <CardHeader className="pb-2">
               <CardDescription>Total Users</CardDescription>
               <CardTitle className="text-2xl">{analytics.userStats.totalUsers}</CardTitle>
@@ -170,7 +172,7 @@ const Analytics = () => {
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="equus-card">
             <CardHeader className="pb-2">
               <CardDescription>Active Users</CardDescription>
               <CardTitle className="text-2xl text-green-600">
@@ -184,7 +186,7 @@ const Analytics = () => {
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="equus-card">
             <CardHeader className="pb-2">
               <CardDescription>New This Month</CardDescription>
               <CardTitle className="text-2xl text-blue-600">
@@ -196,7 +198,7 @@ const Analytics = () => {
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="equus-card">
             <CardHeader className="pb-2">
               <CardDescription>Administrators</CardDescription>
               <CardTitle className="text-2xl text-purple-600">
@@ -212,8 +214,8 @@ const Analytics = () => {
         </div>
 
         {/* User Status Breakdown */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card>
+        <div className="grid grid-cols-1 lg:grid-cols-2 equus-gap-xl">
+          <Card className="equus-card">
             <CardHeader>
               <CardTitle>User Status Distribution</CardTitle>
               <CardDescription>Current user account status breakdown</CardDescription>
@@ -260,7 +262,7 @@ const Analytics = () => {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="equus-card">
             <CardHeader>
               <CardTitle>Registration Trends</CardTitle>
               <CardDescription>New user registration statistics</CardDescription>
@@ -290,7 +292,7 @@ const Analytics = () => {
         </div>
 
         {/* System Metrics */}
-        <Card>
+        <Card className="equus-card">
           <CardHeader>
             <CardTitle>System Metrics</CardTitle>
             <CardDescription>Authentication and system performance data</CardDescription>
@@ -329,8 +331,8 @@ const Analytics = () => {
         </Card>
 
         {/* Top User Agents & Locations */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card>
+        <div className="grid grid-cols-1 lg:grid-cols-2 equus-gap-xl">
+          <Card className="equus-card">
             <CardHeader>
               <CardTitle>Top User Agents</CardTitle>
               <CardDescription>Most common browsers and devices</CardDescription>
@@ -351,7 +353,7 @@ const Analytics = () => {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="equus-card">
             <CardHeader>
               <CardTitle>Top Locations</CardTitle>
               <CardDescription>Most common user locations</CardDescription>
@@ -374,7 +376,7 @@ const Analytics = () => {
         </div>
 
         {/* Refresh Button */}
-        <Card>
+        <Card className="equus-card">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <p className="text-sm text-muted-foreground">
@@ -386,6 +388,7 @@ const Analytics = () => {
             </div>
           </CardContent>
         </Card>
+        </div>
       </div>
     </AdminLayout>
   );
