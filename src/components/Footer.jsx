@@ -4,7 +4,16 @@
  * Uses Equus design system variables for consistent styling
  */
 
+import usePageViews from '../hooks/usePageViews';
+import analyticsService from '../services/analyticsService';
+
 const Footer = () => {
+  const { pageViews, hasData } = usePageViews('30d');
+
+  const formatPageViews = (count) => {
+    if (!count) return null;
+    return analyticsService.formatNumber(count);
+  };
   return (
     <footer style={{ 
       background: 'var(--equus-gradient-primary)',
@@ -33,6 +42,14 @@ const Footer = () => {
         }}>
           Our full website is currently under development
         </p>
+        {hasData && (
+          <p className="opacity-60" style={{ 
+            margin: '0.5rem 0 0 0',
+            fontSize: '0.7rem'
+          }}>
+            {formatPageViews(pageViews)} page views
+          </p>
+        )}
       </div>
     </footer>
   );
