@@ -137,7 +137,9 @@ const Dashboard = () => {
 
   return (
     <AdminLayout title="Dashboard">
-      <div className="space-y-6">
+      <div className="space-y-8">
+        {/* Enhanced spacing section */}
+        <div className="equus-section">
         {error && (
           <Card className="border-destructive">
             <CardContent className="p-4">
@@ -150,57 +152,57 @@ const Dashboard = () => {
         )}
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card>
-            <CardHeader className="pb-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 equus-gap-lg">
+          <Card className="equus-card">
+            <CardHeader className="pb-3">
               <CardDescription>Total Users</CardDescription>
               <CardTitle className="text-2xl">{stats.totalUsers}</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <p className="text-xs text-muted-foreground">Registered accounts</p>
             </CardContent>
           </Card>
           
-          <Card>
-            <CardHeader className="pb-2">
+          <Card className="equus-card">
+            <CardHeader className="pb-3">
               <CardDescription>Active Users</CardDescription>
               <CardTitle className="text-2xl">{stats.activeUsers}</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <p className="text-xs text-muted-foreground">Currently active</p>
             </CardContent>
           </Card>
           
-          <Card>
-            <CardHeader className="pb-2">
+          <Card className="equus-card">
+            <CardHeader className="pb-3">
               <CardDescription>New Today</CardDescription>
               <CardTitle className="text-2xl">{stats.newUsersToday}</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <p className="text-xs text-muted-foreground">New registrations</p>
             </CardContent>
           </Card>
           
-          <Card>
-            <CardHeader className="pb-2">
+          <Card className="equus-card">
+            <CardHeader className="pb-3">
               <CardDescription>Administrators</CardDescription>
               <CardTitle className="text-2xl">{stats.adminUsers}</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <p className="text-xs text-muted-foreground">Admin accounts</p>
             </CardContent>
           </Card>
         </div>
 
         {/* Quick Actions and Recent Activity */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 equus-gap-xl">
           {/* Quick Actions */}
-          <Card>
-            <CardHeader>
+          <Card className="equus-card">
+            <CardHeader className="pb-4">
               <CardTitle>Quick Actions</CardTitle>
               <CardDescription>Common administrative tasks</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-3">
+            <CardContent className="space-y-3 pt-2">
               <Link to="/admin/users">
                 <Button variant="outline" className="w-full justify-start">
                   👥 Manage Users
@@ -227,12 +229,12 @@ const Dashboard = () => {
           </Card>
 
           {/* Recent Users */}
-          <Card>
-            <CardHeader>
+          <Card className="equus-card">
+            <CardHeader className="pb-4">
               <CardTitle>Recent Users</CardTitle>
               <CardDescription>Latest user registrations</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               {recentUsers.length > 0 ? (
                 <div className="space-y-3">
                   {recentUsers.map((user) => (
@@ -273,12 +275,12 @@ const Dashboard = () => {
         </div>
 
         {/* System Status */}
-        <Card>
-          <CardHeader>
+        <Card className="equus-card">
+          <CardHeader className="pb-4">
             <CardTitle>System Status</CardTitle>
             <CardDescription>Current system health and information</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 bg-green-500 rounded-full"></div>
@@ -298,6 +300,7 @@ const Dashboard = () => {
             </div>
           </CardContent>
         </Card>
+        </div>
       </div>
     </AdminLayout>
   );

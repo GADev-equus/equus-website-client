@@ -36,7 +36,7 @@
 
   /* Layout */
   --equus-border-radius: 8px;
-  --equus-border-width: 10px;
+  --equus-border-width: 1px;
   --equus-border-accent: 4px;
   --equus-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   --equus-max-width-content: 600px;
@@ -124,6 +124,12 @@ body {
 /* Consistent spacing utility classes */
 .equus-section {
   margin-bottom: var(--equus-spacing-xxl) !important;
+}
+
+/* Enhanced card spacing for dashboard improvements */
+.equus-dashboard-grid {
+  display: grid;
+  gap: var(--equus-spacing-xl) !important;
 }
 
 .equus-card {

@@ -34,18 +34,20 @@ function App() {
       <Router>
         <div style={{
           height: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
           backgroundColor: 'var(--equus-background-dark)',
           border: 'var(--equus-border-width) solid var(--equus-border-color)',
-          overflow: 'hidden'
+          position: 'relative'
         }}>
           <Header />
           
           <main id="main-content" style={{ 
-            flex: 1,
+            position: 'absolute',
+            top: 'var(--header-height, 120px)', // Will be set by Header component
+            bottom: 'var(--footer-height, 100px)', // Will be set by Footer component
+            left: 0,
+            right: 0,
             overflow: 'auto',
-            minHeight: 0
+            padding: '1rem'
           }}>
             <Suspense fallback={<LoadingSpinnerCenter size="lg" text="Loading..." />}>
               <Routes>
