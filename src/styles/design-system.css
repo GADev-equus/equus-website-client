@@ -14,7 +14,7 @@
   --equus-background-primary: #f8f9fa;
   --equus-background-dark: rgba(12, 12, 12, 1);
   --equus-background-white: rgba(220,220,220,1);
-  --equus-border-color: #3498db;
+  --equus-border-color: rgba(12,12,12,1);
 
   /* Gradients */
   --equus-gradient-primary: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
