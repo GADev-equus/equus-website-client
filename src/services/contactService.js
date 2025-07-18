@@ -26,7 +26,7 @@ class ContactService {
     const sanitizedData = this.sanitizeFormData(formData);
 
     try {
-      const response = await httpService.post(API_ENDPOINTS.CONTACT, sanitizedData);
+      const response = await httpService.post(API_ENDPOINTS.EMAIL_CONTACT, sanitizedData);
       return {
         success: true,
         data: response,
