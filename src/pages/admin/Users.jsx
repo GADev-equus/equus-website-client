@@ -33,9 +33,11 @@ const Users = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await userService.getAllUsers();
+      // Pass 'all' status to get ALL users including suspended ones
+      const response = await userService.getAllUsers({ status: 'all' });
       if (response.success) {
-        setUsers(response.users || []);
+        const users = response.users || [];
+        setUsers(users);
       } else {
         setError(response.message || 'Failed to load users');
       }
@@ -66,7 +68,12 @@ const Users = () => {
     
     // Status filter
     if (selectedStatus !== 'all') {
-      filtered = filtered.filter(user => user.status === selectedStatus);
+      // Check both status and accountStatus fields to handle potential field name differences
+      filtered = filtered.filter(user => {
+        const matchesStatus = user.status === selectedStatus;
+        const matchesAccountStatus = user.accountStatus === selectedStatus;
+        return matchesStatus || matchesAccountStatus;
+      });
     }
     
     setFilteredUsers(filtered);
@@ -95,10 +102,20 @@ const Users = () => {
     try {
       setUpdatingUser(userId);
       const response = await userService.updateUserStatus(userId, newStatus);
+      
       if (response.success) {
         setUsers(prev => prev.map(user => 
-          user._id === userId ? { ...user, status: newStatus } : user
+          user._id === userId ? { 
+            ...user, 
+            status: newStatus,
+            accountStatus: newStatus  // Update both fields to ensure consistency
+          } : user
         ));
+        
+        // Reload users to get fresh data from backend
+        setTimeout(() => {
+          loadUsers();
+        }, 1000);
       } else {
         setError(response.message || 'Failed to update user status');
       }
@@ -271,8 +288,8 @@ const Users = () => {
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${getRoleColor(user.role)}`}>
                           {user.role}
                         </span>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(user.status)}`}>
-                          {user.status}
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(user.status || user.accountStatus)}`}>
+                          {user.status || user.accountStatus}
                         </span>
                       </div>
                       <div className="flex flex-col gap-2">
@@ -289,7 +306,7 @@ const Users = () => {
                         {/* Status Update */}
                         <select 
                           className="text-xs px-2 py-1 border border-border rounded bg-background"
-                          value={user.status}
+                          value={user.status || user.accountStatus}
                           onChange={(e) => updateUserStatus(user._id, e.target.value)}
                           disabled={updatingUser === user._id}
                         >
