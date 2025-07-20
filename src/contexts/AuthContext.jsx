@@ -7,6 +7,7 @@ import { createContext, useContext, useEffect, useState, useCallback, useMemo } 
 import authService from '../services/authService.js';
 import errorService from '../services/errorService.js';
 import { useToast } from '../components/ui/toast.jsx';
+import { useColdStartAwareLoading } from '../hooks/useColdStartAwareLoading.js';
 
 const AuthContext = createContext();
 
@@ -20,11 +21,19 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authError, setAuthError] = useState(null);
   const [tokenExpiry, setTokenExpiry] = useState(null);
   const toast = useToast();
+  
+  // Use cold start aware loading instead of basic loading
+  const {
+    isLoading: loading,
+    setLoading,
+    isColdStart,
+    shouldShowColdStartUI,
+    loadingState
+  } = useColdStartAwareLoading(true);
 
   // Initialize authentication state
   useEffect(() => {
@@ -324,7 +333,11 @@ export const AuthProvider = ({ children }) => {
     isAdmin,
     hasPermission,
     isTokenExpiringSoon,
-    getUserInitials
+    getUserInitials,
+    // Cold start state
+    isColdStart,
+    shouldShowColdStartUI,
+    loadingState
   ]);
 
   return (

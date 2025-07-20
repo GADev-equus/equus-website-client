@@ -9,6 +9,7 @@ import { AuthProvider } from '@/contexts/AuthContext';
 import ProtectedRoute from '@/components/shared/ProtectedRoute';
 import AdminRoute from '@/components/shared/AdminRoute';
 import { LoadingSpinnerCenter } from '@/components/ui/loading-spinner';
+import LoadingStateWrapper from '@/components/ui/LoadingStateWrapper';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -52,7 +53,15 @@ function App() {
             overflow: 'auto',
             padding: '1rem'
           }}>
-            <Suspense fallback={<LoadingSpinnerCenter size="lg" text="Loading..." />}>
+            <Suspense fallback={
+              <LoadingStateWrapper 
+                isLoading={true} 
+                size="lg" 
+                className="min-h-screen flex items-center justify-center"
+                showColdStartUI={true}
+                minColdStartThreshold={3000}
+              />
+            }>
               <Routes>
                 {/* Public Routes */}
                 <Route path="/" element={<Home />} />
