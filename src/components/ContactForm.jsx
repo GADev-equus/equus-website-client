@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import { useColdStartAwareLoading } from '../hooks/useColdStartAwareLoading.js';
 import contactService, { rateLimiter } from '../services/contactService.js';
 import './ContactForm.css';
 
@@ -12,9 +13,16 @@ const ContactForm = () => {
   });
 
   const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
   const [touched, setTouched] = useState({});
+  
+  // Use cold start aware loading for form submission
+  const {
+    isLoading: isSubmitting,
+    setLoading: setIsSubmitting,
+    shouldShowColdStartUI,
+    loadingState
+  } = useColdStartAwareLoading(false);
 
   const handleChange = useCallback(
     (e) => {
@@ -342,7 +350,8 @@ const ContactForm = () => {
               {isSubmitting ? (
                 <>
                   <span className="loading-spinner" aria-hidden="true"></span>
-                  Sending...
+                  {shouldShowColdStartUI && shouldShowColdStartUI() ? 
+                    'Starting server...' : 'Sending...'}
                 </>
               ) : (
                 'Send Message'

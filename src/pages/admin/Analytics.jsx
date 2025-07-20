@@ -7,6 +7,8 @@ import { useState, useEffect } from 'react';
 import AdminLayout from '@/components/layout/AdminLayout';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import ColdStartLoader from '@/components/ui/ColdStartLoader';
+import { useColdStartAwareLoading } from '@/hooks/useColdStartAwareLoading';
 import userService from '@/services/userService';
 
 const Analytics = () => {
@@ -31,9 +33,16 @@ const Analytics = () => {
       topLocations: []
     }
   });
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedPeriod, setSelectedPeriod] = useState('7d');
+  
+  // Use cold start aware loading
+  const {
+    isLoading: loading,
+    setLoading,
+    shouldShowColdStartUI,
+    loadingState
+  } = useColdStartAwareLoading(true);
 
   useEffect(() => {
     loadAnalytics();
@@ -111,7 +120,15 @@ const Analytics = () => {
     return (
       <AdminLayout title="Analytics">
         <div className="flex items-center justify-center h-64">
-          <div className="text-muted-foreground">Loading analytics...</div>
+          {shouldShowColdStartUI && shouldShowColdStartUI() ? (
+            <ColdStartLoader 
+              startTime={loadingState?.coldStartTime || Date.now()}
+              size="lg"
+              className="min-h-screen"
+            />
+          ) : (
+            <div className="text-muted-foreground">Loading analytics...</div>
+          )}
         </div>
       </AdminLayout>
     );

@@ -9,17 +9,26 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { UserListSkeleton } from '@/components/ui/loading-skeletons';
+import ColdStartLoader from '@/components/ui/ColdStartLoader';
+import { useColdStartAwareLoading } from '@/hooks/useColdStartAwareLoading';
 import userService from '@/services/userService';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRole, setSelectedRole] = useState('all');
   const [selectedStatus, setSelectedStatus] = useState('all');
   const [updatingUser, setUpdatingUser] = useState(null);
+  
+  // Use cold start aware loading
+  const {
+    isLoading: loading,
+    setLoading,
+    shouldShowColdStartUI,
+    loadingState
+  } = useColdStartAwareLoading(true);
 
   useEffect(() => {
     loadUsers();
@@ -163,30 +172,42 @@ const Users = () => {
     return (
       <AdminLayout title="User Management">
         <div className="space-y-6">
-          {/* Search and Filter Skeleton */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Search and Filter</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col md:flex-row gap-4 mb-4">
-                <div className="flex-1 h-10 bg-muted rounded-md animate-pulse" />
-                <div className="w-32 h-10 bg-muted rounded-md animate-pulse" />
-                <div className="w-32 h-10 bg-muted rounded-md animate-pulse" />
-              </div>
-            </CardContent>
-          </Card>
+          {shouldShowColdStartUI && shouldShowColdStartUI() ? (
+            <div className="min-h-screen flex items-center justify-center">
+              <ColdStartLoader 
+                startTime={loadingState?.coldStartTime || Date.now()}
+                size="lg"
+                className="min-h-screen"
+              />
+            </div>
+          ) : (
+            <>
+              {/* Search and Filter Skeleton */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Search and Filter</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-col md:flex-row gap-4 mb-4">
+                    <div className="flex-1 h-10 bg-muted rounded-md animate-pulse" />
+                    <div className="w-32 h-10 bg-muted rounded-md animate-pulse" />
+                    <div className="w-32 h-10 bg-muted rounded-md animate-pulse" />
+                  </div>
+                </CardContent>
+              </Card>
 
-          {/* Users List Skeleton */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Users</CardTitle>
-              <CardDescription>Manage user accounts and permissions</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <UserListSkeleton />
-            </CardContent>
-          </Card>
+              {/* Users List Skeleton */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Users</CardTitle>
+                  <CardDescription>Manage user accounts and permissions</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <UserListSkeleton />
+                </CardContent>
+              </Card>
+            </>
+          )}
         </div>
       </AdminLayout>
     );

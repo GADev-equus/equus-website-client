@@ -7,12 +7,20 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthForm from './AuthForm';
 import authService from '@/services/authService';
+import { useColdStartAwareLoading } from '@/hooks/useColdStartAwareLoading';
 
 const SignUpForm = () => {
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
+  
+  // Use cold start aware loading
+  const {
+    isLoading: loading,
+    setLoading,
+    shouldShowColdStartUI,
+    loadingState
+  } = useColdStartAwareLoading(false);
 
   const handleSignUp = async (data) => {
     try {
@@ -55,6 +63,8 @@ const SignUpForm = () => {
       loading={loading}
       error={error}
       success={success}
+      shouldShowColdStartUI={shouldShowColdStartUI()}
+      loadingState={loadingState}
     />
   );
 };

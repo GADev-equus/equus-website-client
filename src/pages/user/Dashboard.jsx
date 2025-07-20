@@ -10,14 +10,23 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { CardSkeleton } from '@/components/ui/loading-skeletons';
+import ColdStartLoader from '@/components/ui/ColdStartLoader';
 import { useAuth } from '@/contexts/AuthContext';
+import { useColdStartAwareLoading } from '@/hooks/useColdStartAwareLoading';
 import authService from '@/services/authService';
 
 const Dashboard = () => {
   const { user } = useAuth();
   const [userProfile, setUserProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
+  // Use cold start aware loading
+  const {
+    isLoading: loading,
+    setLoading,
+    shouldShowColdStartUI,
+    loadingState
+  } = useColdStartAwareLoading(true);
 
   useEffect(() => {
     loadUserData();
@@ -86,11 +95,21 @@ const Dashboard = () => {
     return (
       <UserLayout title="Dashboard">
         <div className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[...Array(6)].map((_, i) => (
-              <CardSkeleton key={i} />
-            ))}
-          </div>
+          {shouldShowColdStartUI && shouldShowColdStartUI() ? (
+            <div className="min-h-screen flex items-center justify-center">
+              <ColdStartLoader 
+                startTime={loadingState?.coldStartTime || Date.now()}
+                size="lg"
+                className="min-h-screen"
+              />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[...Array(6)].map((_, i) => (
+                <CardSkeleton key={i} />
+              ))}
+            </div>
+          )}
         </div>
       </UserLayout>
     );

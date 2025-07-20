@@ -9,6 +9,8 @@ import AdminLayout from '@/components/layout/AdminLayout';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CardSkeleton, UserListSkeleton } from '@/components/ui/loading-skeletons';
+import ColdStartLoader from '@/components/ui/ColdStartLoader';
+import { useColdStartAwareLoading } from '@/hooks/useColdStartAwareLoading';
 import userService from '@/services/userService';
 
 const Dashboard = () => {
@@ -19,8 +21,15 @@ const Dashboard = () => {
     adminUsers: 0
   });
   const [recentUsers, setRecentUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
+  // Use cold start aware loading
+  const {
+    isLoading: loading,
+    setLoading,
+    shouldShowColdStartUI,
+    loadingState
+  } = useColdStartAwareLoading(true);
 
   useEffect(() => {
     loadDashboardData();
@@ -67,69 +76,81 @@ const Dashboard = () => {
     return (
       <AdminLayout title="Dashboard">
         <div className="space-y-6">
-          {/* Stats Grid Skeleton */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[...Array(4)].map((_, i) => (
-              <CardSkeleton key={i} />
-            ))}
-          </div>
-
-          {/* Quick Actions and Recent Activity Skeleton */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Quick Actions</CardTitle>
-                <CardDescription>Common administrative tasks</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="h-10 bg-muted rounded-md animate-pulse" />
-                <div className="h-10 bg-muted rounded-md animate-pulse" />
-                <div className="h-10 bg-muted rounded-md animate-pulse" />
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Recent Users</CardTitle>
-                <CardDescription>Latest user registrations</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {[...Array(3)].map((_, i) => (
-                    <div key={i} className="flex items-center justify-between py-2 border-b border-border">
-                      <div className="space-y-1">
-                        <div className="h-4 w-32 bg-muted rounded animate-pulse" />
-                        <div className="h-3 w-48 bg-muted rounded animate-pulse" />
-                      </div>
-                      <div className="text-right space-y-1">
-                        <div className="h-3 w-16 bg-muted rounded animate-pulse" />
-                        <div className="h-5 w-12 bg-muted rounded-full animate-pulse" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* System Status Skeleton */}
-          <Card>
-            <CardHeader>
-              <CardTitle>System Status</CardTitle>
-              <CardDescription>Current system health and information</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {[...Array(3)].map((_, i) => (
-                  <div key={i} className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-muted rounded-full animate-pulse" />
-                    <div className="h-4 w-20 bg-muted rounded animate-pulse" />
-                    <div className="h-3 w-12 bg-muted rounded animate-pulse ml-auto" />
-                  </div>
+          {shouldShowColdStartUI && shouldShowColdStartUI() ? (
+            <div className="min-h-screen flex items-center justify-center">
+              <ColdStartLoader 
+                startTime={loadingState?.coldStartTime || Date.now()}
+                size="lg"
+                className="min-h-screen"
+              />
+            </div>
+          ) : (
+            <>
+              {/* Stats Grid Skeleton */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {[...Array(4)].map((_, i) => (
+                  <CardSkeleton key={i} />
                 ))}
               </div>
-            </CardContent>
-          </Card>
+
+              {/* Quick Actions and Recent Activity Skeleton */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Quick Actions</CardTitle>
+                    <CardDescription>Common administrative tasks</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="h-10 bg-muted rounded-md animate-pulse" />
+                    <div className="h-10 bg-muted rounded-md animate-pulse" />
+                    <div className="h-10 bg-muted rounded-md animate-pulse" />
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Recent Users</CardTitle>
+                    <CardDescription>Latest user registrations</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {[...Array(3)].map((_, i) => (
+                        <div key={i} className="flex items-center justify-between py-2 border-b border-border">
+                          <div className="space-y-1">
+                            <div className="h-4 w-32 bg-muted rounded animate-pulse" />
+                            <div className="h-3 w-48 bg-muted rounded animate-pulse" />
+                          </div>
+                          <div className="text-right space-y-1">
+                            <div className="h-3 w-16 bg-muted rounded animate-pulse" />
+                            <div className="h-5 w-12 bg-muted rounded-full animate-pulse" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* System Status Skeleton */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>System Status</CardTitle>
+                  <CardDescription>Current system health and information</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {[...Array(3)].map((_, i) => (
+                      <div key={i} className="flex items-center gap-2">
+                        <div className="w-3 h-3 bg-muted rounded-full animate-pulse" />
+                        <div className="h-4 w-20 bg-muted rounded animate-pulse" />
+                        <div className="h-3 w-12 bg-muted rounded animate-pulse ml-auto" />
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </>
+          )}
         </div>
       </AdminLayout>
     );

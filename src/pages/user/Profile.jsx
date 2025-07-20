@@ -13,17 +13,33 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { CardSkeleton } from '@/components/ui/loading-skeletons';
+import ColdStartLoader from '@/components/ui/ColdStartLoader';
 import { useAuth } from '@/contexts/AuthContext';
+import { useColdStartAwareLoading } from '@/hooks/useColdStartAwareLoading';
 import authService from '@/services/authService';
 
 const Profile = () => {
   const { user, updateUser } = useAuth();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-  const [initialLoading, setInitialLoading] = useState(true);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
+  
+  // Use cold start aware loading for initial profile loading
+  const {
+    isLoading: initialLoading,
+    setLoading: setInitialLoading,
+    shouldShowColdStartUI: shouldShowInitialColdStartUI,
+    loadingState: initialLoadingState
+  } = useColdStartAwareLoading(true);
+  
+  // Use cold start aware loading for profile updates
+  const {
+    isLoading: loading,
+    setLoading,
+    shouldShowColdStartUI: shouldShowUpdateColdStartUI,
+    loadingState: updateLoadingState
+  } = useColdStartAwareLoading(false);
 
   const form = useForm({
     mode: 'onChange',
@@ -175,8 +191,20 @@ const Profile = () => {
     return (
       <UserLayout title="Edit Profile">
         <div className="space-y-6">
-          <CardSkeleton />
-          <CardSkeleton />
+          {shouldShowInitialColdStartUI && shouldShowInitialColdStartUI() ? (
+            <div className="min-h-screen flex items-center justify-center">
+              <ColdStartLoader 
+                startTime={initialLoadingState?.coldStartTime || Date.now()}
+                size="lg"
+                className="min-h-screen"
+              />
+            </div>
+          ) : (
+            <>
+              <CardSkeleton />
+              <CardSkeleton />
+            </>
+          )}
         </div>
       </UserLayout>
     );
@@ -402,7 +430,10 @@ const Profile = () => {
                     }}
                     size="lg"
                   >
-                    {loading ? 'Updating...' : 'Update Profile'}
+                    {loading ? (
+                      shouldShowUpdateColdStartUI && shouldShowUpdateColdStartUI() ? 
+                        'Starting server...' : 'Updating...'
+                    ) : 'Update Profile'}
                   </Button>
                   <Button
                     type="button"

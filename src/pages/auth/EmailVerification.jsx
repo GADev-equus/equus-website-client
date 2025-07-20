@@ -7,8 +7,10 @@ import { useEffect, useState } from 'react';
 import { useSearchParams, Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
+import ColdStartLoader from '@/components/ui/ColdStartLoader';
 import { SkipLink } from '@/components/ui/skip-link';
 import { useAuth } from '@/contexts/AuthContext';
+import { useColdStartAwareLoading } from '@/hooks/useColdStartAwareLoading';
 import authService from '@/services/authService';
 
 const EmailVerification = () => {
@@ -17,7 +19,14 @@ const EmailVerification = () => {
   const { isAuthenticated } = useAuth();
   const [status, setStatus] = useState('verifying'); // 'verifying', 'success', 'error'
   const [message, setMessage] = useState('');
-  const [loading, setLoading] = useState(true);
+  
+  // Use cold start aware loading
+  const {
+    isLoading: loading,
+    setLoading,
+    shouldShowColdStartUI,
+    loadingState
+  } = useColdStartAwareLoading(true);
 
   const token = searchParams.get('token');
 
@@ -67,6 +76,13 @@ const EmailVerification = () => {
   const getStatusIcon = () => {
     switch (status) {
       case 'verifying':
+        // Show cold start loader if detected, otherwise regular spinner
+        if (shouldShowColdStartUI && shouldShowColdStartUI()) {
+          return <ColdStartLoader 
+            startTime={loadingState?.coldStartTime || Date.now()} 
+            size="lg" 
+          />;
+        }
         return <LoadingSpinner size="lg" style={{ color: 'var(--equus-primary)' }} />;
       case 'success':
         return (

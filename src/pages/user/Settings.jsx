@@ -11,16 +11,25 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { CardSkeleton } from '@/components/ui/loading-skeletons';
+import ColdStartLoader from '@/components/ui/ColdStartLoader';
 import { useAuth } from '@/contexts/AuthContext';
+import { useColdStartAwareLoading } from '@/hooks/useColdStartAwareLoading';
 import authService from '@/services/authService';
 
 const Settings = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
   const [confirmingLogout, setConfirmingLogout] = useState(false);
+  
+  // Use cold start aware loading
+  const {
+    isLoading: loading,
+    setLoading,
+    shouldShowColdStartUI,
+    loadingState
+  } = useColdStartAwareLoading(true);
 
   useEffect(() => {
     loadUserData();
@@ -96,9 +105,19 @@ const Settings = () => {
     return (
       <UserLayout title="Account Settings">
         <div className="space-y-6">
-          {[...Array(4)].map((_, i) => (
-            <CardSkeleton key={i} />
-          ))}
+          {shouldShowColdStartUI && shouldShowColdStartUI() ? (
+            <div className="min-h-screen flex items-center justify-center">
+              <ColdStartLoader 
+                startTime={loadingState?.coldStartTime || Date.now()}
+                size="lg"
+                className="min-h-screen"
+              />
+            </div>
+          ) : (
+            [...Array(4)].map((_, i) => (
+              <CardSkeleton key={i} />
+            ))
+          )}
         </div>
       </UserLayout>
     );

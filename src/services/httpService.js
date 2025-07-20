@@ -25,6 +25,7 @@ class HttpService {
       'Content-Type': 'application/json',
     };
     this.defaultTimeout = 10000; // 10 seconds
+    this.coldStartTimeout = 70000; // 70 seconds for cold start scenarios
     this.requestInterceptors = [];
     this.responseInterceptors = [];
     this.errorInterceptors = [];
@@ -207,7 +208,35 @@ class HttpService {
     const requestWithRetry = async (retryCount = 0) => {
       // Add timeout using AbortController
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), this.defaultTimeout);
+      let timeoutId;
+      let timeoutExtended = false;
+      
+      // Start with default timeout
+      const setInitialTimeout = () => {
+        timeoutId = setTimeout(() => controller.abort(), this.defaultTimeout);
+      };
+      
+      // Extend timeout for cold start scenarios
+      const extendTimeoutForColdStart = () => {
+        if (!timeoutExtended) {
+          clearTimeout(timeoutId);
+          timeoutId = setTimeout(() => controller.abort(), this.coldStartTimeout);
+          timeoutExtended = true;
+          console.log('Extended timeout for cold start scenario');
+        }
+      };
+      
+      // Set up cold start timeout extension
+      if (config.requestId && config.startTime) {
+        setTimeout(() => {
+          const elapsed = Date.now() - config.startTime;
+          if (elapsed > COLD_START_CONFIG.THRESHOLD) {
+            extendTimeoutForColdStart();
+          }
+        }, COLD_START_CONFIG.THRESHOLD);
+      }
+      
+      setInitialTimeout();
       config.signal = controller.signal;
 
       try {

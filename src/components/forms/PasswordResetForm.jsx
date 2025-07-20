@@ -7,11 +7,19 @@ import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import AuthForm from './AuthForm';
 import authService from '@/services/authService';
+import { useColdStartAwareLoading } from '@/hooks/useColdStartAwareLoading';
 
 const PasswordResetRequestForm = () => {
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  
+  // Use cold start aware loading
+  const {
+    isLoading: loading,
+    setLoading,
+    shouldShowColdStartUI,
+    loadingState
+  } = useColdStartAwareLoading(false);
 
   const handleResetRequest = async (data) => {
     try {
@@ -41,18 +49,27 @@ const PasswordResetRequestForm = () => {
       loading={loading}
       error={error}
       success={success}
+      shouldShowColdStartUI={shouldShowColdStartUI()}
+      loadingState={loadingState}
     />
   );
 };
 
 const PasswordResetForm = () => {
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   const token = searchParams.get('token');
+  
+  // Use cold start aware loading
+  const {
+    isLoading: loading,
+    setLoading,
+    shouldShowColdStartUI,
+    loadingState
+  } = useColdStartAwareLoading(false);
 
   const handlePasswordReset = async (data) => {
     try {
@@ -115,6 +132,8 @@ const PasswordResetForm = () => {
       loading={loading}
       error={error}
       success={success}
+      shouldShowColdStartUI={shouldShowColdStartUI()}
+      loadingState={loadingState}
     />
   );
 };
