@@ -1,0 +1,412 @@
+/**
+ * Loading States CSS - Cold start specific styling
+ * Provides enhanced styling for cold start loading scenarios
+ */
+
+/* Cold Start Loader Animations */
+@keyframes coldStartPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes coldStartProgress {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes coldStartSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Cold Start Loader Container */
+.cold-start-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  text-align: center;
+  min-height: 200px;
+}
+
+.cold-start-loader.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  min-height: 100vh;
+}
+
+/* Cold Start Spinner */
+.cold-start-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #e5e7eb;
+  border-top: 4px solid #3b82f6;
+  border-radius: 50%;
+  animation: coldStartSpin 1s linear infinite;
+}
+
+.cold-start-spinner.large {
+  width: 64px;
+  height: 64px;
+  border-width: 6px;
+}
+
+.cold-start-spinner.small {
+  width: 32px;
+  height: 32px;
+  border-width: 3px;
+}
+
+/* Cold Start Messages */
+.cold-start-message {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #374151;
+  animation: coldStartPulse 2s ease-in-out infinite;
+  max-width: 24rem;
+  line-height: 1.5;
+}
+
+.cold-start-message.primary {
+  color: #1f2937;
+  font-size: 1.25rem;
+}
+
+.cold-start-message.secondary {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 400;
+  margin-top: 0.5rem;
+}
+
+/* Cold Start Progress Bar */
+.cold-start-progress {
+  width: 100%;
+  max-width: 20rem;
+  background-color: #e5e7eb;
+  border-radius: 9999px;
+  height: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.cold-start-progress-bar {
+  height: 100%;
+  background-color: #3b82f6;
+  border-radius: 9999px;
+  transition: width 0.5s ease-out;
+  position: relative;
+}
+
+.cold-start-progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.4), 
+    transparent
+  );
+  animation: coldStartProgress 2s ease-in-out infinite;
+}
+
+/* Cold Start Progress Labels */
+.cold-start-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+/* Cold Start Time Indicator */
+.cold-start-time {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-variant-numeric: tabular-nums;
+  margin-top: 0.25rem;
+}
+
+/* Cold Start Educational Messages */
+.cold-start-education {
+  max-width: 28rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+  border-left: 4px solid #3b82f6;
+}
+
+.cold-start-education.subtle {
+  background-color: transparent;
+  border: none;
+  padding: 0.5rem 0;
+}
+
+.cold-start-education p {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.cold-start-education.long-wait p {
+  font-style: italic;
+  color: #9ca3af;
+}
+
+/* Server Status Indicator */
+.server-status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  background-color: #f3f4f6;
+  border: 1px solid #e5e7eb;
+}
+
+.server-status-indicator.ready {
+  background-color: #ecfdf5;
+  border-color: #86efac;
+  color: #065f46;
+}
+
+.server-status-indicator.warming {
+  background-color: #fefce8;
+  border-color: #fbbf24;
+  color: #92400e;
+}
+
+.server-status-indicator.cold {
+  background-color: #eff6ff;
+  border-color: #60a5fa;
+  color: #1e40af;
+}
+
+.server-status-indicator.connecting {
+  background-color: #f0f9ff;
+  border-color: #38bdf8;
+  color: #0369a1;
+}
+
+.server-status-indicator.down {
+  background-color: #fef2f2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+/* Server Status Icon */
+.server-status-icon {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.server-status-icon.ready {
+  background-color: #10b981;
+  animation: none;
+}
+
+.server-status-icon.warming,
+.server-status-icon.connecting {
+  background-color: #f59e0b;
+  animation: coldStartPulse 1.5s ease-in-out infinite;
+}
+
+.server-status-icon.cold {
+  background-color: #3b82f6;
+  animation: coldStartPulse 2s ease-in-out infinite;
+}
+
+.server-status-icon.down {
+  background-color: #ef4444;
+  animation: coldStartPulse 1s ease-in-out infinite;
+}
+
+/* Loading State Replacements */
+.loading-state-replacement {
+  position: relative;
+  min-height: 100px;
+}
+
+.loading-state-replacement.cold-start-active {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .cold-start-loader {
+    padding: 1.5rem 1rem;
+    gap: 0.75rem;
+  }
+  
+  .cold-start-message {
+    font-size: 1rem;
+  }
+  
+  .cold-start-message.primary {
+    font-size: 1.125rem;
+  }
+  
+  .cold-start-progress {
+    max-width: 16rem;
+  }
+  
+  .cold-start-education {
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .cold-start-loader.fullscreen {
+    background: rgba(17, 24, 39, 0.95);
+  }
+  
+  .cold-start-message {
+    color: #d1d5db;
+  }
+  
+  .cold-start-message.primary {
+    color: #f9fafb;
+  }
+  
+  .cold-start-message.secondary {
+    color: #9ca3af;
+  }
+  
+  .cold-start-progress {
+    background-color: #374151;
+  }
+  
+  .cold-start-time {
+    color: #9ca3af;
+  }
+  
+  .cold-start-education {
+    background-color: #1f2937;
+    border-left-color: #60a5fa;
+  }
+  
+  .cold-start-education p {
+    color: #d1d5db;
+  }
+  
+  .cold-start-education.long-wait p {
+    color: #9ca3af;
+  }
+  
+  .server-status-indicator {
+    background-color: #374151;
+    border-color: #4b5563;
+    color: #d1d5db;
+  }
+  
+  .server-status-indicator.ready {
+    background-color: #064e3b;
+    border-color: #10b981;
+    color: #6ee7b7;
+  }
+  
+  .server-status-indicator.warming {
+    background-color: #78350f;
+    border-color: #f59e0b;
+    color: #fbbf24;
+  }
+  
+  .server-status-indicator.cold {
+    background-color: #1e3a8a;
+    border-color: #3b82f6;
+    color: #93c5fd;
+  }
+  
+  .server-status-indicator.connecting {
+    background-color: #164e63;
+    border-color: #0891b2;
+    color: #67e8f9;
+  }
+  
+  .server-status-indicator.down {
+    background-color: #7f1d1d;
+    border-color: #ef4444;
+    color: #fca5a5;
+  }
+  
+  .loading-state-replacement.cold-start-active {
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    border-color: #374151;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .cold-start-progress-bar {
+    background-color: #000;
+  }
+  
+  .cold-start-spinner {
+    border-top-color: #000;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .cold-start-progress-bar {
+      background-color: #fff;
+    }
+    
+    .cold-start-spinner {
+      border-top-color: #fff;
+    }
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .cold-start-spinner {
+    animation: none;
+    border-top-color: #6b7280;
+  }
+  
+  .cold-start-message {
+    animation: none;
+  }
+  
+  .server-status-icon.warming,
+  .server-status-icon.connecting,
+  .server-status-icon.cold,
+  .server-status-icon.down {
+    animation: none;
+  }
+  
+  .cold-start-progress-bar::after {
+    animation: none;
+  }
+}

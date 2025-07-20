@@ -1,11 +1,22 @@
 /**
  * HTTP Service - Centralized HTTP client for API communication
  * Provides a consistent interface for making API requests with error handling
- * Enhanced with interceptors and automatic token management
+ * Enhanced with interceptors, automatic token management, and cold start detection
  */
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 
   (import.meta.env.PROD ? 'https://equus-website-api.onrender.com' : 'http://localhost:8000');
+
+// Cold start detection configuration
+export const COLD_START_CONFIG = {
+  THRESHOLD: 5000, // 5 seconds to detect cold start
+  MAX_TIME: 60000, // 60 seconds maximum expected time
+  ENABLED: true, // Global enable/disable
+};
+
+// Global cold start state management
+let coldStartCallbacks = [];
+let activeColdStarts = new Map(); // Track active cold starts by request ID
 
 class HttpService {
   constructor(baseURL = API_BASE_URL) {
@@ -22,6 +33,148 @@ class HttpService {
       retryDelay: 1000,
       retryCondition: (error) => error.status >= 500 || error.status === 0
     };
+    
+    // Cold start detection
+    this.coldStartEnabled = COLD_START_CONFIG.ENABLED;
+    this.setupColdStartDetection();
+  }
+
+  /**
+   * Setup cold start detection interceptors
+   */
+  setupColdStartDetection() {
+    // Request interceptor to add timing
+    this.addRequestInterceptor((config) => {
+      if (this.coldStartEnabled) {
+        config.requestId = this.generateRequestId();
+        config.startTime = Date.now();
+        config.coldStartDetected = false;
+      }
+      return config;
+    });
+
+    // Response interceptor to check timing and trigger cold start if needed
+    this.addResponseInterceptor((response, originalResponse) => {
+      if (this.coldStartEnabled && originalResponse.config) {
+        const duration = Date.now() - originalResponse.config.startTime;
+        const requestId = originalResponse.config.requestId;
+        
+        if (duration > COLD_START_CONFIG.THRESHOLD && !originalResponse.config.coldStartDetected) {
+          this.triggerColdStart(requestId, originalResponse.config.startTime, duration);
+          originalResponse.config.coldStartDetected = true;
+        }
+        
+        // End cold start for this request
+        this.endColdStart(requestId, true);
+      }
+      return response;
+    });
+
+    // Error interceptor to handle cold start on errors
+    this.addErrorInterceptor((error) => {
+      if (this.coldStartEnabled && error.config) {
+        const duration = Date.now() - error.config.startTime;
+        const requestId = error.config.requestId;
+        
+        if (duration > COLD_START_CONFIG.THRESHOLD && !error.config.coldStartDetected) {
+          this.triggerColdStart(requestId, error.config.startTime, duration);
+          error.config.coldStartDetected = true;
+        }
+        
+        // End cold start for this request
+        this.endColdStart(requestId, false);
+      }
+    });
+  }
+
+  /**
+   * Generate unique request ID
+   */
+  generateRequestId() {
+    return `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  }
+
+  /**
+   * Trigger cold start detection
+   */
+  triggerColdStart(requestId, startTime, duration) {
+    if (!activeColdStarts.has(requestId)) {
+      activeColdStarts.set(requestId, {
+        startTime,
+        duration,
+        triggered: Date.now()
+      });
+
+      // Notify all registered callbacks
+      coldStartCallbacks.forEach(callback => {
+        try {
+          callback('start', { requestId, startTime, duration });
+        } catch (error) {
+          console.error('Cold start callback error:', error);
+        }
+      });
+    }
+  }
+
+  /**
+   * End cold start for request
+   */
+  endColdStart(requestId, success) {
+    if (activeColdStarts.has(requestId)) {
+      const coldStartInfo = activeColdStarts.get(requestId);
+      activeColdStarts.delete(requestId);
+
+      // Notify callbacks of end
+      coldStartCallbacks.forEach(callback => {
+        try {
+          callback('end', { 
+            requestId, 
+            success, 
+            totalDuration: Date.now() - coldStartInfo.startTime 
+          });
+        } catch (error) {
+          console.error('Cold start callback error:', error);
+        }
+      });
+    }
+  }
+
+  /**
+   * Register cold start callback
+   */
+  onColdStart(callback) {
+    coldStartCallbacks.push(callback);
+    return () => {
+      const index = coldStartCallbacks.indexOf(callback);
+      if (index > -1) {
+        coldStartCallbacks.splice(index, 1);
+      }
+    };
+  }
+
+  /**
+   * Enable/disable cold start detection
+   */
+  setColdStartEnabled(enabled) {
+    this.coldStartEnabled = enabled;
+  }
+
+  /**
+   * Get active cold starts
+   */
+  getActiveColdStarts() {
+    return Array.from(activeColdStarts.entries()).map(([requestId, info]) => ({
+      requestId,
+      ...info,
+      elapsedTime: Date.now() - info.startTime
+    }));
+  }
+
+  /**
+   * Check if any cold starts are active
+   */
+  hasColdStartsActive() {
+    return activeColdStarts.size > 0;
   }
 
   /**
@@ -400,6 +553,53 @@ httpService.addErrorInterceptor((error) => {
     endpoint: error.response?.url || 'unknown'
   });
 });
+
+// Cold start utility functions
+export const coldStartUtils = {
+  /**
+   * Register global cold start callback
+   */
+  onColdStart: (callback) => httpService.onColdStart(callback),
+  
+  /**
+   * Enable/disable cold start detection globally
+   */
+  setEnabled: (enabled) => {
+    httpService.setColdStartEnabled(enabled);
+    COLD_START_CONFIG.ENABLED = enabled;
+  },
+  
+  /**
+   * Get current configuration
+   */
+  getConfig: () => ({ ...COLD_START_CONFIG }),
+  
+  /**
+   * Update configuration
+   */
+  updateConfig: (newConfig) => {
+    Object.assign(COLD_START_CONFIG, newConfig);
+  },
+  
+  /**
+   * Get active cold starts
+   */
+  getActiveColdStarts: () => httpService.getActiveColdStarts(),
+  
+  /**
+   * Check if cold starts are active
+   */
+  hasColdStartsActive: () => httpService.hasColdStartsActive(),
+  
+  /**
+   * Manual cold start simulation (for testing)
+   */
+  simulateColdStart: (duration = 15000) => {
+    return new Promise(resolve => {
+      setTimeout(resolve, duration);
+    });
+  }
+};
 
 // Export both the instance and the class for flexibility
 export default httpService;
