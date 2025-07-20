@@ -23,6 +23,9 @@ const SignIn = lazy(() => import('@/pages/auth/SignIn'));
 const SignUp = lazy(() => import('@/pages/auth/SignUp'));
 const ResetPassword = lazy(() => import('@/pages/auth/ResetPassword'));
 const UserDashboard = lazy(() => import('@/pages/user/Dashboard'));
+const Profile = lazy(() => import('@/pages/user/Profile'));
+const Settings = lazy(() => import('@/pages/user/Settings'));
+const PasswordChange = lazy(() => import('@/pages/user/PasswordChange'));
 const AdminDashboard = lazy(() => import('@/pages/admin/Dashboard'));
 const Users = lazy(() => import('@/pages/admin/Users'));
 const Analytics = lazy(() => import('@/pages/admin/Analytics'));
@@ -65,6 +68,21 @@ function App() {
                 <Route path="/dashboard" element={
                   <ProtectedRoute>
                     <UserDashboard />
+                  </ProtectedRoute>
+                } />
+                <Route path="/profile" element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                } />
+                <Route path="/settings" element={
+                  <ProtectedRoute>
+                    <Settings />
+                  </ProtectedRoute>
+                } />
+                <Route path="/settings/password" element={
+                  <ProtectedRoute>
+                    <PasswordChange />
                   </ProtectedRoute>
                 } />
                 
