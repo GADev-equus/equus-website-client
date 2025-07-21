@@ -12,6 +12,7 @@ import { CardSkeleton, UserListSkeleton } from '@/components/ui/loading-skeleton
 import ColdStartLoader from '@/components/ui/ColdStartLoader';
 import { useColdStartAwareLoading } from '@/hooks/useColdStartAwareLoading';
 import userService from '@/services/userService';
+import adminContactService from '@/services/adminContactService';
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
@@ -20,7 +21,15 @@ const Dashboard = () => {
     newUsersToday: 0,
     adminUsers: 0
   });
+  const [contactStats, setContactStats] = useState({
+    total: 0,
+    pending: 0,
+    read: 0,
+    replied: 0,
+    archived: 0
+  });
   const [recentUsers, setRecentUsers] = useState([]);
+  const [recentContacts, setRecentContacts] = useState([]);
   const [error, setError] = useState(null);
   
   // Use cold start aware loading
@@ -51,10 +60,42 @@ const Dashboard = () => {
         });
       }
       
-      // Load recent users (limited to 5)
-      const usersResponse = await userService.getAllUsers({ limit: 5, sort: 'createdAt', order: 'desc' });
+      // Load contact statistics
+      try {
+        const contactStatsResponse = await adminContactService.getContactStats();
+        if (contactStatsResponse && contactStatsResponse.success) {
+          setContactStats(contactStatsResponse.stats || {});
+        }
+      } catch (contactErr) {
+        console.error('Contact stats error:', contactErr);
+        // Don't fail the whole dashboard if contact stats fail
+        // Set default empty stats to prevent UI errors
+        setContactStats({
+          total: 0,
+          pending: 0,
+          read: 0,
+          replied: 0,
+          archived: 0
+        });
+      }
+      
+      // Load recent users (limited to 3)
+      const usersResponse = await userService.getAllUsers({ limit: 3, sort: 'createdAt', order: 'desc' });
       if (usersResponse.success) {
         setRecentUsers(usersResponse.users || []);
+      }
+
+      // Load recent contacts (limited to 3)
+      try {
+        const contactsResponse = await adminContactService.getRecentContacts(3);
+        if (contactsResponse && contactsResponse.success) {
+          setRecentContacts(contactsResponse.contacts || []);
+        }
+      } catch (contactErr) {
+        console.error('Recent contacts error:', contactErr);
+        // Don't fail the whole dashboard if recent contacts fail
+        // Set empty array to prevent UI errors
+        setRecentContacts([]);
       }
     } catch (err) {
       setError('Failed to load dashboard data');
@@ -87,14 +128,14 @@ const Dashboard = () => {
           ) : (
             <>
               {/* Stats Grid Skeleton */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {[...Array(4)].map((_, i) => (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
+                {[...Array(6)].map((_, i) => (
                   <CardSkeleton key={i} />
                 ))}
               </div>
 
               {/* Quick Actions and Recent Activity Skeleton */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <Card>
                   <CardHeader>
                     <CardTitle>Quick Actions</CardTitle>
@@ -111,6 +152,29 @@ const Dashboard = () => {
                   <CardHeader>
                     <CardTitle>Recent Users</CardTitle>
                     <CardDescription>Latest user registrations</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {[...Array(3)].map((_, i) => (
+                        <div key={i} className="flex items-center justify-between py-2 border-b border-border">
+                          <div className="space-y-1">
+                            <div className="h-4 w-32 bg-muted rounded animate-pulse" />
+                            <div className="h-3 w-48 bg-muted rounded animate-pulse" />
+                          </div>
+                          <div className="text-right space-y-1">
+                            <div className="h-3 w-16 bg-muted rounded animate-pulse" />
+                            <div className="h-5 w-12 bg-muted rounded-full animate-pulse" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Recent Contacts</CardTitle>
+                    <CardDescription>Latest contact submissions</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
@@ -173,7 +237,7 @@ const Dashboard = () => {
         )}
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 equus-gap-lg">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 equus-gap-lg">
           <Card className="equus-card">
             <CardHeader className="pb-3">
               <CardDescription>Total Users</CardDescription>
@@ -213,10 +277,30 @@ const Dashboard = () => {
               <p className="text-xs text-muted-foreground">Admin accounts</p>
             </CardContent>
           </Card>
+
+          <Card className="equus-card">
+            <CardHeader className="pb-3">
+              <CardDescription>Total Contacts</CardDescription>
+              <CardTitle className="text-2xl">{contactStats.total}</CardTitle>
+            </CardHeader>
+            <CardContent className="pt-2">
+              <p className="text-xs text-muted-foreground">Form submissions</p>
+            </CardContent>
+          </Card>
+
+          <Card className="equus-card">
+            <CardHeader className="pb-3">
+              <CardDescription>Pending Contacts</CardDescription>
+              <CardTitle className="text-2xl text-orange-600">{contactStats.pending}</CardTitle>
+            </CardHeader>
+            <CardContent className="pt-2">
+              <p className="text-xs text-muted-foreground">Need attention</p>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Quick Actions and Recent Activity */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 equus-gap-xl">
+        <div className="grid grid-cols-1 lg:grid-cols-3 equus-gap-xl">
           {/* Quick Actions */}
           <Card className="equus-card">
             <CardHeader className="pb-4">
@@ -237,6 +321,16 @@ const Dashboard = () => {
               <Link to="/admin/page-views">
                 <Button variant="outline" className="w-full justify-start">
                   📄 Page Views Analytics
+                </Button>
+              </Link>
+              <Link to="/admin/contacts">
+                <Button variant="outline" className="w-full justify-start">
+                  📩 Manage Contacts
+                  {contactStats.pending > 0 && (
+                    <span className="ml-auto bg-orange-500 text-white text-xs px-2 py-1 rounded-full">
+                      {contactStats.pending}
+                    </span>
+                  )}
                 </Button>
               </Link>
               <Button 
@@ -272,7 +366,7 @@ const Dashboard = () => {
                         <p className="text-xs text-muted-foreground">
                           {formatDate(user.createdAt)}
                         </p>
-                        <span className={`inline-block px-2 py-1 rounded-full text-xs ${
+                        <span className={`inline-block px-3 py-2 rounded-full text-xs ${
                           user.status === 'active' 
                             ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' 
                             : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'
@@ -290,6 +384,60 @@ const Dashboard = () => {
                 </div>
               ) : (
                 <p className="text-muted-foreground text-sm">No recent users</p>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Recent Contacts */}
+          <Card className="equus-card">
+            <CardHeader className="pb-4">
+              <CardTitle>Recent Contacts</CardTitle>
+              <CardDescription>Latest contact form submissions</CardDescription>
+            </CardHeader>
+            <CardContent className="pt-2">
+              {recentContacts.length > 0 ? (
+                <div className="space-y-3">
+                  {recentContacts.map((contact, index) => (
+                    <div key={index} className="flex items-center justify-between py-2 border-b border-border last:border-b-0">
+                      <div>
+                        <p className="font-medium text-sm">
+                          {contact.name}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {contact.email}
+                        </p>
+                        {contact.subject && (
+                          <p className="text-xs text-muted-foreground">
+                            Subject: {contact.subject}
+                          </p>
+                        )}
+                      </div>
+                      <div className="text-right">
+                        <p className="text-xs text-muted-foreground">
+                          {formatDate(contact.createdAt)}
+                        </p>
+                        <span className={`inline-block px-3 py-2 rounded-full text-xs ${
+                          contact.status === 'pending' 
+                            ? 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200'
+                            : contact.status === 'read'
+                            ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
+                            : contact.status === 'replied'
+                            ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                            : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'
+                        }`}>
+                          {contact.status}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                  <Link to="/admin/contacts">
+                    <Button variant="ghost" size="sm" className="w-full mt-3">
+                      View All Contacts →
+                    </Button>
+                  </Link>
+                </div>
+              ) : (
+                <p className="text-muted-foreground text-sm">No recent contacts</p>
               )}
             </CardContent>
           </Card>

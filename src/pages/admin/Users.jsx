@@ -306,10 +306,10 @@ const Users = () => {
                     </div>
                     <div className="flex items-center gap-4">
                       <div className="flex flex-col items-end gap-2">
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getRoleColor(user.role)}`}>
+                        <span className={`px-3 py-2 rounded-full text-xs font-medium ${getRoleColor(user.role)}`}>
                           {user.role}
                         </span>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(user.status || user.accountStatus)}`}>
+                        <span className={`px-3 py-2 rounded-full text-xs font-medium ${getStatusColor(user.status || user.accountStatus)}`}>
                           {user.status || user.accountStatus}
                         </span>
                       </div>

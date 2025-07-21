@@ -31,6 +31,7 @@ const AdminDashboard = lazy(() => import('@/pages/admin/Dashboard'));
 const Users = lazy(() => import('@/pages/admin/Users'));
 const Analytics = lazy(() => import('@/pages/admin/Analytics'));
 const PageViews = lazy(() => import('@/pages/admin/PageViews'));
+const Contacts = lazy(() => import('@/pages/admin/Contacts'));
 
 function App() {
   const [isDesktop, setIsDesktop] = useState(false);
@@ -135,6 +136,11 @@ function App() {
                 <Route path="/admin/page-views" element={
                   <AdminRoute>
                     <PageViews />
+                  </AdminRoute>
+                } />
+                <Route path="/admin/contacts" element={
+                  <AdminRoute>
+                    <Contacts />
                   </AdminRoute>
                 } />
                 
