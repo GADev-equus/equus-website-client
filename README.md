@@ -33,7 +33,7 @@ client/
 │   │   ├── forms/                # Form components (auth, contact, etc.)
 │   │   ├── layout/               # Layout components (UserLayout, AdminLayout)
 │   │   ├── shared/               # Shared components (routing, navigation)
-│   │   ├── Header.jsx            # Main navigation header (clickable)
+│   │   ├── Header.jsx            # Main navigation header with auth-aware navigation
 │   │   ├── Footer.jsx            # Site footer (reduced height)
 │   │   └── ContactForm.jsx       # Contact form with validation
 │   ├── pages/                    # Page components
@@ -312,6 +312,32 @@ The missing frontend profile management functionality has been fully restored, c
 - **✅ Label Consistency**: Left-aligned labels across all forms
 - **✅ Error Handling**: Enhanced error messaging and status indicators
 - **✅ Authentication Flow**: Fixed email verification and password reset URLs
+
+### Auth-Aware Header Navigation (Latest - July 2025)
+Enhanced main header component with authentication-aware navigation providing logout and dashboard access from any page when users are logged in.
+
+#### 🎯 **Problem Solved**
+Previously, users could only access logout and dashboard functionality when on protected pages with UserLayout/AdminLayout. The main header only showed company branding with no authentication awareness.
+
+#### ✅ **Implementation Complete**
+- **Global Navigation**: Main header now shows authentication status and navigation options
+- **Role-Based Dashboard Links**: Automatic routing to appropriate dashboard (user/admin) based on user role
+- **Logout from Any Page**: Users can logout from any page without navigating to protected routes
+- **Responsive Design**: Header navigation adapts to different screen sizes with proper mobile support
+- **Visual Feedback**: Hover effects, loading states, and smooth transitions for better UX
+- **Conditional Rendering**: Clean header for unauthenticated users, enhanced navigation for logged-in users
+
+#### 🔧 **Technical Features**
+- **Authentication Integration**: Uses `useAuth()` hook from AuthContext for state management
+- **Role-Based Routing**: `user.role` determines dashboard destination (`/dashboard` vs `/admin/dashboard`)
+- **Loading States**: Proper logout loading states and error handling
+- **Consistent Styling**: Maintains existing gradient design while adding functional navigation
+- **Welcome Messages**: Personalized greeting with user's first name in header
+
+#### 📄 **Documentation**
+Complete implementation guide available at `/client/docs/auth_user_workflow.md`
+
+**Implementation Date**: July 21, 2025 | **Status**: Production Ready | **Testing**: Verified Working
 
 ### Cold Start Detection System (Latest - July 2025)
 Complete implementation of Solution 1: Frontend Loading States & User Communication for addressing Render.com's free tier cold start delays (50+ seconds).
