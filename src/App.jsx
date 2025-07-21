@@ -4,7 +4,7 @@
  */
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { AuthProvider } from '@/contexts/AuthContext';
 import ProtectedRoute from '@/components/shared/ProtectedRoute';
 import AdminRoute from '@/components/shared/AdminRoute';
@@ -33,25 +33,46 @@ const Analytics = lazy(() => import('@/pages/admin/Analytics'));
 const PageViews = lazy(() => import('@/pages/admin/PageViews'));
 
 function App() {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const checkDesktop = () => {
+      setIsDesktop(window.innerWidth > 1024);
+    };
+    
+    checkDesktop();
+    window.addEventListener('resize', checkDesktop);
+    
+    return () => window.removeEventListener('resize', checkDesktop);
+  }, []);
+
   return (
     <AuthProvider>
       <Router>
-        <div style={{
-          height: '100vh',
-          backgroundColor: 'var(--equus-background-dark)',
-          border: 'var(--equus-border-width) solid var(--equus-border-color)',
-          position: 'relative'
-        }}>
+        <div 
+          className={!isDesktop ? 'non-desktop-layout' : ''}
+          style={{
+            height: isDesktop ? '100vh' : 'auto',
+            minHeight: !isDesktop ? '100vh' : 'auto',
+            backgroundColor: 'var(--equus-background-dark)',
+            border: 'var(--equus-border-width) solid var(--equus-border-color)',
+            position: 'relative',
+            display: !isDesktop ? 'flex' : 'block',
+            flexDirection: !isDesktop ? 'column' : 'row'
+          }}
+        >
           <Header />
           
           <main id="main-content" style={{ 
-            position: 'absolute',
-            top: 'var(--header-height, 120px)', // Will be set by Header component
-            bottom: 'var(--footer-height, 100px)', // Will be set by Footer component
-            left: 0,
-            right: 0,
-            overflow: 'auto',
-            padding: '1rem'
+            position: isDesktop ? 'absolute' : 'static',
+            top: isDesktop ? 'var(--header-height, 120px)' : 'auto',
+            bottom: isDesktop ? 'var(--footer-height, 100px)' : 'auto',
+            left: isDesktop ? 0 : 'auto',
+            right: isDesktop ? 0 : 'auto',
+            overflow: isDesktop ? 'auto' : 'visible',
+            padding: isDesktop ? '1rem' : '1rem',
+            paddingTop: !isDesktop ? `calc(var(--header-height, 120px) + 1rem)` : '1rem',
+            flex: !isDesktop ? 1 : 'none'
           }}>
             <Suspense fallback={
               <LoadingStateWrapper 

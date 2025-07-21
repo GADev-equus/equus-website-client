@@ -236,3 +236,34 @@ input[type="number"] {
     @apply bg-background text-foreground;
   }
 }
+
+/* Non-Desktop Devices - Footer in Document Flow, Sticky Header */
+@media screen and (max-width: 1024px) {
+  /* Container becomes flex to allow normal document flow */
+  .non-desktop-layout {
+    height: auto !important;
+    min-height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  /* Make footer part of document flow - not sticky */
+  footer {
+    position: static !important;
+    bottom: auto !important;
+    margin-top: auto !important; /* Push footer to bottom if content is short */
+  }
+  
+  /* Adjust main content for document flow */
+  #main-content {
+    position: static !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    overflow: visible !important;
+    padding: 1rem !important;
+    padding-top: calc(var(--header-height, 120px) + 1rem) !important;
+    flex: 1 !important; /* Take remaining space */
+  }
+}
