@@ -465,3 +465,4 @@ All cold start detection components are implemented, tested, and integrated. The
 6. Maintain responsive design principles
 7. Ensure form consistency with required field indicators
 8. Use the unified form styling patterns
+9. Implement proper subdomain access control when adding protected resources
