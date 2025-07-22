@@ -67,19 +67,15 @@ const SubdomainRequests = () => {
       if (requestsResponse.success) {
         setRequests(requestsResponse.requests || []);
       } else {
-        console.error('Failed to load requests:', requestsResponse);
         setError(`Failed to load requests: ${requestsResponse.message || 'Unknown error'}`);
       }
       
       if (statsResponse.success) {
         setStats(statsResponse.stats || {});
-      } else {
-        console.error('Failed to load stats:', statsResponse);
-        // Don't fail the whole page if just stats fail
       }
+      // Don't fail the whole page if just stats fail
       
     } catch (err) {
-      console.error('Load requests error:', err);
       setError(`Failed to load subdomain requests: ${err.message || 'Unknown error'}`);
     } finally {
       setLoading(false);
@@ -157,7 +153,6 @@ const SubdomainRequests = () => {
       }
       
     } catch (error) {
-      console.error(`${modalType} request error:`, error);
       toast.error(error.message || `Failed to ${modalType} request. Please try again.`, {
         title: "Error"
       });
@@ -370,19 +365,15 @@ const SubdomainRequests = () => {
               <div className="flex items-end">
                 <Button 
                   onClick={async () => {
-                    console.log('🧪 Testing API endpoints...');
                     try {
                       const statsTest = await subdomainRequestService.getRequestStats();
                       const requestsTest = await subdomainRequestService.getAllRequests({ limit: 10 });
-                      console.log('🧪 Stats test:', statsTest);
-                      console.log('🧪 Requests test:', requestsTest);
                       toast({
                         title: "API Test",
                         description: `Stats: ${JSON.stringify(statsTest?.stats || {})} | Requests: ${requestsTest?.requests?.length || 0}`,
                         duration: 10000
                       });
                     } catch (error) {
-                      console.error('🧪 API test failed:', error);
                       toast({
                         title: "API Test Failed",
                         description: error.message,
@@ -464,19 +455,29 @@ const SubdomainRequests = () => {
                         <div className="flex gap-2">
                           <Button 
                             size="sm" 
-                            variant="default"
+                            variant="outline"
                             onClick={() => handleApproveRequest(request)}
                             disabled={processingRequest === request.id}
-                            className="bg-green-600 hover:bg-green-700"
+                            className="bg-green-600 hover:bg-green-700 text-white border-green-600 focus:ring-green-500 transition-all duration-200 shadow-sm hover:shadow-md disabled:opacity-50"
                           >
-                            {processingRequest === request.id ? 'Processing...' : 'Approve'}
+                            {processingRequest === request.id ? (
+                              <div className="flex items-center gap-2">
+                                <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                <span>Processing...</span>
+                              </div>
+                            ) : (
+                              <div className="flex items-center gap-1">
+                                <span>✓</span>
+                                <span>Approve</span>
+                              </div>
+                            )}
                           </Button>
                           <Button 
                             size="sm" 
                             variant="outline"
                             onClick={() => handleDenyRequest(request)}
                             disabled={processingRequest === request.id}
-                            className="border-red-600 text-red-600 hover:bg-red-50"
+                            className="border-red-500 text-red-600 hover:bg-red-50 hover:border-red-600 focus:ring-red-500 transition-all duration-200 shadow-sm hover:shadow-md disabled:opacity-50"
                           >
                             {processingRequest === request.id ? 'Processing...' : 'Deny'}
                           </Button>

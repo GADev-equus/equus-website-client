@@ -21,33 +21,78 @@ const SubdomainAccessCard = () => {
   const toast = useToast();
   const [loadingStates, setLoadingStates] = useState({});
   const [pendingRequests, setPendingRequests] = useState(new Set());
+  const [approvedRequests, setApprovedRequests] = useState(new Set());
 
   // Get all subdomains with their access status for current user
   const subdomains = getAllSubdomainsWithStatus(user);
   const accessibleSubdomains = subdomains.filter(subdomain => subdomain.hasAccess);
 
   /**
-   * Load user's pending requests on component mount
-   * This ensures the UI shows accurate pending status
+   * Load user's pending and approved requests on component mount
+   * This ensures the UI shows accurate status
    */
   useEffect(() => {
-    const loadPendingRequests = async () => {
+    const loadUserRequests = async () => {
       if (!user) return;
       
       try {
-        const response = await subdomainRequestService.getMyRequests({ status: 'pending' });
+        // Load both pending and approved requests
+        const [pendingResponse, approvedResponse] = await Promise.all([
+          subdomainRequestService.getMyRequests({ status: 'pending' }),
+          subdomainRequestService.getMyRequests({ status: 'approved' })
+        ]);
         
-        if (response.success && response.requests) {
-          const pendingSubdomains = new Set(response.requests.map(req => req.subdomainId));
+        if (pendingResponse.success && pendingResponse.requests) {
+          const pendingSubdomains = new Set(pendingResponse.requests.map(req => req.subdomainId));
           setPendingRequests(pendingSubdomains);
         }
+
+        if (approvedResponse.success && approvedResponse.requests) {
+          // Filter for non-expired approved requests
+          const activeApproved = approvedResponse.requests.filter(req => 
+            !req.expiresAt || new Date(req.expiresAt) > new Date()
+          );
+          const approvedSubdomains = new Set(activeApproved.map(req => req.subdomainId));
+          setApprovedRequests(approvedSubdomains);
+        }
       } catch (error) {
-        console.error('Error loading pending requests:', error);
+        console.error('Error loading user requests:', error);
       }
     };
 
-    loadPendingRequests();
+    loadUserRequests();
   }, [user]);
+
+  /**
+   * Refresh user requests data - useful after admin actions
+   */
+  const refreshUserRequests = async () => {
+    if (!user) return;
+    
+    try {
+      // Reload both pending and approved requests
+      const [pendingResponse, approvedResponse] = await Promise.all([
+        subdomainRequestService.getMyRequests({ status: 'pending' }),
+        subdomainRequestService.getMyRequests({ status: 'approved' })
+      ]);
+      
+      if (pendingResponse.success && pendingResponse.requests) {
+        const pendingSubdomains = new Set(pendingResponse.requests.map(req => req.subdomainId));
+        setPendingRequests(pendingSubdomains);
+      }
+
+      if (approvedResponse.success && approvedResponse.requests) {
+        // Filter for non-expired approved requests
+        const activeApproved = approvedResponse.requests.filter(req => 
+          !req.expiresAt || new Date(req.expiresAt) > new Date()
+        );
+        const approvedSubdomains = new Set(activeApproved.map(req => req.subdomainId));
+        setApprovedRequests(approvedSubdomains);
+      }
+    } catch (error) {
+      console.error('Error refreshing user requests:', error);
+    }
+  };
 
   /**
    * Handle access to protected subdomain
@@ -212,9 +257,15 @@ const SubdomainAccessCard = () => {
         {subdomains.map(subdomain => {
           const config = SUBDOMAIN_CONFIG[subdomain.id];
           const isPending = pendingRequests.has(subdomain.id);
+          const isApproved = approvedRequests.has(subdomain.id);
+          
+          // Override access based on approved requests
+          const hasAccess = subdomain.hasAccess || isApproved;
+          const accessReason = isApproved ? 'accessible' : subdomain.accessReason;
+          
           const statusBadge = getStatusBadgeVariant(
-            subdomain.hasAccess, 
-            subdomain.accessReason, 
+            hasAccess, 
+            accessReason, 
             user?.role, 
             config?.allowedRoles,
             subdomain.id
@@ -222,11 +273,11 @@ const SubdomainAccessCard = () => {
           const isLoading = loadingStates[subdomain.id];
           
           // Check if this is a regular user trying to access admin-only resource
-          const isRequestAccess = !isPending && !subdomain.hasAccess && 
+          const isRequestAccess = !isPending && !hasAccess && 
                                   user?.role === 'user' && 
                                   config?.allowedRoles?.includes('admin') && 
                                   !config?.allowedRoles?.includes('user') &&
-                                  subdomain.accessReason.includes('Contact administrators for access approval');
+                                  accessReason.includes('Contact administrators for access approval');
           
 
           return (
@@ -241,7 +292,7 @@ const SubdomainAccessCard = () => {
                 <div>
                   <h4 className="font-medium text-sm">{subdomain.name}</h4>
                   <p className="text-xs text-muted-foreground">{subdomain.description}</p>
-                  {subdomain.hasAccess ? (
+                  {hasAccess ? (
                     <a 
                       href={config?.url} 
                       target="_blank" 
@@ -252,7 +303,7 @@ const SubdomainAccessCard = () => {
                     </a>
                   ) : (
                     <p className="text-xs text-red-600 mt-1">
-                      {subdomain.accessReason}
+                      {accessReason}
                     </p>
                   )}
                 </div>
@@ -268,9 +319,9 @@ const SubdomainAccessCard = () => {
                 
                 <Button 
                   size="sm" 
-                  variant={subdomain.hasAccess ? "default" : "outline"}
+                  variant={hasAccess ? "default" : "outline"}
                   onClick={() => {
-                    if (subdomain.hasAccess) {
+                    if (hasAccess) {
                       handleSubdomainAccess(subdomain.id);
                     } else if (isRequestAccess) {
                       handleRequestAccess(subdomain.id);
@@ -278,7 +329,7 @@ const SubdomainAccessCard = () => {
                       handleSubdomainAccess(subdomain.id);
                     }
                   }}
-                  disabled={isLoading || isPending || (!subdomain.hasAccess && !isRequestAccess)}
+                  disabled={isLoading || isPending || (!hasAccess && !isRequestAccess)}
                   className="min-w-[100px]"
                 >
                   {isLoading ? (
@@ -289,7 +340,7 @@ const SubdomainAccessCard = () => {
                       </span>
                     </div>
                   ) : (
-                    subdomain.hasAccess 
+                    hasAccess 
                       ? "Access" 
                       : isPending 
                         ? "Pending" 
