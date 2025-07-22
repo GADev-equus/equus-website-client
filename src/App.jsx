@@ -32,6 +32,7 @@ const Users = lazy(() => import('@/pages/admin/Users'));
 const Analytics = lazy(() => import('@/pages/admin/Analytics'));
 const PageViews = lazy(() => import('@/pages/admin/PageViews'));
 const Contacts = lazy(() => import('@/pages/admin/Contacts'));
+const SubdomainRequests = lazy(() => import('@/pages/admin/SubdomainRequests'));
 
 function App() {
   const [isDesktop, setIsDesktop] = useState(false);
@@ -141,6 +142,11 @@ function App() {
                 <Route path="/admin/contacts" element={
                   <AdminRoute>
                     <Contacts />
+                  </AdminRoute>
+                } />
+                <Route path="/admin/subdomain-requests" element={
+                  <AdminRoute>
+                    <SubdomainRequests />
                   </AdminRoute>
                 } />
                 

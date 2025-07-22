@@ -10,11 +10,14 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/com
 import { Button } from '@/components/ui/button';
 import { CardSkeleton, UserListSkeleton } from '@/components/ui/loading-skeletons';
 import ColdStartLoader from '@/components/ui/ColdStartLoader';
+import { useToast } from '@/components/ui/toast';
 import { useColdStartAwareLoading } from '@/hooks/useColdStartAwareLoading';
 import userService from '@/services/userService';
 import adminContactService from '@/services/adminContactService';
+import subdomainRequestService from '@/services/subdomainRequestService';
 
 const Dashboard = () => {
+  const toast = useToast();
   const [stats, setStats] = useState({
     totalUsers: 0,
     activeUsers: 0,
@@ -27,6 +30,12 @@ const Dashboard = () => {
     read: 0,
     replied: 0,
     archived: 0
+  });
+  const [subdomainRequestStats, setSubdomainRequestStats] = useState({
+    total: 0,
+    pending: 0,
+    approved: 0,
+    denied: 0
   });
   const [recentUsers, setRecentUsers] = useState([]);
   const [recentContacts, setRecentContacts] = useState([]);
@@ -76,6 +85,35 @@ const Dashboard = () => {
           read: 0,
           replied: 0,
           archived: 0
+        });
+      }
+
+      // Load subdomain request statistics
+      try {
+        console.log('🔍 Admin Dashboard: Loading subdomain request statistics...');
+        const subdomainStatsResponse = await subdomainRequestService.getRequestStats();
+        console.log('📊 Admin Dashboard: Subdomain stats response:', subdomainStatsResponse);
+        
+        if (subdomainStatsResponse && subdomainStatsResponse.success) {
+          console.log('✅ Admin Dashboard: Subdomain stats loaded:', subdomainStatsResponse.stats);
+          setSubdomainRequestStats(subdomainStatsResponse.stats || {});
+        } else {
+          console.warn('⚠️ Admin Dashboard: Subdomain stats request unsuccessful:', subdomainStatsResponse);
+          setSubdomainRequestStats({
+            total: 0,
+            pending: 0,
+            approved: 0,
+            denied: 0
+          });
+        }
+      } catch (subdomainErr) {
+        console.error('❌ Admin Dashboard: Subdomain request stats error:', subdomainErr);
+        // Don't fail the whole dashboard if subdomain stats fail
+        setSubdomainRequestStats({
+          total: 0,
+          pending: 0,
+          approved: 0,
+          denied: 0
         });
       }
       
@@ -237,7 +275,7 @@ const Dashboard = () => {
         )}
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 equus-gap-lg">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 equus-gap-lg">
           <Card className="equus-card">
             <CardHeader className="pb-3">
               <CardDescription>Total Users</CardDescription>
@@ -297,6 +335,16 @@ const Dashboard = () => {
               <p className="text-xs text-muted-foreground">Need attention</p>
             </CardContent>
           </Card>
+
+          <Card className="equus-card">
+            <CardHeader className="pb-3">
+              <CardDescription>Access Requests</CardDescription>
+              <CardTitle className="text-2xl text-purple-600">{subdomainRequestStats.pending}</CardTitle>
+            </CardHeader>
+            <CardContent className="pt-2">
+              <p className="text-xs text-muted-foreground">Pending approval</p>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Quick Actions and Recent Activity */}
@@ -329,6 +377,16 @@ const Dashboard = () => {
                   {contactStats.pending > 0 && (
                     <span className="ml-auto bg-orange-500 text-white text-xs px-2 py-1 rounded-full">
                       {contactStats.pending}
+                    </span>
+                  )}
+                </Button>
+              </Link>
+              <Link to="/admin/subdomain-requests">
+                <Button variant="outline" className="w-full justify-start">
+                  🔑 Subdomain Requests
+                  {subdomainRequestStats.pending > 0 && (
+                    <span className="ml-auto bg-purple-500 text-white text-xs px-2 py-1 rounded-full">
+                      {subdomainRequestStats.pending}
                     </span>
                   )}
                 </Button>

@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tutorial Platform - Admin Only</title>
+    
+    <!-- Meta tags -->
+    <meta name="description" content="Administrative AI tutorial platform for content management">
+    <meta name="robots" content="noindex,nofollow">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+    
+    <!-- CSS Framework (Tailwind CDN for styling) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Authentication Guard Library (Load BEFORE application scripts) -->
+    <script src="/auth/subdomainAuthGuard.js"></script>
+    <script src="/auth/ai-tutot-guard.js"></script>
+    
+    <style>
+        /* Custom admin styles */
+        .admin-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .admin-card {
+            border-left: 4px solid #6366f1;
+        }
+        
+        .danger-card {
+            border-left: 4px solid #dc2626;
+        }
+        
+        /* Hide app until authenticated */
+        #app {
+            display: none;
+        }
+        
+        /* Admin-specific animations */
+        .admin-pulse {
+            animation: admin-pulse 2s infinite;
+        }
+        
+        @keyframes admin-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        /* Status indicators */
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        
+        .status-online { background: #10b981; }
+        .status-busy { background: #f59e0b; }
+        .status-offline { background: #ef4444; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Admin Application (Hidden until authenticated) -->
+    <div id="app">
+        <!-- Admin Header -->
+        <header class="bg-white shadow-sm border-b sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center gap-3">
+                        <span class="text-3xl">📚</span>
+                        <div>
+                            <h1 class="text-xl font-bold text-gray-900">AI Tutorial Platform</h1>
+                            <p class="text-xs text-red-600 font-medium">ADMIN ONLY ACCESS</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Admin Navigation -->
+                    <nav data-admin-nav class="hidden md:flex items-center gap-6">
+                        <a href="#dashboard" class="text-sm text-gray-600 hover:text-gray-900 font-medium">Dashboard</a>
+                        <a href="#content" class="text-sm text-gray-600 hover:text-gray-900 font-medium">Content</a>
+                        <a href="#users" class="text-sm text-gray-600 hover:text-gray-900 font-medium">Users</a>
+                        <a href="#analytics" class="text-sm text-gray-600 hover:text-gray-900 font-medium">Analytics</a>
+                    </nav>
+                    
+                    <!-- Admin User Info -->
+                    <div class="flex items-center gap-4">
+                        <div class="text-right">
+                            <div class="text-sm font-medium text-gray-900">
+                                <span data-admin-name>Loading...</span>
+                            </div>
+                            <div class="text-xs text-gray-500">
+                                <span data-admin-email>admin@example.com</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-3">
+                            <div class="status-indicator status-online admin-pulse"></div>
+                            <button 
+                                data-admin-logout
+                                class="text-sm text-red-600 hover:text-red-800 px-3 py-1 rounded-md hover:bg-red-50 transition-colors font-medium"
+                            >
+                                Admin Logout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Admin Alert Banner -->
+        <div class="bg-red-50 border-l-4 border-red-400 p-4">
+            <div class="max-w-7xl mx-auto flex items-center">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm text-red-700">
+                        <strong>Administrator Access:</strong> This platform contains sensitive tutorial management tools. All actions are logged and monitored.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <main class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+            <!-- Admin Stats Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Total Tutorials -->
+                <div class="bg-white rounded-lg shadow admin-card p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <span class="text-2xl">📖</span>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Total Tutorials</p>
+                            <p class="text-2xl font-semibold text-gray-900">248</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Users -->
+                <div class="bg-white rounded-lg shadow admin-card p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <span class="text-2xl">👥</span>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Active Users</p>
+                            <p class="text-2xl font-semibold text-gray-900">1,432</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Completion Rate -->
+                <div class="bg-white rounded-lg shadow admin-card p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <span class="text-2xl">📊</span>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Completion Rate</p>
+                            <p class="text-2xl font-semibold text-gray-900">87.3%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pending Reviews -->
+                <div class="bg-white rounded-lg shadow danger-card p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <span class="text-2xl">⚠️</span>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Pending Reviews</p>
+                            <p class="text-2xl font-semibold text-red-600">12</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Action Panels -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <!-- Content Management -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="text-2xl">📝</span>
+                        <h3 class="text-xl font-bold text-gray-900">Content Management</h3>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <button class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                            Create New Tutorial
+                        </button>
+                        <button class="w-full bg-indigo-600 text-white py-3 px-4 rounded-lg hover:bg-indigo-700 transition-colors font-medium">
+                            Manage Existing Content
+                        </button>
+                        <button class="w-full bg-purple-600 text-white py-3 px-4 rounded-lg hover:bg-purple-700 transition-colors font-medium">
+                            Review Pending Content
+                        </button>
+                        <button class="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium">
+                            Publish Content
+                        </button>
+                    </div>
+                </div>
+
+                <!-- User Management -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="text-2xl">👨‍💼</span>
+                        <h3 class="text-xl font-bold text-gray-900">User Management</h3>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <button class="w-full bg-cyan-600 text-white py-3 px-4 rounded-lg hover:bg-cyan-700 transition-colors font-medium">
+                            View All Users
+                        </button>
+                        <button class="w-full bg-teal-600 text-white py-3 px-4 rounded-lg hover:bg-teal-700 transition-colors font-medium">
+                            User Analytics
+                        </button>
+                        <button class="w-full bg-orange-600 text-white py-3 px-4 rounded-lg hover:bg-orange-700 transition-colors font-medium">
+                            Manage Permissions
+                        </button>
+                        <button class="w-full bg-red-600 text-white py-3 px-4 rounded-lg hover:bg-red-700 transition-colors font-medium">
+                            Moderation Tools
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="text-2xl">📈</span>
+                    <h3 class="text-xl font-bold text-gray-900">Recent Admin Activity</h3>
+                </div>
+                
+                <div class="overflow-hidden">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Target</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Timestamp</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Created Tutorial</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">"Advanced Neural Networks"</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2 minutes ago</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        Published
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Updated User Role</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">john.doe@example.com</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">15 minutes ago</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                        Completed
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Reviewed Content</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">"ML Fundamentals Series"</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1 hour ago</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                        Pending
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- System Status -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="text-2xl">⚡</span>
+                    <h3 class="text-xl font-bold text-gray-900">System Status</h3>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="status-indicator status-online mx-auto mb-2"></div>
+                        <p class="text-sm font-medium text-gray-900">API Status</p>
+                        <p class="text-xs text-gray-500">All systems operational</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="status-indicator status-online mx-auto mb-2"></div>
+                        <p class="text-sm font-medium text-gray-900">Database</p>
+                        <p class="text-xs text-gray-500">Response time: 45ms</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="status-indicator status-busy mx-auto mb-2"></div>
+                        <p class="text-sm font-medium text-gray-900">CDN</p>
+                        <p class="text-xs text-gray-500">Minor latency detected</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Admin Footer -->
+        <footer class="bg-gray-900 text-white py-6 mt-12">
+            <div class="max-w-7xl mx-auto px-4 text-center">
+                <div class="flex items-center justify-center gap-2 mb-2">
+                    <span class="text-2xl">📚</span>
+                    <span class="text-lg font-semibold">AI Tutorial Platform - Admin</span>
+                </div>
+                <p class="text-gray-400 text-sm mb-1">
+                    Administrator: <span data-admin-email>admin@example.com</span>
+                </p>
+                <p class="text-gray-500 text-xs">
+                    Secure Admin Session • All actions logged • Equus Systems
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Admin Application JavaScript -->
+    <script>
+        // Admin application initialization (called by auth guard)
+        function initializeAITutotApp(adminUser) {
+            console.log('AI-TUTOT Admin Application initializing for admin:', adminUser);
+            
+            // Initialize admin dashboard
+            initializeAdminDashboard(adminUser);
+            
+            // Initialize tutorial management
+            initializeTutorialManagement(adminUser);
+            
+            // Initialize user management (if applicable)
+            initializeUserManagement(adminUser);
+            
+            // Setup admin action handlers
+            setupAdminActionHandlers();
+            
+            // Start admin session monitoring
+            startAdminSessionMonitoring(adminUser);
+        }
+        
+        // Initialize admin dashboard
+        function initializeAdminDashboard(adminUser) {
+            console.log('Initializing admin dashboard for:', adminUser.email);
+            
+            // Load admin statistics
+            loadAdminStats();
+            
+            // Setup real-time updates
+            setupRealTimeUpdates();
+            
+            // Initialize admin notifications
+            setupAdminNotifications();
+        }
+        
+        // Initialize tutorial management
+        function initializeTutorialManagement(adminUser) {
+            console.log('Initializing tutorial management for admin:', adminUser.email);
+            
+            // Track admin access to tutorial management
+            if (typeof trackAdminAction === 'function') {
+                trackAdminAction('tutorial_management_access', { 
+                    admin: adminUser.email,
+                    timestamp: new Date().toISOString()
+                });
+            }
+        }
+        
+        // Initialize user management
+        function initializeUserManagement(adminUser) {
+            console.log('Initializing user management for admin:', adminUser.email);
+            
+            // Track admin access to user management
+            if (typeof trackAdminAction === 'function') {
+                trackAdminAction('user_management_access', { 
+                    admin: adminUser.email,
+                    timestamp: new Date().toISOString()
+                });
+            }
+        }
+        
+        // Setup admin action handlers
+        function setupAdminActionHandlers() {
+            // Content management buttons
+            const contentButtons = document.querySelectorAll('button[class*="bg-blue-600"], button[class*="bg-indigo-600"], button[class*="bg-purple-600"], button[class*="bg-green-600"]');
+            contentButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const action = e.target.textContent.trim();
+                    console.log('Admin content action:', action);
+                    
+                    // Track admin action
+                    if (typeof trackAdminAction === 'function') {
+                        trackAdminAction('content_management', { 
+                            action: action,
+                            timestamp: new Date().toISOString()
+                        });
+                    }
+                    
+                    // Show admin confirmation (in real app, this would load the actual interface)
+                    if (confirm(`Execute admin action: "${action}"?\n\nThis action will be logged for audit purposes.`)) {
+                        alert(`Admin action "${action}" would execute here.\n\nAdmin: ${window.aiTutotAdmin?.firstName} ${window.aiTutotAdmin?.lastName}`);
+                    }
+                });
+            });
+            
+            // User management buttons
+            const userButtons = document.querySelectorAll('button[class*="bg-cyan-600"], button[class*="bg-teal-600"], button[class*="bg-orange-600"], button[class*="bg-red-600"]');
+            userButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const action = e.target.textContent.trim();
+                    console.log('Admin user management action:', action);
+                    
+                    // Track admin action
+                    if (typeof trackAdminAction === 'function') {
+                        trackAdminAction('user_management', { 
+                            action: action,
+                            timestamp: new Date().toISOString()
+                        });
+                    }
+                    
+                    // Show admin confirmation for sensitive actions
+                    const sensitiveActions = ['Manage Permissions', 'Moderation Tools'];
+                    const isSensitive = sensitiveActions.some(sa => action.includes(sa));
+                    
+                    const message = isSensitive 
+                        ? `SENSITIVE ADMIN ACTION: "${action}"\n\nThis action affects user permissions and is heavily audited.\nContinue?`
+                        : `Execute admin action: "${action}"?`;
+                    
+                    if (confirm(message)) {
+                        alert(`Admin action "${action}" would execute here.\n\nAdmin: ${window.aiTutotAdmin?.email}\nLogged: ${new Date().toLocaleString()}`);
+                    }
+                });
+            });
+        }
+        
+        // Load admin statistics
+        function loadAdminStats() {
+            console.log('Loading admin statistics...');
+            
+            // Simulate loading stats (in real app, this would fetch from API)
+            const stats = {
+                totalTutorials: 248,
+                activeUsers: 1432,
+                completionRate: 87.3,
+                pendingReviews: 12
+            };
+            
+            console.log('Admin stats loaded:', stats);
+        }
+        
+        // Setup real-time updates
+        function setupRealTimeUpdates() {
+            console.log('Setting up real-time admin updates...');
+            
+            // Simulate periodic updates (in real app, this would use WebSockets or polling)
+            setInterval(() => {
+                const timestamp = new Date().toLocaleTimeString();
+                console.log('Admin dashboard updated at:', timestamp);
+                
+                // Update activity table or stats here
+            }, 30000); // Every 30 seconds
+        }
+        
+        // Setup admin notifications
+        function setupAdminNotifications() {
+            console.log('Setting up admin notifications...');
+            
+            // Check for pending reviews, system alerts, etc.
+            setTimeout(() => {
+                if (window.aiTutotAdmin) {
+                    console.log('Admin notification: 12 items pending review');
+                    
+                    // In real app, show notification system
+                }
+            }, 5000);
+        }
+        
+        // Start admin session monitoring
+        function startAdminSessionMonitoring(adminUser) {
+            console.log('Starting admin session monitoring for:', adminUser.email);
+            
+            // Monitor admin activity
+            let lastActivity = Date.now();
+            
+            // Track user interaction
+            ['click', 'keypress', 'mousemove'].forEach(eventType => {
+                document.addEventListener(eventType, () => {
+                    lastActivity = Date.now();
+                }, { passive: true });
+            });
+            
+            // Check for inactivity
+            setInterval(() => {
+                const inactiveTime = Date.now() - lastActivity;
+                const maxInactivity = 30 * 60 * 1000; // 30 minutes
+                
+                if (inactiveTime > maxInactivity) {
+                    console.log('Admin session inactive, showing warning');
+                    
+                    const shouldContinue = confirm(
+                        'Admin Session Warning\n\n' +
+                        'Your admin session has been inactive for 30 minutes.\n' +
+                        'Continue session?'
+                    );
+                    
+                    if (shouldContinue) {
+                        lastActivity = Date.now();
+                        if (typeof trackAdminAction === 'function') {
+                            trackAdminAction('session_extended', {
+                                reason: 'inactivity_warning',
+                                timestamp: new Date().toISOString()
+                            });
+                        }
+                    } else {
+                        // Auto logout
+                        alert('Admin session ended due to inactivity.');
+                        window.location.href = 'https://equussystems.co/admin/dashboard';
+                    }
+                }
+            }, 60000); // Check every minute
+        }
+        
+        // Handle page load
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('AI-TUTOT Admin page loaded, waiting for admin authentication...');
+        });
+        
+        // Handle auth errors
+        window.addEventListener('subdomainAuthError', (event) => {
+            console.error('AI-TUTOT Auth Error:', event.detail);
+            
+            // Show admin-specific error message
+            document.body.innerHTML = `
+                <div class="min-h-screen flex items-center justify-center bg-red-50">
+                    <div class="max-w-md mx-auto text-center p-6 bg-white rounded-lg shadow-lg border-l-4 border-red-500">
+                        <div class="text-4xl mb-4">🚫</div>
+                        <h2 class="text-xl font-semibold text-gray-900 mb-2">Admin Access Denied</h2>
+                        <p class="text-gray-600 mb-4">Unable to authenticate admin access to AI Tutorial Platform.</p>
+                        <p class="text-sm text-red-600 mb-4">This platform requires administrator privileges.</p>
+                        <a href="https://equussystems.co/admin/dashboard" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">
+                            Return to Admin Dashboard
+                        </a>
+                    </div>
+                </div>
+            `;
+        });
+        
+        // Admin page visibility tracking
+        document.addEventListener('visibilitychange', () => {
+            if (window.aiTutotAdmin && typeof trackAdminAction === 'function') {
+                trackAdminAction('page_visibility', {
+                    state: document.hidden ? 'hidden' : 'visible',
+                    timestamp: new Date().toISOString()
+                });
+            }
+        });
+    </script>
+</body>
+</html>

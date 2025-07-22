@@ -8,6 +8,7 @@ import authService from '../services/authService.js';
 import errorService from '../services/errorService.js';
 import { useToast } from '../components/ui/toast.jsx';
 import { useColdStartAwareLoading } from '../hooks/useColdStartAwareLoading.js';
+import { clearSubdomainAuthCookies } from '../utils/subdomainAccess.js';
 
 const AuthContext = createContext();
 
@@ -112,7 +113,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, [toast]);
 
-  const login = useCallback(async (email, password) => {
+  const login = useCallback(async (email, password, rememberMe = false) => {
     setLoading(true);
     setAuthError(null);
     try {
@@ -121,6 +122,10 @@ export const AuthProvider = ({ children }) => {
         setUser(result.user);
         setIsAuthenticated(true);
         setTokenExpiry(authService.getTokenExpiration());
+        
+        // Set domain-wide cookies for subdomain access
+        setSubdomainAuthCookies(result.token, result.refreshToken, rememberMe);
+        
         toast.success(`Welcome back, ${result.user.firstName}!`);
       } else {
         setAuthError(result.message);
@@ -149,6 +154,10 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(false);
       setAuthError(null);
       setTokenExpiry(null);
+      
+      // Clear domain-wide cookies for subdomain access
+      clearSubdomainAuthCookies();
+      
       toast.info('You have been signed out successfully');
       return result;
     } catch (error) {
@@ -158,6 +167,10 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(false);
       setAuthError(null);
       setTokenExpiry(null);
+      
+      // Still clear cookies even if server logout fails
+      clearSubdomainAuthCookies();
+      
       return { success: true, message: 'Signed out successfully' };
     } finally {
       setLoading(false);
@@ -286,6 +299,123 @@ export const AuthProvider = ({ children }) => {
     return user.permissions?.includes(permission) || false;
   };
 
+  // Subdomain authentication cookie management
+  const setSubdomainAuthCookies = useCallback((token, refreshToken, persistent = false) => {
+    try {
+      const domain = '.equussystems.co'; // Available to all subdomains
+      const maxAge = persistent ? 7 * 24 * 60 * 60 : null; // 7 days or session
+      const cookieOptions = `Domain=${domain}; Path=/; ${persistent && maxAge ? `Max-Age=${maxAge}` : ''}; Secure; SameSite=Lax`;
+
+      // Set auth token cookie for subdomain access
+      document.cookie = `equus_subdomain_auth=${token}; ${cookieOptions}`;
+      
+      // Set refresh token cookie if available
+      if (refreshToken) {
+        document.cookie = `equus_subdomain_refresh=${refreshToken}; ${cookieOptions}`;
+      }
+
+      // Set authentication indicator cookie
+      document.cookie = `equus_subdomain_indicator=authenticated; ${cookieOptions}`;
+      
+      // Also set fallback auth cookie for broader compatibility
+      document.cookie = `equus_auth_fallback=${token}; ${cookieOptions}`;
+      
+      console.log('✅ Subdomain authentication cookies set for domain-wide access');
+    } catch (error) {
+      console.warn('Could not set subdomain authentication cookies:', error);
+    }
+  }, []);
+
+  // Enhanced force logout that also clears subdomain cookies
+  const forceLogoutWithSubdomainCleanup = useCallback(() => {
+    authService.clearAuth();
+    setUser(null);
+    setIsAuthenticated(false);
+    setAuthError(null);
+    setTokenExpiry(null);
+    
+    // Clear subdomain cookies
+    clearSubdomainAuthCookies();
+    
+    toast.warning('Session terminated for security reasons');
+  }, [toast]);
+
+  // Check if user has subdomain access permissions
+  const hasSubdomainAccess = useCallback((subdomain) => {
+    if (!user || !isAuthenticated) return false;
+
+    const subdomainPermissions = {
+      'ai-trl': ['admin', 'user'],
+      'ai-tutot': ['admin']
+    };
+
+    const allowedRoles = subdomainPermissions[subdomain];
+    if (!allowedRoles) return false;
+
+    // Check role permission
+    if (!allowedRoles.includes(user.role)) return false;
+
+    // Check email verification (required for subdomain access)
+    if (!user.emailVerified) return false;
+
+    // Check account status
+    if (!user.isActive || user.accountStatus !== 'active' || user.isLocked) return false;
+
+    return true;
+  }, [user, isAuthenticated]);
+
+  // Get accessible subdomains for current user
+  const getAccessibleSubdomains = useCallback(() => {
+    if (!user || !isAuthenticated) return [];
+
+    const allSubdomains = ['ai-trl', 'ai-tutot'];
+    return allSubdomains.filter(subdomain => hasSubdomainAccess(subdomain));
+  }, [user, isAuthenticated, hasSubdomainAccess]);
+
+  // Enhanced refresh token that also updates subdomain cookies
+  const refreshTokenWithSubdomainUpdate = useCallback(async () => {
+    try {
+      const result = await authService.refreshAuthToken();
+      if (result.success) {
+        setUser(authService.getUser());
+        setIsAuthenticated(true);
+        setTokenExpiry(authService.getTokenExpiration());
+        setAuthError(null);
+        
+        // Update subdomain cookies with new tokens
+        const newToken = localStorage.getItem('equus_auth_token') || sessionStorage.getItem('equus_auth_token');
+        const newRefreshToken = localStorage.getItem('equus_refresh_token') || sessionStorage.getItem('equus_refresh_token');
+        
+        if (newToken) {
+          const isPersistent = localStorage.getItem('equus_auth_token') !== null;
+          setSubdomainAuthCookies(newToken, newRefreshToken, isPersistent);
+        }
+        
+      } else {
+        setUser(null);
+        setIsAuthenticated(false);
+        setTokenExpiry(null);
+        setAuthError('Session expired. Please sign in again.');
+        
+        // Clear subdomain cookies on refresh failure
+        clearSubdomainAuthCookies();
+      }
+      return result;
+    } catch (error) {
+      console.error('Token refresh error:', error);
+      errorService.handleError(error, 'auth:refreshToken');
+      setUser(null);
+      setIsAuthenticated(false);
+      setTokenExpiry(null);
+      setAuthError('Session expired. Please sign in again.');
+      
+      // Clear subdomain cookies on error
+      clearSubdomainAuthCookies();
+      
+      return { success: false, error: error.message };
+    }
+  }, [setSubdomainAuthCookies]);
+
   const value = useMemo(() => ({
     // State
     user,
@@ -304,15 +434,20 @@ export const AuthProvider = ({ children }) => {
     verifyEmail,
     updateProfile,
     changePassword,
-    refreshToken,
+    refreshToken: refreshTokenWithSubdomainUpdate, // Enhanced with subdomain cookie support
     clearAuthError,
-    forceLogout,
+    forceLogout: forceLogoutWithSubdomainCleanup, // Enhanced with subdomain cookie cleanup
     
     // Utilities
     isAdmin,
     hasPermission,
     isTokenExpiringSoon,
     getUserInitials,
+    
+    // Subdomain utilities
+    hasSubdomainAccess,
+    getAccessibleSubdomains,
+    setSubdomainAuthCookies,
   }), [
     user,
     loading,
@@ -327,13 +462,16 @@ export const AuthProvider = ({ children }) => {
     verifyEmail,
     updateProfile,
     changePassword,
-    refreshToken,
+    refreshTokenWithSubdomainUpdate,
     clearAuthError,
-    forceLogout,
+    forceLogoutWithSubdomainCleanup,
     isAdmin,
     hasPermission,
     isTokenExpiringSoon,
     getUserInitials,
+    hasSubdomainAccess,
+    getAccessibleSubdomains,
+    setSubdomainAuthCookies,
     // Cold start state
     isColdStart,
     shouldShowColdStartUI,

@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { CardSkeleton } from '@/components/ui/loading-skeletons';
 import ColdStartLoader from '@/components/ui/ColdStartLoader';
+import SubdomainAccessCard from '@/components/subdomain/SubdomainAccessCard';
 import { useAuth } from '@/contexts/AuthContext';
 import { useColdStartAwareLoading } from '@/hooks/useColdStartAwareLoading';
 import authService from '@/services/authService';
@@ -271,6 +272,9 @@ const Dashboard = () => {
             </CardContent>
           </Card>
         </div>
+
+        {/* Protected Resources Access */}
+        <SubdomainAccessCard />
 
         {/* Security Information */}
         <Card className="equus-card">

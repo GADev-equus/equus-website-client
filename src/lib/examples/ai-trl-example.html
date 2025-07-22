@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Training & Learning Platform</title>
+    
+    <!-- Meta tags -->
+    <meta name="description" content="Advanced AI training resources and learning platform">
+    <meta name="robots" content="noindex,nofollow">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+    
+    <!-- CSS Framework (Tailwind CDN for styling) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Authentication Guard Library (Load BEFORE application scripts) -->
+    <script src="/auth/subdomainAuthGuard.js"></script>
+    <script src="/auth/ai-trl-guard.js"></script>
+    
+    <style>
+        /* Custom styles for the application */
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Hide app until authenticated */
+        #app {
+            display: none;
+        }
+        
+        /* Loading skeleton styles */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Main Application (Hidden until authenticated) -->
+    <div id="app">
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b sticky top-0 z-40">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center gap-3">
+                        <span class="text-3xl">🤖</span>
+                        <div>
+                            <h1 class="text-xl font-bold text-gray-900">AI Training Platform</h1>
+                            <p class="text-xs text-gray-500">Advanced Machine Learning Resources</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-4">
+                        <div class="text-sm text-gray-600">
+                            Welcome, <span data-user-name class="font-medium">Loading...</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span data-user-role class="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full font-medium">user</span>
+                            <button 
+                                data-logout
+                                class="text-sm text-gray-500 hover:text-gray-700 px-3 py-1 rounded-md hover:bg-gray-100 transition-colors"
+                            >
+                                Logout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero-gradient text-white py-20">
+            <div class="max-w-4xl mx-auto px-4 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                    AI Training & Learning Platform
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-90">
+                    Advanced machine learning resources, tutorials, and training modules for authenticated users
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <div class="glass-card px-6 py-3 rounded-lg">
+                        <span class="font-semibold">Secure Access</span>
+                    </div>
+                    <div class="glass-card px-6 py-3 rounded-lg">
+                        <span class="font-semibold">Role-Based Content</span>
+                    </div>
+                    <div class="glass-card px-6 py-3 rounded-lg">
+                        <span class="font-semibold">Real-time Learning</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <!-- User Dashboard -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <!-- Training Modules -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-2xl">📚</span>
+                        <h3 class="text-lg font-semibold text-gray-900">Training Modules</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Access structured learning paths and training materials.</p>
+                    <button class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                        Browse Modules
+                    </button>
+                </div>
+
+                <!-- AI Labs -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-2xl">🧪</span>
+                        <h3 class="text-lg font-semibold text-gray-900">AI Labs</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Hands-on experiments and interactive learning environments.</p>
+                    <button class="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors">
+                        Enter Labs
+                    </button>
+                </div>
+
+                <!-- Progress Tracking -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-2xl">📊</span>
+                        <h3 class="text-lg font-semibold text-gray-900">Progress</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Track your learning progress and achievements.</p>
+                    <button class="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
+                        View Progress
+                    </button>
+                </div>
+            </div>
+
+            <!-- Admin Only Section -->
+            <div data-admin-only style="display: none;" class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mb-8">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-2xl">⚙️</span>
+                    <h3 class="text-lg font-semibold text-gray-900">Admin Controls</h3>
+                </div>
+                <p class="text-gray-600 mb-4">Administrative functions for content and user management.</p>
+                <div class="flex gap-4">
+                    <button class="bg-orange-600 text-white py-2 px-4 rounded-lg hover:bg-orange-700 transition-colors">
+                        Manage Content
+                    </button>
+                    <button class="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">
+                        User Analytics
+                    </button>
+                </div>
+            </div>
+
+            <!-- Featured Content -->
+            <section class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Featured Training Resources</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-semibold text-gray-900 mb-2">Machine Learning Fundamentals</h4>
+                        <p class="text-gray-600 text-sm mb-3">Complete introduction to ML concepts and algorithms.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-gray-500">12 modules • 4 hours</span>
+                            <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Start Learning</button>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-semibold text-gray-900 mb-2">Deep Learning with PyTorch</h4>
+                        <p class="text-gray-600 text-sm mb-3">Advanced neural network training and optimization.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-gray-500">8 modules • 6 hours</span>
+                            <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-8 mt-12">
+            <div class="max-w-7xl mx-auto px-4 text-center">
+                <div class="flex items-center justify-center gap-2 mb-4">
+                    <span class="text-2xl">🤖</span>
+                    <span class="text-lg font-semibold">AI Training Platform</span>
+                </div>
+                <p class="text-gray-400 text-sm mb-2">
+                    Authenticated User: <span data-user-email>loading@example.com</span>
+                </p>
+                <p class="text-gray-500 text-xs">
+                    Powered by Equus Systems • Secure Authentication Active
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Application JavaScript -->
+    <script>
+        // Application initialization function (called by auth guard)
+        function initializeAITRLApp(user) {
+            console.log('AI-TRL Application initializing for user:', user);
+            
+            // Application is already visible due to auth guard
+            // Add any additional initialization logic here
+            
+            // Example: Initialize training modules
+            initializeTrainingModules(user);
+            
+            // Example: Load user progress
+            loadUserProgress(user);
+            
+            // Setup interactive features
+            setupInteractiveFeatures();
+        }
+        
+        // Example training modules initialization
+        function initializeTrainingModules(user) {
+            console.log('Loading training modules for', user.role, 'user');
+            
+            // Simulate loading modules based on user role
+            if (user.role === 'admin') {
+                console.log('Loading admin training modules');
+                // Add admin-specific modules
+            } else {
+                console.log('Loading user training modules');
+                // Add user-specific modules
+            }
+        }
+        
+        // Example user progress loading
+        function loadUserProgress(user) {
+            console.log('Loading progress for user:', user.email);
+            
+            // Simulate progress loading
+            // In real app, this would fetch from API
+            const mockProgress = {
+                completedModules: 5,
+                totalModules: 12,
+                currentLevel: 'Intermediate',
+                achievements: ['First Module', 'Week Streak']
+            };
+            
+            console.log('User progress loaded:', mockProgress);
+        }
+        
+        // Setup interactive features
+        function setupInteractiveFeatures() {
+            // Add click handlers for training modules
+            const moduleButtons = document.querySelectorAll('button');
+            moduleButtons.forEach(button => {
+                if (button.textContent.includes('Browse') || 
+                    button.textContent.includes('Enter') || 
+                    button.textContent.includes('View')) {
+                    button.addEventListener('click', (e) => {
+                        const action = e.target.textContent;
+                        console.log('User clicked:', action);
+                        
+                        // In real app, this would navigate or load content
+                        alert(`${action} functionality would load here. User: ${window.aiTrlUser?.firstName}`);
+                    });
+                }
+            });
+            
+            // Setup learning action tracking
+            const learningButtons = document.querySelectorAll('button[class*="text-blue-600"]');
+            learningButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const action = e.target.textContent;
+                    console.log('Learning action:', action, 'by user:', window.aiTrlUser?.email);
+                    
+                    // Track learning engagement
+                    // In real app, this would send analytics
+                });
+            });
+        }
+        
+        // Handle page load
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('AI-TRL page loaded, waiting for authentication...');
+        });
+        
+        // Handle auth errors
+        window.addEventListener('subdomainAuthError', (event) => {
+            console.error('AI-TRL Auth Error:', event.detail);
+            
+            // Show user-friendly error message
+            document.body.innerHTML = `
+                <div class="min-h-screen flex items-center justify-center bg-gray-50">
+                    <div class="max-w-md mx-auto text-center p-6 bg-white rounded-lg shadow-lg">
+                        <div class="text-4xl mb-4">🚫</div>
+                        <h2 class="text-xl font-semibold text-gray-900 mb-2">Access Error</h2>
+                        <p class="text-gray-600 mb-4">Unable to authenticate access to AI Training Platform.</p>
+                        <a href="https://equussystems.co/auth/signin" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                            Return to Login
+                        </a>
+                    </div>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>
