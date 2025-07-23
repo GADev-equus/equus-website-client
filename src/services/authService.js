@@ -292,8 +292,18 @@ class AuthService {
     this.refreshToken = refreshToken;
     this.user = user;
 
-    // Only store user data in localStorage (tokens are in HTTP-only cookies)
+    // Store user data in localStorage
     this.saveUserToStorage(user);
+    
+    // ALSO store tokens in localStorage for subdomain access
+    // This allows subdomains to access the JWT token for authentication
+    if (token) {
+      localStorage.setItem(TOKEN_KEY, token);
+      console.log('🔑 Stored JWT token in localStorage for subdomain access');
+    }
+    if (refreshToken) {
+      localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
+    }
 
     // Don't set Authorization header - cookies handle authentication automatically
     // Remove any existing Authorization header
