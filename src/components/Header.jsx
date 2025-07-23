@@ -58,12 +58,13 @@ const Header = () => {
       gap: '1rem'
     }}>
       {/* Branding Section */}
-      <div style={{ textAlign: 'left', flex: '1 1 auto' }}>
+      <div>
+ <div style={{ textAlign: 'center', flex: '1 1 auto' }}>
         <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
           <h1 className="font-bold" style={{ 
-            fontSize: '1.8rem', 
+            fontSize: '2rem', 
             letterSpacing: 'var(--equus-letter-spacing-tight)',
-            fontFamily: 'var(--equus-font-display)',
+            fontFamily: 'var(--equus-font-branding)',
             marginBottom: '0.25rem',
             cursor: 'pointer',
             transition: 'opacity 0.2s ease'
@@ -72,11 +73,15 @@ const Header = () => {
           </h1>
         </Link>
         <p className="opacity-90 font-light" style={{ 
-          fontSize: '0.9rem' 
+          fontSize: '0.7rem',
+          textAlign: 'center',
+          margin: '0'
         }}>
           ADVANCED AI SOLUTIONS & CONSULTING
         </p>
       </div>
+      </div>
+     
 
       {/* Authentication Navigation */}
       {isAuthenticated && user && (
