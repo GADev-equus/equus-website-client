@@ -197,6 +197,7 @@ class HttpService {
     let config = {
       method: 'GET',
       headers: { ...this.defaultHeaders, ...options.headers },
+      credentials: 'include', // Always include cookies for cross-origin requests
       ...options,
     };
 

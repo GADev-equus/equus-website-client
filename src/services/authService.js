@@ -18,27 +18,46 @@ class AuthService {
   }
 
   /**
-   * Initialize authentication state from localStorage
+   * Initialize authentication state from localStorage and cookies
+   * Cookies take precedence for tokens, localStorage for user data
    */
   initializeFromStorage() {
     try {
-      const token = localStorage.getItem(TOKEN_KEY);
-      const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+      // Try to get user data from localStorage (keep this for user info)
       const userData = localStorage.getItem(USER_KEY);
-
-      if (token && userData) {
-        this.token = token;
-        this.refreshToken = refreshToken;
+      
+      // For tokens, we now rely on HTTP-only cookies
+      // The tokens are automatically sent with requests via cookies
+      // We only need to store user data in localStorage
+      if (userData) {
         this.user = JSON.parse(userData);
         
-        // Set default authorization header
-        httpService.setDefaultHeaders({
-          Authorization: `Bearer ${token}`
-        });
+        // Don't set Authorization header - cookies handle authentication
+        // But we can check if cookies exist by making a validation request
+        this.validateCookieAuth();
       }
     } catch (error) {
       console.error('Error initializing auth from storage:', error);
       this.clearStorage();
+    }
+  }
+
+  /**
+   * Validate cookie-based authentication
+   */
+  async validateCookieAuth() {
+    try {
+      // Make a request to validate token (cookies will be sent automatically)
+      const response = await httpService.get('/api/auth/validate-token');
+      if (response.success && response.user) {
+        // Update user data if token is valid
+        this.user = response.user;
+        this.saveUserToStorage(response.user);
+      }
+    } catch (error) {
+      // Cookie auth failed, clear user data
+      console.log('Cookie authentication not valid, clearing user data');
+      this.clearAuth();
     }
   }
 
@@ -185,9 +204,9 @@ class AuthService {
         throw new Error('No refresh token available');
       }
 
-      const response = await httpService.post('/api/auth/refresh', {
-        refreshToken: this.refreshToken
-      });
+      // For cookie-based auth, we don't need to send refresh token in body
+      // The refresh token cookie will be sent automatically
+      const response = await httpService.post('/api/auth/refresh', {});
 
       if (response.token) {
         this.setAuthData(response.token, response.refreshToken || this.refreshToken, this.user);
@@ -262,28 +281,27 @@ class AuthService {
 
   /**
    * Set authentication data
-   * @param {string} token - JWT token
-   * @param {string} refreshToken - Refresh token
+   * Note: Tokens are now stored in HTTP-only cookies by the server
+   * @param {string} token - JWT token (optional, for backward compatibility)
+   * @param {string} refreshToken - Refresh token (optional, for backward compatibility)
    * @param {Object} user - User data
    */
-  setAuthData(token, refreshToken, user) {
+  setAuthData(token = null, refreshToken = null, user) {
+    // Store tokens in memory for potential fallback use
     this.token = token;
     this.refreshToken = refreshToken;
     this.user = user;
 
-    // Store in localStorage
-    localStorage.setItem(TOKEN_KEY, token);
-    if (refreshToken) {
-      localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
-    }
-    localStorage.setItem(USER_KEY, JSON.stringify(user));
+    // Only store user data in localStorage (tokens are in HTTP-only cookies)
+    this.saveUserToStorage(user);
 
-    // Set default authorization header
+    // Don't set Authorization header - cookies handle authentication automatically
+    // Remove any existing Authorization header
     httpService.setDefaultHeaders({
-      Authorization: `Bearer ${token}`
+      Authorization: undefined
     });
 
-    // Setup automatic token refresh
+    // Setup automatic token refresh (still needed for cookie-based auth)
     this.setupTokenRefresh();
   }
 
@@ -313,11 +331,27 @@ class AuthService {
 
   /**
    * Clear localStorage
+   * Note: Tokens are now stored in HTTP-only cookies and cleared by the server
    */
   clearStorage() {
+    // Only clear user data from localStorage
+    // Tokens are in HTTP-only cookies and can't be accessed from JavaScript
+    localStorage.removeItem(USER_KEY);
+    
+    // Legacy cleanup (in case old tokens exist)
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(REFRESH_TOKEN_KEY);
-    localStorage.removeItem(USER_KEY);
+  }
+
+  /**
+   * Save user data to localStorage
+   */
+  saveUserToStorage(userData) {
+    try {
+      localStorage.setItem(USER_KEY, JSON.stringify(userData));
+    } catch (error) {
+      console.error('Error saving user data to storage:', error);
+    }
   }
 
   /**
