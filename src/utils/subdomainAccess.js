@@ -10,7 +10,7 @@ import authService from '@/services/authService';
  * Subdomain configuration and access rules
  */
 const SUBDOMAIN_CONFIG = {
-  'ai-trl': {
+  'ai-tfl': {
     name: 'AI Training & Learning Platform',
     description: 'Machine learning training resources',
     icon: '🤖',
@@ -18,7 +18,7 @@ const SUBDOMAIN_CONFIG = {
     requireEmailVerification: true,
     url: 'https://ai-tfl.equussystems.co'
   },
-  'ai-tutot': {
+  'ai-tutor': {
     name: 'AI Tutorial Platform',
     description: 'Advanced AI tutorials and documentation',
     icon: '📚',
