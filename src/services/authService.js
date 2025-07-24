@@ -292,18 +292,13 @@ class AuthService {
     this.refreshToken = refreshToken;
     this.user = user;
 
-    // Store user data in localStorage
+    // Store user data in localStorage (this is fine - user data doesn't need to be shared)
     this.saveUserToStorage(user);
     
-    // ALSO store tokens in localStorage for subdomain access
-    // This allows subdomains to access the JWT token for authentication
-    if (token) {
-      localStorage.setItem(TOKEN_KEY, token);
-      console.log('🔑 Stored JWT token in localStorage for subdomain access');
-    }
-    if (refreshToken) {
-      localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
-    }
+    // For production, tokens are managed via HTTP-only cookies (set by server)
+    // Cookies with domain='.equussystems.co' automatically work across subdomains
+    // localStorage cannot be shared across different domains due to Same-Origin Policy
+    console.log('🍪 Authentication tokens managed via HTTP-only cookies for subdomain access');
 
     // Don't set Authorization header - cookies handle authentication automatically
     // Remove any existing Authorization header
