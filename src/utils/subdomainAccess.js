@@ -88,12 +88,9 @@ export const accessProtectedSubdomain = async (subdomain, options = {}) => {
 
     // Get JWT token from authService (works with current token management)
     const currentUser = await authService.getCurrentUser();
-    console.log('🔍 SubdomainAccess - Current user result:', currentUser.success);
-    console.log('🔍 SubdomainAccess - AuthService token available:', !!authService.token);
     
     if (!currentUser.success || !authService.token) {
       const errorMessage = "Authentication token not found. Please log in again.";
-      console.log('❌ SubdomainAccess - No token available for URL appending');
       if (onNotification) {
         onNotification({
           title: "Authentication Error",
@@ -105,7 +102,6 @@ export const accessProtectedSubdomain = async (subdomain, options = {}) => {
     }
 
     const token = authService.token;
-    console.log('🔑 SubdomainAccess - Token found, appending to URL:', token ? token.substring(0, 20) + '...' : 'NULL');
 
     // Show loading state
     if (onNotification) {

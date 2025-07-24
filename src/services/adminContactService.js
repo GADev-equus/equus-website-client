@@ -28,9 +28,7 @@ const adminContactService = {
       const queryString = queryParams.toString();
       const url = queryString ? `/api/contacts?${queryString}` : '/api/contacts';
       
-      console.log('Making getAllContacts request to:', url);
       const response = await httpService.get(url);
-      console.log('getAllContacts response:', response);
       return response;
     } catch (error) {
       console.error('Get all contacts error:', error);

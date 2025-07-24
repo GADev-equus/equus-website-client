@@ -127,18 +127,14 @@ const SubdomainAccessCard = () => {
    * @param {string} subdomainId - The subdomain identifier
    */
   const handleRequestAccess = async (subdomainId) => {
-    console.log(`📝 handleRequestAccess called for ${subdomainId}`);
     try {
       setLoadingStates(prev => ({ ...prev, [subdomainId]: true }));
 
-      console.log(`📡 Making API request to submit access request for ${subdomainId}`);
       // Submit actual request to backend
       const response = await subdomainRequestService.submitRequest(
         subdomainId,
         `User requesting access to ${getSubdomainName(subdomainId)} from dashboard`
       );
-
-      console.log(`📡 API response for ${subdomainId}:`, response);
 
       if (response.success) {
         // Add to pending requests set for immediate UI update
@@ -154,12 +150,6 @@ const SubdomainAccessCard = () => {
       }
 
     } catch (error) {
-      console.error(`❌ Error requesting access to ${subdomainId}:`, error);
-      console.error(`❌ Error details:`, {
-        message: error.message,
-        stack: error.stack,
-        subdomainId
-      });
       
       // Handle specific error cases
       let errorMessage = 'Failed to submit access request. Please try again.';
@@ -327,21 +317,11 @@ const SubdomainAccessCard = () => {
                   size="sm" 
                   variant={hasAccess ? "default" : "outline"}
                   onClick={() => {
-                    console.log(`🔍 Button clicked for ${subdomain.id}:`, {
-                      hasAccess,
-                      isRequestAccess,
-                      userRole: user?.role,
-                      allowedRoles: config?.allowedRoles
-                    });
-                    
                     if (hasAccess) {
-                      console.log(`✅ ${subdomain.id}: User has access, calling handleSubdomainAccess`);
                       handleSubdomainAccess(subdomain.id);
                     } else if (isRequestAccess) {
-                      console.log(`📝 ${subdomain.id}: User needs to request access, calling handleRequestAccess`);
                       handleRequestAccess(subdomain.id);
                     } else {
-                      console.log(`🔒 ${subdomain.id}: No access and can't request, calling handleSubdomainAccess anyway`);
                       handleSubdomainAccess(subdomain.id);
                     }
                   }}
