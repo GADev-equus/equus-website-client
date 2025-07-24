@@ -22,7 +22,7 @@ const SUBDOMAIN_CONFIG = {
     name: 'AI Tutorial Platform',
     description: 'Advanced AI tutorials and documentation',
     icon: '📚',
-    allowedRoles: ['admin'],
+    allowedRoles: ['admin', 'user'], // TEMP: Allow regular users to test
     requireEmailVerification: true,
     url: 'https://ai-tutor.equussystems.co'
   }
