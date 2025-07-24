@@ -293,12 +293,11 @@ const SubdomainAccessCard = () => {
                   <h4 className="font-medium text-sm">{subdomain.name}</h4>
                   <p className="text-xs text-muted-foreground">{subdomain.description}</p>
                   {hasAccess ? (
-                    <button
-                      onClick={() => handleSubdomainAccess(subdomain.id)}
-                      className="text-xs text-blue-600 hover:text-blue-800 hover:underline mt-1 inline-block cursor-pointer bg-transparent border-none p-0"
-                    >
-                      🔗 {config?.url} (Click to access with authentication)
-                    </button>
+                    <div className="text-xs text-muted-foreground mt-1">
+                      🔗 {config?.url}
+                      <br />
+                      <span className="text-blue-600 font-medium">Use "Access" button below for authentication</span>
+                    </div>
                   ) : (
                     <p className="text-xs text-red-600 mt-1">
                       {accessReason}
@@ -328,7 +327,7 @@ const SubdomainAccessCard = () => {
                     }
                   }}
                   disabled={isLoading || isPending || (!hasAccess && !isRequestAccess)}
-                  className="min-w-[100px]"
+                  className={`min-w-[120px] ${hasAccess ? 'bg-blue-600 hover:bg-blue-700 text-white font-medium' : ''}`}
                 >
                   {isLoading ? (
                     <div className="flex items-center gap-2">
@@ -339,7 +338,7 @@ const SubdomainAccessCard = () => {
                     </div>
                   ) : (
                     hasAccess 
-                      ? "Access" 
+                      ? "🚀 Access Now" 
                       : isPending 
                         ? "Pending" 
                         : isRequestAccess 
