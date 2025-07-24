@@ -86,11 +86,9 @@ export const accessProtectedSubdomain = async (subdomain, options = {}) => {
       }
     }
 
-    // Ensure authentication tokens are available for subdomain
-    const token = localStorage.getItem('equus_auth_token') || sessionStorage.getItem('equus_auth_token');
-    const refreshToken = localStorage.getItem('equus_refresh_token') || sessionStorage.getItem('equus_refresh_token');
-    
-    if (!token) {
+    // Get JWT token from authService (works with current token management)
+    const currentUser = await authService.getCurrentUser();
+    if (!currentUser.success || !authService.token) {
       const errorMessage = "Authentication token not found. Please log in again.";
       if (onNotification) {
         onNotification({
@@ -102,6 +100,8 @@ export const accessProtectedSubdomain = async (subdomain, options = {}) => {
       return { success: false, error: 'No auth token', message: errorMessage };
     }
 
+    const token = authService.token;
+
     // Show loading state
     if (onNotification) {
       onNotification({
@@ -111,11 +111,9 @@ export const accessProtectedSubdomain = async (subdomain, options = {}) => {
       });
     }
 
-    // Set domain-wide cookies for subdomain access (fallback method)
-    setSubdomainAuthCookies(token, refreshToken);
-
-    // Navigate to subdomain
-    const targetUrl = config.url;
+    // Navigate to subdomain with JWT token in URL (works across all domains)
+    // The subdomain will read the token, store it locally, then remove it from URL
+    const targetUrl = `${config.url}?auth_token=${encodeURIComponent(token)}`;
     
     if (openInNewTab) {
       window.open(targetUrl, '_blank', 'noopener,noreferrer');
