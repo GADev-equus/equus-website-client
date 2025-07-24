@@ -88,8 +88,12 @@ export const accessProtectedSubdomain = async (subdomain, options = {}) => {
 
     // Get JWT token from authService (works with current token management)
     const currentUser = await authService.getCurrentUser();
+    console.log('🔍 SubdomainAccess - Current user result:', currentUser.success);
+    console.log('🔍 SubdomainAccess - AuthService token available:', !!authService.token);
+    
     if (!currentUser.success || !authService.token) {
       const errorMessage = "Authentication token not found. Please log in again.";
+      console.log('❌ SubdomainAccess - No token available for URL appending');
       if (onNotification) {
         onNotification({
           title: "Authentication Error",
@@ -101,6 +105,7 @@ export const accessProtectedSubdomain = async (subdomain, options = {}) => {
     }
 
     const token = authService.token;
+    console.log('🔑 SubdomainAccess - Token found, appending to URL:', token ? token.substring(0, 20) + '...' : 'NULL');
 
     // Show loading state
     if (onNotification) {
@@ -237,34 +242,6 @@ export const getAllSubdomainsWithStatus = (user) => {
   }));
 };
 
-/**
- * Set authentication cookies accessible to subdomains
- * This is a fallback method for subdomain authentication
- * 
- * @param {string} token - Auth token
- * @param {string} refreshToken - Refresh token
- */
-const setSubdomainAuthCookies = (token, refreshToken) => {
-  try {
-    const domain = '.equussystems.co'; // Available to all subdomains
-    const maxAge = 24 * 60 * 60; // 24 hours in seconds
-    const cookieOptions = `Domain=${domain}; Path=/; Max-Age=${maxAge}; Secure; SameSite=Lax`;
-
-    // Set auth token cookie (accessible to subdomains)
-    document.cookie = `equus_subdomain_auth=${token}; ${cookieOptions}`;
-    
-    // Set refresh token cookie if available
-    if (refreshToken) {
-      document.cookie = `equus_subdomain_refresh=${refreshToken}; ${cookieOptions}`;
-    }
-
-    // Set user indicator cookie
-    document.cookie = `equus_subdomain_indicator=authenticated; ${cookieOptions}`;
-    
-  } catch (error) {
-    console.warn('Could not set subdomain cookies:', error);
-  }
-};
 
 /**
  * Clear subdomain authentication cookies

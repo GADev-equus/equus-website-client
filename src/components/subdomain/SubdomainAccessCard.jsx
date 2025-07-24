@@ -293,14 +293,12 @@ const SubdomainAccessCard = () => {
                   <h4 className="font-medium text-sm">{subdomain.name}</h4>
                   <p className="text-xs text-muted-foreground">{subdomain.description}</p>
                   {hasAccess ? (
-                    <a 
-                      href={config?.url} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-xs text-blue-600 hover:text-blue-800 hover:underline mt-1 inline-block"
+                    <button
+                      onClick={() => handleSubdomainAccess(subdomain.id)}
+                      className="text-xs text-blue-600 hover:text-blue-800 hover:underline mt-1 inline-block cursor-pointer bg-transparent border-none p-0"
                     >
-                      🔗 {config?.url}
-                    </a>
+                      🔗 {config?.url} (Click to access with authentication)
+                    </button>
                   ) : (
                     <p className="text-xs text-red-600 mt-1">
                       {accessReason}

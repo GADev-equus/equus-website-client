@@ -292,6 +292,9 @@ class AuthService {
     this.refreshToken = refreshToken;
     this.user = user;
 
+    console.log('🔑 AuthService setAuthData called with token:', token ? `${token.substring(0, 20)}...` : 'NULL');
+    console.log('🔑 AuthService this.token is now:', this.token ? `${this.token.substring(0, 20)}...` : 'NULL');
+
     // Store user data in localStorage (this is fine - user data doesn't need to be shared)
     this.saveUserToStorage(user);
     
