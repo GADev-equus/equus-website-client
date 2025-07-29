@@ -12,6 +12,7 @@ import { CardSkeleton, UserListSkeleton } from '@/components/ui/loading-skeleton
 import ColdStartLoader from '@/components/ui/ColdStartLoader';
 import { useToast } from '@/components/ui/toast';
 import { useColdStartAwareLoading } from '@/hooks/useColdStartAwareLoading';
+import { cn } from '@/lib/utils';
 import userService from '@/services/userService';
 import adminContactService from '@/services/adminContactService';
 import subdomainRequestService from '@/services/subdomainRequestService';
@@ -260,7 +261,7 @@ const Dashboard = () => {
 
   return (
     <AdminLayout title="Dashboard">
-      <div className="space-y-8">
+      <div className="space-y-4 sm:space-y-6 lg:space-y-8">
         {/* Enhanced spacing section */}
         <div className="equus-section">
         {error && (
@@ -275,11 +276,11 @@ const Dashboard = () => {
         )}
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 equus-gap-lg">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4 lg:gap-6">
           <Card className="equus-card">
             <CardHeader className="pb-3">
               <CardDescription>Total Users</CardDescription>
-              <CardTitle className="text-2xl">{stats.totalUsers}</CardTitle>
+              <CardTitle className="text-lg sm:text-xl lg:text-2xl">{stats.totalUsers}</CardTitle>
             </CardHeader>
             <CardContent className="pt-2">
               <p className="text-xs text-muted-foreground">Registered accounts</p>
@@ -289,7 +290,7 @@ const Dashboard = () => {
           <Card className="equus-card">
             <CardHeader className="pb-3">
               <CardDescription>Active Users</CardDescription>
-              <CardTitle className="text-2xl">{stats.activeUsers}</CardTitle>
+              <CardTitle className="text-lg sm:text-xl lg:text-2xl">{stats.activeUsers}</CardTitle>
             </CardHeader>
             <CardContent className="pt-2">
               <p className="text-xs text-muted-foreground">Currently active</p>
@@ -299,7 +300,7 @@ const Dashboard = () => {
           <Card className="equus-card">
             <CardHeader className="pb-3">
               <CardDescription>New Today</CardDescription>
-              <CardTitle className="text-2xl">{stats.newUsersToday}</CardTitle>
+              <CardTitle className="text-lg sm:text-xl lg:text-2xl">{stats.newUsersToday}</CardTitle>
             </CardHeader>
             <CardContent className="pt-2">
               <p className="text-xs text-muted-foreground">New registrations</p>
@@ -309,7 +310,7 @@ const Dashboard = () => {
           <Card className="equus-card">
             <CardHeader className="pb-3">
               <CardDescription>Administrators</CardDescription>
-              <CardTitle className="text-2xl">{stats.adminUsers}</CardTitle>
+              <CardTitle className="text-lg sm:text-xl lg:text-2xl">{stats.adminUsers}</CardTitle>
             </CardHeader>
             <CardContent className="pt-2">
               <p className="text-xs text-muted-foreground">Admin accounts</p>
@@ -319,7 +320,7 @@ const Dashboard = () => {
           <Card className="equus-card">
             <CardHeader className="pb-3">
               <CardDescription>Total Contacts</CardDescription>
-              <CardTitle className="text-2xl">{contactStats.total}</CardTitle>
+              <CardTitle className="text-lg sm:text-xl lg:text-2xl">{contactStats.total}</CardTitle>
             </CardHeader>
             <CardContent className="pt-2">
               <p className="text-xs text-muted-foreground">Form submissions</p>
@@ -329,7 +330,7 @@ const Dashboard = () => {
           <Card className="equus-card">
             <CardHeader className="pb-3">
               <CardDescription>Pending Contacts</CardDescription>
-              <CardTitle className="text-2xl text-orange-600">{contactStats.pending}</CardTitle>
+              <CardTitle className="text-lg sm:text-xl lg:text-2xl text-orange-600">{contactStats.pending}</CardTitle>
             </CardHeader>
             <CardContent className="pt-2">
               <p className="text-xs text-muted-foreground">Need attention</p>
@@ -339,7 +340,7 @@ const Dashboard = () => {
           <Card className="equus-card">
             <CardHeader className="pb-3">
               <CardDescription>Access Requests</CardDescription>
-              <CardTitle className="text-2xl text-purple-600">{subdomainRequestStats.pending}</CardTitle>
+              <CardTitle className="text-lg sm:text-xl lg:text-2xl text-purple-600">{subdomainRequestStats.pending}</CardTitle>
             </CardHeader>
             <CardContent className="pt-2">
               <p className="text-xs text-muted-foreground">Pending approval</p>
@@ -348,7 +349,7 @@ const Dashboard = () => {
         </div>
 
         {/* Quick Actions and Recent Activity */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 equus-gap-xl">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Quick Actions */}
           <Card className="equus-card">
             <CardHeader className="pb-4">
@@ -357,22 +358,22 @@ const Dashboard = () => {
             </CardHeader>
             <CardContent className="space-y-3 pt-2">
               <Link to="/admin/users">
-                <Button variant="outline" className="w-full justify-start">
+                <Button variant="outline" className="w-full justify-start h-11 text-sm">
                   👥 Manage Users
                 </Button>
               </Link>
               <Link to="/admin/analytics">
-                <Button variant="outline" className="w-full justify-start">
+                <Button variant="outline" className="w-full justify-start h-11 text-sm">
                   📈 View Analytics
                 </Button>
               </Link>
               <Link to="/admin/page-views">
-                <Button variant="outline" className="w-full justify-start">
+                <Button variant="outline" className="w-full justify-start h-11 text-sm">
                   📄 Page Views Analytics
                 </Button>
               </Link>
               <Link to="/admin/contacts">
-                <Button variant="outline" className="w-full justify-start">
+                <Button variant="outline" className="w-full justify-start h-11 text-sm">
                   📩 Manage Contacts
                   {contactStats.pending > 0 && (
                     <span className="ml-auto bg-orange-500 text-white text-xs px-2 py-1 rounded-full">
@@ -382,7 +383,7 @@ const Dashboard = () => {
                 </Button>
               </Link>
               <Link to="/admin/subdomain-requests">
-                <Button variant="outline" className="w-full justify-start">
+                <Button variant="outline" className="w-full justify-start h-11 text-sm">
                   🔑 Subdomain Requests
                   {subdomainRequestStats.pending > 0 && (
                     <span className="ml-auto bg-purple-500 text-white text-xs px-2 py-1 rounded-full">
@@ -424,11 +425,12 @@ const Dashboard = () => {
                         <p className="text-xs text-muted-foreground">
                           {formatDate(user.createdAt)}
                         </p>
-                        <span className={`inline-block px-3 py-2 rounded-full text-xs ${
+                        <span className={cn(
+                          "inline-block px-3 py-2 rounded-full text-xs",
                           user.status === 'active' 
                             ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' 
                             : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'
-                        }`}>
+                        )}>
                           {user.status}
                         </span>
                       </div>
@@ -474,15 +476,13 @@ const Dashboard = () => {
                         <p className="text-xs text-muted-foreground">
                           {formatDate(contact.createdAt)}
                         </p>
-                        <span className={`inline-block px-3 py-2 rounded-full text-xs ${
-                          contact.status === 'pending' 
-                            ? 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200'
-                            : contact.status === 'read'
-                            ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
-                            : contact.status === 'replied'
-                            ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-                            : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'
-                        }`}>
+                        <span className={cn(
+                          "inline-block px-3 py-2 rounded-full text-xs",
+                          contact.status === 'pending' && 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
+                          contact.status === 'read' && 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
+                          contact.status === 'replied' && 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
+                          !['pending', 'read', 'replied'].includes(contact.status) && 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'
+                        )}>
                           {contact.status}
                         </span>
                       </div>

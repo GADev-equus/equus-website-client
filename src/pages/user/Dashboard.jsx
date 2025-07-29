@@ -120,9 +120,7 @@ const Dashboard = () => {
 
   return (
     <UserLayout title="Dashboard">
-      <div className="space-y-8">
-        {/* Enhanced spacing section */}
-        <div className="equus-section">
+      <div className="space-y-4 sm:space-y-6 lg:space-y-8">
         {error && (
           <Card className="border-destructive">
             <CardContent className="p-4">
@@ -135,9 +133,9 @@ const Dashboard = () => {
         )}
 
         {/* Welcome Section */}
-        <Card className="equus-card">
+        <Card>
           <CardHeader>
-            <CardTitle className="text-2xl">Welcome back, {currentUser?.firstName}!</CardTitle>
+            <CardTitle className="text-xl sm:text-2xl">Welcome back, {currentUser?.firstName}!</CardTitle>
             <CardDescription>
               Here's your personal dashboard with account information and quick actions.
             </CardDescription>
@@ -145,8 +143,8 @@ const Dashboard = () => {
         </Card>
 
         {/* Profile Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 equus-gap-lg">
-          <Card className="equus-card">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <Card>
             <CardHeader className="pb-3">
               <CardDescription>Profile</CardDescription>
               <CardTitle className="text-lg">{currentUser?.firstName} {currentUser?.lastName}</CardTitle>
@@ -164,7 +162,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="equus-card">
+          <Card>
             <CardHeader className="pb-3">
               <CardDescription>Email Status</CardDescription>
               <CardTitle className="text-lg">
@@ -188,7 +186,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="equus-card">
+          <Card>
             <CardHeader className="pb-3">
               <CardDescription>Profile Completion</CardDescription>
               <CardTitle className="text-lg">{getProfileCompletionPercentage()}%</CardTitle>
@@ -198,15 +196,15 @@ const Dashboard = () => {
                 <div 
                   className="bg-blue-600 h-2 rounded-full transition-all duration-300"
                   style={{ width: `${getProfileCompletionPercentage()}%` }}
-                ></div>
+                />
               </div>
             </CardContent>
           </Card>
         </div>
 
         {/* Account Activity */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 equus-gap-xl">
-          <Card className="equus-card">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+          <Card>
             <CardHeader className="pb-4">
               <CardTitle>Account Activity</CardTitle>
               <CardDescription>Your recent account information</CardDescription>
@@ -241,30 +239,30 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="equus-card">
+          <Card>
             <CardHeader className="pb-4">
               <CardTitle>Quick Actions</CardTitle>
               <CardDescription>Common account management tasks</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3 pt-2">
-              <Button variant="outline" className="w-full justify-start" asChild>
+              <Button variant="outline" className="w-full justify-start h-11 text-sm" asChild>
                 <Link to="/profile">
                   👤 Edit Profile
                 </Link>
               </Button>
-              <Button variant="outline" className="w-full justify-start" asChild>
+              <Button variant="outline" className="w-full justify-start h-11 text-sm" asChild>
                 <Link to="/settings">
                   ⚙️ Account Settings
                 </Link>
               </Button>
-              <Button variant="outline" className="w-full justify-start" asChild>
+              <Button variant="outline" className="w-full justify-start h-11 text-sm" asChild>
                 <Link to="/settings/password">
                   🔒 Change Password
                 </Link>
               </Button>
               <Button 
                 variant="outline" 
-                className="w-full justify-start"
+                className="w-full justify-start h-11 text-sm"
                 onClick={loadUserData}
               >
                 🔄 Refresh Data
@@ -277,31 +275,37 @@ const Dashboard = () => {
         <SubdomainAccessCard />
 
         {/* Security Information */}
-        <Card className="equus-card">
+        <Card>
           <CardHeader className="pb-4">
             <CardTitle>Security Status</CardTitle>
             <CardDescription>Your account security information</CardDescription>
           </CardHeader>
           <CardContent className="pt-2">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="flex items-center gap-2">
-                <div className={`w-3 h-3 rounded-full ${currentUser?.emailVerified ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
-                <span className="text-sm">Email Verification</span>
-                <span className="text-xs text-muted-foreground ml-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+              <div className="flex items-center justify-between gap-2 p-2 sm:p-0">
+                <div className="flex items-center gap-2">
+                  <div className={`w-3 h-3 rounded-full ${currentUser?.emailVerified ? 'bg-green-500' : 'bg-yellow-500'}`} />
+                  <span className="text-sm">Email Verification</span>
+                </div>
+                <span className="text-xs text-muted-foreground">
                   {currentUser?.emailVerified ? 'Verified' : 'Pending'}
                 </span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className={`w-3 h-3 rounded-full ${currentUser?.isActive ? 'bg-green-500' : 'bg-red-500'}`}></div>
-                <span className="text-sm">Account Status</span>
-                <span className="text-xs text-muted-foreground ml-auto">
+              <div className="flex items-center justify-between gap-2 p-2 sm:p-0">
+                <div className="flex items-center gap-2">
+                  <div className={`w-3 h-3 rounded-full ${currentUser?.isActive ? 'bg-green-500' : 'bg-red-500'}`} />
+                  <span className="text-sm">Account Status</span>
+                </div>
+                <span className="text-xs text-muted-foreground">
                   {currentUser?.isActive ? 'Active' : 'Inactive'}
                 </span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                <span className="text-sm">Security</span>
-                <span className="text-xs text-muted-foreground ml-auto">
+              <div className="flex items-center justify-between gap-2 p-2 sm:p-0">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-green-500 rounded-full" />
+                  <span className="text-sm">Security</span>
+                </div>
+                <span className="text-xs text-muted-foreground">
                   {currentUser?.loginAttempts > 0 ? `${currentUser.loginAttempts} attempts` : 'Good'}
                 </span>
               </div>
@@ -311,20 +315,21 @@ const Dashboard = () => {
 
         {/* Referral Information (if applicable) */}
         {currentUser?.referralCode && (
-          <Card className="equus-card">
+          <Card>
             <CardHeader className="pb-4">
               <CardTitle>Referral Information</CardTitle>
               <CardDescription>Your personal referral code</CardDescription>
             </CardHeader>
             <CardContent className="pt-2">
-              <div className="flex items-center gap-4">
-                <div>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <div className="flex-1">
                   <p className="text-sm text-muted-foreground">Your referral code:</p>
-                  <p className="text-lg font-mono font-bold">{currentUser.referralCode}</p>
+                  <p className="text-lg font-mono font-bold break-all">{currentUser.referralCode}</p>
                 </div>
                 <Button 
                   variant="outline" 
                   size="sm"
+                  className="w-full sm:w-auto"
                   onClick={() => navigator.clipboard.writeText(currentUser.referralCode)}
                 >
                   Copy Code
@@ -333,7 +338,6 @@ const Dashboard = () => {
             </CardContent>
           </Card>
         )}
-        </div>
       </div>
     </UserLayout>
   );

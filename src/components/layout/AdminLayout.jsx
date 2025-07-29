@@ -44,7 +44,7 @@ const AdminLayout = ({ children, title = 'Admin Dashboard' }) => {
         </div>
       </div>
 
-      <div className="flex min-h-screen">
+      <div className="min-h-screen">
         {/* Sidebar */}
         <div className={`${sidebarOpen ? 'block' : 'hidden'} lg:block w-64 bg-card border-r border-border flex-shrink-0`}>
           <div className="p-6">

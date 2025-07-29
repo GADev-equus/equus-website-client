@@ -60,7 +60,8 @@ function App() {
             border: 'var(--equus-border-width) solid var(--equus-border-color)',
             position: 'relative',
             display: !isDesktop ? 'flex' : 'block',
-            flexDirection: !isDesktop ? 'column' : 'row'
+            flexDirection: !isDesktop ? 'column' : 'row',
+            padding: isDesktop ? '0' : '0',
           }}
         >
           <Header />
@@ -72,8 +73,8 @@ function App() {
             left: isDesktop ? 0 : 'auto',
             right: isDesktop ? 0 : 'auto',
             overflow: isDesktop ? 'auto' : 'visible',
-            padding: isDesktop ? '1rem' : '1rem',
-            paddingTop: !isDesktop ? `calc(var(--header-height, 120px) + 1rem)` : '1rem',
+            padding: isDesktop ? '0.1rem' : '0.1rem',
+            paddingTop: !isDesktop ? `calc(var(--header-height, 120px) + 0.1rem)` : '0.1rem',
             flex: !isDesktop ? 1 : 'none'
           }}>
             <Suspense fallback={

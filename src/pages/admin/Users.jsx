@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/input';
 import { UserListSkeleton } from '@/components/ui/loading-skeletons';
 import ColdStartLoader from '@/components/ui/ColdStartLoader';
 import { useColdStartAwareLoading } from '@/hooks/useColdStartAwareLoading';
+import { cn } from '@/lib/utils';
 import userService from '@/services/userService';
 
 const Users = () => {
@@ -306,10 +307,10 @@ const Users = () => {
                     </div>
                     <div className="flex items-center gap-4">
                       <div className="flex flex-col items-end gap-2">
-                        <span className={`px-3 py-2 rounded-full text-xs font-medium ${getRoleColor(user.role)}`}>
+                        <span className={cn("px-3 py-2 rounded-full text-xs font-medium", getRoleColor(user.role))}>
                           {user.role}
                         </span>
-                        <span className={`px-3 py-2 rounded-full text-xs font-medium ${getStatusColor(user.status || user.accountStatus)}`}>
+                        <span className={cn("px-3 py-2 rounded-full text-xs font-medium", getStatusColor(user.status || user.accountStatus))}>
                           {user.status || user.accountStatus}
                         </span>
                       </div>

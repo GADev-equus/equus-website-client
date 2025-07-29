@@ -25,7 +25,6 @@ const SubdomainAccessCard = () => {
 
   // Get all subdomains with their access status for current user
   const subdomains = getAllSubdomainsWithStatus(user);
-  const accessibleSubdomains = subdomains.filter(subdomain => subdomain.hasAccess);
 
   /**
    * Load user's pending and approved requests on component mount
@@ -63,36 +62,6 @@ const SubdomainAccessCard = () => {
     loadUserRequests();
   }, [user]);
 
-  /**
-   * Refresh user requests data - useful after admin actions
-   */
-  const refreshUserRequests = async () => {
-    if (!user) return;
-    
-    try {
-      // Reload both pending and approved requests
-      const [pendingResponse, approvedResponse] = await Promise.all([
-        subdomainRequestService.getMyRequests({ status: 'pending' }),
-        subdomainRequestService.getMyRequests({ status: 'approved' })
-      ]);
-      
-      if (pendingResponse.success && pendingResponse.requests) {
-        const pendingSubdomains = new Set(pendingResponse.requests.map(req => req.subdomainId));
-        setPendingRequests(pendingSubdomains);
-      }
-
-      if (approvedResponse.success && approvedResponse.requests) {
-        // Filter for non-expired approved requests
-        const activeApproved = approvedResponse.requests.filter(req => 
-          !req.expiresAt || new Date(req.expiresAt) > new Date()
-        );
-        const approvedSubdomains = new Set(activeApproved.map(req => req.subdomainId));
-        setApprovedRequests(approvedSubdomains);
-      }
-    } catch (error) {
-      console.error('Error refreshing user requests:', error);
-    }
-  };
 
   /**
    * Handle access to protected subdomain
@@ -102,7 +71,7 @@ const SubdomainAccessCard = () => {
     try {
       setLoadingStates(prev => ({ ...prev, [subdomainId]: true }));
 
-      const result = await accessProtectedSubdomain(subdomainId, {
+      await accessProtectedSubdomain(subdomainId, {
         validateFirst: true,
         openInNewTab: false,
         onNotification: (notification) => {
@@ -326,11 +295,11 @@ const SubdomainAccessCard = () => {
                     }
                   }}
                   disabled={isLoading || isPending || (!hasAccess && !isRequestAccess)}
-                  className={`min-w-[120px] ${hasAccess ? 'bg-blue-600 hover:bg-blue-700 text-white font-medium' : ''}`}
+                  className="min-w-[120px] px-4 py-2 font-medium"
                 >
                   {isLoading ? (
                     <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <div className="w-3 h-3 border-2 border-t-transparent rounded-full animate-spin border-current" />
                       <span className="text-xs">
                         {isRequestAccess ? "Requesting..." : "Connecting..."}
                       </span>

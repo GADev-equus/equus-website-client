@@ -31,7 +31,7 @@ const UserLayout = ({ children, title = 'Dashboard' }) => {
     <div className="min-h-screen bg-background">
       {/* Mobile menu button */}
       <div className="lg:hidden p-4">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-1">
           <Button
             variant="outline"
             size="sm"
@@ -43,7 +43,7 @@ const UserLayout = ({ children, title = 'Dashboard' }) => {
         </div>
       </div>
 
-      <div className="flex min-h-screen">
+      <div className="min-h-screen">
         {/* Sidebar */}
         <div className={`${sidebarOpen ? 'block' : 'hidden'} lg:block w-64 bg-card border-r border-border flex-shrink-0`}>
           <div className="p-6">
@@ -77,7 +77,7 @@ const UserLayout = ({ children, title = 'Dashboard' }) => {
             {/* User info */}
             <div className="mt-auto pt-8 border-t border-border">
               <Card>
-                <CardContent className="p-4">
+                <CardContent className="p-40">
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
                       <span className="text-primary-foreground font-bold text-sm">

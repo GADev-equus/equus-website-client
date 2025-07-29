@@ -16,6 +16,7 @@ import { CardSkeleton } from '@/components/ui/loading-skeletons';
 import ColdStartLoader from '@/components/ui/ColdStartLoader';
 import { useAuth } from '@/contexts/AuthContext';
 import { useColdStartAwareLoading } from '@/hooks/useColdStartAwareLoading';
+import { cn } from '@/lib/utils';
 import authService from '@/services/authService';
 
 const Profile = () => {
@@ -212,12 +213,12 @@ const Profile = () => {
 
   return (
     <UserLayout title="Edit Profile">
-      <div className="space-y-8">
+      <div className="space-y-4 sm:space-y-6 lg:space-y-8">
         <div className="equus-section">
           {/* Page Header */}
-          <Card className="equus-card">
+          <Card >
             <CardHeader>
-              <CardTitle className="text-2xl">Edit Profile</CardTitle>
+              <CardTitle className="text-xl sm:text-2xl">Edit Profile</CardTitle>
               <CardDescription>
                 Update your personal information and profile settings
               </CardDescription>
@@ -225,7 +226,7 @@ const Profile = () => {
           </Card>
 
           {/* Profile Completion */}
-          <Card className="equus-card">
+          <Card >
             <CardHeader className="pb-3">
               <CardDescription>Profile Completion</CardDescription>
               <CardTitle className="text-lg">{getProfileCompletionPercentage()}%</CardTitle>
@@ -257,7 +258,7 @@ const Profile = () => {
           )}
 
           {/* Profile Form */}
-          <Card className="equus-card">
+          <Card >
             <CardHeader>
               <CardTitle>Personal Information</CardTitle>
               <CardDescription>
@@ -353,9 +354,10 @@ const Profile = () => {
                         message: 'Bio must not exceed 500 characters'
                       }
                     })}
-                    className={`w-full px-3 py-2 border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent resize-none ${
-                      form.formState.errors.bio ? 'border-destructive' : ''
-                    }`}
+                    className={cn(
+                      "w-full px-3 py-2 border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent resize-none",
+                      form.formState.errors.bio && "border-destructive"
+                    )}
                     rows={4}
                     placeholder="Tell us about yourself (optional)"
                   />

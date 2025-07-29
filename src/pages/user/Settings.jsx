@@ -14,6 +14,7 @@ import { CardSkeleton } from '@/components/ui/loading-skeletons';
 import ColdStartLoader from '@/components/ui/ColdStartLoader';
 import { useAuth } from '@/contexts/AuthContext';
 import { useColdStartAwareLoading } from '@/hooks/useColdStartAwareLoading';
+import { cn } from '@/lib/utils';
 import authService from '@/services/authService';
 
 const Settings = () => {
@@ -127,12 +128,12 @@ const Settings = () => {
 
   return (
     <UserLayout title="Account Settings">
-      <div className="space-y-8">
-        <div className="equus-section">
+      <div className="space-y-4 sm:space-y-6 lg:space-y-8">
+        <div >
           {/* Page Header */}
-          <Card className="equus-card">
+          <Card >
             <CardHeader>
-              <CardTitle className="text-2xl">Account Settings</CardTitle>
+              <CardTitle className="text-xl sm:text-2xl">Account Settings</CardTitle>
               <CardDescription>
                 Manage your account preferences, security settings, and personal information
               </CardDescription>
@@ -151,9 +152,9 @@ const Settings = () => {
           )}
 
           {/* Account Overview */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 equus-gap-lg">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {/* Profile Information */}
-            <Card className="equus-card">
+            <Card >
               <CardHeader className="pb-3">
                 <CardDescription>Profile Information</CardDescription>
                 <CardTitle className="text-lg">{currentUser?.firstName} {currentUser?.lastName}</CardTitle>
@@ -175,7 +176,7 @@ const Settings = () => {
             </Card>
 
             {/* Profile Completion */}
-            <Card className="equus-card">
+            <Card >
               <CardHeader className="pb-3">
                 <CardDescription>Profile Completion</CardDescription>
                 <CardTitle className="text-lg">{getProfileCompletionPercentage()}%</CardTitle>
@@ -194,7 +195,7 @@ const Settings = () => {
             </Card>
 
             {/* Email Status */}
-            <Card className="equus-card">
+            <Card >
               <CardHeader className="pb-3">
                 <CardDescription>Email Verification</CardDescription>
                 <CardTitle className="text-lg">
@@ -220,26 +221,26 @@ const Settings = () => {
           </div>
 
           {/* Quick Actions */}
-          <Card className="equus-card">
+          <Card >
             <CardHeader>
               <CardTitle>Quick Actions</CardTitle>
               <CardDescription>Common account management tasks</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                <Button variant="outline" className="w-full justify-start" asChild>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                <Button variant="outline" className="w-full justify-start h-11 text-sm" asChild>
                   <Link to="/profile">
                     👤 Edit Profile
                   </Link>
                 </Button>
-                <Button variant="outline" className="w-full justify-start" asChild>
+                <Button variant="outline" className="w-full justify-start h-11 text-sm" asChild>
                   <Link to="/settings/password">
                     🔒 Change Password
                   </Link>
                 </Button>
                 <Button 
                   variant="outline" 
-                  className="w-full justify-start"
+                  className="w-full justify-start h-11 text-sm"
                   onClick={loadUserData}
                 >
                   🔄 Refresh Data
@@ -251,7 +252,7 @@ const Settings = () => {
           {/* Account Information */}
           <div className="grid grid-cols-1 lg:grid-cols-2 equus-gap-xl">
             {/* Security Information */}
-            <Card className="equus-card">
+            <Card >
               <CardHeader>
                 <CardTitle>Security Status</CardTitle>
                 <CardDescription>Your account security information</CardDescription>
@@ -260,7 +261,7 @@ const Settings = () => {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <div className={`w-3 h-3 rounded-full ${currentUser?.emailVerified ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
+                      <div className={`w-3 h-3 rounded-full ${currentUser?.emailVerified ? 'bg-green-500' : 'bg-yellow-500'}`} />
                       <span className="text-sm">Email Verification</span>
                     </div>
                     <span className="text-xs text-muted-foreground">
@@ -270,7 +271,7 @@ const Settings = () => {
                   
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <div className={`w-3 h-3 rounded-full ${currentUser?.isActive ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                      <div className={`w-3 h-3 rounded-full ${currentUser?.isActive ? 'bg-green-500' : 'bg-red-500'}`} />
                       <span className="text-sm">Account Status</span>
                     </div>
                     <span className="text-xs text-muted-foreground">
@@ -302,7 +303,7 @@ const Settings = () => {
             </Card>
 
             {/* Account Activity */}
-            <Card className="equus-card">
+            <Card >
               <CardHeader>
                 <CardTitle>Account Activity</CardTitle>
                 <CardDescription>Recent account activity and information</CardDescription>
@@ -337,7 +338,7 @@ const Settings = () => {
           </div>
 
           {/* Privacy & Data */}
-          <Card className="equus-card">
+          <Card >
             <CardHeader>
               <CardTitle>Privacy & Data</CardTitle>
               <CardDescription>Manage your privacy settings and data preferences</CardDescription>
@@ -368,7 +369,7 @@ const Settings = () => {
           </Card>
 
           {/* Sign Out */}
-          <Card className="equus-card border-destructive/20">
+          <Card className=" border-destructive/20">
             <CardHeader>
               <CardTitle className="text-destructive">Sign Out</CardTitle>
               <CardDescription>Sign out of your account on this device</CardDescription>

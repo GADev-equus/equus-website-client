@@ -13,6 +13,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useAuth } from '@/contexts/AuthContext';
+import { cn } from '@/lib/utils';
 import authService from '@/services/authService';
 
 const PasswordChange = () => {
@@ -136,12 +137,12 @@ const PasswordChange = () => {
 
   return (
     <UserLayout title="Change Password">
-      <div className="space-y-8">
+      <div className="space-y-4 sm:space-y-6 lg:space-y-8">
         <div className="equus-section">
           {/* Page Header */}
-          <Card className="equus-card">
+          <Card >
             <CardHeader>
-              <CardTitle className="text-2xl">Change Password</CardTitle>
+              <CardTitle className="text-xl sm:text-2xl">Change Password</CardTitle>
               <CardDescription>
                 Update your password to keep your account secure
               </CardDescription>
@@ -171,7 +172,7 @@ const PasswordChange = () => {
           )}
 
           {/* Password Change Form */}
-          <Card className="equus-card">
+          <Card >
             <CardHeader>
               <CardTitle>Update Your Password</CardTitle>
               <CardDescription>
@@ -237,14 +238,16 @@ const PasswordChange = () => {
                       <div className="flex items-center gap-2">
                         <div className="flex-1 bg-gray-200 rounded-full h-2">
                           <div 
-                            className={`h-2 rounded-full transition-all duration-300 ${passwordStrength.color}`}
+                            className={cn("h-2 rounded-full transition-all duration-300", passwordStrength.color)}
                             style={{ width: `${(passwordStrength.strength / 6) * 100}%` }}
-                          ></div>
+                          />
                         </div>
-                        <span className={`text-xs font-medium ${
-                          passwordStrength.label === 'Weak' ? 'text-red-600' :
-                          passwordStrength.label === 'Medium' ? 'text-yellow-600' : 'text-green-600'
-                        }`}>
+                        <span className={cn(
+                          "text-xs font-medium",
+                          passwordStrength.label === 'Weak' && 'text-red-600',
+                          passwordStrength.label === 'Medium' && 'text-yellow-600',
+                          passwordStrength.label === 'Strong' && 'text-green-600'
+                        )}>
                           {passwordStrength.label}
                         </span>
                       </div>
@@ -310,7 +313,7 @@ const PasswordChange = () => {
           </Card>
 
           {/* Password Security Tips */}
-          <Card className="equus-card">
+          <Card >
             <CardHeader>
               <CardTitle>Password Security Tips</CardTitle>
               <CardDescription>
@@ -344,7 +347,7 @@ const PasswordChange = () => {
           </Card>
 
           {/* Additional Security Information */}
-          <Card className="equus-card">
+          <Card >
             <CardHeader>
               <CardTitle>Account Security</CardTitle>
               <CardDescription>
