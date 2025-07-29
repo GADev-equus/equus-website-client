@@ -25,6 +25,7 @@ export default defineConfig({
           'react-vendor': ['react', 'react-dom'],
           'router-vendor': ['react-router-dom'],
           'ui-vendor': ['@radix-ui/react-slot', 'lucide-react'],
+          'seo-vendor': ['react-helmet-async'],
           
           // Admin features
           'admin': [
@@ -54,7 +55,13 @@ export default defineConfig({
       compress: {
         drop_console: process.env.NODE_ENV === 'production',
         drop_debugger: process.env.NODE_ENV === 'production',
+        // Keep SEO-critical comments
+        comments: /SEO|schema\.org|@type/i,
       },
+      mangle: {
+        // Don't mangle SEO-related property names
+        reserved: ['structuredData', 'jsonLd', 'schema']
+      }
     },
   },
   

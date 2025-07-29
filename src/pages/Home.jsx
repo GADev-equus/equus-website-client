@@ -5,15 +5,25 @@
  */
 
 import ContactForm from '@/components/ContactForm';
+import SEOHelmet from '@/components/shared/SEOHelmet';
+import { SEO_CONFIG } from '@/utils/structuredData';
 
 const Home = () => {
   return (
-    <div style={{ 
-      maxWidth: 'var(--equus-max-width-container)',
-      margin: '0 auto',
-      padding: 'var(--equus-spacing-lg) var(--equus-spacing-sm)',
-      width: '100%'
-    }}>
+    <>
+      <SEOHelmet 
+        title={SEO_CONFIG.home.title}
+        description={SEO_CONFIG.home.description}
+        keywords={SEO_CONFIG.home.keywords}
+        structuredData={SEO_CONFIG.home.structuredData}
+        url="https://equussystems.co"
+      />
+      <div style={{ 
+        maxWidth: 'var(--equus-max-width-container)',
+        margin: '0 auto',
+        padding: 'var(--equus-spacing-lg) var(--equus-spacing-sm)',
+        width: '100%'
+      }}>
         {/* Hero section */}
         <section className="equus-section" style={{ 
           paddingTop: 'var(--equus-spacing-xl)', 
@@ -157,7 +167,8 @@ const Home = () => {
             <ContactForm />
           </div>
         </section>
-    </div>
+      </div>
+    </>
   );
 };
 
