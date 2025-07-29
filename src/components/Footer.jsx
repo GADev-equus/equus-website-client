@@ -85,7 +85,7 @@ const Footer = () => {
               fontSize: '0.7rem',
             }}
           >
-            {formatPageViews(pageViews)} page views
+            {formatPageViews(pageViews)} page view(s)
           </p>
         )}
       </div>
