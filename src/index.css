@@ -1,7 +1,7 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "./styles/design-system.css";
-@import "./styles/loading-states.css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import './styles/design-system.css';
+@import './styles/loading-states.css';
 
 /* Complete CSS Reset */
 *,
@@ -67,6 +67,18 @@ button {
   background: none;
   border: none;
   cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Override for styled buttons to ensure visibility */
+button[class*='btn-'],
+button[data-slot='button'],
+.btn-primary,
+.btn-secondary,
+.btn-accent {
+  background: revert !important;
+  border: revert !important;
 }
 
 table {
@@ -103,20 +115,20 @@ template {
 }
 
 /* Remove default styling from form elements */
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration {
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration {
   -webkit-appearance: none;
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
   appearance: textfield;
 }
@@ -237,33 +249,70 @@ input[type="number"] {
   }
 }
 
-/* Non-Desktop Devices - Footer in Document Flow, Sticky Header */
-@media screen and (max-width: 1024px) {
-  /* Container becomes flex to allow normal document flow */
-  .non-desktop-layout {
-    height: auto !important;
-    min-height: 100vh !important;
-    display: flex !important;
-    flex-direction: column !important;
-  }
-  
-  /* Make footer part of document flow - not sticky */
-  footer {
-    position: static !important;
-    bottom: auto !important;
-    margin-top: auto !important; /* Push footer to bottom if content is short */
-  }
-  
-  /* Adjust main content for document flow */
-  #main-content {
-    position: static !important;
-    top: auto !important;
-    bottom: auto !important;
-    left: auto !important;
-    right: auto !important;
-    overflow: visible !important;
-    padding: 0.1rem !important;
-    padding-top: calc(var(--header-height, 120px) + 0.1rem) !important;
-    flex: 1 !important; /* Take remaining space */
-  }
+/* CLEAN LAYOUT SYSTEM - Dynamic Height Calculations */
+
+/* Base container - same for both desktop and mobile */
+.app-container {
+  min-height: 100vh;
+  background-color: var(--equus-background-dark);
+  border: var(--equus-border-width) solid var(--equus-border-color);
+  display: flex;
+  flex-direction: column;
+  /* Define our constants */
+  --content-gap: 2px; /* The only magic number - consistent gap */
+  --content-padding: 8px; /* Padding for dark border effect */
+  --userlayout-header-height: 80px; /* Estimated UserLayout internal header height */
+}
+
+/* Main App Header - always fixed at top */
+.app-container > header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+/* Main content area - dynamically calculated spacing */
+.main-content {
+  flex: 1;
+  padding: var(--content-padding);
+  /* Dynamic margin based on actual header height + our gap constant */
+  margin-top: calc(var(--header-height, 80px) + var(--content-gap));
+}
+
+/* Desktop-specific adjustments */
+.app-container.desktop .main-content {
+  margin-bottom: calc(var(--footer-height, 60px) + var(--content-gap));
+}
+
+.app-container.desktop .main-content .min-h-screen {
+  min-height: calc(
+    100vh - var(--header-height, 80px) - var(--footer-height, 60px) -
+      (var(--content-gap) * 2) - (var(--content-padding) * 2)
+  );
+}
+
+/* Mobile-specific adjustments */
+.app-container.mobile .main-content {
+  margin-bottom: var(--content-gap);
+}
+
+.app-container.mobile .main-content .min-h-screen {
+  min-height: calc(
+    100vh - var(--header-height, 80px) - (var(--content-gap) * 2) -
+      (var(--content-padding) * 2)
+  );
+}
+
+/* Footer adjustments */
+.app-container.mobile footer {
+  position: static;
+}
+
+.app-container.desktop footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }

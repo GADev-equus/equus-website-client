@@ -14,13 +14,37 @@ const Header = () => {
   const { isAuthenticated, user, logout, loading } = useAuth();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  // Set CSS custom property for header height
+  // Set CSS custom properties for header and footer heights
   useEffect(() => {
-    const header = document.querySelector('header');
-    if (header) {
-      const height = header.offsetHeight;
-      document.documentElement.style.setProperty('--header-height', `${height}px`);
-    }
+    const updateLayoutHeights = () => {
+      const header = document.querySelector('header');
+      const footer = document.querySelector('footer');
+
+      if (header) {
+        const headerHeight = header.offsetHeight;
+        document.documentElement.style.setProperty(
+          '--header-height',
+          `${headerHeight}px`,
+        );
+      }
+
+      if (footer) {
+        const footerHeight = footer.offsetHeight;
+        document.documentElement.style.setProperty(
+          '--footer-height',
+          `${footerHeight}px`,
+        );
+      }
+    };
+
+    // Initial measurement
+    updateLayoutHeights();
+
+    // Update on window resize
+    window.addEventListener('resize', updateLayoutHeights);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', updateLayoutHeights);
   }, []);
 
   const getDashboardPath = () => {
@@ -29,7 +53,7 @@ const Header = () => {
 
   const handleLogout = async () => {
     if (isLoggingOut) return;
-    
+
     setIsLoggingOut(true);
     try {
       await logout();
@@ -41,62 +65,73 @@ const Header = () => {
   };
 
   return (
-    <header style={{ 
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      zIndex: 1000,
-      background: 'var(--equus-gradient-primary)',
-      padding: '1rem 0.5rem',
-      color: 'white',
-      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      flexWrap: 'wrap',
-      gap: '1rem'
-    }}>
+    <header
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000,
+        background: 'var(--equus-gradient-primary)',
+        padding: '1rem 0.5rem',
+        color: 'white',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: '1rem',
+      }}
+    >
       {/* Branding Section */}
       <div>
- <div style={{ textAlign: 'center', flex: '1 1 auto' }}>
-        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <h1 className="font-bold" style={{ 
-            fontSize: '2rem', 
-            letterSpacing: 'var(--equus-letter-spacing-tight)',
-            fontFamily: 'var(--equus-font-branding)',
-            marginBottom: '0.25rem',
-            cursor: 'pointer',
-            transition: 'opacity 0.2s ease'
-          }}>
-            EQUUS SYSTEMS
-          </h1>
-        </Link>
-        <p className="opacity-90 font-light" style={{ 
-          fontSize: '0.7rem',
-          textAlign: 'center',
-          margin: '0'
-        }}>
-          ADVANCED AI SOLUTIONS & CONSULTING
-        </p>
+        <div style={{ textAlign: 'center', flex: '1 1 auto' }}>
+          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <h1
+              className="font-bold"
+              style={{
+                fontSize: '2rem',
+                letterSpacing: 'var(--equus-letter-spacing-tight)',
+                fontFamily: 'var(--equus-font-branding)',
+                marginBottom: '0.25rem',
+                cursor: 'pointer',
+                transition: 'opacity 0.2s ease',
+              }}
+            >
+              EQUUS SYSTEMS
+            </h1>
+          </Link>
+          <p
+            className="opacity-90 font-light"
+            style={{
+              fontSize: '0.7rem',
+              textAlign: 'center',
+              margin: '0',
+            }}
+          >
+            ADVANCED AI SOLUTIONS & CONSULTING
+          </p>
+        </div>
       </div>
-      </div>
-     
 
       {/* Authentication Navigation */}
       {isAuthenticated && user && (
-        <nav style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '1rem',
-          flexWrap: 'wrap'
-        }}>
+        <nav
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '1rem',
+            flexWrap: 'wrap',
+          }}
+        >
           {/* User Greeting */}
-          <span style={{
-            fontSize: '0.9rem',
-            opacity: 0.9,
-            whiteSpace: 'nowrap'
-          }}>
+          <span
+            style={{
+              fontSize: '0.9rem',
+              opacity: 0.9,
+              whiteSpace: 'nowrap',
+            }}
+          >
             Welcome, {user.firstName}
           </span>
 
@@ -113,7 +148,7 @@ const Header = () => {
               fontWeight: '500',
               transition: 'all 0.2s ease',
               whiteSpace: 'nowrap',
-              cursor: 'pointer'
+              cursor: 'pointer',
             }}
             onMouseEnter={(e) => {
               e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
@@ -142,7 +177,7 @@ const Header = () => {
               cursor: isLoggingOut || loading ? 'not-allowed' : 'pointer',
               transition: 'all 0.2s ease',
               opacity: isLoggingOut || loading ? 0.6 : 1,
-              whiteSpace: 'nowrap'
+              whiteSpace: 'nowrap',
             }}
             onMouseEnter={(e) => {
               if (!isLoggingOut && !loading) {

@@ -29,8 +29,8 @@
   --equus-gradient-primary: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
 
   /* Typography */
-  --equus-font-branding: 'AquireLight', 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, sans-serif;
+  --equus-font-branding: 'AquireLight', 'Nunito', -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --equus-font-display: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, sans-serif;
   --equus-font-base: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -213,4 +213,159 @@ body {
 
 .btn-accent:hover {
   background-color: #c0392b !important;
+}
+
+/* Enhanced Layout Utilities */
+.equus-container {
+  width: 100%;
+  max-width: var(--equus-max-width-container);
+  margin: 0 auto;
+  padding: 0 var(--equus-spacing-sm);
+}
+
+.equus-section-container {
+  width: 100%;
+  max-width: var(--equus-max-width-content);
+  margin: 0 auto;
+  padding: var(--equus-spacing-lg);
+}
+
+/* Mobile Content Wrapper - Universal */
+.mobile-content-wrapper {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  /* Temporary debug - remove after testing */
+  min-height: calc(100vh - 200px);
+  padding-top: 1rem; /* Extra safe padding */
+}
+
+/* Form styling improvements */
+.equus-form {
+  background: rgba(248, 249, 250, 0.95);
+  border-left: var(--equus-border-accent) solid var(--equus-primary);
+  border-radius: var(--equus-border-radius);
+  padding: var(--equus-spacing-lg);
+  margin-bottom: var(--equus-spacing-lg);
+}
+
+.equus-form-dark {
+  background: rgba(30, 30, 30, 0.95);
+  border-left: var(--equus-border-accent) solid var(--equus-primary);
+}
+
+/* Enhanced button states */
+.btn-loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.btn-loading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: btn-spin 1s linear infinite;
+}
+
+@keyframes btn-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Status indicators */
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--equus-border-radius);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.status-success {
+  background-color: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.status-warning {
+  background-color: #fef3c7;
+  color: #d97706;
+  border: 1px solid #fde68a;
+}
+
+.status-error {
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.status-info {
+  background-color: #dbeafe;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+}
+
+/* Mobile-specific improvements */
+@media screen and (max-width: 640px) {
+  .equus-card {
+    margin: 0 !important;
+    padding: var(--equus-spacing-md) !important;
+  }
+
+  /* Better mobile grid spacing */
+  .equus-dashboard-grid {
+    gap: var(--equus-spacing-md) !important;
+  }
+
+  /* Mobile typography adjustments */
+  .equus-card h2,
+  .equus-card h3 {
+    font-size: 1.1rem !important;
+  }
+
+  /* Mobile button improvements */
+  .btn-primary,
+  .btn-secondary,
+  .btn-accent {
+    padding: var(--equus-spacing-sm) var(--equus-spacing-md) !important;
+    font-size: 14px !important;
+  }
+
+  /* Mobile content centering */
+  .mobile-content-wrapper {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Ensure mobile containers don't overflow */
+  .space-y-4,
+  .space-y-6,
+  .space-y-8 {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+}
+
+/* Tablet improvements */
+@media screen and (min-width: 641px) and (max-width: 1024px) {
+  .equus-card {
+    padding: var(--equus-spacing-lg) !important;
+  }
 }

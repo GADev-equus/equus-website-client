@@ -35,128 +35,144 @@ const Contacts = lazy(() => import('@/pages/admin/Contacts'));
 const SubdomainRequests = lazy(() => import('@/pages/admin/SubdomainRequests'));
 
 function App() {
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024);
 
   useEffect(() => {
     const checkDesktop = () => {
       setIsDesktop(window.innerWidth > 1024);
     };
-    
-    checkDesktop();
+
     window.addEventListener('resize', checkDesktop);
-    
     return () => window.removeEventListener('resize', checkDesktop);
   }, []);
 
   return (
     <AuthProvider>
       <Router>
-        <div 
-          className={!isDesktop ? 'non-desktop-layout' : ''}
-          style={{
-            height: isDesktop ? '100vh' : 'auto',
-            minHeight: !isDesktop ? '100vh' : 'auto',
-            backgroundColor: 'var(--equus-background-dark)',
-            border: 'var(--equus-border-width) solid var(--equus-border-color)',
-            position: 'relative',
-            display: !isDesktop ? 'flex' : 'block',
-            flexDirection: !isDesktop ? 'column' : 'row',
-            padding: isDesktop ? '0' : '0',
-          }}
-        >
+        <div className={`app-container ${isDesktop ? 'desktop' : 'mobile'}`}>
           <Header />
-          
-          <main id="main-content" style={{ 
-            position: isDesktop ? 'absolute' : 'static',
-            top: isDesktop ? 'var(--header-height, 120px)' : 'auto',
-            bottom: isDesktop ? 'var(--footer-height, 100px)' : 'auto',
-            left: isDesktop ? 0 : 'auto',
-            right: isDesktop ? 0 : 'auto',
-            overflow: isDesktop ? 'auto' : 'visible',
-            padding: isDesktop ? '0.1rem' : '0.1rem',
-            paddingTop: !isDesktop ? `calc(var(--header-height, 120px) + 0.1rem)` : '0.1rem',
-            flex: !isDesktop ? 1 : 'none'
-          }}>
-            <Suspense fallback={
-              <LoadingStateWrapper 
-                isLoading={true} 
-                size="lg" 
-                className="min-h-screen flex items-center justify-center"
-                showColdStartUI={true}
-                minColdStartThreshold={3000}
-              />
-            }>
-              <Routes>
-                {/* Public Routes */}
-                <Route path="/" element={<Home />} />
-                <Route path="/unauthorized" element={<Unauthorized />} />
-                
-                {/* Authentication Routes */}
-                <Route path="/auth/signin" element={<SignIn />} />
-                <Route path="/auth/signup" element={<SignUp />} />
-                <Route path="/auth/reset-password" element={<ResetPassword />} />
-                <Route path="/auth/verify-email" element={<EmailVerification />} />
-                
-                {/* Protected Routes */}
-                <Route path="/dashboard" element={
-                  <ProtectedRoute>
-                    <UserDashboard />
-                  </ProtectedRoute>
-                } />
-                <Route path="/profile" element={
-                  <ProtectedRoute>
-                    <Profile />
-                  </ProtectedRoute>
-                } />
-                <Route path="/settings" element={
-                  <ProtectedRoute>
-                    <Settings />
-                  </ProtectedRoute>
-                } />
-                <Route path="/settings/password" element={
-                  <ProtectedRoute>
-                    <PasswordChange />
-                  </ProtectedRoute>
-                } />
-                
-                {/* Admin Routes */}
-                <Route path="/admin/dashboard" element={
-                  <AdminRoute>
-                    <AdminDashboard />
-                  </AdminRoute>
-                } />
-                <Route path="/admin/users" element={
-                  <AdminRoute>
-                    <Users />
-                  </AdminRoute>
-                } />
-                <Route path="/admin/analytics" element={
-                  <AdminRoute>
-                    <Analytics />
-                  </AdminRoute>
-                } />
-                <Route path="/admin/page-views" element={
-                  <AdminRoute>
-                    <PageViews />
-                  </AdminRoute>
-                } />
-                <Route path="/admin/contacts" element={
-                  <AdminRoute>
-                    <Contacts />
-                  </AdminRoute>
-                } />
-                <Route path="/admin/subdomain-requests" element={
-                  <AdminRoute>
-                    <SubdomainRequests />
-                  </AdminRoute>
-                } />
-                
-                {/* 404 Route */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
+
+          <main className="main-content">
+            <div className="mobile-content-wrapper">
+              <Suspense
+                fallback={
+                  <LoadingStateWrapper
+                    isLoading={true}
+                    size="lg"
+                    className="min-h-screen flex items-center justify-center"
+                    showColdStartUI={true}
+                    minColdStartThreshold={3000}
+                  />
+                }
+              >
+                <Routes>
+                  {/* Public Routes */}
+                  <Route path="/" element={<Home />} />
+                  <Route path="/unauthorized" element={<Unauthorized />} />
+
+                  {/* Authentication Routes */}
+                  <Route path="/auth/signin" element={<SignIn />} />
+                  <Route path="/auth/signup" element={<SignUp />} />
+                  <Route
+                    path="/auth/reset-password"
+                    element={<ResetPassword />}
+                  />
+                  <Route
+                    path="/auth/verify-email"
+                    element={<EmailVerification />}
+                  />
+
+                  {/* Protected Routes */}
+                  <Route
+                    path="/dashboard"
+                    element={
+                      <ProtectedRoute>
+                        <UserDashboard />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/profile"
+                    element={
+                      <ProtectedRoute>
+                        <Profile />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/settings"
+                    element={
+                      <ProtectedRoute>
+                        <Settings />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/settings/password"
+                    element={
+                      <ProtectedRoute>
+                        <PasswordChange />
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  {/* Admin Routes */}
+                  <Route
+                    path="/admin/dashboard"
+                    element={
+                      <AdminRoute>
+                        <AdminDashboard />
+                      </AdminRoute>
+                    }
+                  />
+                  <Route
+                    path="/admin/users"
+                    element={
+                      <AdminRoute>
+                        <Users />
+                      </AdminRoute>
+                    }
+                  />
+                  <Route
+                    path="/admin/analytics"
+                    element={
+                      <AdminRoute>
+                        <Analytics />
+                      </AdminRoute>
+                    }
+                  />
+                  <Route
+                    path="/admin/page-views"
+                    element={
+                      <AdminRoute>
+                        <PageViews />
+                      </AdminRoute>
+                    }
+                  />
+                  <Route
+                    path="/admin/contacts"
+                    element={
+                      <AdminRoute>
+                        <Contacts />
+                      </AdminRoute>
+                    }
+                  />
+                  <Route
+                    path="/admin/subdomain-requests"
+                    element={
+                      <AdminRoute>
+                        <SubdomainRequests />
+                      </AdminRoute>
+                    }
+                  />
+
+                  {/* 404 Route */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
+            </div>
           </main>
-          
+
           <Footer />
         </div>
       </Router>
