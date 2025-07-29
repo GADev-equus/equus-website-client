@@ -55,12 +55,14 @@ export default defineConfig({
       compress: {
         drop_console: process.env.NODE_ENV === 'production',
         drop_debugger: process.env.NODE_ENV === 'production',
-        // Keep SEO-critical comments
-        comments: /SEO|schema\.org|@type/i,
       },
       mangle: {
         // Don't mangle SEO-related property names
         reserved: ['structuredData', 'jsonLd', 'schema']
+      },
+      format: {
+        // Keep SEO-critical comments
+        comments: /SEO|schema\.org|@type/i,
       }
     },
   },
