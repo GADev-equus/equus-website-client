@@ -52,7 +52,7 @@ function App() {
         <div className={`app-container ${isDesktop ? 'desktop' : 'mobile'}`}>
           <Header />
 
-          <main className="main-content">
+          <main className="main-content pt-16 lg:pt-0">
             <div className="mobile-content-wrapper">
               <Suspense
                 fallback={

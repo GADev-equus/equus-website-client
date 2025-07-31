@@ -22,6 +22,18 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useColdStartAwareLoading } from '@/hooks/useColdStartAwareLoading';
 import authService from '@/services/authService';
 
+// Placeholder for icons - replace with your actual icon library imports
+const UserIcon = () => <span>👤</span>;
+const EmailIcon = () => <span>✉️</span>;
+const ShieldIcon = () => <span>🛡️</span>;
+const CalendarIcon = () => <span>📅</span>;
+const SettingsIcon = () => <span>⚙️</span>;
+const LockIcon = () => <span>🔒</span>;
+const RefreshIcon = () => <span>🔄</span>;
+const CopyIcon = () => <span>📋</span>;
+const CheckIcon = () => <span>✓</span>;
+const WarningIcon = () => <span>⚠️</span>;
+
 const Dashboard = () => {
   const { user } = useAuth();
   const [userProfile, setUserProfile] = useState(null);
@@ -130,7 +142,7 @@ const Dashboard = () => {
 
   return (
     <UserLayout title="Dashboard">
-      <div className="space-y-4 sm:space-y-6 lg:space-y-8 px-1 sm:px-0">
+      <div className="space-y-6 px-1 sm:px-0">
         {error && (
           <Card className="border-destructive">
             <CardContent className="p-4">
@@ -147,263 +159,267 @@ const Dashboard = () => {
           </Card>
         )}
 
-        {/* Welcome Section */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-xl sm:text-2xl">
-              Welcome back, {currentUser?.firstName}!
-            </CardTitle>
-            <CardDescription>
-              Here's your personal dashboard with account information and quick
-              actions.
-            </CardDescription>
-          </CardHeader>
-        </Card>
-
-        {/* Profile Overview */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          <Card>
-            <CardHeader className="pb-3">
-              <CardDescription>Profile</CardDescription>
-              <CardTitle className="text-lg">
-                {currentUser?.firstName} {currentUser?.lastName}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="pt-2">
-              <div className="space-y-2">
-                <p className="text-sm text-muted-foreground">
-                  {currentUser?.email}
-                </p>
-                <div className="flex items-center gap-2">
-                  <Badge variant="secondary">
-                    {currentUser?.role || 'user'}
-                  </Badge>
-                  <Badge
-                    className={getAccountStatusColor(
-                      currentUser?.accountStatus,
-                    )}
-                  >
-                    {currentUser?.accountStatus || 'active'}
-                  </Badge>
-                </div>
+        {/* Consolidated Header Section */}
+        <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950 border-0 shadow-sm">
+          <CardContent className="p-6">
+            <div className="flex flex-col lg:flex-row lg:items-center gap-6">
+              <div className="lg:flex-shrink-0 lg:w-1/3">
+                <CardTitle className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+                  Welcome back, {currentUser?.firstName}! 👋
+                </CardTitle>
+                <CardDescription className="text-base text-gray-600 dark:text-gray-300">
+                  Here's a summary of your account and recent activity.
+                </CardDescription>
               </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="pb-3">
-              <CardDescription>Email Status</CardDescription>
-              <CardTitle className="text-lg">
-                {currentUser?.emailVerified ? 'Verified' : 'Not Verified'}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="pt-2">
-              <div className="flex items-center gap-2">
-                {currentUser?.emailVerified ? (
-                  <div className="flex items-center gap-1 text-green-600">
-                    <span>✓</span>
-                    <span className="text-sm">Email verified</span>
+              <div className="flex-1 grid grid-cols-3 gap-4 lg:gap-6">
+                <div className="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+                  <p className="text-sm text-muted-foreground">
+                    Profile Completion
+                  </p>
+                  <p className="text-2xl font-bold">
+                    {getProfileCompletionPercentage()}%
+                  </p>
+                  <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                    <div
+                      className="bg-blue-600 h-2 rounded-full transition-all duration-500 ease-in-out"
+                      style={{ width: `${getProfileCompletionPercentage()}%` }}
+                    />
                   </div>
-                ) : (
-                  <div className="flex items-center gap-1 text-yellow-600">
-                    <span>⚠</span>
-                    <span className="text-sm">Please verify your email</span>
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="pb-3">
-              <CardDescription>Profile Completion</CardDescription>
-              <CardTitle className="text-lg">
-                {getProfileCompletionPercentage()}%
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="pt-2">
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div
-                  className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                  style={{ width: `${getProfileCompletionPercentage()}%` }}
-                />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Account Activity */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-          <Card>
-            <CardHeader className="pb-4">
-              <CardTitle>Account Activity</CardTitle>
-              <CardDescription>Your recent account information</CardDescription>
-            </CardHeader>
-            <CardContent className="pt-2">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">
-                    Last Login
-                  </span>
-                  <span className="text-sm font-medium">
-                    {formatDate(currentUser?.lastLogin)}
-                  </span>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">
-                    Registration Date
-                  </span>
-                  <span className="text-sm font-medium">
-                    {formatDate(currentUser?.createdAt)}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">
-                    Days Active
-                  </span>
-                  <span className="text-sm font-medium">
-                    {getDaysSinceRegistration()} days
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">
-                    Account Status
-                  </span>
-                  <Badge
-                    className={getAccountStatusColor(
-                      currentUser?.accountStatus,
-                    )}
-                  >
-                    {currentUser?.accountStatus || 'active'}
-                  </Badge>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="pb-4">
-              <CardTitle>Quick Actions</CardTitle>
-              <CardDescription>Common account management tasks</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-3 pt-2">
-              <Button
-                variant="outline"
-                className="w-full justify-start h-11 text-sm"
-                asChild
-              >
-                <Link to="/profile">👤 Edit Profile</Link>
-              </Button>
-              <Button
-                variant="outline"
-                className="w-full justify-start h-11 text-sm"
-                asChild
-              >
-                <Link to="/settings">⚙️ Account Settings</Link>
-              </Button>
-              <Button
-                variant="outline"
-                className="w-full justify-start h-11 text-sm"
-                asChild
-              >
-                <Link to="/settings/password">🔒 Change Password</Link>
-              </Button>
-              <Button
-                variant="outline"
-                className="w-full justify-start h-11 text-sm"
-                onClick={loadUserData}
-              >
-                🔄 Refresh Data
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Protected Resources Access */}
-        <SubdomainAccessCard />
-
-        {/* Security Information */}
-        <Card>
-          <CardHeader className="pb-4">
-            <CardTitle>Security Status</CardTitle>
-            <CardDescription>Your account security information</CardDescription>
-          </CardHeader>
-          <CardContent className="pt-2">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
-              <div className="flex items-center justify-between gap-2 p-2 sm:p-0">
-                <div className="flex items-center gap-2">
-                  <div
-                    className={`w-3 h-3 rounded-full ${
+                <div className="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+                  <p className="text-sm text-muted-foreground">Email Status</p>
+                  <p
+                    className={`text-2xl font-bold ${
                       currentUser?.emailVerified
-                        ? 'bg-green-500'
-                        : 'bg-yellow-500'
+                        ? 'text-green-600'
+                        : 'text-yellow-600'
                     }`}
-                  />
-                  <span className="text-sm">Email Verification</span>
+                  >
+                    {currentUser?.emailVerified ? 'Verified' : 'Pending'}
+                  </p>
+                  <div className="flex items-center justify-center gap-1 mt-2">
+                    {currentUser?.emailVerified ? (
+                      <CheckIcon className="h-4 w-4 text-green-600" />
+                    ) : (
+                      <WarningIcon className="h-4 w-4 text-yellow-600" />
+                    )}
+                  </div>
                 </div>
-                <span className="text-xs text-muted-foreground">
-                  {currentUser?.emailVerified ? 'Verified' : 'Pending'}
-                </span>
-              </div>
-              <div className="flex items-center justify-between gap-2 p-2 sm:p-0">
-                <div className="flex items-center gap-2">
-                  <div
-                    className={`w-3 h-3 rounded-full ${
-                      currentUser?.isActive ? 'bg-green-500' : 'bg-red-500'
-                    }`}
-                  />
-                  <span className="text-sm">Account Status</span>
+                <div className="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+                  <p className="text-sm text-muted-foreground">
+                    Account Status
+                  </p>
+                  <Badge
+                    className={`mt-2 ${getAccountStatusColor(
+                      currentUser?.accountStatus,
+                    )}`}
+                  >
+                    {currentUser?.accountStatus || 'active'}
+                  </Badge>
                 </div>
-                <span className="text-xs text-muted-foreground">
-                  {currentUser?.isActive ? 'Active' : 'Inactive'}
-                </span>
-              </div>
-              <div className="flex items-center justify-between gap-2 p-2 sm:p-0">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-green-500 rounded-full" />
-                  <span className="text-sm">Security</span>
-                </div>
-                <span className="text-xs text-muted-foreground">
-                  {currentUser?.loginAttempts > 0
-                    ? `${currentUser.loginAttempts} attempts`
-                    : 'Good'}
-                </span>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Referral Information (if applicable) */}
-        {currentUser?.referralCode && (
-          <Card>
-            <CardHeader className="pb-4">
-              <CardTitle>Referral Information</CardTitle>
-              <CardDescription>Your personal referral code</CardDescription>
-            </CardHeader>
-            <CardContent className="pt-2">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                <div className="flex-1">
-                  <p className="text-sm text-muted-foreground">
-                    Your referral code:
-                  </p>
-                  <p className="text-lg font-mono font-bold break-all">
-                    {currentUser.referralCode}
-                  </p>
+        {/* Main Two-Column Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Left Column */}
+          <div className="space-y-6">
+            {/* Account Overview Card */}
+            <Card className="shadow-sm h-fit">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <CalendarIcon className="h-5 w-5" />
+                  Account Overview
+                </CardTitle>
+                <CardDescription>
+                  Your recent activity and security settings.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-xs text-muted-foreground">Last Login</p>
+                    <p className="text-sm font-medium truncate">
+                      {formatDate(currentUser?.lastLogin)}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground">
+                      Member Since
+                    </p>
+                    <p className="text-sm font-medium truncate">
+                      {formatDate(currentUser?.createdAt)}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground">Days Active</p>
+                    <p className="text-sm font-medium">
+                      {getDaysSinceRegistration()} days
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground">Role</p>
+                    <Badge variant="secondary" className="text-xs mt-1">
+                      {currentUser?.role || 'user'}
+                    </Badge>
+                  </div>
                 </div>
+                <div className="pt-4 border-t">
+                  <p className="text-sm font-medium mb-3">Security Status</p>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div
+                          className={`w-3 h-3 rounded-full ${
+                            currentUser?.emailVerified
+                              ? 'bg-green-500'
+                              : 'bg-yellow-500'
+                          }`}
+                        />
+                        <span className="text-sm">Email Verification</span>
+                      </div>
+                      <Badge
+                        variant={
+                          currentUser?.emailVerified ? 'default' : 'secondary'
+                        }
+                        className="text-xs"
+                      >
+                        {currentUser?.emailVerified ? 'Verified' : 'Pending'}
+                      </Badge>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div
+                          className={`w-3 h-3 rounded-full ${
+                            currentUser?.isActive
+                              ? 'bg-green-500'
+                              : 'bg-red-500'
+                          }`}
+                        />
+                        <span className="text-sm">Account Status</span>
+                      </div>
+                      <Badge
+                        variant={
+                          currentUser?.isActive ? 'default' : 'destructive'
+                        }
+                        className="text-xs"
+                      >
+                        {currentUser?.isActive ? 'Active' : 'Inactive'}
+                      </Badge>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 bg-green-500 rounded-full" />
+                        <span className="text-sm">Login Attempts</span>
+                      </div>
+                      <span className="text-xs text-muted-foreground font-medium">
+                        {currentUser?.loginAttempts > 0
+                          ? `${currentUser.loginAttempts} attempts`
+                          : 'Good'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Referral Information (if applicable) */}
+            {currentUser?.referralCode && (
+              <Card className="shadow-sm h-fit">
+                <CardHeader>
+                  <CardTitle>Referral Information</CardTitle>
+                  <CardDescription>
+                    Share this code with friends to earn rewards.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                    <div className="flex-1">
+                      <p className="text-sm text-muted-foreground mb-1">
+                        Your referral code:
+                      </p>
+                      <p className="text-lg font-mono font-bold bg-gray-100 dark:bg-gray-800 p-2 rounded-md break-all">
+                        {currentUser.referralCode}
+                      </p>
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full sm:w-auto gap-2"
+                      onClick={() =>
+                        navigator.clipboard.writeText(currentUser.referralCode)
+                      }
+                    >
+                      <CopyIcon className="h-4 w-4" />
+                      Copy Code
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+
+          {/* Right Column */}
+          <div className="space-y-6">
+            {/* Quick Actions Card */}
+            <Card className="shadow-sm border-primary/20 dark:border-primary/10 h-fit">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <SettingsIcon className="h-5 w-5" />
+                  Quick Actions
+                </CardTitle>
+                <CardDescription>
+                  Common tasks to manage your account.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3">
                 <Button
                   variant="outline"
-                  size="sm"
-                  className="w-full sm:w-auto"
-                  onClick={() =>
-                    navigator.clipboard.writeText(currentUser.referralCode)
-                  }
+                  className="w-full justify-start h-11 text-sm gap-2"
+                  asChild
                 >
-                  Copy Code
+                  <Link to="/profile">
+                    <UserIcon className="h-4 w-4" />
+                    Edit Profile
+                  </Link>
                 </Button>
-              </div>
-            </CardContent>
-          </Card>
-        )}
+                <Button
+                  variant="outline"
+                  className="w-full justify-start h-11 text-sm gap-2"
+                  asChild
+                >
+                  <Link to="/settings">
+                    <SettingsIcon className="h-4 w-4" />
+                    Account Settings
+                  </Link>
+                </Button>
+                <Button
+                  variant="outline"
+                  className="w-full justify-start h-11 text-sm gap-2"
+                  asChild
+                >
+                  <Link to="/settings/password">
+                    <LockIcon className="h-4 w-4" />
+                    Change Password
+                  </Link>
+                </Button>
+                <Button
+                  variant="outline"
+                  className="w-full justify-start h-11 text-sm gap-2"
+                  onClick={loadUserData}
+                >
+                  <RefreshIcon className="h-4 w-4" />
+                  Refresh Data
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Protected Resources Access - Full Width */}
+        <SubdomainAccessCard />
       </div>
     </UserLayout>
   );
