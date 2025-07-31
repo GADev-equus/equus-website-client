@@ -4,7 +4,7 @@ import { cva } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const badgeVariants = cva(
-  'inline-flex items-center rounded-full border text-xs font-semibold transition-colors [padding:1rem_1.5rem]',
+  'inline-flex items-center rounded-full border text-xs font-semibold transition-colors px-2.5 py-0.5',
   {
     variants: {
       variant: {
@@ -31,8 +31,8 @@ const badgeVariants = cva(
       },
       size: {
         default: '', // Padding is now in base class
-        sm: '[padding:0.75rem_1rem]', // Smaller padding for small size
-        lg: '[padding:1.5rem_2rem]', // Larger padding for large size
+        sm: 'px-2 py-0.5', // Smaller padding for small size
+        lg: 'px-3 py-1', // Larger padding for large size
       },
     },
     defaultVariants: {

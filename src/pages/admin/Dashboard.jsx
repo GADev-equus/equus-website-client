@@ -14,6 +14,7 @@ import {
   CardDescription,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import {
   CardSkeleton,
   UserListSkeleton,
@@ -25,6 +26,17 @@ import { cn } from '@/lib/utils';
 import userService from '@/services/userService';
 import adminContactService from '@/services/adminContactService';
 import subdomainRequestService from '@/services/subdomainRequestService';
+
+// Placeholder for icons - replace with your actual icon library imports
+const UsersIcon = () => <span>👥</span>;
+const ChartIcon = () => <span>📈</span>;
+const DocumentIcon = () => <span>📄</span>;
+const MailIcon = () => <span>📩</span>;
+const KeyIcon = () => <span>🔑</span>;
+const RefreshIcon = () => <span>🔄</span>;
+const SettingsIcon = () => <span>⚙️</span>;
+const CalendarIcon = () => <span>📅</span>;
+const ShieldIcon = () => <span>🛡️</span>;
 
 const Dashboard = () => {
   const toast = useToast();
@@ -88,8 +100,6 @@ const Dashboard = () => {
         }
       } catch (contactErr) {
         console.error('Contact stats error:', contactErr);
-        // Don't fail the whole dashboard if contact stats fail
-        // Set default empty stats to prevent UI errors
         setContactStats({
           total: 0,
           pending: 0,
@@ -134,7 +144,6 @@ const Dashboard = () => {
           '❌ Admin Dashboard: Subdomain request stats error:',
           subdomainErr,
         );
-        // Don't fail the whole dashboard if subdomain stats fail
         setSubdomainRequestStats({
           total: 0,
           pending: 0,
@@ -161,8 +170,6 @@ const Dashboard = () => {
         }
       } catch (contactErr) {
         console.error('Recent contacts error:', contactErr);
-        // Don't fail the whole dashboard if recent contacts fail
-        // Set empty array to prevent UI errors
         setRecentContacts([]);
       }
     } catch (err) {
@@ -302,193 +309,217 @@ const Dashboard = () => {
 
   return (
     <AdminLayout title="Dashboard">
-      <div className="space-y-4 sm:space-y-6 lg:space-y-8 px-1 sm:px-0">
-        {/* Enhanced spacing section */}
-        <div className="equus-section">
-          {error && (
-            <Card className="border-destructive">
-              <CardContent className="p-4">
-                <p className="text-destructive text-sm">{error}</p>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={loadDashboardData}
-                  className="mt-2"
-                >
-                  Retry
-                </Button>
-              </CardContent>
-            </Card>
-          )}
+      <div className="space-y-6 lg:space-y-8 px-1 sm:px-0">
+        {error && (
+          <Card className="border-destructive">
+            <CardContent className="p-4">
+              <p className="text-destructive text-sm">{error}</p>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={loadDashboardData}
+                className="mt-2"
+              >
+                Retry
+              </Button>
+            </CardContent>
+          </Card>
+        )}
 
-          {/* Stats Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-3 sm:gap-4 lg:gap-6">
-            <Card className="equus-card">
-              <CardHeader className="pb-3">
-                <CardDescription>Total Users</CardDescription>
-                <CardTitle className="text-lg sm:text-xl lg:text-2xl">
-                  {stats.totalUsers}
+        {/* Welcome Section */}
+        <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950 border-0 shadow-sm">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">
+              Admin Dashboard
+            </CardTitle>
+            <CardDescription className="text-base text-gray-600 dark:text-gray-300">
+              Overview of your system's health and activity.
+            </CardDescription>
+          </CardHeader>
+        </Card>
+
+        {/* Top Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Card className="shadow-sm hover:shadow-md transition-shadow duration-200">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
+                Total Users
+              </CardTitle>
+              <UsersIcon className="h-5 w-5 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{stats.totalUsers}</div>
+              <p className="text-xs text-muted-foreground mt-1">
+                {stats.activeUsers} active
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-sm hover:shadow-md transition-shadow duration-200">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
+                Pending Contacts
+              </CardTitle>
+              <MailIcon className="h-5 w-5 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-orange-600">
+                {contactStats.pending}
+              </div>
+              <p className="text-xs text-muted-foreground mt-1">
+                {contactStats.total} total
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-sm hover:shadow-md transition-shadow duration-200">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
+                Access Requests
+              </CardTitle>
+              <KeyIcon className="h-5 w-5 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-purple-600">
+                {subdomainRequestStats.pending}
+              </div>
+              <p className="text-xs text-muted-foreground mt-1">
+                {subdomainRequestStats.total} total
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Main Two-Column Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Left Column */}
+          <div className="space-y-6">
+            {/* System Activity */}
+            <Card className="shadow-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <CalendarIcon className="h-5 w-5" />
+                  System Activity
                 </CardTitle>
+                <CardDescription>
+                  Key statistics and recent system information.
+                </CardDescription>
               </CardHeader>
-              <CardContent className="pt-2">
-                <p className="text-xs text-muted-foreground">
-                  Registered accounts
-                </p>
+              <CardContent className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">
+                    Active Users
+                  </span>
+                  <span className="text-sm font-medium">
+                    {stats.activeUsers}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">
+                    New Today
+                  </span>
+                  <span className="text-sm font-medium">
+                    {stats.newUsersToday}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Admins</span>
+                  <span className="text-sm font-medium">
+                    {stats.adminUsers}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">
+                    Total Contacts
+                  </span>
+                  <span className="text-sm font-medium">
+                    {contactStats.total}
+                  </span>
+                </div>
               </CardContent>
             </Card>
 
-            <Card className="equus-card">
-              <CardHeader className="pb-3">
-                <CardDescription>Active Users</CardDescription>
-                <CardTitle className="text-lg sm:text-xl lg:text-2xl">
-                  {stats.activeUsers}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pt-2">
-                <p className="text-xs text-muted-foreground">
-                  Currently active
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="equus-card">
-              <CardHeader className="pb-3">
-                <CardDescription>New Today</CardDescription>
-                <CardTitle className="text-lg sm:text-xl lg:text-2xl">
-                  {stats.newUsersToday}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pt-2">
-                <p className="text-xs text-muted-foreground">
-                  New registrations
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="equus-card">
-              <CardHeader className="pb-3">
-                <CardDescription>Administrators</CardDescription>
-                <CardTitle className="text-lg sm:text-xl lg:text-2xl">
-                  {stats.adminUsers}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pt-2">
-                <p className="text-xs text-muted-foreground">Admin accounts</p>
-              </CardContent>
-            </Card>
-
-            <Card className="equus-card">
-              <CardHeader className="pb-3">
-                <CardDescription>Total Contacts</CardDescription>
-                <CardTitle className="text-lg sm:text-xl lg:text-2xl">
-                  {contactStats.total}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pt-2">
-                <p className="text-xs text-muted-foreground">
-                  Form submissions
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="equus-card">
-              <CardHeader className="pb-3">
-                <CardDescription>Pending Contacts</CardDescription>
-                <CardTitle className="text-lg sm:text-xl lg:text-2xl text-orange-600">
-                  {contactStats.pending}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pt-2">
-                <p className="text-xs text-muted-foreground">Need attention</p>
-              </CardContent>
-            </Card>
-
-            <Card className="equus-card">
-              <CardHeader className="pb-3">
-                <CardDescription>Access Requests</CardDescription>
-                <CardTitle className="text-lg sm:text-xl lg:text-2xl text-purple-600">
-                  {subdomainRequestStats.pending}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pt-2">
-                <p className="text-xs text-muted-foreground">
-                  Pending approval
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Quick Actions and Recent Activity */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
             {/* Quick Actions */}
-            <Card className="equus-card">
-              <CardHeader className="pb-4">
-                <CardTitle>Quick Actions</CardTitle>
-                <CardDescription>Common administrative tasks</CardDescription>
+            <Card className="shadow-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <SettingsIcon className="h-5 w-5" />
+                  Quick Actions
+                </CardTitle>
+                <CardDescription>Common administrative tasks.</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-3 pt-2">
+              <CardContent className="space-y-3">
                 <Link to="/admin/users">
                   <Button
                     variant="outline"
-                    className="w-full justify-start h-11 text-sm"
+                    className="w-full justify-start h-11 text-sm gap-2"
                   >
-                    👥 Manage Users
+                    <UsersIcon className="h-4 w-4" />
+                    Manage Users
                   </Button>
                 </Link>
                 <Link to="/admin/analytics">
                   <Button
                     variant="outline"
-                    className="w-full justify-start h-11 text-sm"
+                    className="w-full justify-start h-11 text-sm gap-2"
                   >
-                    📈 View Analytics
+                    <ChartIcon className="h-4 w-4" />
+                    View Analytics
                   </Button>
                 </Link>
                 <Link to="/admin/page-views">
                   <Button
                     variant="outline"
-                    className="w-full justify-start h-11 text-sm"
+                    className="w-full justify-start h-11 text-sm gap-2"
                   >
-                    📄 Page Views Analytics
+                    <DocumentIcon className="h-4 w-4" />
+                    Page Views Analytics
                   </Button>
                 </Link>
                 <Link to="/admin/contacts">
                   <Button
                     variant="outline"
-                    className="w-full justify-start h-11 text-sm"
+                    className="w-full justify-start h-11 text-sm gap-2"
                   >
-                    📩 Manage Contacts
+                    <MailIcon className="h-4 w-4" />
+                    Manage Contacts
                     {contactStats.pending > 0 && (
-                      <span className="ml-auto bg-orange-500 text-white text-xs px-2 py-1 rounded-full">
+                      <Badge variant="destructive" className="ml-auto text-xs">
                         {contactStats.pending}
-                      </span>
+                      </Badge>
                     )}
                   </Button>
                 </Link>
                 <Link to="/admin/subdomain-requests">
                   <Button
                     variant="outline"
-                    className="w-full justify-start h-11 text-sm"
+                    className="w-full justify-start h-11 text-sm gap-2"
                   >
-                    🔑 Subdomain Requests
+                    <KeyIcon className="h-4 w-4" />
+                    Subdomain Requests
                     {subdomainRequestStats.pending > 0 && (
-                      <span className="ml-auto bg-purple-500 text-white text-xs px-2 py-1 rounded-full">
+                      <Badge variant="destructive" className="ml-auto text-xs">
                         {subdomainRequestStats.pending}
-                      </span>
+                      </Badge>
                     )}
                   </Button>
                 </Link>
                 <Button
                   variant="outline"
-                  className="w-full justify-start"
+                  className="w-full justify-start h-11 text-sm gap-2"
                   onClick={loadDashboardData}
                 >
-                  🔄 Refresh Data
+                  <RefreshIcon className="h-4 w-4" />
+                  Refresh Data
                 </Button>
               </CardContent>
             </Card>
+          </div>
 
+          {/* Right Column */}
+          <div className="space-y-6">
             {/* Recent Users */}
-            <Card className="equus-card">
+            <Card className="shadow-sm h-fit">
               <CardHeader className="pb-4">
                 <CardTitle>Recent Users</CardTitle>
                 <CardDescription>Latest user registrations</CardDescription>
@@ -513,16 +544,14 @@ const Dashboard = () => {
                           <p className="text-xs text-muted-foreground">
                             {formatDate(user.createdAt)}
                           </p>
-                          <span
-                            className={cn(
-                              'inline-block px-3 py-2 rounded-full text-xs',
-                              user.status === 'active'
-                                ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-                                : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200',
-                            )}
+                          <Badge
+                            variant={
+                              user.status === 'active' ? 'default' : 'secondary'
+                            }
+                            className="text-xs"
                           >
                             {user.status}
-                          </span>
+                          </Badge>
                         </div>
                       </div>
                     ))}
@@ -541,7 +570,7 @@ const Dashboard = () => {
             </Card>
 
             {/* Recent Contacts */}
-            <Card className="equus-card">
+            <Card className="shadow-sm h-fit">
               <CardHeader className="pb-4">
                 <CardTitle>Recent Contacts</CardTitle>
                 <CardDescription>
@@ -571,23 +600,9 @@ const Dashboard = () => {
                           <p className="text-xs text-muted-foreground">
                             {formatDate(contact.createdAt)}
                           </p>
-                          <span
-                            className={cn(
-                              'inline-block px-3 py-2 rounded-full text-xs',
-                              contact.status === 'pending' &&
-                                'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
-                              contact.status === 'read' &&
-                                'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
-                              contact.status === 'replied' &&
-                                'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-                              !['pending', 'read', 'replied'].includes(
-                                contact.status,
-                              ) &&
-                                'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200',
-                            )}
-                          >
+                          <Badge variant={contact.status} className="text-xs">
                             {contact.status}
-                          </span>
+                          </Badge>
                         </div>
                       </div>
                     ))}
@@ -605,42 +620,51 @@ const Dashboard = () => {
               </CardContent>
             </Card>
           </div>
-
-          {/* System Status */}
-          <Card className="equus-card">
-            <CardHeader className="pb-4">
-              <CardTitle>System Status</CardTitle>
-              <CardDescription>
-                Current system health and information
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="pt-2">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                  <span className="text-sm">API Service</span>
-                  <span className="text-xs text-muted-foreground ml-auto">
-                    Online
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                  <span className="text-sm">Database</span>
-                  <span className="text-xs text-muted-foreground ml-auto">
-                    Connected
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                  <span className="text-sm">Email Service</span>
-                  <span className="text-xs text-muted-foreground ml-auto">
-                    Available
-                  </span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
         </div>
+
+        {/* System Status - Full Width */}
+        <Card className="shadow-sm">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <ShieldIcon className="h-5 w-5" />
+              System Status
+            </CardTitle>
+            <CardDescription>
+              Current system health and information.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="flex items-center justify-between p-3 border rounded-lg">
+                <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-green-500 rounded-full" />
+                  <span className="text-sm font-medium">API Service</span>
+                </div>
+                <Badge variant="default" className="text-xs">
+                  Online
+                </Badge>
+              </div>
+              <div className="flex items-center justify-between p-3 border rounded-lg">
+                <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-green-500 rounded-full" />
+                  <span className="text-sm font-medium">Database</span>
+                </div>
+                <Badge variant="default" className="text-xs">
+                  Connected
+                </Badge>
+              </div>
+              <div className="flex items-center justify-between p-3 border rounded-lg">
+                <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-green-500 rounded-full" />
+                  <span className="text-sm font-medium">Email Service</span>
+                </div>
+                <Badge variant="default" className="text-xs">
+                  Available
+                </Badge>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </AdminLayout>
   );
