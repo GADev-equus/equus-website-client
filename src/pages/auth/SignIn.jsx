@@ -12,19 +12,14 @@ import { SEO_CONFIG } from '@/utils/structuredData';
 const SignIn = () => {
   return (
     <>
-      <SEOHelmet 
+      <SEOHelmet
         title={SEO_CONFIG.auth.signin.title}
         description={SEO_CONFIG.auth.signin.description}
         keywords={SEO_CONFIG.auth.signin.keywords}
         noIndex={SEO_CONFIG.auth.signin.noIndex}
         url="https://equussystems.co/auth/signin"
       />
-      <div style={{      
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 'var(--equus-spacing-sm)'
-      }}>
+      <div className="auth-container">
         <SkipLink />
         <SignInForm />
       </div>

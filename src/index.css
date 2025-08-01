@@ -2,6 +2,53 @@
 @import 'tw-animate-css';
 @import './styles/design-system.css';
 @import './styles/loading-states.css';
+@import './styles/utilities.css';
+
+/* Tailwind CSS v4 Theme Configuration */
+@theme {
+  /* Equus Brand Colors */
+  --color-equus-primary: #3498db;
+  --color-equus-secondary: #2c3e50;
+  --color-equus-accent: #e74c3c;
+  --color-equus-text-primary: #333;
+  --color-equus-text-secondary: #666;
+  --color-equus-text-light: rgba(255, 255, 255, 0.9);
+  --color-equus-bg-primary: #f8f9fa;
+  --color-equus-bg-dark: rgba(12, 12, 12, 1);
+  --color-equus-bg-white: rgba(220, 220, 220, 1);
+  --color-equus-border: rgba(12, 12, 12, 1);
+
+  /* Typography */
+  --font-family-branding: 'AquireLight', 'Nunito', ui-sans-serif, system-ui;
+  --font-family-display: 'Nunito', ui-sans-serif, system-ui;
+  --font-family-base: 'Nunito', ui-sans-serif, system-ui;
+  --font-family-alt: 'Sen', 'Helvetica Neue', Arial, sans-serif;
+
+  /* Custom spacing scale */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  --spacing-xxl: 4rem;
+
+  /* Layout */
+  --radius-default: 8px;
+  --radius-sm: 4px;
+  --radius-lg: 12px;
+  --border-width-accent: 4px;
+
+  /* Custom widths */
+  --width-content: 600px;
+  --width-container: 1200px;
+  --width-notice: 400px;
+
+  /* Line heights */
+  --line-height-relaxed: 1.7;
+
+  /* Custom breakpoints */
+  --breakpoint-3xl: 1920px;
+}
 
 /* Complete CSS Reset */
 *,

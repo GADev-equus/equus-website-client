@@ -4,7 +4,10 @@
  */
 
 import { useSearchParams, Link } from 'react-router-dom';
-import { PasswordResetRequestForm, PasswordResetForm } from '@/components/forms/PasswordResetForm';
+import {
+  PasswordResetRequestForm,
+  PasswordResetForm,
+} from '@/components/forms/PasswordResetForm';
 import { SkipLink } from '@/components/ui/skip-link';
 
 const ResetPassword = () => {
@@ -12,23 +15,15 @@ const ResetPassword = () => {
   const token = searchParams.get('token');
 
   return (
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: 'var(--equus-spacing-sm)'
-    }}>
+    <div className="auth-container">
       <SkipLink />
-      <div style={{
-        width: '100%',
-        maxWidth: '28rem'
-      }}>
+      <div className="auth-form-wrapper">
         {token ? (
           // Password reset confirmation form (with token)
           <PasswordResetForm token={token} />
         ) : (
-          // Password reset request form (no token)           
-          <PasswordResetRequestForm />            
+          // Password reset request form (no token)
+          <PasswordResetRequestForm />
         )}
       </div>
     </div>

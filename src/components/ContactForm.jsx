@@ -15,13 +15,13 @@ const ContactForm = () => {
   const [errors, setErrors] = useState({});
   const [submitStatus, setSubmitStatus] = useState(null);
   const [touched, setTouched] = useState({});
-  
+
   // Use cold start aware loading for form submission
   const {
     isLoading: isSubmitting,
     setLoading: setIsSubmitting,
     shouldShowColdStartUI,
-    loadingState
+    loadingState,
   } = useColdStartAwareLoading(false);
 
   const handleChange = useCallback(
@@ -350,8 +350,9 @@ const ContactForm = () => {
               {isSubmitting ? (
                 <>
                   <span className="loading-spinner" aria-hidden="true"></span>
-                  {shouldShowColdStartUI && shouldShowColdStartUI() ? 
-                    'Starting server...' : 'Sending...'}
+                  {shouldShowColdStartUI && shouldShowColdStartUI()
+                    ? 'Starting server...'
+                    : 'Sending...'}
                 </>
               ) : (
                 'Send Message'
@@ -359,40 +360,10 @@ const ContactForm = () => {
             </button>
           </div>
 
-          <div className="signin-invitation" style={{
-            textAlign: 'center',
-            marginTop: '1.5rem',
-            padding: '1rem',
-            backgroundColor: 'rgba(0, 123, 255, 0.05)',
-            borderRadius: '8px',
-            border: '1px solid rgba(0, 123, 255, 0.1)'
-          }}>
-            <p style={{ 
-              margin: '0 0 0.5rem 0',
-              color: 'var(--color-text-secondary, #666)',
-              fontSize: '0.95rem'
-            }}>
-              Ready to unlock your personalised AI journey?
-            </p>
-            <p style={{ 
-              margin: '0 0 0.5rem 0',
-              color: 'var(--color-text-secondary, #666)',
-              fontSize: '0.95rem'
-            }}>
-              Join our community!
-            </p>
-            <Link 
-              to="/auth/signin" 
-              style={{
-                color: '#0056b3',
-                textDecoration: 'none',
-                fontWeight: '600',
-                fontSize: '1rem',
-                transition: 'color 0.2s ease'
-              }}
-              onMouseEnter={(e) => e.target.style.color = '#003d82'}
-              onMouseLeave={(e) => e.target.style.color = '#0056b3'}
-            >
+          <div className="signin-invitation">
+            <p>Ready to unlock your personalised AI journey?</p>
+            <p>Join our community!</p>
+            <Link to="/auth/signin" className="signin-invitation-link">
               Sign in or register →
             </Link>
           </div>

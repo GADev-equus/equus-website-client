@@ -1,0 +1,414 @@
+/**
+ * Equus Systems Utility Classes
+ * Custom utilities that replace inline styles using CSS variables
+ */
+
+/* Layout utilities */
+.container-equus {
+  max-width: var(--equus-max-width-container);
+  margin: 0 auto;
+  padding: var(--equus-spacing-lg) var(--equus-spacing-sm);
+  width: 100%;
+}
+
+.container-content {
+  max-width: var(--equus-max-width-content);
+  margin: 0 auto;
+}
+
+.container-notice {
+  max-width: var(--equus-max-width-notice);
+  margin: 0 auto;
+}
+
+/* Typography utilities */
+.text-equus-primary {
+  color: var(--equus-primary);
+}
+
+.text-equus-secondary {
+  color: var(--equus-secondary);
+}
+
+.text-equus-accent {
+  color: var(--equus-accent);
+}
+
+.text-equus-body {
+  color: var(--equus-text-primary);
+}
+
+.text-equus-muted {
+  color: var(--equus-text-secondary);
+}
+
+.font-branding {
+  font-family: var(--equus-font-branding);
+}
+
+.font-display {
+  font-family: var(--equus-font-display);
+}
+
+.font-alt {
+  font-family: var(--equus-font-alt);
+}
+
+/* Background utilities */
+.bg-equus-primary {
+  background-color: var(--equus-primary);
+}
+
+.bg-equus-secondary {
+  background-color: var(--equus-secondary);
+}
+
+.bg-equus-white {
+  background-color: var(--equus-background-white);
+}
+
+.bg-equus-dark {
+  background-color: var(--equus-background-dark);
+}
+
+/* Border utilities */
+.border-equus {
+  border-color: var(--equus-border-color);
+}
+
+.border-l-equus-accent {
+  border-left: var(--equus-border-accent) solid var(--equus-primary);
+}
+
+/* Card component utilities */
+.equus-card-highlighted {
+  background-color: var(--equus-background-white);
+  border-left: var(--equus-border-accent) solid var(--equus-primary);
+  width: 100%;
+  max-width: 350px;
+  padding: var(--equus-spacing-md);
+  border-radius: var(--equus-border-radius);
+}
+
+/* Section spacing */
+.equus-section {
+  padding: var(--equus-spacing-lg) 0;
+}
+
+.equus-section-centered {
+  text-align: center;
+}
+
+/* Grid utilities */
+.grid-equus-services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--equus-grid-gap);
+  justify-items: center;
+}
+
+/* Typography size utilities */
+.text-hero {
+  font-size: 2rem;
+  font-family: var(--equus-font-display);
+}
+
+.text-section-title {
+  font-size: 1.8rem;
+  font-family: var(--equus-font-display);
+  margin-bottom: var(--equus-spacing-lg);
+}
+
+.text-card-title {
+  font-size: 1.3rem;
+  font-family: var(--equus-font-alt);
+}
+
+.text-body-large {
+  font-size: 1.1rem;
+  line-height: var(--equus-line-height-relaxed);
+}
+
+/* Button utilities using existing styles */
+.btn-equus-primary {
+  background-color: var(--equus-primary);
+  color: white;
+  padding: var(--equus-spacing-sm) var(--equus-spacing-md);
+  border-radius: var(--equus-border-radius);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s;
+  width: 100%;
+  display: block;
+  margin-top: var(--equus-spacing-sm);
+}
+
+.btn-equus-primary:hover {
+  background-color: #2980b9;
+}
+
+.btn-equus-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Progress bar utilities */
+.progress-equus {
+  width: 100%;
+  background-color: #e5e7eb;
+  border-radius: var(--equus-border-radius);
+  height: 8px;
+}
+
+.progress-fill-equus {
+  height: 100%;
+  background-color: var(--equus-primary);
+  border-radius: var(--equus-border-radius);
+  transition: width 0.3s ease-in-out;
+}
+
+/* Responsive grid for larger screens */
+@media (min-width: 1920px) {
+  .container-3xl {
+    max-width: 1920px;
+  }
+}
+
+/* Auth page utilities */
+.auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--equus-spacing-sm);
+}
+
+.auth-form-wrapper {
+  width: 100%;
+  max-width: 28rem;
+}
+
+.auth-terms {
+  margin-top: var(--equus-spacing-md);
+  font-size: 0.75rem;
+  color: var(--equus-text-secondary);
+  text-align: center;
+}
+
+.auth-link {
+  color: var(--equus-primary);
+  text-decoration: none;
+}
+
+.auth-link:hover {
+  text-decoration: underline;
+}
+
+/* Email verification page utilities */
+.verification-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--equus-spacing-lg);
+  background-color: var(--equus-background-primary);
+}
+
+.verification-card {
+  background-color: white;
+  border-radius: var(--equus-border-radius);
+  box-shadow: var(--equus-box-shadow);
+  padding: var(--equus-spacing-xl);
+  max-width: var(--equus-max-width-notice);
+  width: 100%;
+  text-align: center;
+}
+
+.verification-icon {
+  width: 2rem;
+  height: 2rem;
+  margin: 0 auto var(--equus-spacing-md);
+}
+
+.verification-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--equus-text-primary);
+  margin-bottom: var(--equus-spacing-sm);
+  font-family: var(--equus-font-display);
+}
+
+.verification-message {
+  color: var(--equus-text-secondary);
+  line-height: var(--equus-line-height-relaxed);
+  margin-bottom: var(--equus-spacing-md);
+}
+
+/* Reset password utilities */
+.reset-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--equus-spacing-lg);
+}
+
+.reset-card {
+  background-color: white;
+  border-radius: var(--equus-border-radius);
+  box-shadow: var(--equus-box-shadow);
+  padding: var(--equus-spacing-xl);
+  max-width: var(--equus-max-width-notice);
+  width: 100%;
+}
+
+/* Email verification status icons */
+.verification-status-icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.verification-status-icon.success {
+  background-color: #d4edda;
+}
+
+.verification-status-icon.error {
+  background-color: #f8d7da;
+}
+
+.verification-status-icon svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.verification-status-icon.success svg {
+  color: #27ae60;
+}
+
+.verification-status-icon.error svg {
+  color: var(--equus-accent);
+}
+
+/* LoadingSpinner custom color */
+.loading-spinner-primary {
+  color: var(--equus-primary);
+}
+
+/* Email verification specific utilities */
+.verification-content {
+  text-align: center;
+}
+
+.verification-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: var(--equus-spacing-xs);
+}
+
+.verification-title.success {
+  color: #27ae60;
+}
+
+.verification-title.error {
+  color: var(--equus-accent);
+}
+
+.verification-title.verifying {
+  color: var(--equus-text-primary);
+}
+
+.verification-redirect-notice {
+  font-size: 0.875rem;
+  color: var(--equus-text-secondary);
+  margin-bottom: var(--equus-spacing-sm);
+}
+
+.verification-button-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--equus-spacing-xs);
+}
+
+.verification-card {
+  background-color: var(--equus-background-white);
+  padding: var(--equus-spacing-lg);
+  border-radius: var(--equus-border-radius);
+  border: var(--equus-border-width) solid var(--equus-border-color);
+  box-shadow: var(--equus-box-shadow);
+  width: 100%;
+  max-width: 28rem;
+}
+
+/* Spacing utilities */
+.mt-xs {
+  margin-top: var(--equus-spacing-xs);
+}
+.mt-sm {
+  margin-top: var(--equus-spacing-sm);
+}
+.mt-md {
+  margin-top: var(--equus-spacing-md);
+}
+.mt-lg {
+  margin-top: var(--equus-spacing-lg);
+}
+.mt-xl {
+  margin-top: var(--equus-spacing-xl);
+}
+
+.mb-xs {
+  margin-bottom: var(--equus-spacing-xs);
+}
+.mb-sm {
+  margin-bottom: var(--equus-spacing-sm);
+}
+.mb-md {
+  margin-bottom: var(--equus-spacing-md);
+}
+.mb-lg {
+  margin-bottom: var(--equus-spacing-lg);
+}
+.mb-xl {
+  margin-bottom: var(--equus-spacing-xl);
+}
+
+.pt-12 {
+  padding-top: 3rem;
+}
+.pb-8 {
+  padding-bottom: 2rem;
+}
+
+/* Contact form utilities */
+.signin-invitation {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: rgba(0, 123, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 123, 255, 0.1);
+}
+
+.signin-invitation p {
+  margin: 0 0 0.5rem 0;
+  color: var(--color-text-secondary, #666);
+  font-size: 0.95rem;
+}
+
+.signin-invitation-link {
+  color: #0056b3;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.2s ease;
+}
+
+.signin-invitation-link:hover {
+  color: #003d82;
+}

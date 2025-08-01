@@ -9,48 +9,19 @@ import { SkipLink } from '@/components/ui/skip-link';
 
 const SignUp = () => {
   return (
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: 'var(--equus-spacing-sm)'
-    }}>
+    <div className="auth-container">
       <SkipLink />
-      <div style={{
-        width: '100%',
-        maxWidth: '28rem'
-      }}>
-        <SignUpForm />    
-            
-        <div style={{
-          marginTop: 'var(--equus-spacing-md)',
-          fontSize: '0.75rem',
-          color: 'var(--equus-text-secondary)',
-          textAlign: 'center'
-        }}>
+      <div className="auth-form-wrapper">
+        <SignUpForm />
+
+        <div className="auth-terms">
           <p>
             By signing up, you agree to our{' '}
-            <Link 
-              to="/terms" 
-              style={{
-                color: 'var(--equus-primary)',
-                textDecoration: 'none'
-              }}
-              onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
-              onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
-            >
+            <Link to="/terms" className="auth-link">
               Terms of Service
-            </Link>
-            {' '}and{' '}
-            <Link 
-              to="/privacy" 
-              style={{
-                color: 'var(--equus-primary)',
-                textDecoration: 'none'
-              }}
-              onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
-              onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
-            >
+            </Link>{' '}
+            and{' '}
+            <Link to="/privacy" className="auth-link">
               Privacy Policy
             </Link>
           </p>
