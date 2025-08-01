@@ -412,3 +412,126 @@
 .signin-invitation-link:hover {
   color: #003d82;
 }
+
+/* Footer utilities */
+.footer-fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--equus-gradient-primary);
+  padding: 0.75rem 0.5rem;
+  color: white;
+  text-align: center;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.footer-notice-card {
+  background: rgba(231, 76, 60, 0.1);
+  border: var(--equus-border-width) solid var(--equus-accent);
+  border-radius: var(--equus-border-radius);
+  max-width: var(--equus-max-width-notice);
+  padding: 0.5rem;
+  margin: 0 auto;
+}
+
+.footer-title {
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.footer-subtitle {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.footer-stats {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.7rem;
+}
+
+/* Header utilities */
+.header-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--equus-gradient-primary);
+  padding: 1rem 0.5rem;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.header-branding {
+  text-align: center;
+  flex: 1 1 auto;
+}
+
+.header-brand-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.header-brand-title {
+  font-size: 2rem;
+  letter-spacing: var(--equus-letter-spacing-tight);
+  font-family: var(--equus-font-branding);
+  margin-bottom: 0.25rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.header-brand-subtitle {
+  font-size: 0.7rem;
+  text-align: center;
+  margin: 0;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.header-user-greeting {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  white-space: nowrap;
+}
+
+.header-nav-button {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.header-nav-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.header-nav-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.header-nav-button:disabled:hover {
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.3);
+}

@@ -65,50 +65,14 @@ const Header = () => {
   };
 
   return (
-    <header
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 1000,
-        background: 'var(--equus-gradient-primary)',
-        padding: '1rem 0.5rem',
-        color: 'white',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        gap: '1rem',
-      }}
-    >
+    <header className="header-fixed">
       {/* Branding Section */}
       <div>
-        <div style={{ textAlign: 'center', flex: '1 1 auto' }}>
-          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <h1
-              className="font-bold"
-              style={{
-                fontSize: '2rem',
-                letterSpacing: 'var(--equus-letter-spacing-tight)',
-                fontFamily: 'var(--equus-font-branding)',
-                marginBottom: '0.25rem',
-                cursor: 'pointer',
-                transition: 'opacity 0.2s ease',
-              }}
-            >
-              EQUUS SYSTEMS
-            </h1>
+        <div className="header-branding">
+          <Link to="/" className="header-brand-link">
+            <h1 className="font-bold header-brand-title">EQUUS SYSTEMS</h1>
           </Link>
-          <p
-            className="opacity-90 font-light"
-            style={{
-              fontSize: '0.7rem',
-              textAlign: 'center',
-              margin: '0',
-            }}
-          >
+          <p className="opacity-90 font-light header-brand-subtitle">
             ADVANCED AI SOLUTIONS & CONSULTING
           </p>
         </div>
@@ -116,49 +80,14 @@ const Header = () => {
 
       {/* Authentication Navigation */}
       {isAuthenticated && user && (
-        <nav
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '1rem',
-            flexWrap: 'wrap',
-          }}
-        >
+        <nav className="header-nav">
           {/* User Greeting */}
-          <span
-            style={{
-              fontSize: '0.9rem',
-              opacity: 0.9,
-              whiteSpace: 'nowrap',
-            }}
-          >
+          <span className="header-user-greeting">
             Welcome, {user.firstName}
           </span>
 
           {/* Dashboard Link */}
-          <Link
-            to={getDashboardPath()}
-            style={{
-              color: 'white',
-              textDecoration: 'none',
-              padding: '0.5rem 1rem',
-              borderRadius: '0.375rem',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
-              fontSize: '0.875rem',
-              fontWeight: '500',
-              transition: 'all 0.2s ease',
-              whiteSpace: 'nowrap',
-              cursor: 'pointer',
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-              e.target.style.borderColor = 'rgba(255, 255, 255, 0.5)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.backgroundColor = 'transparent';
-              e.target.style.borderColor = 'rgba(255, 255, 255, 0.3)';
-            }}
-          >
+          <Link to={getDashboardPath()} className="header-nav-button">
             📊 Dashboard
           </Link>
 
@@ -166,29 +95,7 @@ const Header = () => {
           <button
             onClick={handleLogout}
             disabled={isLoggingOut || loading}
-            style={{
-              color: 'white',
-              backgroundColor: 'transparent',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
-              padding: '0.5rem 1rem',
-              borderRadius: '0.375rem',
-              fontSize: '0.875rem',
-              fontWeight: '500',
-              cursor: isLoggingOut || loading ? 'not-allowed' : 'pointer',
-              transition: 'all 0.2s ease',
-              opacity: isLoggingOut || loading ? 0.6 : 1,
-              whiteSpace: 'nowrap',
-            }}
-            onMouseEnter={(e) => {
-              if (!isLoggingOut && !loading) {
-                e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-                e.target.style.borderColor = 'rgba(255, 255, 255, 0.5)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.backgroundColor = 'transparent';
-              e.target.style.borderColor = 'rgba(255, 255, 255, 0.3)';
-            }}
+            className="header-nav-button"
           >
             {isLoggingOut ? '⏳ Logging out...' : '🚪 Logout'}
           </button>

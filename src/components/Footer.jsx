@@ -35,56 +35,16 @@ const Footer = () => {
   };
 
   return (
-    <footer
-      style={{
-        position: 'fixed',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        zIndex: 1000,
-        background: 'var(--equus-gradient-primary)',
-        padding: '0.75rem 0.5rem',
-        color: 'white',
-        textAlign: 'center',
-        boxShadow: '0 -2px 4px rgba(0,0,0,0.1)',
-      }}
-    >
-      <div
-        style={{
-          background: 'rgba(231, 76, 60, 0.1)',
-          border: 'var(--equus-border-width) solid var(--equus-accent)',
-          borderRadius: 'var(--equus-border-radius)',
-          maxWidth: 'var(--equus-max-width-notice)',
-          padding: '0.5rem',
-          margin: '0 auto',
-        }}
-      >
-        <p
-          className="font-bold"
-          style={{
-            marginBottom: '0.25rem',
-            fontSize: '0.9rem',
-          }}
-        >
+    <footer className="footer-fixed">
+      <div className="footer-notice-card">
+        <p className="footer-title font-bold">
           This is a temporary holding pages
         </p>
-        <p
-          className="opacity-80"
-          style={{
-            margin: '0',
-            fontSize: '0.8rem',
-          }}
-        >
+        <p className="footer-subtitle opacity-80">
           Our full website is currently under development
         </p>
         {hasData && (
-          <p
-            className="opacity-60"
-            style={{
-              margin: '0.5rem 0 0 0',
-              fontSize: '0.7rem',
-            }}
-          >
+          <p className="footer-stats opacity-60">
             {formatPageViews(pageViews)} page view(s)
           </p>
         )}
