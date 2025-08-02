@@ -35,6 +35,7 @@ const UserLayout = ({ children, title = 'Dashboard' }) => {
             variant="outline"
             size="sm"
             onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="text-gray-600"
           >
             {sidebarOpen ? '✕' : '☰'} Menu
           </Button>
@@ -52,8 +53,8 @@ const UserLayout = ({ children, title = 'Dashboard' }) => {
         <div className="p-6 h-full flex flex-col">
           {/* Brand */}
           <div className="mb-8">
-            <h1 className="text-xl font-bold text-foreground">EQUUS</h1>
-            <p className="text-sm text-muted-foreground">Welcome back!</p>
+            <h1 className="text-xl font-bold text-gray-100">EQUUS</h1>
+            <p className="text-sm text-gray-300">Welcome back!</p>
           </div>
 
           {/* Navigation */}
@@ -66,21 +67,33 @@ const UserLayout = ({ children, title = 'Dashboard' }) => {
                     flex items-center gap-3 px-4 py-3 rounded-lg transition-colors
                     ${
                       isActiveRoute(item.href)
-                        ? 'bg-primary text-primary-foreground'
-                        : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+                        ? 'bg-primary text-gray-900 font-semibold'
+                        : 'text-white hover:bg-accent hover:text-white font-medium'
                     }
                   `}
                 onClick={() => setSidebarOpen(false)}
               >
-                <span className="text-lg">{item.icon}</span>
-                <span className="font-medium">{item.name}</span>
+                <span
+                  className={`text-lg ${
+                    isActiveRoute(item.href) ? 'text-gray-900' : 'text-white'
+                  }`}
+                >
+                  {item.icon}
+                </span>
+                <span
+                  className={`font-medium ${
+                    isActiveRoute(item.href) ? 'text-gray-900' : 'text-white'
+                  }`}
+                >
+                  {item.name}
+                </span>
               </Link>
             ))}
           </nav>
 
           {/* User info */}
           <div className="mt-auto pt-8 border-t border-border">
-            <Card>
+            <Card className="bg-gray-800 border-gray-700">
               <CardContent className="p-4">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
@@ -89,19 +102,17 @@ const UserLayout = ({ children, title = 'Dashboard' }) => {
                     </span>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-foreground">
+                    <p className="text-sm font-medium text-white">
                       {user?.firstName} {user?.lastName}
                     </p>
-                    <p className="text-xs text-muted-foreground">
-                      {user?.email}
-                    </p>
+                    <p className="text-xs text-white">{user?.email}</p>
                   </div>
                 </div>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={handleLogout}
-                  className="w-full"
+                  className="w-full text-red-400"
                 >
                   Logout
                 </Button>
@@ -117,22 +128,22 @@ const UserLayout = ({ children, title = 'Dashboard' }) => {
         <header className="bg-card border-b border-border px-6 py-4 lg:px-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-foreground">{title}</h1>
-              <p className="text-sm text-muted-foreground">
+              <h1 className="text-2xl font-bold text-gray-100">{title}</h1>
+              <p className="text-sm text-gray-300">
                 Welcome back, {user?.firstName}
               </p>
             </div>
             <div className="flex items-center gap-4">
-              <div className="text-sm text-muted-foreground">
+              <div className="text-sm text-gray-300">
                 {new Date().toLocaleDateString()}
               </div>
               {user?.emailVerified ? (
-                <div className="flex items-center gap-1 text-xs text-green-600">
+                <div className="flex items-center gap-1 text-xs text-green-400">
                   <span>✓</span>
                   <span>Verified</span>
                 </div>
               ) : (
-                <div className="flex items-center gap-1 text-xs text-yellow-600">
+                <div className="flex items-center gap-1 text-xs text-yellow-400">
                   <span>⚠</span>
                   <span>Email not verified</span>
                 </div>

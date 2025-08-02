@@ -5,7 +5,13 @@
 
 import { useState, useEffect } from 'react';
 import AdminLayout from '@/components/layout/AdminLayout';
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardDescription,
+} from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
@@ -22,7 +28,7 @@ const SubdomainRequests = () => {
     total: 0,
     pending: 0,
     approved: 0,
-    denied: 0
+    denied: 0,
   });
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -34,15 +40,15 @@ const SubdomainRequests = () => {
   const [modalType, setModalType] = useState('approve'); // 'approve' or 'deny'
   const [modalMessage, setModalMessage] = useState('');
   const [modalExpiry, setModalExpiry] = useState('');
-  
+
   const toast = useToast();
-  
+
   // Use cold start aware loading
   const {
     isLoading: loading,
     setLoading,
     shouldShowColdStartUI,
-    loadingState
+    loadingState,
   } = useColdStartAwareLoading(true);
 
   useEffect(() => {
@@ -57,26 +63,31 @@ const SubdomainRequests = () => {
     try {
       setLoading(true);
       setError(null);
-      
+
       // Load requests and stats in parallel
       const [requestsResponse, statsResponse] = await Promise.all([
         subdomainRequestService.getAllRequests({ limit: 100 }),
-        subdomainRequestService.getRequestStats()
+        subdomainRequestService.getRequestStats(),
       ]);
-      
+
       if (requestsResponse.success) {
         setRequests(requestsResponse.requests || []);
       } else {
-        setError(`Failed to load requests: ${requestsResponse.message || 'Unknown error'}`);
+        setError(
+          `Failed to load requests: ${
+            requestsResponse.message || 'Unknown error'
+          }`,
+        );
       }
-      
+
       if (statsResponse.success) {
         setStats(statsResponse.stats || {});
       }
       // Don't fail the whole page if just stats fail
-      
     } catch (err) {
-      setError(`Failed to load subdomain requests: ${err.message || 'Unknown error'}`);
+      setError(
+        `Failed to load subdomain requests: ${err.message || 'Unknown error'}`,
+      );
     } finally {
       setLoading(false);
     }
@@ -84,27 +95,40 @@ const SubdomainRequests = () => {
 
   const filterRequests = () => {
     let filtered = [...requests];
-    
+
     // Search filter
     if (searchTerm) {
-      filtered = filtered.filter(request => 
-        request.userId?.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        request.userId?.lastName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        request.userId?.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        request.subdomainName?.toLowerCase().includes(searchTerm.toLowerCase())
+      filtered = filtered.filter(
+        (request) =>
+          request.userId?.firstName
+            ?.toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          request.userId?.lastName
+            ?.toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          request.userId?.email
+            ?.toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          request.subdomainName
+            ?.toLowerCase()
+            .includes(searchTerm.toLowerCase()),
       );
     }
-    
+
     // Status filter
     if (selectedStatus !== 'all') {
-      filtered = filtered.filter(request => request.status === selectedStatus);
+      filtered = filtered.filter(
+        (request) => request.status === selectedStatus,
+      );
     }
-    
+
     // Subdomain filter
     if (selectedSubdomain !== 'all') {
-      filtered = filtered.filter(request => request.subdomainId === selectedSubdomain);
+      filtered = filtered.filter(
+        (request) => request.subdomainId === selectedSubdomain,
+      );
     }
-    
+
     setFilteredRequests(filtered);
   };
 
@@ -125,37 +149,50 @@ const SubdomainRequests = () => {
 
   const processRequest = async () => {
     if (!selectedRequest) return;
-    
+
     try {
       setProcessingRequest(selectedRequest.id);
-      
+
       let response;
       if (modalType === 'approve') {
-        response = await subdomainRequestService.approveRequest(selectedRequest.id, {
-          adminMessage: modalMessage,
-          expiresAt: modalExpiry || null
-        });
+        response = await subdomainRequestService.approveRequest(
+          selectedRequest.id,
+          {
+            adminMessage: modalMessage,
+            expiresAt: modalExpiry || null,
+          },
+        );
       } else {
-        response = await subdomainRequestService.denyRequest(selectedRequest.id, {
-          adminMessage: modalMessage
-        });
+        response = await subdomainRequestService.denyRequest(
+          selectedRequest.id,
+          {
+            adminMessage: modalMessage,
+          },
+        );
       }
-      
+
       if (response.success) {
-        toast.success(`Successfully ${modalType === 'approve' ? 'approved' : 'denied'} access request for ${selectedRequest.subdomainName}`, {
-          title: `Request ${modalType === 'approve' ? 'Approved' : 'Denied'}`
-        });
-        
+        toast.success(
+          `Successfully ${
+            modalType === 'approve' ? 'approved' : 'denied'
+          } access request for ${selectedRequest.subdomainName}`,
+          {
+            title: `Request ${modalType === 'approve' ? 'Approved' : 'Denied'}`,
+          },
+        );
+
         // Reload data
         await loadRequestsData();
       } else {
         throw new Error(response.message || `Failed to ${modalType} request`);
       }
-      
     } catch (error) {
-      toast.error(error.message || `Failed to ${modalType} request. Please try again.`, {
-        title: "Error"
-      });
+      toast.error(
+        error.message || `Failed to ${modalType} request. Please try again.`,
+        {
+          title: 'Error',
+        },
+      );
     } finally {
       setProcessingRequest(null);
       setShowApprovalModal(false);
@@ -169,7 +206,7 @@ const SubdomainRequests = () => {
       month: 'short',
       day: 'numeric',
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
     });
   };
 
@@ -198,7 +235,7 @@ const SubdomainRequests = () => {
         <div className="space-y-6">
           {shouldShowColdStartUI && shouldShowColdStartUI() ? (
             <div className="min-h-screen flex items-center justify-center">
-              <ColdStartLoader 
+              <ColdStartLoader
                 startTime={loadingState?.coldStartTime || Date.now()}
                 size="lg"
                 className="min-h-screen"
@@ -221,7 +258,10 @@ const SubdomainRequests = () => {
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     {[...Array(4)].map((_, i) => (
-                      <div key={i} className="h-10 bg-muted rounded-md animate-pulse" />
+                      <div
+                        key={i}
+                        className="h-10 bg-muted rounded-md animate-pulse"
+                      />
                     ))}
                   </div>
                 </CardContent>
@@ -265,7 +305,12 @@ const SubdomainRequests = () => {
           <Card className="border-destructive">
             <CardContent className="p-4">
               <p className="text-destructive text-sm">{error}</p>
-              <Button variant="outline" size="sm" onClick={loadRequestsData} className="mt-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={loadRequestsData}
+                className="mt-2"
+              >
                 Retry
               </Button>
             </CardContent>
@@ -283,31 +328,37 @@ const SubdomainRequests = () => {
               <p className="text-xs text-muted-foreground">All time requests</p>
             </CardContent>
           </Card>
-          
+
           <Card className="equus-card">
             <CardHeader className="pb-3">
               <CardDescription>Pending</CardDescription>
-              <CardTitle className="text-2xl text-orange-600">{stats.pending}</CardTitle>
+              <CardTitle className="text-2xl text-orange-600">
+                {stats.pending}
+              </CardTitle>
             </CardHeader>
             <CardContent className="pt-2">
               <p className="text-xs text-muted-foreground">Awaiting review</p>
             </CardContent>
           </Card>
-          
+
           <Card className="equus-card">
             <CardHeader className="pb-3">
               <CardDescription>Approved</CardDescription>
-              <CardTitle className="text-2xl text-green-600">{stats.approved}</CardTitle>
+              <CardTitle className="text-2xl text-green-600">
+                {stats.approved}
+              </CardTitle>
             </CardHeader>
             <CardContent className="pt-2">
               <p className="text-xs text-muted-foreground">Access granted</p>
             </CardContent>
           </Card>
-          
+
           <Card className="equus-card">
             <CardHeader className="pb-3">
               <CardDescription>Denied</CardDescription>
-              <CardTitle className="text-2xl text-red-600">{stats.denied}</CardTitle>
+              <CardTitle className="text-2xl text-red-600">
+                {stats.denied}
+              </CardTitle>
             </CardHeader>
             <CardContent className="pt-2">
               <p className="text-xs text-muted-foreground">Access denied</p>
@@ -333,7 +384,7 @@ const SubdomainRequests = () => {
               </div>
               <div>
                 <label className="text-sm font-medium mb-2 block">Status</label>
-                <select 
+                <select
                   className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground"
                   value={selectedStatus}
                   onChange={(e) => setSelectedStatus(e.target.value)}
@@ -346,8 +397,10 @@ const SubdomainRequests = () => {
                 </select>
               </div>
               <div>
-                <label className="text-sm font-medium mb-2 block">Subdomain</label>
-                <select 
+                <label className="text-sm font-medium mb-2 block">
+                  Subdomain
+                </label>
+                <select
                   className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground"
                   value={selectedSubdomain}
                   onChange={(e) => setSelectedSubdomain(e.target.value)}
@@ -358,43 +411,53 @@ const SubdomainRequests = () => {
                 </select>
               </div>
               <div className="flex items-end">
-                <Button onClick={loadRequestsData} variant="outline" className="w-full">
+                <Button
+                  onClick={loadRequestsData}
+                  variant="outline"
+                  className="w-full"
+                >
                   🔄 Refresh
                 </Button>
               </div>
               <div className="flex items-end">
-                <Button 
+                <Button
                   onClick={async () => {
                     try {
-                      const statsTest = await subdomainRequestService.getRequestStats();
-                      const requestsTest = await subdomainRequestService.getAllRequests({ limit: 10 });
+                      const statsTest =
+                        await subdomainRequestService.getRequestStats();
+                      const requestsTest =
+                        await subdomainRequestService.getAllRequests({
+                          limit: 10,
+                        });
                       toast({
-                        title: "API Test",
-                        description: `Stats: ${JSON.stringify(statsTest?.stats || {})} | Requests: ${requestsTest?.requests?.length || 0}`,
-                        duration: 10000
+                        title: 'API Test',
+                        description: `Stats: ${JSON.stringify(
+                          statsTest?.stats || {},
+                        )} | Requests: ${requestsTest?.requests?.length || 0}`,
+                        duration: 10000,
                       });
                     } catch (error) {
                       toast({
-                        title: "API Test Failed",
+                        title: 'API Test Failed',
                         description: error.message,
-                        variant: "destructive"
+                        variant: 'destructive',
                       });
                     }
                   }}
-                  variant="ghost" 
+                  variant="ghost"
                   className="w-full"
                 >
                   🧪 Test API
                 </Button>
               </div>
               <div className="flex items-end">
-                <Button 
+                <Button
                   onClick={() => {
                     setSearchTerm('');
                     setSelectedStatus('all');
                     setSelectedSubdomain('all');
                   }}
-                  variant="ghost" 
+                  variant="ghost"
                   className="w-full"
                 >
                   Clear Filters
@@ -408,13 +471,18 @@ const SubdomainRequests = () => {
         <Card>
           <CardHeader>
             <CardTitle>Access Requests ({filteredRequests.length})</CardTitle>
-            <CardDescription>Manage subdomain access requests from users</CardDescription>
+            <CardDescription>
+              Manage subdomain access requests from users
+            </CardDescription>
           </CardHeader>
           <CardContent>
             {filteredRequests.length > 0 ? (
               <div className="space-y-4">
                 {filteredRequests.map((request) => (
-                  <div key={request.id} className="flex items-center justify-between p-4 border border-border rounded-lg">
+                  <div
+                    key={request.id}
+                    className="flex items-center justify-between p-4 border border-border rounded-lg"
+                  >
                     <div className="flex items-center gap-4">
                       <div className="text-2xl">
                         {getSubdomainIcon(request.subdomainId)}
@@ -423,8 +491,12 @@ const SubdomainRequests = () => {
                         <h3 className="font-medium text-foreground">
                           {request.userId?.firstName} {request.userId?.lastName}
                         </h3>
-                        <p className="text-sm text-muted-foreground">{request.userId?.email}</p>
-                        <p className="text-sm font-medium text-blue-600">{request.subdomainName}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {request.userId?.email}
+                        </p>
+                        <p className="text-sm font-medium text-blue-600">
+                          {request.subdomainName}
+                        </p>
                         {request.requestReason && (
                           <p className="text-xs text-muted-foreground mt-1">
                             Reason: {request.requestReason}
@@ -453,8 +525,8 @@ const SubdomainRequests = () => {
                       </div>
                       {request.status === 'pending' && (
                         <div className="flex gap-2">
-                          <Button 
-                            size="sm" 
+                          <Button
+                            size="sm"
                             variant="outline"
                             onClick={() => handleApproveRequest(request)}
                             disabled={processingRequest === request.id}
@@ -472,14 +544,16 @@ const SubdomainRequests = () => {
                               </div>
                             )}
                           </Button>
-                          <Button 
-                            size="sm" 
+                          <Button
+                            size="sm"
                             variant="outline"
                             onClick={() => handleDenyRequest(request)}
                             disabled={processingRequest === request.id}
                             className="border-red-500 text-red-600 hover:bg-red-50 hover:border-red-600 focus:ring-red-500 transition-all duration-200 shadow-sm hover:shadow-md disabled:opacity-50"
                           >
-                            {processingRequest === request.id ? 'Processing...' : 'Deny'}
+                            {processingRequest === request.id
+                              ? 'Processing...'
+                              : 'Deny'}
                           </Button>
                         </div>
                       )}
@@ -489,7 +563,9 @@ const SubdomainRequests = () => {
               </div>
             ) : (
               <div className="text-center py-8">
-                <p className="text-muted-foreground">No requests found matching your criteria</p>
+                <p className="text-muted-foreground">
+                  No requests found matching your criteria
+                </p>
               </div>
             )}
           </CardContent>
@@ -502,11 +578,12 @@ const SubdomainRequests = () => {
               <h3 className="text-lg font-medium mb-4">
                 {modalType === 'approve' ? 'Approve' : 'Deny'} Access Request
               </h3>
-              
+
               <div className="space-y-4">
                 <div>
                   <p className="text-sm text-muted-foreground">
-                    <strong>User:</strong> {selectedRequest.userId?.firstName} {selectedRequest.userId?.lastName}
+                    <strong>User:</strong> {selectedRequest.userId?.firstName}{' '}
+                    {selectedRequest.userId?.lastName}
                   </p>
                   <p className="text-sm text-muted-foreground">
                     <strong>Resource:</strong> {selectedRequest.subdomainName}
@@ -515,7 +592,8 @@ const SubdomainRequests = () => {
 
                 <div>
                   <label className="text-sm font-medium mb-2 block">
-                    {modalType === 'approve' ? 'Approval' : 'Denial'} Message (Optional)
+                    {modalType === 'approve' ? 'Approval' : 'Denial'} Message
+                    (Optional)
                   </label>
                   <textarea
                     className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground"
@@ -545,19 +623,26 @@ const SubdomainRequests = () => {
                 )}
 
                 <div className="flex gap-3 justify-end">
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     onClick={() => setShowApprovalModal(false)}
                   >
                     Cancel
                   </Button>
-                  <Button 
+                  <Button
                     onClick={processRequest}
                     disabled={processingRequest === selectedRequest.id}
-                    className={modalType === 'approve' ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'}
+                    className={
+                      modalType === 'approve'
+                        ? 'bg-green-600 hover:bg-green-700'
+                        : 'bg-red-600 hover:bg-red-700'
+                    }
                   >
-                    {processingRequest === selectedRequest.id ? 'Processing...' : 
-                     modalType === 'approve' ? 'Approve Request' : 'Deny Request'}
+                    {processingRequest === selectedRequest.id
+                      ? 'Processing...'
+                      : modalType === 'approve'
+                      ? 'Approve Request'
+                      : 'Deny Request'}
                   </Button>
                 </div>
               </div>

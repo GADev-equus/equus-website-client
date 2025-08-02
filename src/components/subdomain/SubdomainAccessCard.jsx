@@ -164,21 +164,24 @@ const SubdomainAccessCard = () => {
     // Check if request is pending
     if (pendingRequests.has(subdomainId)) {
       return {
-        className: 'bg-blue-100 text-blue-800 px-3 py-1',
+        className:
+          'bg-blue-900/20 text-blue-300 border border-blue-700 px-3 py-1',
         text: 'Pending',
       };
     }
 
     if (hasAccess) {
       return {
-        className: 'bg-green-100 text-green-800 px-3 py-1',
+        className:
+          'bg-green-900/20 text-green-300 border border-green-700 px-3 py-1',
         text: 'Available',
       };
     }
 
     if (accessReason.includes('Email verification')) {
       return {
-        className: 'bg-yellow-100 text-yellow-800 px-3 py-1',
+        className:
+          'bg-yellow-900/20 text-yellow-300 border border-yellow-700 px-3 py-1',
         text: 'Verify Email',
       };
     }
@@ -192,18 +195,19 @@ const SubdomainAccessCard = () => {
         !requiredRoles.includes('user')
       ) {
         return {
-          className: 'bg-orange-100 text-orange-800 px-3 py-1',
+          className:
+            'bg-orange-900/20 text-orange-300 border border-orange-700 px-3 py-1',
           text: 'Requires Admin Approval',
         };
       }
       return {
-        className: 'bg-red-100 text-red-800 px-3 py-1',
+        className: 'bg-red-900/20 text-red-300 border border-red-700 px-3 py-1',
         text: 'No Access',
       };
     }
 
     return {
-      className: 'bg-gray-100 text-gray-800 px-3 py-1',
+      className: 'bg-gray-700 text-gray-300 border border-gray-600 px-3 py-1',
       text: 'Restricted',
     };
   };
@@ -221,10 +225,10 @@ const SubdomainAccessCard = () => {
         <CardContent className="pt-2">
           <div className="text-center py-6">
             <div className="text-4xl mb-3">🔒</div>
-            <h3 className="font-medium text-gray-900 mb-2">
+            <h3 className="font-medium text-gray-100 mb-2">
               No Protected Resources Available
             </h3>
-            <p className="text-sm text-muted-foreground mb-4">
+            <p className="text-sm text-gray-400 mb-4">
               {!user?.emailVerified
                 ? 'Complete email verification to access protected resources'
                 : 'Additional resources may become available based on your account status'}
@@ -290,20 +294,22 @@ const SubdomainAccessCard = () => {
               <div className="flex items-center gap-3 mb-3 sm:mb-0">
                 <span className="text-2xl">{subdomain.icon}</span>
                 <div>
-                  <h4 className="font-medium text-sm">{subdomain.name}</h4>
-                  <p className="text-xs text-muted-foreground">
+                  <h4 className="font-medium text-sm text-gray-100">
+                    {subdomain.name}
+                  </h4>
+                  <p className="text-xs text-gray-400">
                     {subdomain.description}
                   </p>
                   {hasAccess ? (
-                    <div className="text-xs text-muted-foreground mt-1">
+                    <div className="text-xs text-gray-400 mt-1">
                       🔗 {config?.url}
                       <br />
-                      <span className="text-blue-600 font-medium">
+                      <span className="text-blue-400 font-medium">
                         Use "Access" button below for authentication
                       </span>
                     </div>
                   ) : (
-                    <p className="text-xs text-red-600 mt-1">{accessReason}</p>
+                    <p className="text-xs text-red-400 mt-1">{accessReason}</p>
                   )}
                 </div>
               </div>
@@ -359,7 +365,7 @@ const SubdomainAccessCard = () => {
         <div className="mt-4 pt-3 border-t">
           <div className="flex items-start gap-2">
             <span className="text-blue-500 text-sm">💡</span>
-            <div className="text-xs text-muted-foreground">
+            <div className="text-xs text-gray-400">
               <p className="mb-1">
                 <strong>Security Notice:</strong> Protected resources require
                 active authentication and appropriate permissions.

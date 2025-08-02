@@ -20,7 +20,11 @@
 
 /* Contact Info Section */
 .contact-info {
-  background: linear-gradient(135deg, var(--color-muted) 0%, var(--color-muted-foreground) 10%);
+  background: linear-gradient(
+    135deg,
+    var(--color-muted) 0%,
+    var(--color-muted-foreground) 10%
+  );
   padding: var(--equus-spacing-lg);
   display: flex;
   flex-direction: column;

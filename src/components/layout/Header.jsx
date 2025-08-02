@@ -134,7 +134,7 @@ const Header = () => {
                             )}
                             <button
                               onClick={handleLogout}
-                              className="block w-full text-left px-3 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                              className="block w-full text-left px-3 py-2 text-sm text-red-400 hover:bg-accent hover:text-red-400 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                               role="menuitem"
                             >
                               Sign Out
@@ -165,7 +165,7 @@ const Header = () => {
                 variant="ghost"
                 size="sm"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="text-muted-foreground hover:text-foreground"
+                className="text-gray-600 hover:text-foreground"
                 aria-label={
                   mobileMenuOpen ? 'Close mobile menu' : 'Open mobile menu'
                 }
@@ -262,7 +262,7 @@ const Header = () => {
                       )}
                       <button
                         onClick={handleLogout}
-                        className="block w-full text-left px-3 py-2 text-base font-medium text-foreground hover:bg-accent hover:text-accent-foreground rounded-md"
+                        className="block w-full text-left px-3 py-2 text-base font-medium text-red-400 hover:bg-accent hover:text-red-400 rounded-md"
                       >
                         Sign Out
                       </button>

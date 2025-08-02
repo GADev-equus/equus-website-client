@@ -5,7 +5,13 @@
 
 import { useState, useEffect } from 'react';
 import AdminLayout from '@/components/layout/AdminLayout';
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardDescription,
+} from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { UserListSkeleton } from '@/components/ui/loading-skeletons';
@@ -22,13 +28,13 @@ const Users = () => {
   const [selectedRole, setSelectedRole] = useState('all');
   const [selectedStatus, setSelectedStatus] = useState('all');
   const [updatingUser, setUpdatingUser] = useState(null);
-  
+
   // Use cold start aware loading
   const {
     isLoading: loading,
     setLoading,
     shouldShowColdStartUI,
-    loadingState
+    loadingState,
   } = useColdStartAwareLoading(true);
 
   useEffect(() => {
@@ -61,31 +67,32 @@ const Users = () => {
 
   const filterUsers = () => {
     let filtered = [...users];
-    
+
     // Search filter
     if (searchTerm) {
-      filtered = filtered.filter(user => 
-        user.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.lastName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.email?.toLowerCase().includes(searchTerm.toLowerCase())
+      filtered = filtered.filter(
+        (user) =>
+          user.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          user.lastName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          user.email?.toLowerCase().includes(searchTerm.toLowerCase()),
       );
     }
-    
+
     // Role filter
     if (selectedRole !== 'all') {
-      filtered = filtered.filter(user => user.role === selectedRole);
+      filtered = filtered.filter((user) => user.role === selectedRole);
     }
-    
+
     // Status filter
     if (selectedStatus !== 'all') {
       // Check both status and accountStatus fields to handle potential field name differences
-      filtered = filtered.filter(user => {
+      filtered = filtered.filter((user) => {
         const matchesStatus = user.status === selectedStatus;
         const matchesAccountStatus = user.accountStatus === selectedStatus;
         return matchesStatus || matchesAccountStatus;
       });
     }
-    
+
     setFilteredUsers(filtered);
   };
 
@@ -94,9 +101,11 @@ const Users = () => {
       setUpdatingUser(userId);
       const response = await userService.updateUserRole(userId, newRole);
       if (response.success) {
-        setUsers(prev => prev.map(user => 
-          user._id === userId ? { ...user, role: newRole } : user
-        ));
+        setUsers((prev) =>
+          prev.map((user) =>
+            user._id === userId ? { ...user, role: newRole } : user,
+          ),
+        );
       } else {
         setError(response.message || 'Failed to update user role');
       }
@@ -112,16 +121,20 @@ const Users = () => {
     try {
       setUpdatingUser(userId);
       const response = await userService.updateUserStatus(userId, newStatus);
-      
+
       if (response.success) {
-        setUsers(prev => prev.map(user => 
-          user._id === userId ? { 
-            ...user, 
-            status: newStatus,
-            accountStatus: newStatus  // Update both fields to ensure consistency
-          } : user
-        ));
-        
+        setUsers((prev) =>
+          prev.map((user) =>
+            user._id === userId
+              ? {
+                  ...user,
+                  status: newStatus,
+                  accountStatus: newStatus, // Update both fields to ensure consistency
+                }
+              : user,
+          ),
+        );
+
         // Reload users to get fresh data from backend
         setTimeout(() => {
           loadUsers();
@@ -141,7 +154,7 @@ const Users = () => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
-      day: 'numeric'
+      day: 'numeric',
     });
   };
 
@@ -175,7 +188,7 @@ const Users = () => {
         <div className="space-y-6">
           {shouldShowColdStartUI && shouldShowColdStartUI() ? (
             <div className="min-h-screen flex items-center justify-center">
-              <ColdStartLoader 
+              <ColdStartLoader
                 startTime={loadingState?.coldStartTime || Date.now()}
                 size="lg"
                 className="min-h-screen"
@@ -201,7 +214,9 @@ const Users = () => {
               <Card>
                 <CardHeader>
                   <CardTitle>Users</CardTitle>
-                  <CardDescription>Manage user accounts and permissions</CardDescription>
+                  <CardDescription>
+                    Manage user accounts and permissions
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <UserListSkeleton />
@@ -221,7 +236,12 @@ const Users = () => {
           <Card className="border-destructive">
             <CardContent className="p-4">
               <p className="text-destructive text-sm">{error}</p>
-              <Button variant="outline" size="sm" onClick={loadUsers} className="mt-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={loadUsers}
+                className="mt-2"
+              >
                 Retry
               </Button>
             </CardContent>
@@ -246,7 +266,7 @@ const Users = () => {
               </div>
               <div>
                 <label className="text-sm font-medium mb-2 block">Role</label>
-                <select 
+                <select
                   className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground"
                   value={selectedRole}
                   onChange={(e) => setSelectedRole(e.target.value)}
@@ -258,7 +278,7 @@ const Users = () => {
               </div>
               <div>
                 <label className="text-sm font-medium mb-2 block">Status</label>
-                <select 
+                <select
                   className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground"
                   value={selectedStatus}
                   onChange={(e) => setSelectedStatus(e.target.value)}
@@ -270,7 +290,11 @@ const Users = () => {
                 </select>
               </div>
               <div className="flex items-end">
-                <Button onClick={loadUsers} variant="outline" className="w-full">
+                <Button
+                  onClick={loadUsers}
+                  variant="outline"
+                  className="w-full"
+                >
                   🔄 Refresh
                 </Button>
               </div>
@@ -282,24 +306,32 @@ const Users = () => {
         <Card>
           <CardHeader>
             <CardTitle>Users ({filteredUsers.length})</CardTitle>
-            <CardDescription>Manage user accounts, roles, and status</CardDescription>
+            <CardDescription>
+              Manage user accounts, roles, and status
+            </CardDescription>
           </CardHeader>
           <CardContent>
             {filteredUsers.length > 0 ? (
               <div className="space-y-4">
                 {filteredUsers.map((user) => (
-                  <div key={user._id} className="flex items-center justify-between p-4 border border-border rounded-lg">
+                  <div
+                    key={user._id}
+                    className="flex items-center justify-between p-4 border border-border rounded-lg"
+                  >
                     <div className="flex items-center gap-4">
                       <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
                         <span className="text-primary-foreground font-bold text-sm">
-                          {user.firstName?.[0]}{user.lastName?.[0]}
+                          {user.firstName?.[0]}
+                          {user.lastName?.[0]}
                         </span>
                       </div>
                       <div>
                         <h3 className="font-medium text-foreground">
                           {user.firstName} {user.lastName}
                         </h3>
-                        <p className="text-sm text-muted-foreground">{user.email}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {user.email}
+                        </p>
                         <p className="text-xs text-muted-foreground">
                           Joined: {formatDate(user.createdAt)}
                         </p>
@@ -307,29 +339,43 @@ const Users = () => {
                     </div>
                     <div className="flex items-center gap-4">
                       <div className="flex flex-col items-end gap-2">
-                        <span className={cn("px-3 py-2 rounded-full text-xs font-medium", getRoleColor(user.role))}>
+                        <span
+                          className={cn(
+                            'px-3 py-2 rounded-full text-xs font-medium',
+                            getRoleColor(user.role),
+                          )}
+                        >
                           {user.role}
                         </span>
-                        <span className={cn("px-3 py-2 rounded-full text-xs font-medium", getStatusColor(user.status || user.accountStatus))}>
+                        <span
+                          className={cn(
+                            'px-3 py-2 rounded-full text-xs font-medium',
+                            getStatusColor(user.status || user.accountStatus),
+                          )}
+                        >
                           {user.status || user.accountStatus}
                         </span>
                       </div>
                       <div className="flex flex-col gap-2">
                         {/* Role Update */}
-                        <select 
+                        <select
                           className="text-xs px-2 py-1 border border-border rounded bg-background"
                           value={user.role}
-                          onChange={(e) => updateUserRole(user._id, e.target.value)}
+                          onChange={(e) =>
+                            updateUserRole(user._id, e.target.value)
+                          }
                           disabled={updatingUser === user._id}
                         >
                           <option value="user">User</option>
                           <option value="admin">Admin</option>
                         </select>
                         {/* Status Update */}
-                        <select 
+                        <select
                           className="text-xs px-2 py-1 border border-border rounded bg-background"
                           value={user.status || user.accountStatus}
-                          onChange={(e) => updateUserStatus(user._id, e.target.value)}
+                          onChange={(e) =>
+                            updateUserStatus(user._id, e.target.value)
+                          }
                           disabled={updatingUser === user._id}
                         >
                           <option value="active">Active</option>
@@ -338,7 +384,9 @@ const Users = () => {
                         </select>
                       </div>
                       {updatingUser === user._id && (
-                        <div className="text-xs text-muted-foreground">Updating...</div>
+                        <div className="text-xs text-muted-foreground">
+                          Updating...
+                        </div>
                       )}
                     </div>
                   </div>
@@ -346,7 +394,9 @@ const Users = () => {
               </div>
             ) : (
               <div className="text-center py-8">
-                <p className="text-muted-foreground">No users found matching your criteria</p>
+                <p className="text-muted-foreground">
+                  No users found matching your criteria
+                </p>
               </div>
             )}
           </CardContent>
@@ -364,7 +414,7 @@ const Users = () => {
             <CardHeader className="pb-2">
               <CardDescription>Active Users</CardDescription>
               <CardTitle className="text-2xl">
-                {users.filter(u => u.status === 'active').length}
+                {users.filter((u) => u.status === 'active').length}
               </CardTitle>
             </CardHeader>
           </Card>
@@ -372,7 +422,7 @@ const Users = () => {
             <CardHeader className="pb-2">
               <CardDescription>Admin Users</CardDescription>
               <CardTitle className="text-2xl">
-                {users.filter(u => u.role === 'admin').length}
+                {users.filter((u) => u.role === 'admin').length}
               </CardTitle>
             </CardHeader>
           </Card>

@@ -95,7 +95,7 @@ const Header = () => {
           <button
             onClick={handleLogout}
             disabled={isLoggingOut || loading}
-            className="header-nav-button"
+            className="header-nav-button text-red-400"
           >
             {isLoggingOut ? '⏳ Logging out...' : '🚪 Logout'}
           </button>
