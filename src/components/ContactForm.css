@@ -20,11 +20,7 @@
 
 /* Contact Info Section */
 .contact-info {
-  background: linear-gradient(
-    135deg,
-    var(--color-muted) 0%,
-    var(--color-muted-foreground) 10%
-  );
+  background: var(--color-card);
   padding: var(--equus-spacing-lg);
   display: flex;
   flex-direction: column;
@@ -34,14 +30,14 @@
 .contact-info h4 {
   font-family: var(--equus-font-display);
   font-size: 1.4rem;
-  color: var(--equus-secondary);
+  color: white;
   margin-bottom: var(--equus-spacing-sm);
   line-height: var(--equus-line-height-base);
 }
 
 .contact-intro {
   font-size: 1rem;
-  color: var(--equus-text-secondary);
+  color: #e5e5e5;
   line-height: var(--equus-line-height-base);
   margin-bottom: var(--equus-spacing-md);
 }
@@ -67,14 +63,14 @@
   font-family: var(--equus-font-alt);
   font-size: 1rem;
   font-weight: 600;
-  color: var(--equus-secondary);
+  color: white;
   margin-bottom: var(--equus-spacing-xs);
   line-height: var(--equus-line-height-base);
 }
 
 .service-preview-item p {
   font-size: 0.9rem;
-  color: var(--equus-text-secondary);
+  color: #d0d0d0;
   line-height: var(--equus-line-height-base);
   margin: 0;
 }
@@ -91,7 +87,7 @@
   margin: 0 0 var(--equus-spacing-xs) 0;
   font-size: 0.95rem;
   line-height: var(--equus-line-height-base);
-  color: var(--equus-secondary);
+  color: white;
 }
 
 .contact-cta p:last-child {
@@ -112,12 +108,12 @@
   align-items: center;
   gap: var(--equus-spacing-xs);
   font-size: 0.9rem;
-  color: var(--equus-text-secondary);
+  color: #e5e5e5;
   padding: var(--equus-spacing-xs) 0;
 }
 
 .contact-item strong {
-  color: var(--equus-secondary);
+  color: white;
   min-width: 120px;
 }
 
