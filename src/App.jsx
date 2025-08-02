@@ -46,6 +46,14 @@ function App() {
     return () => window.removeEventListener('resize', checkDesktop);
   }, []);
 
+  // Ensure dark theme is always applied
+  useEffect(() => {
+    const root = window.document.documentElement;
+    root.classList.add('dark');
+    // Remove any light theme references
+    root.classList.remove('light');
+  }, []);
+
   return (
     <AuthProvider>
       <Router>

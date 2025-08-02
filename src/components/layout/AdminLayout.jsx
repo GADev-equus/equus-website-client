@@ -7,7 +7,6 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { useAuth } from '@/contexts/AuthContext';
 
 const AdminLayout = ({ children, title = 'Admin Dashboard' }) => {
@@ -40,7 +39,6 @@ const AdminLayout = ({ children, title = 'Admin Dashboard' }) => {
           >
             {sidebarOpen ? '✕' : '☰'} Menu
           </Button>
-          <ThemeToggle />
         </div>
       </div>
 
@@ -99,9 +97,6 @@ const AdminLayout = ({ children, title = 'Admin Dashboard' }) => {
                       {user?.email}
                     </p>
                   </div>
-                </div>
-                <div className="flex items-center gap-2 mb-3">
-                  <ThemeToggle />
                 </div>
                 <Button
                   variant="outline"

@@ -5,7 +5,8 @@
 
 /* Cold Start Loader Animations */
 @keyframes coldStartPulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -125,9 +126,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(90deg, 
-    transparent, 
-    rgba(255, 255, 255, 0.4), 
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
     transparent
   );
   animation: coldStartProgress 2s ease-in-out infinite;
@@ -267,124 +269,112 @@
     padding: 1.5rem 1rem;
     gap: 0.75rem;
   }
-  
+
   .cold-start-message {
     font-size: 1rem;
   }
-  
+
   .cold-start-message.primary {
     font-size: 1.125rem;
   }
-  
+
   .cold-start-progress {
     max-width: 16rem;
   }
-  
+
   .cold-start-education {
     margin-top: 0.75rem;
     padding: 0.75rem;
   }
 }
 
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-  .cold-start-loader.fullscreen {
-    background: rgba(17, 24, 39, 0.95);
-  }
-  
-  .cold-start-message {
-    color: #d1d5db;
-  }
-  
-  .cold-start-message.primary {
-    color: #f9fafb;
-  }
-  
-  .cold-start-message.secondary {
-    color: #9ca3af;
-  }
-  
-  .cold-start-progress {
-    background-color: #374151;
-  }
-  
-  .cold-start-time {
-    color: #9ca3af;
-  }
-  
-  .cold-start-education {
-    background-color: #1f2937;
-    border-left-color: #60a5fa;
-  }
-  
-  .cold-start-education p {
-    color: #d1d5db;
-  }
-  
-  .cold-start-education.long-wait p {
-    color: #9ca3af;
-  }
-  
-  .server-status-indicator {
-    background-color: #374151;
-    border-color: #4b5563;
-    color: #d1d5db;
-  }
-  
-  .server-status-indicator.ready {
-    background-color: #064e3b;
-    border-color: #10b981;
-    color: #6ee7b7;
-  }
-  
-  .server-status-indicator.warming {
-    background-color: #78350f;
-    border-color: #f59e0b;
-    color: #fbbf24;
-  }
-  
-  .server-status-indicator.cold {
-    background-color: #1e3a8a;
-    border-color: #3b82f6;
-    color: #93c5fd;
-  }
-  
-  .server-status-indicator.connecting {
-    background-color: #164e63;
-    border-color: #0891b2;
-    color: #67e8f9;
-  }
-  
-  .server-status-indicator.down {
-    background-color: #7f1d1d;
-    border-color: #ef4444;
-    color: #fca5a5;
-  }
-  
-  .loading-state-replacement.cold-start-active {
-    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
-    border-color: #374151;
-  }
+/* Dark theme styles (default) */
+.cold-start-loader.fullscreen {
+  background: rgba(17, 24, 39, 0.95);
 }
 
-/* High Contrast Mode */
+.cold-start-message {
+  color: #d1d5db;
+}
+
+.cold-start-message.primary {
+  color: #f9fafb;
+}
+
+.cold-start-message.secondary {
+  color: #9ca3af;
+}
+
+.cold-start-progress {
+  background-color: #374151;
+}
+
+.cold-start-time {
+  color: #9ca3af;
+}
+
+.cold-start-education {
+  background-color: #1f2937;
+  border-left-color: #60a5fa;
+}
+
+.cold-start-education p {
+  color: #d1d5db;
+}
+
+.cold-start-education.long-wait p {
+  color: #9ca3af;
+}
+
+.server-status-indicator {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+.server-status-indicator.ready {
+  background-color: #064e3b;
+  border-color: #10b981;
+  color: #6ee7b7;
+}
+
+.server-status-indicator.warming {
+  background-color: #78350f;
+  border-color: #f59e0b;
+  color: #fbbf24;
+}
+
+.server-status-indicator.cold {
+  background-color: #1e3a8a;
+  border-color: #3b82f6;
+  color: #93c5fd;
+}
+
+.server-status-indicator.connecting {
+  background-color: #164e63;
+  border-color: #0891b2;
+  color: #67e8f9;
+}
+
+.server-status-indicator.down {
+  background-color: #7f1d1d;
+  border-color: #ef4444;
+  color: #fca5a5;
+}
+
+.loading-state-replacement.cold-start-active {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  border-color: #374151;
+}
+
+/* High Contrast Mode - Dark theme default */
 @media (prefers-contrast: high) {
   .cold-start-progress-bar {
-    background-color: #000;
+    background-color: #fff;
   }
-  
+
   .cold-start-spinner {
-    border-top-color: #000;
-  }
-  
-  @media (prefers-color-scheme: dark) {
-    .cold-start-progress-bar {
-      background-color: #fff;
-    }
-    
-    .cold-start-spinner {
-      border-top-color: #fff;
-    }
+    border-top-color: #fff;
   }
 }
 
@@ -394,18 +384,18 @@
     animation: none;
     border-top-color: #6b7280;
   }
-  
+
   .cold-start-message {
     animation: none;
   }
-  
+
   .server-status-icon.warming,
   .server-status-icon.connecting,
   .server-status-icon.cold,
   .server-status-icon.down {
     animation: none;
   }
-  
+
   .cold-start-progress-bar::after {
     animation: none;
   }
