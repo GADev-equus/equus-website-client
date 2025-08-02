@@ -92,13 +92,13 @@ const Dashboard = () => {
   const getAccountStatusColor = (status) => {
     switch (status) {
       case 'active':
-        return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
+        return 'bg-green-900 text-green-200';
       case 'suspended':
-        return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
+        return 'bg-red-900 text-red-200';
       case 'deactivated':
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200';
+        return 'bg-gray-800 text-gray-200';
       default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200';
+        return 'bg-gray-800 text-gray-200';
     }
   };
 
@@ -160,19 +160,19 @@ const Dashboard = () => {
         )}
 
         {/* Consolidated Header Section */}
-        <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950 border-0 shadow-sm">
+        <Card className="bg-gradient-to-r from-blue-950 to-indigo-950 border-0 shadow-sm">
           <CardContent className="p-6">
             <div className="flex flex-col lg:flex-row lg:items-center gap-6">
               <div className="lg:flex-shrink-0 lg:w-1/3">
-                <CardTitle className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+                <CardTitle className="text-2xl sm:text-3xl font-bold text-gray-100 mb-2">
                   Welcome back, {currentUser?.firstName}! 👋
                 </CardTitle>
-                <CardDescription className="text-base text-gray-600 dark:text-gray-300">
+                <CardDescription className="text-base text-gray-300">
                   Here's a summary of your account and recent activity.
                 </CardDescription>
               </div>
               <div className="flex-1 grid grid-cols-3 gap-4 lg:gap-6">
-                <div className="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+                <div className="text-center p-4 bg-gray-800 rounded-lg shadow">
                   <p className="text-sm text-muted-foreground">
                     Profile Completion
                   </p>
@@ -186,7 +186,7 @@ const Dashboard = () => {
                     />
                   </div>
                 </div>
-                <div className="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+                <div className="text-center p-4 bg-gray-800 rounded-lg shadow">
                   <p className="text-sm text-muted-foreground">Email Status</p>
                   <p
                     className={`text-2xl font-bold ${
@@ -205,7 +205,7 @@ const Dashboard = () => {
                     )}
                   </div>
                 </div>
-                <div className="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+                <div className="text-center p-4 bg-gray-800 rounded-lg shadow">
                   <p className="text-sm text-muted-foreground">
                     Account Status
                   </p>
@@ -340,7 +340,7 @@ const Dashboard = () => {
                       <p className="text-sm text-muted-foreground mb-1">
                         Your referral code:
                       </p>
-                      <p className="text-lg font-mono font-bold bg-gray-100 dark:bg-gray-800 p-2 rounded-md break-all">
+                      <p className="text-lg font-mono font-bold bg-gray-800 p-2 rounded-md break-all">
                         {currentUser.referralCode}
                       </p>
                     </div>
@@ -364,7 +364,7 @@ const Dashboard = () => {
           {/* Right Column */}
           <div className="space-y-6">
             {/* Quick Actions Card */}
-            <Card className="shadow-sm border-primary/20 dark:border-primary/10 h-fit">
+            <Card className="shadow-sm border-primary/10 h-fit">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <SettingsIcon className="h-5 w-5" />

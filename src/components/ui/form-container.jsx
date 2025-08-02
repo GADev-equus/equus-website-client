@@ -66,7 +66,7 @@ function FormContainer({
       className={cn('w-full mx-auto', maxWidthClasses[maxWidth], className)}
       {...props}
     >
-      <Card className="border-l-4 border-l-[var(--equus-primary)] bg-gradient-to-r from-blue-50/50 to-transparent dark:from-blue-950/20">
+      <Card className="border-l-4 border-l-[var(--equus-primary)] bg-gradient-to-r from-blue-950/20 to-transparent">
         <CardContent className="pt-6">{content}</CardContent>
       </Card>
     </div>

@@ -176,15 +176,15 @@ const SubdomainRequests = () => {
   const getStatusColor = (status) => {
     switch (status) {
       case 'pending':
-        return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
+        return 'bg-orange-900 text-orange-200';
       case 'approved':
-        return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
+        return 'bg-green-900 text-green-200';
       case 'denied':
-        return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
+        return 'bg-red-900 text-red-200';
       case 'revoked':
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200';
+        return 'bg-gray-800 text-gray-200';
       default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200';
+        return 'bg-gray-800 text-gray-200';
     }
   };
 
@@ -498,7 +498,7 @@ const SubdomainRequests = () => {
         {/* Approval/Denial Modal */}
         {showApprovalModal && selectedRequest && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-md w-full mx-4">
+            <div className="bg-gray-800 p-6 rounded-lg max-w-md w-full mx-4">
               <h3 className="text-lg font-medium mb-4">
                 {modalType === 'approve' ? 'Approve' : 'Deny'} Access Request
               </h3>

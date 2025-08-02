@@ -11,13 +11,13 @@ import { Badge } from './badge';
 const statusIndicatorVariants = cva('inline-flex items-center gap-2', {
   variants: {
     variant: {
-      pending: 'text-yellow-700 dark:text-yellow-400',
-      read: 'text-blue-700 dark:text-blue-400',
-      replied: 'text-green-700 dark:text-green-400',
-      archived: 'text-gray-700 dark:text-gray-400',
-      active: 'text-green-700 dark:text-green-400',
-      inactive: 'text-red-700 dark:text-red-400',
-      processing: 'text-blue-700 dark:text-blue-400',
+      pending: 'text-yellow-400',
+      read: 'text-blue-400',
+      replied: 'text-green-400',
+      archived: 'text-gray-400',
+      active: 'text-green-400',
+      inactive: 'text-red-400',
+      processing: 'text-blue-400',
     },
   },
   defaultVariants: {

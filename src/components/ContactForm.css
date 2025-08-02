@@ -8,7 +8,7 @@
 }
 
 .contact-form-wrapper {
-  background: var(--equus-background-white);
+  background: var(--color-card);
   border-radius: var(--equus-border-radius);
   box-shadow: var(--equus-box-shadow);
   border-left: var(--equus-border-accent) solid var(--equus-primary);
@@ -20,7 +20,7 @@
 
 /* Contact Info Section */
 .contact-info {
-  background: linear-gradient(135deg, var(--equus-background-primary) 0%, #e9ecef 100%);
+  background: linear-gradient(135deg, var(--color-muted) 0%, var(--color-muted-foreground) 10%);
   padding: var(--equus-spacing-lg);
   display: flex;
   flex-direction: column;
@@ -50,7 +50,7 @@
 .service-preview-item {
   margin-bottom: var(--equus-spacing-sm);
   padding: var(--equus-spacing-sm);
-  background: rgba(255, 255, 255, 0.7);
+  background: var(--color-muted);
   border-radius: var(--equus-border-radius);
   border-left: 3px solid var(--equus-primary);
 }
@@ -148,13 +148,14 @@
 .form-input {
   width: 100%;
   padding: 0.75rem;
-  border: var(--equus-border-width) solid #e1e8ed;
+  border: var(--equus-border-width) solid var(--color-border);
   border-radius: var(--equus-border-radius);
   font-size: 1rem;
   font-family: var(--equus-font-base);
   line-height: var(--equus-line-height-base);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  background-color: var(--equus-background-white);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
   box-sizing: border-box;
 }
 
@@ -165,7 +166,7 @@
 }
 
 .form-input:hover:not(:focus) {
-  border-color: #bdc3c7;
+  border-color: var(--color-muted-foreground);
 }
 
 /* Textarea specific */
@@ -178,7 +179,7 @@ textarea.form-input {
 /* Input States */
 .form-input.error {
   border-color: var(--equus-accent);
-  background-color: #fdf2f2;
+  background-color: rgba(231, 76, 60, 0.1);
 }
 
 .form-input.error:focus {
@@ -188,7 +189,7 @@ textarea.form-input {
 
 .form-input.success {
   border-color: #27ae60;
-  background-color: #f8fff8;
+  background-color: rgba(39, 174, 96, 0.1);
 }
 
 .form-input.success:focus {
@@ -294,15 +295,15 @@ textarea.form-input {
 }
 
 .status-message.success {
-  background-color: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
+  background-color: rgba(39, 174, 96, 0.15);
+  color: #27ae60;
+  border: 1px solid rgba(39, 174, 96, 0.3);
 }
 
 .status-message.error {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
+  background-color: rgba(231, 76, 60, 0.15);
+  color: #e74c3c;
+  border: 1px solid rgba(231, 76, 60, 0.3);
 }
 
 .status-icon {

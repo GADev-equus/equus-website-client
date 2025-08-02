@@ -327,12 +327,12 @@ const Dashboard = () => {
         )}
 
         {/* Welcome Section */}
-        <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950 border-0 shadow-sm">
+        <Card className="bg-gradient-to-r from-blue-950 to-indigo-950 border-0 shadow-sm">
           <CardHeader className="pb-4">
-            <CardTitle className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">
+            <CardTitle className="text-2xl sm:text-3xl font-bold text-gray-100">
               Admin Dashboard
             </CardTitle>
-            <CardDescription className="text-base text-gray-600 dark:text-gray-300">
+            <CardDescription className="text-base text-gray-300">
               Overview of your system's health and activity.
             </CardDescription>
           </CardHeader>
