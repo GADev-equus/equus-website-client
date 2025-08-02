@@ -21,7 +21,8 @@ const Analytics = () => {
       adminUsers: 0,
       newUsersToday: 0,
       newUsersThisWeek: 0,
-      newUsersThisMonth: 0
+      newUsersThisMonth: 0,
+      newUsersPast30Days: 0
     },
     registrationTrends: [],
     userActivity: [],
@@ -66,7 +67,8 @@ const Analytics = () => {
             adminUsers: statsResponse.stats?.adminUsers || 0,
             newUsersToday: statsResponse.stats?.newUsersToday || 0,
             newUsersThisWeek: statsResponse.stats?.newUsersThisWeek || 0,
-            newUsersThisMonth: statsResponse.stats?.newUsersThisMonth || 0
+            newUsersThisMonth: statsResponse.stats?.newUsersThisMonth || 0,
+            newUsersPast30Days: statsResponse.stats?.newUsersPast30Days || 0
           },
           registrationTrends: statsResponse.stats?.registrationTrends || [],
           userActivity: statsResponse.stats?.userActivity || [],
@@ -300,7 +302,10 @@ const Analytics = () => {
                 </div>
                 <div className="pt-4 border-t border-border">
                   <div className="text-sm text-muted-foreground">
-                    Daily Average: {Math.round(analytics.userStats.newUsersThisMonth / 30)} users
+                    Daily Average (30d): {Math.round(analytics.userStats.newUsersPast30Days / 30)} users
+                  </div>
+                  <div className="text-xs text-muted-foreground mt-1">
+                    Past 30 Days: {analytics.userStats.newUsersPast30Days} users
                   </div>
                 </div>
               </div>
