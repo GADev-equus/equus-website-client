@@ -127,11 +127,25 @@ const Dashboard = () => {
               />
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {[...Array(6)].map((_, i) => (
-                <CardSkeleton key={i} />
-              ))}
-            </div>
+            <>
+              {/* Main Dashboard Grid Skeleton */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {[...Array(6)].map((_, i) => (
+                  <CardSkeleton key={i} />
+                ))}
+              </div>
+
+              {/* Two-Column Layout Skeleton */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="space-y-6">
+                  <CardSkeleton />
+                  <CardSkeleton />
+                </div>
+                <div className="space-y-6">
+                  <CardSkeleton />
+                </div>
+              </div>
+            </>
           )}
         </div>
       </UserLayout>
@@ -142,9 +156,9 @@ const Dashboard = () => {
 
   return (
     <UserLayout title="Dashboard">
-      <div className="space-y-6 px-1 sm:px-0">
+      <div className="space-y-6 lg:space-y-8 px-1 sm:px-0">
         {error && (
-          <Card className="border-destructive">
+          <Card variant="default" className="border-destructive">
             <CardContent className="p-4">
               <p className="text-destructive text-sm">{error}</p>
               <Button
@@ -160,7 +174,7 @@ const Dashboard = () => {
         )}
 
         {/* Consolidated Header Section */}
-        <Card className="bg-gradient-to-r from-blue-950 to-indigo-950 border-0 shadow-sm">
+        <Card variant="default" className="">
           <CardContent className="p-6">
             <div className="flex flex-col lg:flex-row lg:items-center gap-6">
               <div className="lg:flex-shrink-0 lg:w-1/3">
@@ -172,7 +186,7 @@ const Dashboard = () => {
                 </CardDescription>
               </div>
               <div className="flex-1 grid grid-cols-3 gap-4 lg:gap-6">
-                <div className="text-center p-4 bg-gray-800 rounded-lg shadow">
+                <div className="text-center p-4 bg-gray-800 rounded-lg shadow hover:shadow-md transition-shadow duration-200">
                   <p className="text-sm text-muted-foreground">
                     Profile Completion
                   </p>
@@ -186,7 +200,7 @@ const Dashboard = () => {
                     />
                   </div>
                 </div>
-                <div className="text-center p-4 bg-gray-800 rounded-lg shadow">
+                <div className="text-center p-4 bg-gray-800 rounded-lg shadow hover:shadow-md transition-shadow duration-200">
                   <p className="text-sm text-muted-foreground">Email Status</p>
                   <p
                     className={`text-2xl font-bold ${
@@ -205,7 +219,7 @@ const Dashboard = () => {
                     )}
                   </div>
                 </div>
-                <div className="text-center p-4 bg-gray-800 rounded-lg shadow">
+                <div className="text-center p-4 bg-gray-800 rounded-lg shadow hover:shadow-md transition-shadow duration-200">
                   <p className="text-sm text-muted-foreground">
                     Account Status
                   </p>
@@ -227,7 +241,10 @@ const Dashboard = () => {
           {/* Left Column */}
           <div className="space-y-6">
             {/* Account Overview Card */}
-            <Card className="shadow-sm h-fit">
+            <Card
+              variant="default"
+              className="shadow-sm hover:shadow-md transition-shadow duration-200 h-fit"
+            >
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <CalendarIcon className="h-5 w-5" />
@@ -327,7 +344,10 @@ const Dashboard = () => {
 
             {/* Referral Information (if applicable) */}
             {currentUser?.referralCode && (
-              <Card className="shadow-sm h-fit">
+              <Card
+                variant="default"
+                className="shadow-sm hover:shadow-md transition-shadow duration-200 h-fit"
+              >
                 <CardHeader>
                   <CardTitle>Referral Information</CardTitle>
                   <CardDescription>
@@ -364,7 +384,10 @@ const Dashboard = () => {
           {/* Right Column */}
           <div className="space-y-6">
             {/* Quick Actions Card */}
-            <Card className="shadow-sm border-primary/10 h-fit">
+            <Card
+              variant="default"
+              className="shadow-sm hover:shadow-md transition-shadow duration-200 border-primary/10 h-fit"
+            >
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <SettingsIcon className="h-5 w-5" />

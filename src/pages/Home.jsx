@@ -7,6 +7,7 @@
 import ContactForm from '@/components/ContactForm';
 import SEOHelmet from '@/components/shared/SEOHelmet';
 import { SEO_CONFIG } from '@/utils/structuredData';
+import { Fieldset, Card, CardTitle, CardDescription } from '@/components/ui';
 
 const Home = () => {
   return (
@@ -32,61 +33,58 @@ const Home = () => {
 
         {/* Services section */}
         <section className="equus-section equus-section-centered">
-          <h3 className="text-section-title text-equus-primary font-semibold">
-            OUR SERVICES
-          </h3>
-          <div className="grid-equus-services">
-            <div className="equus-card-highlighted">
-              <h4 className="text-card-title text-equus-secondary font-semibold mb-4">
-                AI Consulting
-              </h4>
-              <p className="text-equus-muted leading-relaxed">
-                Strategic guidance to integrate AI into your business processes
-              </p>
+          <Fieldset legend="OUR SERVICES" size="lg">
+            <div className="grid-equus-services">
+              <Card variant="service" size="equus">
+                <CardTitle>Strategic AI Consulting</CardTitle>
+                <CardDescription>
+                  In-depth assessments to identify high-impact opportunities,
+                  define success metrics, and align AI initiatives with your
+                  core business goals
+                </CardDescription>
+              </Card>
+              <Card variant="service" size="equus">
+                <CardTitle>Custom AI Development</CardTitle>
+                <CardDescription>
+                  End-to-end delivery—from agentic AI solutions and
+                  knowledge-graph-driven architectures, to seamless integration
+                  and optimization
+                </CardDescription>
+              </Card>
+              <Card variant="service" size="equus">
+                <CardTitle>Agentic Workflows & Graph Flows</CardTitle>
+                <CardDescription>
+                  We build autonomous, multi-agent systems powered by
+                  intelligent graph structures that coordinate tasks, contextual
+                  decision-making, and dynamic execution without human
+                  bottlenecks
+                </CardDescription>
+              </Card>
             </div>
-            <div className="equus-card-highlighted">
-              <h4 className="text-card-title text-equus-secondary font-semibold mb-4">
-                Custom AI Solutions
-              </h4>
-              <p className="text-equus-muted leading-relaxed">
-                Tailored artificial intelligence systems designed for your
-                specific needs
-              </p>
-            </div>
-            <div className="equus-card-highlighted">
-              <h4 className="text-card-title text-equus-secondary font-semibold mb-4">
-                Implementation Support
-              </h4>
-              <p className="text-equus-muted leading-relaxed">
-                End-to-end assistance in deploying AI technologies
-              </p>
-            </div>
-          </div>
+          </Fieldset>
         </section>
 
         {/* About section */}
         <section className="equus-section equus-section-centered">
-          <h3 className="text-section-title text-equus-primary font-semibold">
-            ABOUT EQUUS
-          </h3>
-          <p className="text-body-large text-equus-muted container-content">
-            <em className="font-semibold not-italic text-equus-primary">
-              Equus
-            </em>{' '}
-            means "horse" in Latin, symbolizing strength, reliability, and
-            forward momentum. At Equus Systems, we embody these qualities in our
-            approach to AI consulting and solutions development.
-          </p>
+          <Fieldset legend="ABOUT EQUUS" size="lg">
+            <p className="text-body-large text-equus-muted container-content">
+              <em className="font-semibold not-italic text-equus-primary">
+                Equus
+              </em>{' '}
+              means "horse" in Latin, symbolizing strength, reliability, and
+              forward momentum. At Equus Systems, we embody these qualities in
+              our approach to AI consulting and solutions development.
+            </p>
+          </Fieldset>
         </section>
 
         {/* Contact section */}
         <section className="equus-section equus-section-centered">
-          <h3 className="text-section-title text-equus-primary font-semibold">
-            CONTACT US
-          </h3>
-          <div className="flex justify-center w-full">
-            <ContactForm />
-          </div>
+          <Fieldset legend="CONTACT US" size="lg">
+            <div className="flex justify-center w-full">
+              <ContactForm />
+            </div>
+          </Fieldset>
         </section>
       </div>
     </>

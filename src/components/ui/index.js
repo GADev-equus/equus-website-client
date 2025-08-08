@@ -12,7 +12,6 @@ export {
   CardDescription,
   CardContent,
   CardFooter,
-  CardAction,
 } from './card';
 export { Input } from './input';
 export { Label } from './label';
@@ -31,6 +30,17 @@ export {
   FormMessage,
   FormField as FormFieldHookForm,
 } from './form';
+
+// Fieldset components
+export {
+  Fieldset,
+  FieldsetHeader,
+  FieldsetBody,
+  FieldsetFooter,
+  FieldsetGrid,
+  fieldsetVariants,
+  legendVariants,
+} from './fieldset';
 
 // Loading components
 export { LoadingSpinner, LoadingSpinnerCenter } from './loading-spinner';
@@ -65,61 +75,4 @@ export const LOADING_PATTERNS = {
   COLD_START_ONLY: 'cold-start-only',
   // Standard loading only (no cold start detection)
   STANDARD_ONLY: 'standard-only',
-};
-
-// Convenience wrapper function for common usage
-export const createLoadingComponent = (options = {}) => {
-  const {
-    pattern = LOADING_PATTERNS.ENHANCED,
-    threshold = 5000,
-    size = 'md',
-    showProgress = true,
-    className = '',
-  } = options;
-
-  return ({ isLoading, children, ...props }) => {
-    switch (pattern) {
-      case LOADING_PATTERNS.COLD_START_ONLY:
-        return (
-          <LoadingStateWrapper
-            isLoading={isLoading}
-            showColdStartUI={true}
-            minColdStartThreshold={0} // Always show cold start UI when loading
-            size={size}
-            className={className}
-            {...props}
-          >
-            {children}
-          </LoadingStateWrapper>
-        );
-
-      case LOADING_PATTERNS.STANDARD_ONLY:
-        return (
-          <LoadingStateWrapper
-            isLoading={isLoading}
-            showColdStartUI={false}
-            size={size}
-            className={className}
-            {...props}
-          >
-            {children}
-          </LoadingStateWrapper>
-        );
-
-      case LOADING_PATTERNS.ENHANCED:
-      default:
-        return (
-          <LoadingStateWrapper
-            isLoading={isLoading}
-            showColdStartUI={true}
-            minColdStartThreshold={threshold}
-            size={size}
-            className={className}
-            {...props}
-          >
-            {children}
-          </LoadingStateWrapper>
-        );
-    }
-  };
 };

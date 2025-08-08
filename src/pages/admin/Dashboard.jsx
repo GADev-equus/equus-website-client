@@ -211,7 +211,7 @@ const Dashboard = () => {
 
               {/* Quick Actions and Recent Activity Skeleton */}
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <Card>
+                <Card variant="default">
                   <CardHeader>
                     <CardTitle>Quick Actions</CardTitle>
                     <CardDescription>
@@ -225,7 +225,7 @@ const Dashboard = () => {
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card variant="default">
                   <CardHeader>
                     <CardTitle>Recent Users</CardTitle>
                     <CardDescription>Latest user registrations</CardDescription>
@@ -251,7 +251,7 @@ const Dashboard = () => {
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card variant="default">
                   <CardHeader>
                     <CardTitle>Recent Contacts</CardTitle>
                     <CardDescription>
@@ -281,7 +281,7 @@ const Dashboard = () => {
               </div>
 
               {/* System Status Skeleton */}
-              <Card>
+              <Card variant="default">
                 <CardHeader>
                   <CardTitle>System Status</CardTitle>
                   <CardDescription>
@@ -311,7 +311,7 @@ const Dashboard = () => {
     <AdminLayout title="Dashboard">
       <div className="space-y-6 lg:space-y-8 px-1 sm:px-0">
         {error && (
-          <Card className="border-destructive">
+          <Card variant="default" className="border-destructive">
             <CardContent className="p-4">
               <p className="text-destructive text-sm">{error}</p>
               <Button
@@ -327,7 +327,7 @@ const Dashboard = () => {
         )}
 
         {/* Welcome Section */}
-        <Card className="bg-gradient-to-r from-blue-950 to-indigo-950 border-0 shadow-sm">
+        <Card variant="default">
           <CardHeader className="pb-4">
             <CardTitle className="text-2xl sm:text-3xl font-bold text-gray-100">
               Admin Dashboard
@@ -340,7 +340,10 @@ const Dashboard = () => {
 
         {/* Top Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="shadow-sm hover:shadow-md transition-shadow duration-200">
+          <Card
+            variant="default"
+            className="shadow-sm hover:shadow-md transition-shadow duration-200"
+          >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
               <CardTitle className="text-sm font-medium text-muted-foreground">
                 Total Users
@@ -355,7 +358,10 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="shadow-sm hover:shadow-md transition-shadow duration-200">
+          <Card
+            variant="default"
+            className="shadow-sm hover:shadow-md transition-shadow duration-200"
+          >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
               <CardTitle className="text-sm font-medium text-muted-foreground">
                 Pending Contacts
@@ -372,7 +378,10 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="shadow-sm hover:shadow-md transition-shadow duration-200">
+          <Card
+            variant="default"
+            className="shadow-sm hover:shadow-md transition-shadow duration-200"
+          >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
               <CardTitle className="text-sm font-medium text-muted-foreground">
                 Access Requests
@@ -395,7 +404,7 @@ const Dashboard = () => {
           {/* Left Column */}
           <div className="space-y-6">
             {/* System Activity */}
-            <Card className="shadow-sm">
+            <Card variant="default" className="shadow-sm">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <CalendarIcon className="h-5 w-5" />
@@ -440,7 +449,7 @@ const Dashboard = () => {
             </Card>
 
             {/* Quick Actions */}
-            <Card className="shadow-sm">
+            <Card variant="default" className="shadow-sm">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <SettingsIcon className="h-5 w-5" />
@@ -519,7 +528,7 @@ const Dashboard = () => {
           {/* Right Column */}
           <div className="space-y-6">
             {/* Recent Users */}
-            <Card className="shadow-sm h-fit">
+            <Card variant="default" className="shadow-sm h-fit">
               <CardHeader className="pb-4">
                 <CardTitle>Recent Users</CardTitle>
                 <CardDescription>Latest user registrations</CardDescription>
@@ -570,7 +579,7 @@ const Dashboard = () => {
             </Card>
 
             {/* Recent Contacts */}
-            <Card className="shadow-sm h-fit">
+            <Card variant="default" className="shadow-sm h-fit">
               <CardHeader className="pb-4">
                 <CardTitle>Recent Contacts</CardTitle>
                 <CardDescription>
@@ -623,7 +632,7 @@ const Dashboard = () => {
         </div>
 
         {/* System Status - Full Width */}
-        <Card className="shadow-sm">
+        <Card variant="default" className="shadow-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <ShieldIcon className="h-5 w-5" />

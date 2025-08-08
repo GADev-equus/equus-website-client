@@ -8,10 +8,6 @@
 }
 
 .contact-form-wrapper {
-  background: var(--color-card);
-  border-radius: var(--equus-border-radius);
-  box-shadow: var(--equus-box-shadow);
-  border-left: var(--equus-border-accent) solid var(--equus-primary);
   overflow: hidden;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -45,34 +41,9 @@
 /* Services Preview */
 .services-preview {
   margin-bottom: var(--equus-spacing-md);
-}
-
-.service-preview-item {
-  margin-bottom: var(--equus-spacing-sm);
-  padding: var(--equus-spacing-sm);
-  background: var(--color-muted);
-  border-radius: var(--equus-border-radius);
-  border-left: 3px solid var(--equus-primary);
-}
-
-.service-preview-item:last-child {
-  margin-bottom: 0;
-}
-
-.service-preview-item h5 {
-  font-family: var(--equus-font-alt);
-  font-size: 1rem;
-  font-weight: 600;
-  color: white;
-  margin-bottom: var(--equus-spacing-xs);
-  line-height: var(--equus-line-height-base);
-}
-
-.service-preview-item p {
-  font-size: 0.9rem;
-  color: #d0d0d0;
-  line-height: var(--equus-line-height-base);
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--equus-spacing-sm);
 }
 
 /* Contact CTA */

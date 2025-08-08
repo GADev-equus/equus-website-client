@@ -14,7 +14,7 @@ export const withColdStartDetection = (WrappedComponent, options = {}) => {
     showProgress = true,
     className = '',
     loadingPropName = 'isLoading',
-    enableColdStart = true
+    enableColdStart = true,
   } = options;
 
   const ColdStartEnhancedComponent = React.forwardRef((props, ref) => {
@@ -23,7 +23,7 @@ export const withColdStartDetection = (WrappedComponent, options = {}) => {
       isColdStart,
       shouldShowColdStartUI,
       coldStartTime,
-      getLoadingProps
+      getLoadingProps,
     } = useColdStartAwareLoading(props[loadingPropName] || false);
 
     // If cold start detection is disabled, just render the original component
@@ -36,17 +36,17 @@ export const withColdStartDetection = (WrappedComponent, options = {}) => {
       threshold,
       size,
       showProgress,
-      className
+      className,
     });
 
     // If we should show cold start UI, wrap with LoadingStateWrapper
     if (shouldShowColdStartUI(threshold)) {
       return (
         <LoadingStateWrapper {...loadingProps}>
-          <WrappedComponent 
-            {...props} 
+          <WrappedComponent
+            {...props}
+            {...{ [loadingPropName]: false }} // Override loading prop to prevent double loading states
             ref={ref}
-            [loadingPropName]={false} // Override loading prop to prevent double loading states
             isColdStart={isColdStart}
             coldStartTime={coldStartTime}
           />
@@ -56,14 +56,14 @@ export const withColdStartDetection = (WrappedComponent, options = {}) => {
 
     // Normal loading state or no loading
     return (
-      <LoadingStateWrapper 
+      <LoadingStateWrapper
         isLoading={isLoading}
         className={className}
         size={size}
         showColdStartUI={false}
       >
-        <WrappedComponent 
-          {...props} 
+        <WrappedComponent
+          {...props}
           ref={ref}
           isColdStart={isColdStart}
           coldStartTime={coldStartTime}
@@ -73,8 +73,9 @@ export const withColdStartDetection = (WrappedComponent, options = {}) => {
   });
 
   // Set display name for debugging
-  ColdStartEnhancedComponent.displayName = 
-    `withColdStartDetection(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`;
+  ColdStartEnhancedComponent.displayName = `withColdStartDetection(${
+    WrappedComponent.displayName || WrappedComponent.name || 'Component'
+  })`;
 
   return ColdStartEnhancedComponent;
 };
@@ -85,7 +86,7 @@ export const withDefaultColdStartDetection = (WrappedComponent) => {
     threshold: 5000,
     size: 'md',
     showProgress: true,
-    enableColdStart: true
+    enableColdStart: true,
   });
 };
 

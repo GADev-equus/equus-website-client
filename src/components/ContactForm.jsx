@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useColdStartAwareLoading } from '../hooks/useColdStartAwareLoading.js';
 import contactService, { rateLimiter } from '../services/contactService.js';
+import { Card, CardTitle, CardDescription } from './ui';
 import './ContactForm.css';
 
 const ContactForm = () => {
@@ -190,32 +191,32 @@ const ContactForm = () => {
           </p>
 
           <div className="services-preview">
-            <div className="service-preview-item">
-              <h5>Strategic AI Consulting</h5>
-              <p>
+            <Card variant="service" size="equus">
+              <CardTitle>Strategic AI Consulting</CardTitle>
+              <CardDescription>
                 In-depth assessments to identify high-impact opportunities,
                 define success metrics, and align AI initiatives with your core
                 business goals
-              </p>
-            </div>
+              </CardDescription>
+            </Card>
 
-            <div className="service-preview-item">
-              <h5>Custom AI Development</h5>
-              <p>
+            <Card variant="service" size="equus">
+              <CardTitle>Custom AI Development</CardTitle>
+              <CardDescription>
                 End-to-end delivery—from agentic AI solutions and
-                knowledge-graph–driven architectures, to seamless integration
+                knowledge-graph-driven architectures, to seamless integration
                 and optimization
-              </p>
-            </div>
+              </CardDescription>
+            </Card>
 
-            <div className="service-preview-item">
-              <h5>Agentic Workflows & Graph Flows</h5>
-              <p>
+            <Card variant="service" size="equus">
+              <CardTitle>Agentic Workflows & Graph Flows</CardTitle>
+              <CardDescription>
                 We build autonomous, multi-agent systems powered by intelligent
                 graph structures that coordinate tasks, contextual
                 decision-making, and dynamic execution without human bottlenecks
-              </p>
-            </div>
+              </CardDescription>
+            </Card>
           </div>
 
           <div className="contact-cta">

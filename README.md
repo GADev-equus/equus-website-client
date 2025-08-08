@@ -606,20 +606,22 @@ Previously, the application supported both light and dark themes with theme swit
 
 #### 📊 **Component-Specific Improvements**
 
-- **Dashboard.jsx**: 
+- **Dashboard.jsx**:
+
   - Quick Actions buttons with consistent styling
   - Profile completion indicators with proper contrast
   - Account status badges with dark theme colors
   - Refresh Data button with proper text visibility
 
 - **ContactForm.css**:
+
   - Removed ugly gradient backgrounds
   - Light/thin text styling for better readability
   - Clean dark background with white text hierarchy
   - Enhanced form field visibility
 
 - **Navigation Components**:
-  - User profile text visibility improvements  
+  - User profile text visibility improvements
   - Active/inactive state contrast optimization
   - Menu and logout button color customization
   - Hamburger icon text color adjustments

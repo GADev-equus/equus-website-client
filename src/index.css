@@ -138,6 +138,11 @@ fieldset {
   border: none;
 }
 
+/* Allow fieldset components to override global padding reset */
+fieldset[class*='p-'] {
+  padding: revert;
+}
+
 legend {
   padding: 0;
 }

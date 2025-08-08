@@ -82,12 +82,13 @@
 
 /* Card component utilities */
 .equus-card-highlighted {
-  background-color: var(--equus-background-white);
-  border-left: var(--equus-border-accent) solid var(--equus-primary);
+  background-color: transparent;
+  border-left: 1px solid var(--equus-primary);
   width: 100%;
   max-width: 350px;
   padding: var(--equus-spacing-md);
-  border-radius: var(--equus-border-radius);
+  border-radius: 0;
+  margin: 0;
 }
 
 /* Section spacing */
