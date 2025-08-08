@@ -153,9 +153,7 @@ const UserLayout = ({ children, title = 'Dashboard' }) => {
         </header>
 
         {/* Main content area */}
-        <main className="flex-1 p-6 w-full lg:max-w-screen-xl lg:mx-auto">
-          {children}
-        </main>
+        <main className="flex-1 p-6 w-full">{children}</main>
       </div>
     </div>
   );
