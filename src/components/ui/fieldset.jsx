@@ -6,7 +6,7 @@ const fieldsetVariants = cva('border transition-all group relative', {
   variants: {
     variant: {
       default:
-        'border-gray-800 bg-[#1a1a1a] dark:border-gray-300 dark:bg-[#2a2a2a]',
+        'border-gray-800 bg-gradient-to-r from-[#1a1a1a] to-black dark:border-gray-300 dark:bg-gradient-to-r dark:from-[#2a2a2a] dark:to-black',
       outline: 'border-gray-400 bg-transparent dark:border-gray-500',
       filled:
         'border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800/50',
@@ -55,7 +55,7 @@ const fieldsetVariants = cva('border transition-all group relative', {
 const legendVariants = cva('font-medium transition-colors text-left ml-0', {
   variants: {
     variant: {
-      default: 'text-equus-primary font-semibold',
+      default: 'font-semibold',
       muted: 'text-gray-600 dark:text-gray-400',
       accent: 'text-blue-600 dark:text-blue-400',
       equus: 'text-blue-600 font-semibold dark:text-blue-400',
@@ -129,7 +129,24 @@ const Fieldset = React.forwardRef(
             )}
           >
             <span className="flex items-center gap-2">
-              {legend}
+              {typeof legend === 'string' ? (
+                <span>
+                  {legend.split('').map((letter, index) => (
+                    <span
+                      key={index}
+                      className={
+                        index % 2 === 0 
+                          ? 'font-semibold bg-gradient-to-b from-white from-50% to-gray-400 to-50% bg-clip-text text-transparent' 
+                          : 'font-semibold bg-gradient-to-b from-gray-400 from-50% to-white to-50% bg-clip-text text-transparent'
+                      }
+                    >
+                      {letter}
+                    </span>
+                  ))}
+                </span>
+              ) : (
+                legend
+              )}
               {required && (
                 <span
                   className="text-red-500 dark:text-red-400"
