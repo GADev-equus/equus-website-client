@@ -17,7 +17,8 @@ const Products = () => {
             OUR PRODUCTS
           </h2>
           <p className="text-body-large text-equus-muted container-content">
-            Discover our cutting-edge AI solutions designed to transform your business operations and drive innovation.
+            Discover our cutting-edge AI solutions designed to transform your
+            business operations and drive innovation.
           </p>
         </section>
 
@@ -28,37 +29,24 @@ const Products = () => {
               <Card variant="service" size="equus">
                 <CardTitle>AI-Powered TFL Assistant</CardTitle>
                 <CardDescription>
-                  Intelligent London transport assistant with real-time tube status and multi-agent AI system featuring 14 specialized line agents.
+                  Intelligent London transport assistant with real-time tube
+                  status and multi-agent AI system featuring 14 specialized line
+                  agents.
                 </CardDescription>
               </Card>
               <Card variant="service" size="equus">
                 <CardTitle>AI Tutor Platform</CardTitle>
                 <CardDescription>
-                  Personalized learning experience with intelligent tutoring and adaptive educational content powered by advanced AI models.
+                  Personalized learning experience with intelligent tutoring and
+                  adaptive educational content powered by advanced AI models.
                 </CardDescription>
               </Card>
               <Card variant="service" size="equus">
                 <CardTitle>Enterprise Solutions</CardTitle>
                 <CardDescription>
-                  Custom business solutions with advanced analytics, user management, and secure authentication systems for enterprise needs.
-                </CardDescription>
-              </Card>
-            </div>
-          </Fieldset>
-        </section>
-
-        {/* About section */}
-        <section className="equus-section equus-section-centered">
-          <Fieldset legend="ABOUT EQUUS" size="lg">
-            <div className="flex justify-center w-full">
-              <Card variant="service" size="equus">
-                <CardDescription>
-                  <em className="font-semibold not-italic text-equus-primary">
-                    Equus
-                  </em>{' '}
-                  means "horse" in Latin, symbolizing strength, reliability, and
-                  forward momentum. At Equus Systems, we embody these qualities in
-                  our approach to AI consulting and solutions development.
+                  Custom business solutions with advanced analytics, user
+                  management, and secure authentication systems for enterprise
+                  needs.
                 </CardDescription>
               </Card>
             </div>
@@ -72,19 +60,22 @@ const Products = () => {
               <Card variant="service" size="equus">
                 <CardTitle>Fast & Reliable</CardTitle>
                 <CardDescription>
-                  High-performance solutions built with modern technologies for optimal speed and reliability.
+                  High-performance solutions built with modern technologies for
+                  optimal speed and reliability.
                 </CardDescription>
               </Card>
               <Card variant="service" size="equus">
                 <CardTitle>Secure by Design</CardTitle>
                 <CardDescription>
-                  Enterprise-grade security with JWT authentication, role-based access, and comprehensive protection.
+                  Enterprise-grade security with JWT authentication, role-based
+                  access, and comprehensive protection.
                 </CardDescription>
               </Card>
               <Card variant="service" size="equus">
                 <CardTitle>User-Focused</CardTitle>
                 <CardDescription>
-                  Intuitive interfaces designed with user experience as the top priority for maximum engagement.
+                  Intuitive interfaces designed with user experience as the top
+                  priority for maximum engagement.
                 </CardDescription>
               </Card>
             </div>
