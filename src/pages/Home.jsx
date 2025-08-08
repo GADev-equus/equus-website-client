@@ -67,14 +67,18 @@ const Home = () => {
         {/* About section */}
         <section className="equus-section equus-section-centered">
           <Fieldset legend="ABOUT EQUUS" size="lg">
-            <p className="text-body-large text-equus-muted container-content">
-              <em className="font-semibold not-italic text-equus-primary">
-                Equus
-              </em>{' '}
-              means "horse" in Latin, symbolizing strength, reliability, and
-              forward momentum. At Equus Systems, we embody these qualities in
-              our approach to AI consulting and solutions development.
-            </p>
+            <div className="flex justify-center w-full">
+              <Card variant="service" size="equus">
+                <CardDescription>
+                  <em className="font-semibold not-italic text-equus-primary">
+                    Equus
+                  </em>{' '}
+                  means "horse" in Latin, symbolizing strength, reliability, and
+                  forward momentum. At Equus Systems, we embody these qualities in
+                  our approach to AI consulting and solutions development.
+                </CardDescription>
+              </Card>
+            </div>
           </Fieldset>
         </section>
 

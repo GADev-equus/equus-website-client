@@ -78,29 +78,44 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Authentication Navigation */}
-      {isAuthenticated && user && (
-        <nav className="header-nav">
-          {/* User Greeting */}
-          <span className="header-user-greeting">
-            Welcome, {user.firstName}
-          </span>
+      {/* Navigation */}
+      <nav className="header-nav">
+        {/* Public Navigation */}
+        <Link to="/products" className="header-nav-button">
+          Products
+        </Link>
 
-          {/* Dashboard Link */}
-          <Link to={getDashboardPath()} className="header-nav-button">
-            📊 Dashboard
-          </Link>
+        {/* Authentication Navigation */}
+        {isAuthenticated && user ? (
+          <>
+            {/* User Greeting */}
+            <span className="header-user-greeting">
+              Welcome, {user.firstName}
+            </span>
 
-          {/* Logout Button */}
-          <button
-            onClick={handleLogout}
-            disabled={isLoggingOut || loading}
-            className="header-nav-button text-red-400"
-          >
-            {isLoggingOut ? '⏳ Logging out...' : '🚪 Logout'}
-          </button>
-        </nav>
-      )}
+            {/* Dashboard Link */}
+            <Link to={getDashboardPath()} className="header-nav-button">
+              📊 Dashboard
+            </Link>
+
+            {/* Logout Button */}
+            <button
+              onClick={handleLogout}
+              disabled={isLoggingOut || loading}
+              className="header-nav-button text-red-400"
+            >
+              {isLoggingOut ? '⏳ Logging out...' : '🚪 Logout'}
+            </button>
+          </>
+        ) : (
+          <>
+            {/* Sign In Link */}
+            <Link to="/auth/signin" className="header-nav-button">
+              Sign In
+            </Link>
+          </>
+        )}
+      </nav>
     </header>
   );
 };

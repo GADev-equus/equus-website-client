@@ -18,7 +18,7 @@ const cardVariants = cva(
         default:
           'bg-card text-card-foreground border border-border rounded-lg shadow-sm p-6',
         // Service/highlight cards for home page
-        service: 'bg-transparent border-l border-l-equus-primary',
+        service: 'bg-[oklch(0.205_0_0)] border-l border-l-equus-primary p-[2rem]',
         highlighted: 'bg-transparent border-l border-l-equus-primary',
         muted: 'bg-transparent border-l border-l-gray-300',
         accent: 'bg-transparent border-l border-l-equus-accent',
@@ -31,7 +31,7 @@ const cardVariants = cva(
         xl: 'max-w-lg p-8',
         full: 'max-w-full',
         dashboard: 'max-w-full p-4', // For dashboard cards
-        equus: 'max-w-[350px] p-[var(--equus-spacing-md)]', // For service cards
+        equus: 'max-w-[350px]', // For service cards - padding handled by variant
       },
       spacing: {
         none: 'p-0',
@@ -78,7 +78,7 @@ const CardTitle = React.forwardRef(({ className, ...props }, ref) => (
   <h4
     ref={ref}
     className={cn(
-      'text-card-title text-equus-secondary font-semibold mb-4',
+      'text-card-title text-equus-primary font-semibold mb-4',
       className,
     )}
     {...props}
