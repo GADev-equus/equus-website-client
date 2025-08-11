@@ -135,8 +135,8 @@ const Fieldset = React.forwardRef(
                     <span
                       key={index}
                       className={
-                        index % 2 === 0 
-                          ? 'font-semibold bg-gradient-to-b from-white from-50% to-gray-400 to-50% bg-clip-text text-transparent' 
+                        index % 2 === 0
+                          ? 'font-semibold bg-gradient-to-b from-white from-50% to-gray-400 to-50% bg-clip-text text-transparent'
                           : 'font-semibold bg-gradient-to-b from-gray-400 from-50% to-white to-50% bg-clip-text text-transparent'
                       }
                     >

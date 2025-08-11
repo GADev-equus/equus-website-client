@@ -1,5 +1,12 @@
 import SEOHelmet from '../components/shared/SEOHelmet';
-import { Fieldset, Card, CardTitle, CardDescription } from '@/components/ui';
+import {
+  Fieldset,
+  Card,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from '@/components/ui';
+import { Link } from 'react-router-dom';
 
 const Products = () => {
   return (
@@ -33,6 +40,14 @@ const Products = () => {
                   status and multi-agent AI system featuring 14 specialized line
                   agents.
                 </CardDescription>
+                <CardContent className="mt-4">
+                  <Link
+                    to="/articles/ai-powered-tfl-assistant"
+                    className="text-equus-primary underline text-sm"
+                  >
+                    Read more →
+                  </Link>
+                </CardContent>
               </Card>
               <Card variant="service" size="equus">
                 <CardTitle>AI Tutor Platform</CardTitle>
@@ -40,6 +55,14 @@ const Products = () => {
                   Personalized learning experience with intelligent tutoring and
                   adaptive educational content powered by advanced AI models.
                 </CardDescription>
+                <CardContent className="mt-4">
+                  <Link
+                    to="/articles/ai-tutor-platform"
+                    className="text-equus-primary underline text-sm"
+                  >
+                    Read more →
+                  </Link>
+                </CardContent>
               </Card>
               <Card variant="service" size="equus">
                 <CardTitle>Enterprise Solutions</CardTitle>

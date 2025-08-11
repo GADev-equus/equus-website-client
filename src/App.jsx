@@ -24,6 +24,7 @@ const SignIn = lazy(() => import('@/pages/auth/SignIn'));
 const SignUp = lazy(() => import('@/pages/auth/SignUp'));
 const ResetPassword = lazy(() => import('@/pages/auth/ResetPassword'));
 const Products = lazy(() => import('@/pages/Products'));
+const ArticlePage = lazy(() => import('@/pages/articles/ArticlePage'));
 const UserDashboard = lazy(() => import('@/pages/user/Dashboard'));
 const Profile = lazy(() => import('@/pages/user/Profile'));
 const Settings = lazy(() => import('@/pages/user/Settings'));
@@ -78,6 +79,7 @@ function App() {
                   {/* Public Routes */}
                   <Route path="/" element={<Home />} />
                   <Route path="/products" element={<Products />} />
+                  <Route path="/articles/:slug" element={<ArticlePage />} />
                   <Route path="/unauthorized" element={<Unauthorized />} />
 
                   {/* Authentication Routes */}

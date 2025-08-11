@@ -16,7 +16,7 @@
 
 /* Contact Info Section */
 .contact-info {
-  background: var(--color-card);
+  /* background: var(--color-card); */
   padding: var(--equus-spacing-lg);
   display: flex;
   flex-direction: column;
