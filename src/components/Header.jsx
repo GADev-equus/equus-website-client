@@ -81,6 +81,9 @@ const Header = () => {
       {/* Navigation */}
       <nav className="header-nav">
         {/* Public Navigation */}
+        <Link to="/about" className="header-nav-button">
+          About
+        </Link>
         <Link to="/products" className="header-nav-button">
           Products
         </Link>

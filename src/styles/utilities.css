@@ -275,6 +275,20 @@
   margin: 0 auto;
 }
 
+/* Olive underline for headings (text-decoration for exact width) */
+.heading-underline-olive {
+  text-decoration-line: underline;
+  text-decoration-color: var(--equus-olive);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
+  text-decoration-skip-ink: auto;
+}
+
+/* Olive left-border utility */
+.border-l-equus-olive {
+  border-left: var(--equus-border-accent) solid var(--equus-olive);
+}
+
 .verification-status-icon.success {
   background-color: #d4edda;
 }

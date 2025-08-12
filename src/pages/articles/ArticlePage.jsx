@@ -248,7 +248,7 @@ export default function ArticlePage() {
       <Fieldset legend="BLOG" size="lg">
         {/* Header */}
         <header className="w-full px-4 sm:px-6">
-          <h2 className="text-hero text-white font-semibold mb-6 text-left font-display">
+          <h2 className="text-hero text-white font-semibold mb-6 text-left font-display heading-underline-olive">
             {title}
           </h2>
           {excerpt && (

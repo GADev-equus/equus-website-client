@@ -22,7 +22,7 @@ const Home = () => {
       <div className="container-equus">
         {/* Hero section */}
         <section className="equus-section equus-section-centered pt-12 pb-8">
-          <h2 className="text-hero text-equus-primary font-semibold mb-6">
+          <h2 className="text-hero text-equus-primary font-semibold mb-6 heading-underline-olive">
             EMPOWERING YOUR BUSINESS WITH AI
           </h2>
           <p className="text-body-large text-equus-muted container-content">
@@ -64,26 +64,28 @@ const Home = () => {
           </Fieldset>
         </section>
 
-        {/* About section */}
-        <section className="equus-section equus-section-centered">
+        {/* About section (teaser) */}
+        <section className="equus-section equus-section-centered" id="about">
           <Fieldset legend="ABOUT EQUUS" size="lg">
             <div className="flex justify-center w-full">
               <Card variant="service" size="equus">
                 <CardDescription>
-                  <em className="font-semibold not-italic text-equus-primary">
-                    Equus
-                  </em>{' '}
-                  means "horse" in Latin, symbolizing strength, reliability, and
-                  forward momentum. At Equus Systems, we embody these qualities in
-                  our approach to AI consulting and solutions development.
+                  We build Agentic AI systems that go beyond simple
+                  automation—solutions that think, learn, and act to deliver
+                  lasting impact.
                 </CardDescription>
+                <div className="mt-4">
+                  <a className="text-equus-primary underline" href="/about">
+                    Read the full story →
+                  </a>
+                </div>
               </Card>
             </div>
           </Fieldset>
         </section>
 
         {/* Contact section */}
-        <section className="equus-section equus-section-centered">
+        <section className="equus-section equus-section-centered" id="contact">
           <Fieldset legend="CONTACT US" size="lg">
             <div className="flex justify-center w-full">
               <ContactForm />

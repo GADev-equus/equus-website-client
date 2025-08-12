@@ -17,6 +17,8 @@
   --equus-primary: #3498db;
   --equus-secondary: #2c3e50;
   --equus-accent: #e74c3c;
+  /* Subtle brand olive accent */
+  --equus-olive: #3b4d3f;
   --equus-text-primary: #333;
   --equus-text-secondary: #666;
   --equus-text-light: rgba(255, 255, 255, 0.9);
