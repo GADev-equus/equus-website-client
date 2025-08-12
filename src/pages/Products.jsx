@@ -33,14 +33,14 @@ const Products = () => {
         <section className="equus-section equus-section-centered">
           <Fieldset legend="AI SOLUTIONS" size="lg">
             <div className="grid-equus-services">
-              <Card variant="service" size="equus">
+              <Card variant="service" size="equus" className="flex flex-col">
                 <CardTitle>AI-Powered TFL Assistant</CardTitle>
-                <CardDescription>
+                <CardDescription className="flex-grow">
                   Intelligent London transport assistant with real-time tube
                   status and multi-agent AI system featuring 14 specialized line
                   agents.
                 </CardDescription>
-                <CardContent className="mt-4">
+                <CardContent className="mt-auto pt-4">
                   <Link
                     to="/articles/ai-powered-tfl-assistant"
                     className="text-equus-primary underline text-sm"
@@ -49,13 +49,13 @@ const Products = () => {
                   </Link>
                 </CardContent>
               </Card>
-              <Card variant="service" size="equus">
+              <Card variant="service" size="equus" className="flex flex-col">
                 <CardTitle>AI Tutor Platform</CardTitle>
-                <CardDescription>
+                <CardDescription className="flex-grow">
                   Personalized learning experience with intelligent tutoring and
                   adaptive educational content powered by advanced AI models.
                 </CardDescription>
-                <CardContent className="mt-4">
+                <CardContent className="mt-auto pt-4">
                   <Link
                     to="/articles/ai-tutor-platform"
                     className="text-equus-primary underline text-sm"

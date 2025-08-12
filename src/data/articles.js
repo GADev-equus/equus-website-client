@@ -12,20 +12,7 @@ export const articles = [
       'Our multi-agent TFL AI system uses specialized GPT-4o agents for each Underground line, real-time TFL data, and streaming intelligence to deliver context-aware, human-in-the-loop journey planning.',
     date: '2025-07-30',
     author: 'Equus Systems',
-    tags: [
-      'AI',
-      'Multi-agent',
-      'TFL',
-      'London Underground',
-      'Real-time',
-      'SSE',
-      'Voice',
-      'Whisper',
-      'React',
-      'Tailwind',
-      'Security',
-      'Performance',
-    ],
+    tags: ['AI', 'Multi-agent', 'Real-time', 'Voice', 'Whisper'],
     sections: [
       {
         heading: 'Beyond Chatbots: The Age of Specialized AI Agents',
@@ -124,20 +111,7 @@ export const articles = [
       'A comprehensive AI tutoring system powered by Model Context Protocol (MCP), adaptive response intelligence, context-aware memory, and curriculum-aligned retrieval to deliver personalized biology learning at scale.',
     date: '2025-07-30',
     author: 'Equus Systems',
-    tags: [
-      'AI',
-      'Education',
-      'Tutoring',
-      'Personalization',
-      'Adaptive Learning',
-      'MCP',
-      'React',
-      'Privacy',
-      'Accessibility',
-      'Performance',
-      'Exam Prep',
-      'Analytics',
-    ],
+    tags: ['AI', 'Personalization', 'Adaptive Learning', 'MCP', 'Analytics'],
     sections: [
       {
         heading:
