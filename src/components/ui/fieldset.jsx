@@ -2,55 +2,59 @@ import * as React from 'react';
 import { cva } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
-const fieldsetVariants = cva('border transition-all group relative', {
-  variants: {
-    variant: {
-      default:
-        'border-gray-800 bg-gradient-to-r from-[#1a1a1a] to-black dark:border-gray-300 dark:bg-gradient-to-r dark:from-[#2a2a2a] dark:to-black',
-      outline: 'border-gray-400 bg-transparent dark:border-gray-500',
-      filled:
-        'border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800/50',
-      elevated:
-        'border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900',
-      accent:
-        'border-blue-500 bg-blue-50/30 dark:border-blue-400 dark:bg-blue-950/20',
-      equus:
-        'border-blue-500 bg-gradient-to-br from-blue-50/50 to-transparent dark:from-blue-950/30 dark:to-transparent dark:border-blue-400',
-      success:
-        'border-green-400 bg-green-50/50 dark:border-green-500 dark:bg-green-950/20',
-      warning:
-        'border-amber-400 bg-amber-50/50 dark:border-amber-500 dark:bg-amber-950/20',
-      error:
-        'border-red-400 bg-red-50/50 dark:border-red-500 dark:bg-red-950/20',
+const fieldsetVariants = cva(
+  'border !border-equus-olive/10 transition-all group relative',
+  {
+    variants: {
+      variant: {
+        default:
+          '!border-equus-olive/10 bg-transparent dark:!border-equus-olive/10 dark:bg-transparent',
+        outline:
+          '!border-equus-olive/10 bg-transparent dark:!border-equus-olive/10',
+        filled:
+          'border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800/50',
+        elevated:
+          'border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900',
+        accent:
+          'border-blue-500 bg-blue-50/30 dark:border-blue-400 dark:bg-blue-950/20',
+        equus:
+          'border-blue-500 bg-transparent dark:border-blue-400 dark:bg-transparent',
+        success:
+          'border-green-400 bg-green-50/50 dark:border-green-500 dark:bg-green-950/20',
+        warning:
+          'border-amber-400 bg-amber-50/50 dark:border-amber-500 dark:bg-amber-950/20',
+        error:
+          'border-red-400 bg-red-50/50 dark:border-red-500 dark:bg-red-950/20',
+      },
+      size: {
+        sm: 'p-3',
+        default: 'p-4',
+        lg: 'p-6',
+        xl: 'p-8',
+      },
+      spacing: {
+        tight: 'space-y-2',
+        default: 'space-y-4',
+        relaxed: 'space-y-6',
+        loose: 'space-y-8',
+      },
+      state: {
+        default: '',
+        disabled: 'opacity-60 cursor-not-allowed',
+        focused:
+          'ring-2 ring-blue-500/20 border-blue-500 dark:ring-blue-400/20 dark:border-blue-400',
+        invalid:
+          'ring-2 ring-red-500/20 border-red-500 dark:ring-red-400/20 dark:border-red-400',
+      },
     },
-    size: {
-      sm: 'p-3',
-      default: 'p-4',
-      lg: 'p-6',
-      xl: 'p-8',
-    },
-    spacing: {
-      tight: 'space-y-2',
-      default: 'space-y-4',
-      relaxed: 'space-y-6',
-      loose: 'space-y-8',
-    },
-    state: {
-      default: '',
-      disabled: 'opacity-60 cursor-not-allowed',
-      focused:
-        'ring-2 ring-blue-500/20 border-blue-500 dark:ring-blue-400/20 dark:border-blue-400',
-      invalid:
-        'ring-2 ring-red-500/20 border-red-500 dark:ring-red-400/20 dark:border-red-400',
+    defaultVariants: {
+      variant: 'default',
+      size: 'default',
+      spacing: 'default',
+      state: 'default',
     },
   },
-  defaultVariants: {
-    variant: 'default',
-    size: 'default',
-    spacing: 'default',
-    state: 'default',
-  },
-});
+);
 
 const legendVariants = cva('font-medium transition-colors text-left ml-0', {
   variants: {

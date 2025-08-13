@@ -121,7 +121,23 @@ const About = () => {
               learn, and act to deliver lasting impact.
             </p>
             <div>
-              <Link to="/#contact" className="text-equus-primary underline">
+              <Link
+                to="/#contact"
+                className="text-equus-primary underline"
+                onClick={(e) => {
+                  // Allow normal navigation, then focus on form
+                  setTimeout(() => {
+                    const nameInput = document.getElementById('name');
+                    if (nameInput) {
+                      nameInput.focus();
+                      nameInput.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center',
+                      });
+                    }
+                  }, 100);
+                }}
+              >
                 Get in touch with us →
               </Link>
             </div>

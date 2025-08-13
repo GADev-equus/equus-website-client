@@ -139,6 +139,11 @@ fieldset {
   border: none;
 }
 
+/* Allow fieldset components to override global border reset */
+fieldset[class*='border-'] {
+  border: revert !important;
+}
+
 /* Allow fieldset components to override global padding reset */
 fieldset[class*='p-'] {
   padding: revert;

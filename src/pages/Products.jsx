@@ -6,6 +6,7 @@ import {
   CardDescription,
   CardContent,
 } from '@/components/ui';
+import DecorativeAccent from '@/components/ui/DecorativeAccent';
 import { Link } from 'react-router-dom';
 
 const Products = () => {
@@ -75,6 +76,16 @@ const Products = () => {
             </div>
           </Fieldset>
         </section>
+
+        {/* Section divider */}
+        <div className="relative py-8">
+          <DecorativeAccent
+            position="center"
+            width="12rem"
+            height="0.25rem"
+            gradient="primary-secondary"
+          />
+        </div>
 
         {/* Features section */}
         <section className="equus-section equus-section-centered">
