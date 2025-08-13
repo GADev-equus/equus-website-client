@@ -1,13 +1,23 @@
 /**
  * AuthForm - Reusable authentication form component
  * Handles sign in, sign up, and password reset forms with validation
- * Uses CSS classes and Fieldset component for consistent styling
+ * Updated to use CSS classes like ContactForm
  */
 
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardDescription,
+} from '@/components/ui/card';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import {
   Form,
   FormField,
@@ -17,7 +27,6 @@ import {
   FormMessage,
   FormDescription,
 } from '@/components/ui/form';
-import { Fieldset } from '@/components/ui';
 import './AuthForm.css';
 
 const AuthForm = ({
@@ -27,6 +36,8 @@ const AuthForm = ({
   error = null,
   success = null,
   shouldShowColdStartUI = false,
+  loadingState = null,
+  className = '',
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -41,6 +52,9 @@ const AuthForm = ({
       resetToken: '',
     },
   });
+
+  // Watch form values to trigger re-render when they change
+  const watchedValues = form.watch();
 
   const getFormConfig = () => {
     switch (type) {
@@ -336,80 +350,79 @@ const AuthForm = ({
 
   return (
     <div className="auth-form-container">
-      <Fieldset legend={config.title.toUpperCase()} size="lg">
-        <div className="auth-form-wrapper">
-          <div className="auth-form-header">
-            <p className="auth-form-description">{config.description}</p>
-          </div>
-
-          <div className="auth-form-content">
-            {error && (
-              <div className="auth-alert error">
-                <div className="auth-alert-icon">!</div>
-                <div className="auth-alert-text">{error}</div>
-              </div>
-            )}
-
-            {success && (
-              <div className="auth-alert success">
-                <div className="auth-alert-icon">✓</div>
-                <div className="auth-alert-text">{success}</div>
-              </div>
-            )}
-
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(handleSubmit)}>
-                <div>{config.fields.map(renderField)}</div>
-
-                {type === 'signin' && (
-                  <div className="auth-additional-links">
-                    <Link
-                      to="/auth/reset-password"
-                      className="auth-additional-link"
-                    >
-                      Forgot password?
-                    </Link>
-                  </div>
-                )}
-
-                <div className="auth-form-actions">
-                  <button
-                    type="submit"
-                    disabled={loading || !isFormValid()}
-                    className="auth-submit-button"
-                  >
-                    {loading ? (
-                      <>
-                        <span className="auth-loading-spinner"></span>
-                        {shouldShowColdStartUI
-                          ? 'Starting server...'
-                          : 'Please wait...'}
-                      </>
-                    ) : (
-                      config.submitText
-                    )}
-                  </button>
-                </div>
-
-                {type === 'signup' && (
-                  <div className="auth-terms">
-                    By creating an account, you agree to our{' '}
-                    <Link to="/terms">Terms of Service</Link> and{' '}
-                    <Link to="/privacy">Privacy Policy</Link>.
-                  </div>
-                )}
-              </form>
-            </Form>
-          </div>
-
-          <div className="auth-form-footer">
-            <p className="auth-form-footer-text">{config.footerText}</p>
-            <Link to={config.footerLink} className="auth-form-footer-link">
-              {config.footerLinkText}
-            </Link>
-          </div>
+      <div className="auth-form-wrapper">
+        <div className="auth-form-header">
+          <h1 className="auth-form-title">{config.title}</h1>
+          <p className="auth-form-description">{config.description}</p>
         </div>
-      </Fieldset>
+
+        <div className="auth-form-content">
+          {error && (
+            <div className="auth-alert error">
+              <div className="auth-alert-icon">!</div>
+              <div className="auth-alert-text">{error}</div>
+            </div>
+          )}
+
+          {success && (
+            <div className="auth-alert success">
+              <div className="auth-alert-icon">✓</div>
+              <div className="auth-alert-text">{success}</div>
+            </div>
+          )}
+
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(handleSubmit)}>
+              <div>{config.fields.map(renderField)}</div>
+
+              {type === 'signin' && (
+                <div className="auth-additional-links">
+                  <Link
+                    to="/auth/reset-password"
+                    className="auth-additional-link"
+                  >
+                    Forgot password?
+                  </Link>
+                </div>
+              )}
+
+              <div className="auth-form-actions">
+                <button
+                  type="submit"
+                  disabled={loading || !isFormValid()}
+                  className="auth-submit-button"
+                >
+                  {loading ? (
+                    <>
+                      <span className="auth-loading-spinner"></span>
+                      {shouldShowColdStartUI
+                        ? 'Starting server...'
+                        : 'Please wait...'}
+                    </>
+                  ) : (
+                    config.submitText
+                  )}
+                </button>
+              </div>
+
+              {type === 'signup' && (
+                <div className="auth-terms">
+                  By creating an account, you agree to our{' '}
+                  <Link to="/terms">Terms of Service</Link> and{' '}
+                  <Link to="/privacy">Privacy Policy</Link>.
+                </div>
+              )}
+            </form>
+          </Form>
+        </div>
+
+        <div className="auth-form-footer">
+          <p className="auth-form-footer-text">{config.footerText}</p>
+          <Link to={config.footerLink} className="auth-form-footer-link">
+            {config.footerLinkText}
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };
