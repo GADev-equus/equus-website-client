@@ -70,7 +70,7 @@ const Header = () => {
       <div>
         <div className="header-branding">
           <Link to="/" className="header-brand-link">
-            <h1 className="font-bold header-brand-title">EQUUS SYSTEMS</h1>
+            <h1 className="font-bold header-brand-title">EQUUS SYSTEMS Ltd.</h1>
           </Link>
           <p className="opacity-90 font-light header-brand-subtitle">
             ADVANCED AI SOLUTIONS & CONSULTING

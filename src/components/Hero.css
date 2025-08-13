@@ -22,7 +22,7 @@
 /* Main content container */
 .hero-content {
   position: relative;
-  padding-top: 4rem;
+  padding-top: 2rem;
   padding-bottom: 3rem;
   text-align: center;
 }
@@ -42,7 +42,12 @@
   letter-spacing: -0.025em;
   margin-bottom: 0.5rem;
   font-family: var(--equus-font-branding);
-  background: linear-gradient(135deg, var(--equus-primary) 0%, var(--equus-secondary) 50%, var(--equus-olive) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--equus-primary) 0%,
+    var(--equus-secondary) 50%,
+    var(--equus-olive) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -77,7 +82,7 @@
 
 /* Description text */
 .hero-description {
-  font-size: 1.125rem;
+  font-size: 1rem;
   line-height: 1.75;
   color: var(--equus-text-secondary);
   margin-bottom: 1.5rem;
@@ -131,7 +136,7 @@
 
 /* Pillar text */
 .hero-pillar-text {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   font-weight: 600;
 }
 
@@ -154,32 +159,20 @@
   background-color: #9ca3af;
 }
 
-/* Bottom decorative accent */
-.hero-bottom-accent {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 6rem;
-  height: 0.25rem;
-  border-radius: 9999px;
-  background: linear-gradient(90deg, var(--equus-primary), var(--equus-olive));
-}
-
 /* Responsive design - Mobile */
 @media (min-width: 768px) {
   .hero-brand-name {
     font-size: 3rem;
   }
-  
+
   .hero-tagline {
     font-size: 1.5rem;
   }
-  
+
   .hero-focus-word {
     font-size: 3rem;
   }
-  
+
   .hero-description {
     font-size: 1.25rem;
   }
@@ -190,11 +183,11 @@
   .hero-brand-name {
     font-size: 3.75rem;
   }
-  
+
   .hero-tagline {
     font-size: 1.875rem;
   }
-  
+
   .hero-focus-word {
     font-size: 3.75rem;
   }
@@ -206,7 +199,7 @@
     flex-direction: column;
     gap: 1rem;
   }
-  
+
   .hero-pillar-separator {
     display: none;
   }

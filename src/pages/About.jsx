@@ -1,5 +1,5 @@
 /**
- * About Page - Detailed information about Equus Systems and Agentic AI
+ * About Page - Detailed information about Equus Systems Ltd. and Agentic AI
  * Uses Fieldset and existing utilities to match site style.
  */
 
@@ -12,14 +12,14 @@ const About = () => {
   return (
     <div className="container-equus py-10 sm:py-12">
       <SEOHelmet
-        title={SEO_CONFIG?.about?.title || 'About Equus Systems'}
+        title={SEO_CONFIG?.about?.title || 'About Equus Systems Ltd.'}
         description={
           SEO_CONFIG?.about?.description ||
-          'Learn about Equus Systems and our Agentic AI approach.'
+          'Learn about Equus Systems Ltd. and our Agentic AI approach.'
         }
         keywords={
           SEO_CONFIG?.about?.keywords ||
-          'Equus Systems, About, Agentic AI, Autonomy, AI Consulting'
+          'Equus Systems Ltd., About, Agentic AI, Autonomy, AI Consulting'
         }
         structuredData={SEO_CONFIG?.about?.structuredData}
         url="https://equussystems.co/about"
@@ -34,8 +34,8 @@ const About = () => {
             </h2>
             <p className="text-equus-muted text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8 max-w-prose">
               Traditional AI follows a simple formula: you ask → it answers. At
-              Equus Systems, we embrace the next frontier: Agentic AI. You set
-              the goal → it figures out the best way to get there.
+              Equus Systems Ltd., we embrace the next frontier: Agentic AI. You
+              set the goal → it figures out the best way to get there.
             </p>
           </header>
 
@@ -112,10 +112,10 @@ const About = () => {
           {/* Closing */}
           <section className="space-y-3">
             <h3 className="text-lg sm:text-xl font-semibold text-white font-display">
-              Empowering the Future with Equus Systems
+              Empowering the Future with Equus Systems Ltd.
             </h3>
             <p className="text-equus-muted text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8">
-              At Equus Systems, we design and build intelligent agentic
+              At Equus Systems Ltd., we design and build intelligent agentic
               solutions that go beyond simple automation. Our mission is to help
               businesses unlock the full potential of AI—systems that think,
               learn, and act to deliver lasting impact.

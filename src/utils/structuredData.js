@@ -6,7 +6,7 @@
 export const createOrganizationSchema = () => ({
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'Equus Systems',
+  name: 'Equus Systems Ltd.',
   url: 'https://equussystems.co',
   logo: 'https://equussystems.co/favicon.ico',
   description:
@@ -33,13 +33,13 @@ export const createOrganizationSchema = () => ({
 export const createWebSiteSchema = () => ({
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'Equus Systems',
+  name: 'Equus Systems Ltd.',
   url: 'https://equussystems.co',
   description:
     'Advanced technology solutions and AI-powered applications for modern businesses.',
   publisher: {
     '@type': 'Organization',
-    name: 'Equus Systems',
+    name: 'Equus Systems Ltd.',
   },
   potentialAction: {
     '@type': 'SearchAction',
@@ -59,7 +59,7 @@ export const createWebPageSchema = (pageData) => ({
   url: pageData.url,
   isPartOf: {
     '@type': 'WebSite',
-    name: 'Equus Systems',
+    name: 'Equus Systems Ltd.',
     url: 'https://equussystems.co',
   },
   about: {
@@ -70,7 +70,7 @@ export const createWebPageSchema = (pageData) => ({
   dateModified: pageData.dateModified || new Date().toISOString(),
   author: {
     '@type': 'Organization',
-    name: 'Equus Systems',
+    name: 'Equus Systems Ltd.',
   },
 });
 
@@ -89,7 +89,7 @@ export const createSoftwareApplicationSchema = (appData) => ({
   },
   publisher: {
     '@type': 'Organization',
-    name: 'Equus Systems',
+    name: 'Equus Systems Ltd.',
   },
   softwareVersion: '1.0',
   releaseNotes: appData.features || 'Advanced AI-powered features',
@@ -102,7 +102,7 @@ export const createServiceSchema = (serviceData) => ({
   description: serviceData.description,
   provider: {
     '@type': 'Organization',
-    name: 'Equus Systems',
+    name: 'Equus Systems Ltd.',
   },
   areaServed: 'Worldwide',
   availableChannel: {
@@ -145,16 +145,16 @@ export const combineSchemas = (...schemas) => ({
 // SEO page configurations
 export const SEO_CONFIG = {
   home: {
-    title: 'Equus Systems - Advanced Technology Solutions',
+    title: 'Equus Systems Ltd. - Advanced Technology Solutions',
     description:
       'Leading provider of AI-powered applications and advanced technology solutions for modern businesses. Explore our innovative web applications and automation tools.',
     keywords:
-      'Equus Systems, technology solutions, AI applications, web development, business automation, TFL AI, transport, innovation',
+      'Equus Systems Ltd., technology solutions, AI applications, web development, business automation, TFL AI, transport, innovation',
     structuredData: combineSchemas(
       createOrganizationSchema(),
       createWebSiteSchema(),
       createWebPageSchema({
-        title: 'Home - Equus Systems',
+        title: 'Home - Equus Systems Ltd.',
         description:
           'Leading provider of AI-powered applications and technology solutions',
         url: 'https://equussystems.co',
@@ -167,15 +167,15 @@ export const SEO_CONFIG = {
     signin: {
       title: 'Sign In',
       description:
-        'Sign in to your Equus Systems account to access our AI-powered applications and services.',
-      keywords: 'sign in, login, Equus Systems account, authentication',
+        'Sign in to your Equus Systems Ltd. account to access our AI-powered applications and services.',
+      keywords: 'sign in, login, Equus Systems Ltd. account, authentication',
       noIndex: true,
     },
     signup: {
       title: 'Sign Up',
       description:
-        'Create your Equus Systems account to access cutting-edge AI applications and technology solutions.',
-      keywords: 'sign up, register, create account, Equus Systems',
+        'Create your Equus Systems Ltd. account to access cutting-edge AI applications and technology solutions.',
+      keywords: 'sign up, register, create account, Equus Systems Ltd.',
       noIndex: true,
     },
   },
@@ -183,7 +183,7 @@ export const SEO_CONFIG = {
   dashboard: {
     title: 'Dashboard',
     description:
-      'Your Equus Systems dashboard - access AI applications, manage your account, and explore our technology solutions.',
+      'Your Equus Systems Ltd. dashboard - access AI applications, manage your account, and explore our technology solutions.',
     keywords: 'dashboard, user portal, AI applications, account management',
     noIndex: true,
   },
@@ -191,23 +191,23 @@ export const SEO_CONFIG = {
   notFound: {
     title: 'Page Not Found',
     description:
-      'The page you are looking for could not be found. Return to Equus Systems to explore our technology solutions.',
-    keywords: '404, page not found, Equus Systems',
+      'The page you are looking for could not be found. Return to Equus Systems Ltd. to explore our technology solutions.',
+    keywords: '404, page not found, Equus Systems Ltd.',
     noIndex: true,
   },
 };
 
 // Extend with About page config
 SEO_CONFIG.about = {
-  title: 'About Equus Systems — Agentic AI and Our Approach',
+  title: 'About Equus Systems Ltd. — Agentic AI and Our Approach',
   description:
-    'Learn about Equus Systems and our Agentic AI approach: purpose-driven intelligence, integrated tools, contextual memory, and adaptive autonomy.',
+    'Learn about Equus Systems Ltd. and our Agentic AI approach: purpose-driven intelligence, integrated tools, contextual memory, and adaptive autonomy.',
   keywords:
-    'About Equus Systems, Agentic AI, autonomous AI, AI consulting, tool-using agents, contextual memory, adaptive autonomy',
+    'About Equus Systems Ltd., Agentic AI, autonomous AI, AI consulting, tool-using agents, contextual memory, adaptive autonomy',
   structuredData: combineSchemas(
     createOrganizationSchema(),
     createWebPageSchema({
-      title: 'About Equus Systems',
+      title: 'About Equus Systems Ltd.',
       description:
         'Equus Systems builds agentic AI solutions that think, learn, and act to deliver lasting impact.',
       url: 'https://equussystems.co/about',

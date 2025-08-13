@@ -9,6 +9,7 @@ import SEOHelmet from '@/components/shared/SEOHelmet';
 import Hero from '@/components/Hero';
 import { SEO_CONFIG } from '@/utils/structuredData';
 import { Fieldset, Card, CardTitle, CardDescription } from '@/components/ui';
+import DecorativeAccent from '@/components/ui/DecorativeAccent';
 
 const Home = () => {
   return (
@@ -56,6 +57,16 @@ const Home = () => {
           </Fieldset>
         </section>
 
+        {/* Section divider */}
+        <div className="relative py-8">
+          <DecorativeAccent
+            position="center"
+            width="12rem"
+            height="0.25rem"
+            gradient="primary-secondary"
+          />
+        </div>
+
         {/* About section (teaser) */}
         <section className="equus-section equus-section-centered" id="about">
           <Fieldset legend="ABOUT EQUUS" size="lg">
@@ -75,6 +86,16 @@ const Home = () => {
             </div>
           </Fieldset>
         </section>
+
+        {/* Section divider */}
+        <div className="relative py-8">
+          <DecorativeAccent
+            position="center"
+            width="12rem"
+            height="0.25rem"
+            gradient="olive-accent"
+          />
+        </div>
 
         {/* Contact section */}
         <section className="equus-section equus-section-centered" id="contact">

@@ -1,7 +1,8 @@
 /**
  * Card Component
  * A flexible card component with consistent styling across the application
- * Features unified padding and pink border with variant-specific styling
+ * Features unified padding and gradient backgrounds inspired by Hero section
+ * Uses Equus design system variables for brand consistency
  */
 
 import React from 'react';
@@ -9,19 +10,25 @@ import { cva } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const cardVariants = cva(
-  // Base styles - applied to all cards
-  'w-full !bg-black !p-4',
+  // Base styles - applied to all cards with gradient background
+  'w-full !p-4 relative overflow-hidden',
   {
     variants: {
       variant: {
         // Traditional card styling for dashboards, forms, etc.
         default: 'bg-card text-card-foreground border border-border shadow-sm',
-        // Service/highlight cards for home page
-        service: 'bg-[oklch(0.205_0_0)] border-l border-l-equus-primary',
-        // Transparent cards with different border accents
-        highlighted: 'bg-transparent border-l border-l-equus-primary',
-        muted: 'bg-transparent border-l border-l-gray-300',
-        accent: 'bg-transparent border-l border-l-equus-accent',
+        // Service/highlight cards with gradient background
+        service:
+          'bg-gradient-to-br from-equus-primary/10 via-equus-secondary/5 to-equus-olive/10 border-l backdrop-blur-sm',
+        // Gradient cards with different accent borders
+        highlighted:
+          'bg-gradient-to-br from-equus-primary/5 via-transparent to-equus-olive/5 border-l backdrop-blur-sm',
+        muted:
+          'bg-gradient-to-br from-gray-500/5 via-transparent to-gray-300/5 border-l border-l-gray-300 backdrop-blur-sm',
+        accent:
+          'bg-gradient-to-br from-equus-accent/10 via-transparent to-equus-secondary/5 border-l border-l-equus-accent backdrop-blur-sm',
+        gradient:
+          'bg-gradient-to-br from-equus-primary/10 via-equus-secondary/5 to-equus-olive/10 border border-equus-primary/20 shadow-lg backdrop-blur-sm',
         none: 'bg-transparent',
       },
       size: {
