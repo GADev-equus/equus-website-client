@@ -1,0 +1,213 @@
+/**
+ * Hero Component Styles
+ * Professional CSS implementation using Equus design system variables
+ */
+
+/* Main hero section */
+.hero-section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background gradient overlay */
+.hero-background-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0.1;
+  background: var(--equus-gradient-primary);
+  transform: skewY(-2deg);
+  transform-origin: top left;
+}
+
+/* Main content container */
+.hero-content {
+  position: relative;
+  padding-top: 4rem;
+  padding-bottom: 3rem;
+  text-align: center;
+}
+
+/* Main heading container */
+.hero-heading {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+/* Brand name styling */
+.hero-brand-name {
+  display: block;
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.5rem;
+  font-family: var(--equus-font-branding);
+  background: linear-gradient(135deg, var(--equus-primary) 0%, var(--equus-secondary) 50%, var(--equus-olive) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Tagline styling */
+.hero-tagline {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  font-family: var(--equus-font-display);
+  color: var(--equus-text-primary);
+}
+
+/* Focus word (AI) styling */
+.hero-focus-word {
+  display: block;
+  font-size: 2.25rem;
+  font-weight: 900;
+  margin-top: 0.5rem;
+  font-family: var(--equus-font-branding);
+  color: var(--equus-primary);
+}
+
+/* Description container */
+.hero-description-container {
+  max-width: var(--equus-max-width-content);
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+/* Description text */
+.hero-description {
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: var(--equus-text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+/* Description highlights */
+.hero-description-highlight-primary {
+  color: var(--equus-primary);
+  font-weight: 600;
+}
+
+.hero-description-highlight-secondary {
+  color: var(--equus-secondary);
+  font-weight: 500;
+}
+
+/* Brand pillars container */
+.hero-pillars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Individual pillar */
+.hero-pillar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Pillar dots */
+.hero-pillar-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+}
+
+.hero-pillar-dot-primary {
+  background-color: var(--equus-primary);
+}
+
+.hero-pillar-dot-olive {
+  background-color: var(--equus-olive);
+}
+
+.hero-pillar-dot-accent {
+  background-color: var(--equus-accent);
+}
+
+/* Pillar text */
+.hero-pillar-text {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.hero-pillar-text-primary {
+  color: var(--equus-primary);
+}
+
+.hero-pillar-text-olive {
+  color: var(--equus-olive);
+}
+
+.hero-pillar-text-accent {
+  color: var(--equus-accent);
+}
+
+/* Pillar separators */
+.hero-pillar-separator {
+  width: 1px;
+  height: 1.5rem;
+  background-color: #9ca3af;
+}
+
+/* Bottom decorative accent */
+.hero-bottom-accent {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6rem;
+  height: 0.25rem;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--equus-primary), var(--equus-olive));
+}
+
+/* Responsive design - Mobile */
+@media (min-width: 768px) {
+  .hero-brand-name {
+    font-size: 3rem;
+  }
+  
+  .hero-tagline {
+    font-size: 1.5rem;
+  }
+  
+  .hero-focus-word {
+    font-size: 3rem;
+  }
+  
+  .hero-description {
+    font-size: 1.25rem;
+  }
+}
+
+/* Responsive design - Desktop */
+@media (min-width: 1024px) {
+  .hero-brand-name {
+    font-size: 3.75rem;
+  }
+  
+  .hero-tagline {
+    font-size: 1.875rem;
+  }
+  
+  .hero-focus-word {
+    font-size: 3.75rem;
+  }
+}
+
+/* Mobile responsiveness for pillars */
+@media (max-width: 640px) {
+  .hero-pillars {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .hero-pillar-separator {
+    display: none;
+  }
+}

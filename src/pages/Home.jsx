@@ -6,6 +6,7 @@
 
 import ContactForm from '@/components/ContactForm';
 import SEOHelmet from '@/components/shared/SEOHelmet';
+import Hero from '@/components/Hero';
 import { SEO_CONFIG } from '@/utils/structuredData';
 import { Fieldset, Card, CardTitle, CardDescription } from '@/components/ui';
 
@@ -20,16 +21,7 @@ const Home = () => {
         url="https://equussystems.co"
       />
       <div className="container-equus">
-        {/* Hero section */}
-        <section className="equus-section equus-section-centered pt-12 pb-8">
-          <h2 className="text-hero text-equus-primary font-semibold mb-6 heading-underline-olive">
-            EMPOWERING YOUR BUSINESS WITH AI
-          </h2>
-          <p className="text-body-large text-equus-muted container-content">
-            Like the steadfast horse from which our name derives, we provide
-            reliable and powerful AI solutions to propel your business forward.
-          </p>
-        </section>
+        <Hero />
 
         {/* Services section */}
         <section className="equus-section equus-section-centered">
