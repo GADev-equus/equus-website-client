@@ -68,10 +68,10 @@ const legendVariants = cva('font-medium transition-colors text-left ml-0', {
       error: 'text-red-700 dark:text-red-400',
     },
     size: {
-      sm: 'text-xs px-2',
-      default: 'text-[1.8rem] px-4',
-      lg: 'text-[1.8rem] px-4',
-      xl: 'text-lg px-4',
+      sm: 'text-sm px-2',
+      default: 'text-[2.0rem] px-4',
+      lg: 'text-[2.2rem] px-4',
+      xl: 'text-2xl px-4',
     },
     position: {
       default: '',
