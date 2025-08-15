@@ -3,14 +3,14 @@ import { cva } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const fieldsetVariants = cva(
-  'border !border-equus-olive/30 transition-all group relative',
+  'border !border-equus-olive/60 transition-all group relative',
   {
     variants: {
       variant: {
         default:
-          '!border-equus-olive/30 bg-transparent dark:!border-equus-olive/30 dark:bg-transparent',
+          '!border-equus-olive/60 bg-transparent dark:!border-equus-olive/60 dark:bg-transparent',
         outline:
-          '!border-equus-olive/30 bg-transparent dark:!border-equus-olive/30',
+          '!border-equus-olive/60 bg-transparent dark:!border-equus-olive/60',
         filled:
           'border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800/50',
         elevated:
