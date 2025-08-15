@@ -19,14 +19,14 @@ const cardVariants = cva(
         default: 'bg-card text-card-foreground border border-border shadow-sm',
         // Service/highlight cards with gradient background
         service:
-          'bg-gradient-to-br from-equus-primary/10 via-equus-secondary/5 to-equus-olive/10 border-l backdrop-blur-sm',
+          'bg-gradient-to-br from-equus-primary/10 via-equus-secondary/5 to-equus-olive/10 border-lxxx backdrop-blur-sm',
         // Gradient cards with different accent borders
         highlighted:
-          'bg-gradient-to-br from-equus-primary/5 via-transparent to-equus-olive/5 border-l backdrop-blur-sm',
+          'bg-gradient-to-br from-equus-primary/5 via-transparent to-equus-olive/5 border-lxxx backdrop-blur-sm',
         muted:
-          'bg-gradient-to-br from-gray-500/5 via-transparent to-gray-300/5 border-l border-l-gray-300 backdrop-blur-sm',
+          'bg-gradient-to-br from-gray-500/5 via-transparent to-gray-300/5 border-lxxx border-lxxx-gray-300 backdrop-blur-sm',
         accent:
-          'bg-gradient-to-br from-equus-accent/10 via-transparent to-equus-secondary/5 border-l border-l-equus-accent backdrop-blur-sm',
+          'bg-gradient-to-br from-equus-accent/10 via-transparent to-equus-secondary/5 border-lxxx border-lxxx-equus-accent backdrop-blur-sm',
         gradient:
           'bg-gradient-to-br from-equus-primary/10 via-equus-secondary/5 to-equus-olive/10 border border-equus-primary/20 shadow-lg backdrop-blur-sm',
         none: 'bg-transparent',
