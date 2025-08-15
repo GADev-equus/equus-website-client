@@ -9,7 +9,10 @@ import usePageViews from '../hooks/usePageViews';
 import { useEffect } from 'react';
 
 const Footer = () => {
-  const { pageViews, hasData } = usePageViews('30d');
+  const { pageViews, hasData } = usePageViews('30d', {
+    polling: true,
+    interval: 120000, // 2 minutes (120 seconds)
+  });
 
   // Set CSS custom property for footer height
   useEffect(() => {

@@ -12,6 +12,8 @@ import { LoadingSpinnerCenter } from '@/components/ui/loading-spinner';
 import LoadingStateWrapper from '@/components/ui/LoadingStateWrapper';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import RouteTracker from '@/components/RouteTracker';
+import analytics from '@/utils/analytics';
 
 // Critical pages - loaded immediately
 import Home from '@/pages/Home';
@@ -60,6 +62,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
+        <RouteTracker />
         <div className={`app-container ${isDesktop ? 'desktop' : 'mobile'}`}>
           <Header />
 
