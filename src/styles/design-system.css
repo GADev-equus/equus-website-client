@@ -14,21 +14,25 @@
 
 :root {
   /* Equus Brand Colors */
-  --equus-primary: #3498db;
-  --equus-secondary: #2c3e50;
-  --equus-accent: #e74c3c;
+  --equus-primary: rgba(52, 152, 219, 1);
+  --equus-secondary: rgba(44, 62, 80, 1);
+  --equus-accent: rgba(231, 76, 60, 1);
   /* Subtle brand olive accent */
-  --equus-olive: #3b4d3f;
-  --equus-text-primary: #333;
+  --equus-olive: rgba(59, 77, 63, 1);
+  --equus-text-primary: rgba(51, 51, 51, 1);
   --equus-text-secondary: rgba(200, 200, 200, 0.8);
   --equus-text-light: rgba(255, 255, 255, 0.9);
-  --equus-background-primary: #f8f9fa;
+  --equus-background-primary: rgba(248, 249, 250, 1);
   --equus-background-dark: rgba(12, 12, 12, 1);
   --equus-background-white: rgba(220, 220, 220, 1);
   --equus-border-color: rgba(12, 12, 12, 1);
 
   /* Gradients */
-  --equus-gradient-primary: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+  --equus-gradient-primary: linear-gradient(
+    135deg,
+    rgba(44, 62, 80, 1) 0%,
+    rgba(52, 152, 219, 1) 100%
+  );
 
   /* Typography */
   --equus-font-branding: 'AquireLight', 'Nunito', -apple-system,
@@ -90,7 +94,7 @@ body {
 }
 
 .btn-primary:hover {
-  background-color: #2980b9 !important;
+  background-color: rgba(41, 128, 185, 1) !important;
 }
 
 .btn-primary:disabled {
@@ -115,7 +119,7 @@ body {
 }
 
 .btn-secondary:hover {
-  background-color: #1a252f !important;
+  background-color: rgba(26, 37, 47, 1) !important;
 }
 
 /* Accent button using your brand accent color */
@@ -214,7 +218,7 @@ body {
 }
 
 .btn-accent:hover {
-  background-color: #c0392b !important;
+  background-color: rgba(192, 57, 43, 1) !important;
 }
 
 /* Enhanced Layout Utilities */
@@ -297,27 +301,27 @@ body {
 }
 
 .status-success {
-  background-color: #dcfce7;
-  color: #166534;
-  border: 1px solid #bbf7d0;
+  background-color: rgba(220, 252, 231, 1);
+  color: rgba(22, 101, 52, 1);
+  border: 1px solid rgba(187, 247, 208, 1);
 }
 
 .status-warning {
-  background-color: #fef3c7;
-  color: #d97706;
-  border: 1px solid #fde68a;
+  background-color: rgba(254, 243, 199, 1);
+  color: rgba(217, 119, 6, 1);
+  border: 1px solid rgba(253, 230, 138, 1);
 }
 
 .status-error {
-  background-color: #fee2e2;
-  color: #dc2626;
-  border: 1px solid #fecaca;
+  background-color: rgba(254, 226, 226, 1);
+  color: rgba(220, 38, 38, 1);
+  border: 1px solid rgba(254, 202, 202, 1);
 }
 
 .status-info {
-  background-color: #dbeafe;
-  color: #2563eb;
-  border: 1px solid #bfdbfe;
+  background-color: rgba(219, 234, 254, 1);
+  color: rgba(37, 99, 235, 1);
+  border: 1px solid rgba(191, 219, 254, 1);
 }
 
 /* Badge component styling with increased padding */
