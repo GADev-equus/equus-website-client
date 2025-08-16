@@ -24,7 +24,7 @@ export default defineConfig({
           // Vendor chunks
           'react-vendor': ['react', 'react-dom'],
           'router-vendor': ['react-router-dom'],
-          'ui-vendor': ['@radix-ui/react-slot', 'lucide-react'],
+          'ui-vendor': ['@radix-ui/react-slot', '@radix-ui/react-dropdown-menu', '@radix-ui/react-avatar', 'lucide-react'],
           'seo-vendor': ['react-helmet-async'],
           
           // Admin features

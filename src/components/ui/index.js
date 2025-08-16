@@ -18,6 +18,17 @@ export { Label } from './label';
 export { Badge, badgeVariants } from './badge';
 export { Alert, AlertTitle, AlertDescription } from './alert';
 export { StatusIndicator, statusIndicatorVariants } from './status-indicator';
+export { Avatar, AvatarImage, AvatarFallback } from './avatar';
+export {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuLabel,
+  DropdownMenuGroup,
+  DropdownMenuShortcut,
+} from './dropdown-menu';
 
 // Form components
 export { FormContainer, FormField, FormActions } from './form-container';

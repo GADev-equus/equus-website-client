@@ -246,7 +246,7 @@ body {
   overflow-x: hidden;
   /* Temporary debug - remove after testing */
   min-height: calc(100vh - 200px);
-  padding-top: 1rem; /* Extra safe padding */
+  padding-top: 0; /* Extra safe padding */
 }
 
 /* Form styling improvements */

@@ -516,6 +516,13 @@
   flex-wrap: wrap;
 }
 
+/* Mobile: hide header nav by default */
+@media (max-width: 767px) {
+  .header-nav {
+    display: none !important;
+  }
+}
+
 .header-user-greeting {
   font-size: 0.9rem;
   opacity: 0.9;
