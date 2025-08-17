@@ -430,12 +430,7 @@
 
 /* Footer utilities */
 .footer-fixed {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background: var(--equus-gradient-primary);
+  background: transparent;
   padding: 0.75rem 0.5rem;
   color: white;
   text-align: center;

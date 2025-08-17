@@ -75,6 +75,21 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('./assets/images/bg-image.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.1;
+  z-index: -1;
+}
+
 img,
 picture,
 video,
@@ -271,7 +286,7 @@ input[type='number'] {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
   }
 }
 
@@ -280,7 +295,7 @@ input[type='number'] {
 /* Base container - same for both desktop and mobile */
 .app-container {
   min-height: 100vh;
-  background-color: var(--equus-background-dark);
+  background-color: transparent;
   border: var(--equus-border-width) solid var(--equus-border-color);
   display: flex;
   flex-direction: column;
@@ -337,8 +352,5 @@ input[type='number'] {
 }
 
 .app-container.desktop footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  position: static;
 }

@@ -711,6 +711,112 @@ All SEO features are implemented, tested, and optimized for search engines. The 
 
 **Implementation Date**: July 29, 2025 | **Status**: Complete and Functional | **Coverage**: Full SEO Optimization
 
+## Background Image Implementation (August 2025)
+
+### Current Background Setup
+- **Background Image**: `client/src/assets/images/bg-image.jpg`
+- **Implementation**: CSS pseudo-element (`body::before`) with 10% opacity
+- **Location**: `client/src/index.css:78-91`
+- **Coverage**: Full viewport with `background-size: cover` and `background-position: center`
+
+### Background Image CSS (Current)
+```css
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('./assets/images/bg-image.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.1;
+  z-index: -1;
+}
+```
+
+### Previous Background Configuration (Before Image)
+To revert the background image implementation, restore these original settings:
+
+**1. Remove pseudo-element from `client/src/index.css`:**
+```css
+body {
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+```
+
+**2. Restore original Tailwind background in `@layer base`:**
+```css
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+```
+
+**3. Restore app-container background in layout system:**
+```css
+.app-container {
+  min-height: 100vh;
+  background-color: var(--equus-background-dark);
+  /* ... rest of properties ... */
+}
+```
+
+### Background Evolution History
+- **Original**: Solid dark background (`var(--equus-background-dark)`)
+- **August 17, 2025**: Added network pattern background image with pseudo-element approach
+- **Opacity Changes**: Started at 40% → reduced to 10% for subtle effect
+- **Background Colors Removed**: Transparent app-container and removed `bg-background` from body
+
+## Footer Layout Changes (August 2025)
+
+### Current Footer Configuration
+- **Background**: Transparent (removed blue gradient)
+- **Positioning**: Static flow (removed fixed positioning)
+- **Location**: `client/src/styles/utilities.css:432-438` and `client/src/index.css:349-356`
+
+### Footer Changes Made
+1. **Background Removal**: Changed `background: var(--equus-gradient-primary)` to `background: transparent`
+2. **Position Change**: Removed fixed positioning, footer now flows naturally at bottom of content
+3. **Layout System Update**: Changed desktop footer from `position: fixed` to `position: static` in layout system
+
+### Previous Footer Configuration (Before Changes)
+To revert footer changes, restore these settings:
+
+**1. Restore blue gradient background in `client/src/styles/utilities.css`:**
+```css
+.footer-fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--equus-gradient-primary);
+  padding: 0.75rem 0.5rem;
+  color: white;
+  text-align: center;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+```
+
+**2. Restore fixed positioning in layout system `client/src/index.css`:**
+```css
+.app-container.desktop footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+```
+
 ## Contributing
 
 1. Follow the existing component structure
