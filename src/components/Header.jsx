@@ -6,17 +6,18 @@
  * Shows authentication-aware navigation when user is logged in
  */
 
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import { BarChart3, LogOut, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import './Hero.css';
 
 const Header = () => {
   const { isAuthenticated, user, logout, loading } = useAuth();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   // Set CSS custom properties for header and footer heights
   useEffect(() => {
@@ -53,6 +54,25 @@ const Header = () => {
 
   const getDashboardPath = () => {
     return user?.role === 'admin' ? '/admin/dashboard' : '/dashboard';
+  };
+
+  const getNavLinkClass = (path) => {
+    const isActive = location.pathname === path;
+    const baseClass = "font-medium uppercase tracking-wide transition-colors duration-200 !px-3 !py-1 text-sm";
+    const activeClass = isActive 
+      ? "!text-blue-600 !bg-white" 
+      : "text-white hover:!text-gray-300";
+    return `${baseClass} ${activeClass}`;
+  };
+
+  const getDashboardLinkClass = () => {
+    const dashboardPath = getDashboardPath();
+    const isActive = location.pathname === dashboardPath;
+    const baseClass = "font-medium uppercase tracking-wide transition-colors duration-200 !px-3 !py-1 text-sm";
+    const activeClass = isActive 
+      ? "!text-blue-600 !bg-white" 
+      : "text-white hover:!text-gray-300";
+    return `${baseClass} ${activeClass}`;
   };
 
   const handleLogout = async () => {
@@ -140,27 +160,24 @@ const Header = () => {
           </div>
 
           {/* Navigation */}
-          <nav className="header-nav flex">
-            <Button variant="ghost" size="sm" asChild className="text-white hover:bg-white/10 border border-white/30">
-              <Link to="/about">About</Link>
-            </Button>
-            <Button variant="ghost" size="sm" asChild className="text-white hover:bg-white/10 border border-white/30">
-              <Link to="/products">Products</Link>
-            </Button>
+          <nav className="flex gap-6">
+            <Link to="/about" className={getNavLinkClass('/about')}>
+              ABOUT
+            </Link>
+            <Link to="/products" className={getNavLinkClass('/products')}>
+              PRODUCTS
+            </Link>
             {/* Show Dashboard when authenticated */}
             {isAuthenticated && user && (
-              <Button variant="ghost" size="sm" asChild className="text-white hover:bg-white/10 border border-white/30">
-                <Link to={getDashboardPath()}>
-                  <BarChart3 className="mr-2 h-4 w-4" />
-                  Dashboard
-                </Link>
-              </Button>
+              <Link to={getDashboardPath()} className={getDashboardLinkClass()}>
+                DASHBOARD
+              </Link>
             )}
             {/* Show Sign In when not authenticated */}
             {!isAuthenticated && (
-              <Button variant="ghost" size="sm" asChild className="text-white hover:bg-white/10 border border-white/30">
-                <Link to="/auth/signin">Sign In</Link>
-              </Button>
+              <Link to="/auth/signin" className={getNavLinkClass('/auth/signin')}>
+                SIGN IN
+              </Link>
             )}
           </nav>
         </div>
@@ -170,72 +187,58 @@ const Header = () => {
       {/* Mobile Navigation Menu */}
       {isMobileMenuOpen && (
         <div className="absolute top-full left-0 right-0 border-t border-white/20 md:hidden z-50" style={{background: 'var(--equus-gradient-primary)'}}>
-          <nav className="flex flex-col p-4 space-y-3">
+          <nav className="flex flex-col p-4 space-y-4">
             {/* Public Navigation */}
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              asChild 
-              className="text-white hover:bg-white/10 border border-white/30 justify-start"
+            <Link 
+              to="/about" 
+              className={`${getNavLinkClass('/about')} py-2`}
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              <Link to="/about">About</Link>
-            </Button>
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              asChild 
-              className="text-white hover:bg-white/10 border border-white/30 justify-start"
+              ABOUT
+            </Link>
+            <Link 
+              to="/products" 
+              className={`${getNavLinkClass('/products')} py-2`}
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              <Link to="/products">Products</Link>
-            </Button>
+              PRODUCTS
+            </Link>
 
             {/* Authentication Navigation */}
             {isAuthenticated && user ? (
               <>
                 <div className="border-t border-white/20 pt-3 mt-3">
-                  <div className="space-y-2">
-                    <Button 
-                      variant="ghost" 
-                      size="sm" 
-                      asChild 
-                      className="text-white hover:bg-white/10 border border-white/30 justify-start w-full"
+                  <div className="space-y-4">
+                    <Link 
+                      to={getDashboardPath()}
+                      className={`${getDashboardLinkClass()} py-2`}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
-                      <Link to={getDashboardPath()}>
-                        <BarChart3 className="mr-2 h-4 w-4" />
-                        Dashboard
-                      </Link>
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="sm"
+                      DASHBOARD
+                    </Link>
+                    <button
                       onClick={() => {
                         handleLogout();
                         setIsMobileMenuOpen(false);
                       }}
                       disabled={isLoggingOut || loading}
-                      className="text-red-300 hover:bg-red-500/20 border border-red-300/30 justify-start w-full"
+                      className="text-red-300 hover:text-red-200 font-medium uppercase tracking-wide py-2 transition-colors duration-200"
                     >
-                      <LogOut className="mr-2 h-4 w-4" />
-                      {isLoggingOut ? 'Logging out...' : 'Logout'}
-                    </Button>
+                      {isLoggingOut ? 'LOGGING OUT...' : 'LOGOUT'}
+                    </button>
                   </div>
                 </div>
               </>
             ) : (
               <>
                 <div className="border-t border-white/20 pt-3 mt-3">
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    asChild 
-                    className="text-white border border-white/30 hover:bg-white/10 w-full justify-start"
+                  <Link 
+                    to="/auth/signin"
+                    className={`${getNavLinkClass('/auth/signin')} py-2`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    <Link to="/auth/signin">Sign In</Link>
-                  </Button>
+                    SIGN IN
+                  </Link>
                 </div>
               </>
             )}
