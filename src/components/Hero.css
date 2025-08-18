@@ -204,3 +204,11 @@
     display: none;
   }
 }
+
+/* AI emphasis for header (smaller version of hero-focus-word) */
+.header-ai-emphasis {
+  font-weight: bold;
+  font-family: var(--equus-font-branding);
+  color: var(--equus-primary);
+  font-size: 1.6em;
+}

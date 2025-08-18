@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { BarChart3, LogOut, Menu, X } from 'lucide-react';
+import './Hero.css';
 
 const Header = () => {
   const { isAuthenticated, user, logout, loading } = useAuth();
@@ -103,7 +104,7 @@ const Header = () => {
           <Link to="/" className="header-brand-link text-center">
             <h1 className="font-bold text-xl font-branding leading-tight">EQUUS SYSTEMS Ltd.</h1>
             <p className="opacity-70 font-light text-[0.6rem] leading-none">
-              ADVANCED AI SOLUTIONS & CONSULTING
+              ADVANCED <span className="header-ai-emphasis">AI</span> SOLUTIONS & CONSULTING
             </p>
           </Link>
         </div>
@@ -133,7 +134,7 @@ const Header = () => {
                 <h1 className="font-bold header-brand-title">EQUUS SYSTEMS Ltd.</h1>
               </Link>
               <p className="opacity-90 font-light header-brand-subtitle">
-                ADVANCED AI SOLUTIONS & CONSULTING
+                ADVANCED <span className="header-ai-emphasis">AI</span> SOLUTIONS & CONSULTING
               </p>
             </div>
           </div>
