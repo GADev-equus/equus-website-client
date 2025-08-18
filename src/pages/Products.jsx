@@ -77,16 +77,6 @@ const Products = () => {
           </Fieldset>
         </section>
 
-        {/* Section divider */}
-        <div className="relative py-8">
-          <DecorativeAccent
-            position="center"
-            width="12rem"
-            height="0.25rem"
-            gradient="primary-secondary"
-          />
-        </div>
-
         {/* Features section */}
         <section className="equus-section equus-section-centered">
           <Fieldset legend="WHY CHOOSE EQUUS" size="lg">
