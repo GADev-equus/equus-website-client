@@ -104,7 +104,7 @@ const Header = () => {
           <Link to="/" className="header-brand-link text-center">
             <h1 className="font-bold text-xl font-branding leading-tight">EQUUS SYSTEMS Ltd.</h1>
             <p className="opacity-70 font-light text-[0.6rem] leading-none">
-              ADVANCED <span className="header-ai-emphasis">AI</span> SOLUTIONS & CONSULTING
+              ADVANCED <span className="header-ai-emphasis">A<span className="visible-i">i</span></span> SOLUTIONS & CONSULTING
             </p>
           </Link>
         </div>
@@ -134,7 +134,7 @@ const Header = () => {
                 <h1 className="font-bold header-brand-title">EQUUS SYSTEMS Ltd.</h1>
               </Link>
               <p className="opacity-90 font-light header-brand-subtitle">
-                ADVANCED <span className="header-ai-emphasis">AI</span> SOLUTIONS & CONSULTING
+                ADVANCED <span className="header-ai-emphasis">A<span className="visible-i">i</span></span> SOLUTIONS & CONSULTING
               </p>
             </div>
           </div>

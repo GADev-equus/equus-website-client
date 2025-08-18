@@ -212,3 +212,10 @@
   color: var(--equus-primary);
   font-size: 1.6em;
 }
+
+/* Make the "i" visible with a clear dot */
+.visible-i {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 800;
+}
+

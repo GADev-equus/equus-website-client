@@ -18,7 +18,7 @@ const Hero = () => {
         <h1 className="hero-heading">
           <span className="hero-brand-name">EQUUS SYSTEMS Ltd.</span>
           <span className="hero-tagline">EMPOWERING YOUR BUSINESS THROUGH</span>
-          <span className="hero-focus-word">AI</span>
+          <span className="hero-focus-word">A<span className="visible-i">i</span></span>
         </h1>
 
         {/* Enhanced description */}
