@@ -222,3 +222,8 @@
   font-weight: 800;
 }
 
+/* Mobile dropdown background */
+.mobile-dropdown-bg {
+  background: var(--equus-gradient-primary);
+}
+

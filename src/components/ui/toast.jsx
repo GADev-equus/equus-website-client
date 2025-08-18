@@ -129,7 +129,7 @@ const ToastContainer = () => {
   if (typeof window === 'undefined') return null;
 
   return createPortal(
-    <div className="fixed top-4 right-4 z-50 flex flex-col gap-2 max-w-sm w-full">
+    <div className="fixed top-20 right-4 z-[9999] flex flex-col gap-2 max-w-[200px]">
       {toasts.map((toast) => (
         <Toast key={toast.id} toast={toast} />
       ))}
@@ -138,24 +138,22 @@ const ToastContainer = () => {
   );
 };
 
-// Individual Toast Component
+// Individual Toast Component  
 const Toast = ({ toast }) => {
   const { removeToast } = useToast();
 
   const getToastStyles = (variant) => {
-    const baseStyles = 'p-4 rounded-lg shadow-lg border backdrop-blur-sm transition-all duration-300 ease-in-out';
-    
     switch (variant) {
       case 'success':
-        return `${baseStyles} bg-green-50 border-green-200 text-green-800 dark:bg-green-950/80 dark:border-green-800 dark:text-green-200`;
+        return 'bg-green-500 border-green-600 text-white';
       case 'destructive':
-        return `${baseStyles} bg-red-50 border-red-200 text-red-800 dark:bg-red-950/80 dark:border-red-800 dark:text-red-200`;
+        return 'bg-red-500 border-red-600 text-white';
       case 'warning':
-        return `${baseStyles} bg-yellow-50 border-yellow-200 text-yellow-800 dark:bg-yellow-950/80 dark:border-yellow-800 dark:text-yellow-200`;
+        return 'bg-yellow-500 border-yellow-600 text-white';
       case 'info':
-        return `${baseStyles} bg-blue-50 border-blue-200 text-blue-800 dark:bg-blue-950/80 dark:border-blue-800 dark:text-blue-200`;
+        return 'bg-gray-800 border-gray-600 text-white';
       default:
-        return `${baseStyles} bg-background border-border text-foreground`;
+        return 'bg-gray-700 border-gray-600 text-white';
     }
   };
 
@@ -172,46 +170,30 @@ const Toast = ({ toast }) => {
   };
 
   return (
-    <Card className={cn(getToastStyles(toast.variant))}>
-      <CardContent className="p-0">
-        <div className="flex items-start gap-3">
-          <div className="flex-shrink-0 text-lg">
-            {getIcon(toast.variant, toast.loading)}
-          </div>
-          
-          <div className="flex-1 min-w-0">
-            {toast.title && (
-              <div className="font-medium mb-1">{toast.title}</div>
-            )}
-            <div className="text-sm">{toast.message}</div>
-            
-            {toast.action && (
-              <div className="mt-2">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={toast.action.onClick}
-                  className="h-7 px-2 text-xs"
-                >
-                  {toast.action.label}
-                </Button>
-              </div>
-            )}
-          </div>
-          
-          {toast.duration !== 0 && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => removeToast(toast.id)}
-              className="h-6 w-6 p-0 hover:bg-transparent opacity-60 hover:opacity-100"
-            >
-              ✕
-            </Button>
-          )}
-        </div>
-      </CardContent>
-    </Card>
+    <div className={`
+      ${getToastStyles(toast.variant)}
+      w-40 h-10
+      rounded border shadow-lg
+      !px-2 flex items-center !gap-1
+      transition-all duration-300 ease-in-out
+    `}>
+      <div className="text-xs flex-shrink-0">
+        {getIcon(toast.variant, toast.loading)}
+      </div>
+      
+      <div className="flex-1 min-w-0">
+        <div className="text-xs leading-none truncate">{toast.message}</div>
+      </div>
+      
+      {toast.duration !== 0 && (
+        <button
+          onClick={() => removeToast(toast.id)}
+          className="flex-shrink-0 w-3 h-3 flex items-center justify-center text-xs opacity-70 hover:opacity-100"
+        >
+          ✕
+        </button>
+      )}
+    </div>
   );
 };
 

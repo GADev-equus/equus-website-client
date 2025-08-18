@@ -135,10 +135,10 @@ const Header = () => {
             variant="ghost"
             size="sm"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-white hover:bg-white/10 border border-white/30"
+            className="!text-white !bg-transparent hover:!bg-white/10 !border !border-white/40"
             aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
-            {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {isMobileMenuOpen ? <X className="h-5 w-5 !stroke-[3]" /> : <Menu className="h-5 w-5 !stroke-[3]" />}
           </Button>
         </div>
       </div>
@@ -186,19 +186,19 @@ const Header = () => {
 
       {/* Mobile Navigation Menu */}
       {isMobileMenuOpen && (
-        <div className="absolute top-full left-0 right-0 border-t border-white/20 md:hidden z-50" style={{background: 'var(--equus-gradient-primary)'}}>
-          <nav className="flex flex-col p-4 space-y-4">
+        <div className="absolute top-full left-0 right-0 md:hidden z-50 mobile-dropdown-bg">
+          <nav className="flex flex-col p-4 space-y-0">
             {/* Public Navigation */}
             <Link 
               to="/about" 
-              className={`${getNavLinkClass('/about')} py-2`}
+              className={`${getNavLinkClass('/about')} !py-2 !border-b !border-white/20`}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               ABOUT
             </Link>
             <Link 
               to="/products" 
-              className={`${getNavLinkClass('/products')} py-2`}
+              className={`${getNavLinkClass('/products')} !py-2 !border-b !border-white/20`}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               PRODUCTS
@@ -207,39 +207,33 @@ const Header = () => {
             {/* Authentication Navigation */}
             {isAuthenticated && user ? (
               <>
-                <div className="border-t border-white/20 pt-3 mt-3">
-                  <div className="space-y-4">
-                    <Link 
-                      to={getDashboardPath()}
-                      className={`${getDashboardLinkClass()} py-2`}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      DASHBOARD
-                    </Link>
-                    <button
-                      onClick={() => {
-                        handleLogout();
-                        setIsMobileMenuOpen(false);
-                      }}
-                      disabled={isLoggingOut || loading}
-                      className="text-red-300 hover:text-red-200 font-medium uppercase tracking-wide py-2 transition-colors duration-200"
-                    >
-                      {isLoggingOut ? 'LOGGING OUT...' : 'LOGOUT'}
-                    </button>
-                  </div>
-                </div>
+                <Link 
+                  to={getDashboardPath()}
+                  className={`${getDashboardLinkClass()} !py-2 !border-b !border-white/20`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  DASHBOARD
+                </Link>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setIsMobileMenuOpen(false);
+                  }}
+                  disabled={isLoggingOut || loading}
+                  className="!text-red-500 hover:!text-red-400 font-medium uppercase tracking-wide text-sm !py-2 !px-3 transition-colors duration-200 !border-b !border-white/20 text-left"
+                >
+                  {isLoggingOut ? 'LOGGING OUT...' : 'LOGOUT'}
+                </button>
               </>
             ) : (
               <>
-                <div className="border-t border-white/20 pt-3 mt-3">
-                  <Link 
-                    to="/auth/signin"
-                    className={`${getNavLinkClass('/auth/signin')} py-2`}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    SIGN IN
-                  </Link>
-                </div>
+                <Link 
+                  to="/auth/signin"
+                  className={`${getNavLinkClass('/auth/signin')} !py-2 !border-b !border-white/20`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  SIGN IN
+                </Link>
               </>
             )}
           </nav>
