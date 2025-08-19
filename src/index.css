@@ -299,6 +299,10 @@ input[type='number'] {
   border: var(--equus-border-width) solid var(--equus-border-color);
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  box-sizing: border-box;
   /* Define our constants */
   --content-gap: 2px; /* The only magic number - consistent gap */
   --content-padding: 8px; /* Padding for dark border effect */
@@ -318,6 +322,10 @@ input[type='number'] {
 .main-content {
   flex: 1;
   padding: var(--content-padding);
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  box-sizing: border-box;
   /* Dynamic margin based on actual header height + our gap constant */
   margin-top: calc(var(--header-height, 80px) + var(--content-gap));
 }

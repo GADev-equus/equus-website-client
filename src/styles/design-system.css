@@ -227,6 +227,8 @@ body {
   max-width: var(--equus-max-width-container);
   margin: 0 auto;
   padding: 0 var(--equus-spacing-sm);
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .equus-section-container {
@@ -234,19 +236,20 @@ body {
   max-width: var(--equus-max-width-content);
   margin: 0 auto;
   padding: var(--equus-spacing-lg);
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 /* Mobile Content Wrapper - Universal */
 .mobile-content-wrapper {
   width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
+  max-width: 100vw;
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
   overflow-x: hidden;
   /* Temporary debug - remove after testing */
   min-height: calc(100vh - 200px);
-  padding-top: 0; /* Extra safe padding */
 }
 
 /* Form styling improvements */
@@ -357,6 +360,10 @@ body {
   .equus-card {
     margin: 0 !important;
     padding: var(--equus-spacing-md) !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
   }
 
   /* Better mobile grid spacing */
@@ -380,11 +387,12 @@ body {
 
   /* Mobile content centering */
   .mobile-content-wrapper {
-    max-width: 100%;
-    margin: 0 auto;
+    max-width: 100vw;
+    margin: 0;
     padding: 0;
     width: 100%;
     box-sizing: border-box;
+    overflow-x: hidden;
   }
 
   /* Ensure mobile containers don't overflow */
@@ -392,8 +400,22 @@ body {
   .space-y-6,
   .space-y-8 {
     width: 100%;
-    max-width: 100%;
+    max-width: 100vw;
     overflow-x: hidden;
+    box-sizing: border-box;
+  }
+
+  /* Fix common overflow culprits on mobile */
+  .equus-container,
+  .equus-section-container,
+  .container-equus,
+  .container-content,
+  .container-notice {
+    max-width: 100vw;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    padding-left: min(var(--equus-spacing-sm), 4vw);
+    padding-right: min(var(--equus-spacing-sm), 4vw);
   }
 
   /* Mobile badge adjustments */

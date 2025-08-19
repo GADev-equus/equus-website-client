@@ -66,7 +66,7 @@ function App() {
           <Header />
 
           <main className="main-content pt-16 lg:pt-0">
-            <div className="mobile-content-wrapper">
+            <div className="mobile-content-wrapper w-full max-w-[100vw] overflow-x-hidden box-border">
               <Suspense
                 fallback={
                   <LoadingStateWrapper

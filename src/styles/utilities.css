@@ -9,16 +9,24 @@
   margin: 0 auto;
   padding: var(--equus-spacing-lg) var(--equus-spacing-sm);
   width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .container-content {
   max-width: var(--equus-max-width-content);
   margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .container-notice {
   max-width: var(--equus-max-width-notice);
   margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 /* Typography utilities */
@@ -85,10 +93,12 @@
   background-color: transparent;
   border-left: 1px solid var(--equus-primary);
   width: 100%;
-  max-width: 350px;
+  max-width: min(350px, 100vw);
   padding: var(--equus-spacing-md);
   border-radius: 0;
   margin: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 /* Section spacing */
@@ -103,9 +113,13 @@
 /* Grid utilities */
 .grid-equus-services {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--equus-grid-gap);
   justify-items: center;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 /* Typography size utilities */
@@ -183,11 +197,17 @@
   align-items: center;
   justify-content: center;
   padding: var(--equus-spacing-sm);
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .auth-form-wrapper {
   width: 100%;
-  max-width: 28rem;
+  max-width: min(28rem, calc(100vw - 2rem));
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .auth-terms {
@@ -551,4 +571,64 @@
 .header-nav-button:disabled:hover {
   background-color: transparent;
   border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Mobile Overflow Prevention - Universal fixes */
+@media (max-width: 767px) {
+  /* Prevent horizontal scroll on all major containers */
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+  
+  /* Fix any elements that might cause overflow */
+  * {
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+  
+  /* Specific container fixes */
+  .app-container,
+  .main-content,
+  .mobile-content-wrapper,
+  main,
+  section,
+  article,
+  div[class*="container"],
+  div[class*="wrapper"],
+  div[class*="grid"],
+  div[class*="flex"] {
+    max-width: 100vw;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+  
+  /* Fix form elements */
+  form,
+  fieldset,
+  input,
+  textarea,
+  select {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Fix tables */
+  table {
+    width: 100%;
+    table-layout: auto;
+    overflow-x: auto;
+    display: block;
+    white-space: nowrap;
+  }
+  
+  /* Fix images */
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
 }
