@@ -115,10 +115,13 @@ const About = () => {
               Empowering the Future with Equus Systems Ltd.
             </h3>
             <p className="text-equus-muted text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8">
-              At Equus Systems Ltd., we design and build intelligent agentic
-              solutions that go beyond simple automation. Our mission is to help
-              businesses unlock the full potential of AI—systems that think,
-              learn, and act to deliver lasting impact.
+              At Equus Systems we have taken these principles and have created
+              solutions that solve real problems. By building these solutions
+              using Agentic AI we have made what may seem complex and difficult
+              appear simple and engaging. With this experience we can also
+              engage with businesses to explore new products and solutions. We
+              have many years of experience in software development focusing on
+              how users engage with technology and get answers to questions.
             </p>
             <div>
               <Link
