@@ -573,6 +573,143 @@
   border-color: rgba(255, 255, 255, 0.3);
 }
 
+/* Scroll Animation Utilities */
+/* Base animation classes with CSS custom properties */
+:root {
+  --equus-animation-duration: 0.8s;
+  --equus-animation-timing: cubic-bezier(0.4, 0, 0.2, 1);
+  --equus-animation-delay: 0ms;
+  --equus-stagger-delay: 100ms;
+}
+
+/* Base animation state classes */
+.animate-fade-in {
+  opacity: 0;
+  transition: opacity var(--equus-animation-duration) var(--equus-animation-timing);
+  transition-delay: var(--equus-animation-delay);
+}
+
+.animate-fade-in.is-visible {
+  opacity: 1;
+}
+
+.animate-slide-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity var(--equus-animation-duration) var(--equus-animation-timing),
+              transform var(--equus-animation-duration) var(--equus-animation-timing);
+  transition-delay: var(--equus-animation-delay);
+}
+
+.animate-slide-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-slide-down {
+  opacity: 0;
+  transform: translateY(-40px);
+  transition: opacity var(--equus-animation-duration) var(--equus-animation-timing),
+              transform var(--equus-animation-duration) var(--equus-animation-timing);
+  transition-delay: var(--equus-animation-delay);
+}
+
+.animate-slide-down.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-scale-in {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity var(--equus-animation-duration) var(--equus-animation-timing),
+              transform var(--equus-animation-duration) var(--equus-animation-timing);
+  transition-delay: var(--equus-animation-delay);
+}
+
+.animate-scale-in.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.animate-slide-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity var(--equus-animation-duration) var(--equus-animation-timing),
+              transform var(--equus-animation-duration) var(--equus-animation-timing);
+  transition-delay: var(--equus-animation-delay);
+}
+
+.animate-slide-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.animate-slide-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity var(--equus-animation-duration) var(--equus-animation-timing),
+              transform var(--equus-animation-duration) var(--equus-animation-timing);
+  transition-delay: var(--equus-animation-delay);
+}
+
+.animate-slide-right.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Animation delay utilities for staggered effects */
+.animate-delay-100 { --equus-animation-delay: 100ms; }
+.animate-delay-200 { --equus-animation-delay: 200ms; }
+.animate-delay-300 { --equus-animation-delay: 300ms; }
+.animate-delay-400 { --equus-animation-delay: 400ms; }
+.animate-delay-500 { --equus-animation-delay: 500ms; }
+.animate-delay-600 { --equus-animation-delay: 600ms; }
+.animate-delay-700 { --equus-animation-delay: 700ms; }
+.animate-delay-800 { --equus-animation-delay: 800ms; }
+
+/* Animation duration utilities */
+.animate-duration-fast { --equus-animation-duration: 0.4s; }
+.animate-duration-normal { --equus-animation-duration: 0.8s; }
+.animate-duration-slow { --equus-animation-duration: 1.2s; }
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-slide-up,
+  .animate-slide-down,
+  .animate-scale-in,
+  .animate-slide-left,
+  .animate-slide-right {
+    --equus-animation-duration: 0.01s;
+    --equus-animation-delay: 0ms;
+  }
+}
+
+/* Mobile optimizations for animations */
+@media (max-width: 767px) {
+  /* Reduce animation intensity on mobile for better performance */
+  .animate-slide-up,
+  .animate-slide-down {
+    transform: translateY(20px);
+  }
+  
+  .animate-slide-up.is-visible,
+  .animate-slide-down.is-visible {
+    transform: translateY(0);
+  }
+  
+  .animate-slide-left,
+  .animate-slide-right {
+    transform: translateX(20px);
+  }
+  
+  .animate-slide-left.is-visible,
+  .animate-slide-right.is-visible {
+    transform: translateX(0);
+  }
+}
+
 /* Mobile Overflow Prevention - Universal fixes */
 @media (max-width: 767px) {
   /* Prevent horizontal scroll on all major containers */

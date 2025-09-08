@@ -1,10 +1,12 @@
 /**
  * Hero Component - Main hero section for home page
  * Professional implementation using CSS classes instead of inline styles
+ * Enhanced with subtle scroll animations
  */
 
 import './Hero.css';
 import DecorativeAccent from './ui/DecorativeAccent';
+import AnimatedSection from './ui/AnimatedSection';
 
 const Hero = () => {
   return (
@@ -14,15 +16,25 @@ const Hero = () => {
 
       {/* Main content */}
       <div className="hero-content">
-        {/* Main heading with enhanced styling */}
-        <h1 className="hero-heading">
+        {/* Main heading with enhanced styling and fade-in animation */}
+        <AnimatedSection 
+          animation="fade-in" 
+          duration="slow"
+          threshold={0.2}
+          as="h1"
+          className="hero-heading"
+        >
           <span className="hero-brand-name">EQUUS SYSTEMS Ltd.</span>
           <span className="hero-tagline">EMPOWERING YOUR BUSINESS THROUGH</span>
           <span className="hero-focus-word">A<span className="visible-i">i</span></span>
-        </h1>
+        </AnimatedSection>
 
-        {/* Enhanced description */}
-        <div className="hero-description-container">
+        {/* Enhanced description with slide-up animation */}
+        <AnimatedSection 
+          animation="slide-up"
+          delay={400}
+          className="hero-description-container"
+        >
           <p className="hero-description">
             Like the{' '}
             <strong className="hero-description-highlight-primary">
@@ -36,8 +48,12 @@ const Hero = () => {
             to propel your business forward.
           </p>
 
-          {/* Visual elements */}
-          <div className="hero-pillars">
+          {/* Visual elements with staggered scale-in animation */}
+          <AnimatedSection 
+            animation="scale-in"
+            delay={700}
+            className="hero-pillars"
+          >
             <div className="hero-pillar">
               <div className="hero-pillar-dot hero-pillar-dot-primary"></div>
               <span className="hero-pillar-text hero-pillar-text-primary">
@@ -65,8 +81,8 @@ const Hero = () => {
                 CONTEXTUAL AWARENESS
               </span>
             </div>
-          </div>
-        </div>
+          </AnimatedSection>
+        </AnimatedSection>
       </div>
     </section>
   );

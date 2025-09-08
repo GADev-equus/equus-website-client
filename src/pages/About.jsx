@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import SEOHelmet from '@/components/shared/SEOHelmet';
 import { Fieldset } from '@/components/ui';
 import { SEO_CONFIG } from '@/utils/structuredData';
+import AnimatedSection from '@/components/ui/AnimatedSection';
 
 const About = () => {
   return (
@@ -27,8 +28,12 @@ const About = () => {
 
       <Fieldset legend="ABOUT EQUUS" size="lg">
         <article className="w-full px-4 sm:px-6 space-y-6 sm:space-y-8">
-          {/* Intro */}
-          <header>
+          {/* Intro with fade-in animation */}
+          <AnimatedSection 
+            animation="fade-in"
+            duration="slow"
+            as="header"
+          >
             <h2 className="text-hero text-white font-semibold font-display mb-4 heading-underline-olive">
               Agentic AI: Moving Beyond Traditional Intelligence
             </h2>
@@ -37,10 +42,15 @@ const About = () => {
               Equus Systems Ltd., we embrace the next frontier: Agentic AI. You
               set the goal → it figures out the best way to get there.
             </p>
-          </header>
+          </AnimatedSection>
 
-          {/* Section 1 */}
-          <section className="pl-4">
+          {/* Section 1 with slide-up animation */}
+          <AnimatedSection 
+            animation="slide-up"
+            delay={200}
+            as="section"
+            className="pl-4"
+          >
             <h3 className="text-lg sm:text-xl font-semibold text-white font-display">
               Purpose-Driven Intelligence
             </h3>
@@ -56,10 +66,15 @@ const About = () => {
                 Persisting until the job is done—adjusting course as needed
               </li>
             </ul>
-          </section>
+          </AnimatedSection>
 
-          {/* Section 2 */}
-          <section className="pl-4">
+          {/* Section 2 with slide-up animation */}
+          <AnimatedSection 
+            animation="slide-up"
+            delay={400}
+            as="section"
+            className="pl-4"
+          >
             <h3 className="text-lg sm:text-xl font-semibold text-white font-display">
               Integrated Tool Usage
             </h3>
@@ -74,10 +89,15 @@ const About = () => {
                 Learn over time which tools are best for specific scenarios
               </li>
             </ul>
-          </section>
+          </AnimatedSection>
 
-          {/* Section 3 */}
-          <section className="pl-4">
+          {/* Section 3 with slide-up animation */}
+          <AnimatedSection 
+            animation="slide-up"
+            delay={600}
+            as="section"
+            className="pl-4"
+          >
             <h3 className="text-lg sm:text-xl font-semibold text-white font-display">
               Contextual Awareness with Memory
             </h3>
@@ -89,10 +109,15 @@ const About = () => {
               <li>Historical context to inform future choices</li>
               <li>Evolving knowledge that improves with experience</li>
             </ul>
-          </section>
+          </AnimatedSection>
 
-          {/* Section 4 */}
-          <section className="pl-4">
+          {/* Section 4 with slide-up animation */}
+          <AnimatedSection 
+            animation="slide-up"
+            delay={800}
+            as="section"
+            className="pl-4"
+          >
             <h3 className="text-lg sm:text-xl font-semibold text-white font-display">
               Adaptive Autonomy
             </h3>
@@ -107,10 +132,15 @@ const About = () => {
               <li>Adjusting strategies in real-time based on feedback</li>
               <li>Learning from both success and failure</li>
             </ul>
-          </section>
+          </AnimatedSection>
 
-          {/* Closing */}
-          <section className="space-y-3">
+          {/* Closing section with slide-up animation */}
+          <AnimatedSection 
+            animation="slide-up"
+            delay={300}
+            as="section"
+            className="space-y-3"
+          >
             <h3 className="text-lg sm:text-xl font-semibold text-white font-display">
               Empowering the Future with Equus Systems Ltd.
             </h3>
@@ -144,7 +174,7 @@ const About = () => {
                 Get in touch with us →
               </Link>
             </div>
-          </section>
+          </AnimatedSection>
         </article>
       </Fieldset>
     </div>
