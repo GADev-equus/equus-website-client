@@ -38,9 +38,8 @@ const About = () => {
               Agentic AI: Moving Beyond Traditional Intelligence
             </h2>
             <p className="text-equus-muted text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8 max-w-prose">
-              Traditional AI follows a simple formula: you ask → it answers. At
-              Equus Systems Ltd., we embrace the next frontier: Agentic AI. You
-              set the goal → it figures out the best way to get there.
+              Traditional AI follows a simple formula: you ask, it answers. At
+              Equus Systems Ltd., we embrace the next frontier: Agentic AI. You set the goal and it figures out the best way to get there.
             </p>
           </AnimatedSection>
 
@@ -59,12 +58,10 @@ const About = () => {
               systems understand objectives and pursue outcomes. They're capable
               of:
             </p>
-            <ul className="list-disc ml-5 sm:ml-6 mt-2 space-y-1 text-equus-muted text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8 marker:text-equus-olive">
-              <li>Interpreting goals instead of one-off prompts</li>
-              <li>Decomposing complex challenges into manageable steps</li>
-              <li>
-                Persisting until the job is done—adjusting course as needed
-              </li>
+            <ul className="about-list list-disc ml-5 sm:ml-6 mt-2 space-y-1 text-equus-muted text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8 marker:text-equus-olive">
+              <li>interpreting goals instead of one-off prompts.</li>
+              <li>decomposing complex challenges into manageable steps.</li>
+              <li>persisting until the job is done, adjusting course as needed.</li>
             </ul>
           </AnimatedSection>
 
@@ -79,15 +76,13 @@ const About = () => {
               Integrated Tool Usage
             </h3>
             <p className="text-equus-muted mt-2 text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8">
-              Agentic AI doesn't operate in isolation—it interacts with
+              Agentic AI does not operate in isolation; it interacts with
               real-world tools and systems. These agents:
             </p>
-            <ul className="list-disc ml-5 sm:ml-6 mt-2 space-y-1 text-equus-muted text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8 marker:text-equus-olive">
-              <li>Connect to APIs, databases, and third-party services</li>
-              <li>Execute actions within digital environments</li>
-              <li>
-                Learn over time which tools are best for specific scenarios
-              </li>
+            <ul className="about-list list-disc ml-5 sm:ml-6 mt-2 space-y-1 text-equus-muted text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8 marker:text-equus-olive">
+              <li>connecting to APIs, databases, and third-party services.</li>
+              <li>executing actions within digital environments.</li>
+              <li>learning over time which tools are best for specific scenarios.</li>
             </ul>
           </AnimatedSection>
 
@@ -104,10 +99,10 @@ const About = () => {
             <p className="text-equus-muted mt-2 text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8">
               To make smarter decisions, agentic systems remember. They retain:
             </p>
-            <ul className="list-disc ml-5 sm:ml-6 mt-2 space-y-1 text-equus-muted text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8 marker:text-equus-olive">
-              <li>Previous user interactions and results</li>
-              <li>Historical context to inform future choices</li>
-              <li>Evolving knowledge that improves with experience</li>
+            <ul className="about-list list-disc ml-5 sm:ml-6 mt-2 space-y-1 text-equus-muted text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8 marker:text-equus-olive">
+              <li>previous user interactions and results.</li>
+              <li>historical context to inform future choices.</li>
+              <li>evolving knowledge that improves with experience.</li>
             </ul>
           </AnimatedSection>
 
@@ -125,12 +120,10 @@ const About = () => {
               Agentic AI is capable of independent thought and flexible action.
               This includes:
             </p>
-            <ul className="list-disc ml-5 sm:ml-6 mt-2 space-y-1 text-equus-muted text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8 marker:text-equus-olive">
-              <li>
-                Navigating unexpected challenges without human intervention
-              </li>
-              <li>Adjusting strategies in real-time based on feedback</li>
-              <li>Learning from both success and failure</li>
+            <ul className="about-list list-disc ml-5 sm:ml-6 mt-2 space-y-1 text-equus-muted text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8 marker:text-equus-olive">
+              <li>navigating unexpected challenges without human intervention.</li>
+              <li>adjusting strategies in real-time based on feedback.</li>
+              <li>learning from both success and failure.</li>
             </ul>
           </AnimatedSection>
 
@@ -171,7 +164,7 @@ const About = () => {
                   }, 100);
                 }}
               >
-                Get in touch with us →
+                Get in touch with us
               </Link>
             </div>
           </AnimatedSection>

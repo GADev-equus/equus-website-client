@@ -327,12 +327,12 @@ input[type='number'] {
   overflow-x: hidden;
   box-sizing: border-box;
   /* Dynamic margin based on actual header height + our gap constant */
-  margin-top: calc(var(--header-height, 80px) + var(--content-gap));
+  margin-top: calc(var(--header-height, 20px) + var(--content-gap));
 }
 
 /* Desktop-specific adjustments */
 .app-container.desktop .main-content {
-  margin-bottom: calc(var(--footer-height, 60px) + var(--content-gap));
+  margin-bottom: calc(var(--footer-height, 20px) + var(--content-gap));
 }
 
 .app-container.desktop .main-content .min-h-screen {

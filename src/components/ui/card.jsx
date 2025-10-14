@@ -37,7 +37,7 @@ const cardVariants = cva(
         lg: 'max-w-md',
         xl: 'max-w-lg',
         full: 'max-w-full',
-        equus: 'max-w-[350px]', // For service cards
+        equus: 'max-w-[600px]', // For service cards
       },
       spacing: {
         // Override base padding if needed

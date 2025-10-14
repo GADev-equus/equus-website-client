@@ -95,8 +95,9 @@
 }
 
 .hero-description-highlight-secondary {
-  color: var(--equus-secondary);
-  font-weight: 500;
+  color: var(--equus-olive);
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 /* Brand pillars container */
@@ -218,7 +219,8 @@
 
 /* Make the "i" visible with a clear dot */
 .visible-i {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Helvetica Neue', Arial, sans-serif;
   font-weight: 800;
 }
 
@@ -226,4 +228,3 @@
 .mobile-dropdown-bg {
   background: var(--equus-gradient-primary);
 }
-

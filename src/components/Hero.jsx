@@ -17,8 +17,8 @@ const Hero = () => {
       {/* Main content */}
       <div className="hero-content">
         {/* Main heading with enhanced styling and fade-in animation */}
-        <AnimatedSection 
-          animation="fade-in" 
+        <AnimatedSection
+          animation="fade-in"
           duration="slow"
           threshold={0.2}
           as="h1"
@@ -26,11 +26,13 @@ const Hero = () => {
         >
           <span className="hero-brand-name">EQUUS SYSTEMS Ltd.</span>
           <span className="hero-tagline">EMPOWERING YOUR BUSINESS THROUGH</span>
-          <span className="hero-focus-word">A<span className="visible-i">i</span></span>
+          <span className="hero-focus-word">
+            A<span className="visible-i">i</span>
+          </span>
         </AnimatedSection>
 
         {/* Enhanced description with slide-up animation */}
-        <AnimatedSection 
+        <AnimatedSection
           animation="slide-up"
           delay={400}
           className="hero-description-container"
@@ -49,7 +51,7 @@ const Hero = () => {
           </p>
 
           {/* Visual elements with staggered scale-in animation */}
-          <AnimatedSection 
+          <AnimatedSection
             animation="scale-in"
             delay={700}
             className="hero-pillars"

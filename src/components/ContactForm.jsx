@@ -2,7 +2,6 @@ import { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useColdStartAwareLoading } from '../hooks/useColdStartAwareLoading.js';
 import contactService, { rateLimiter } from '../services/contactService.js';
-import { Card, CardTitle, CardDescription } from './ui';
 import './ContactForm.css';
 
 const ContactForm = () => {
@@ -17,12 +16,10 @@ const ContactForm = () => {
   const [submitStatus, setSubmitStatus] = useState(null);
   const [touched, setTouched] = useState({});
 
-  // Use cold start aware loading for form submission
   const {
     isLoading: isSubmitting,
     setLoading: setIsSubmitting,
     shouldShowColdStartUI,
-    loadingState,
   } = useColdStartAwareLoading(false);
 
   const handleChange = useCallback(
@@ -34,7 +31,6 @@ const ContactForm = () => {
         [name]: value,
       }));
 
-      // Clear error when user starts typing
       if (errors[name]) {
         setErrors((prev) => ({
           ...prev,
@@ -42,7 +38,6 @@ const ContactForm = () => {
         }));
       }
 
-      // Clear submit status when user modifies form
       if (submitStatus) {
         setSubmitStatus(null);
       }
@@ -58,7 +53,6 @@ const ContactForm = () => {
       [name]: true,
     }));
 
-    // Validate field on blur
     const error = contactService.validateField(name, value);
     if (error) {
       setErrors((prev) => ({
@@ -71,7 +65,6 @@ const ContactForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check rate limiting
     if (!rateLimiter.canSubmit()) {
       const waitTime = Math.ceil(rateLimiter.getTimeUntilNextAttempt() / 1000);
       setSubmitStatus({
@@ -81,7 +74,6 @@ const ContactForm = () => {
       return;
     }
 
-    // Validate entire form
     const validation = contactService.validateFormData(formData);
     if (!validation.isValid) {
       setErrors(validation.errors);
@@ -108,7 +100,6 @@ const ContactForm = () => {
             'Thank you for your message! We will get back to you soon.',
         });
 
-        // Reset form
         setFormData({
           name: '',
           email: '',
@@ -117,7 +108,6 @@ const ContactForm = () => {
         });
         setTouched({});
 
-        // Scroll to success message
         setTimeout(() => {
           const statusElement = document.getElementById('submit-status');
           if (statusElement) {
@@ -130,46 +120,50 @@ const ContactForm = () => {
       } else {
         setSubmitStatus({
           type: 'error',
-          message: result.message || 'An error occurred. Please try again.',
+          message:
+            result.message ||
+            'Something went wrong. Please try again or contact support directly.',
         });
       }
-    } catch (error) {
+    } catch (err) {
       setSubmitStatus({
         type: 'error',
-        message: 'Network error. Please check your connection and try again.',
+        message:
+          err?.message ||
+          'Something went wrong while submitting your request. Please try again later.',
       });
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const isFieldValid = (fieldName) => {
+    if (!touched[fieldName]) return true;
+    if (!errors[fieldName]) return true;
+    if (
+      typeof errors[fieldName] === 'string' &&
+      errors[fieldName].trim() === ''
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   const getInputClassName = (fieldName) => {
     const baseClass = 'form-input';
-    const hasError = errors[fieldName];
-    const hasValue = formData[fieldName].trim().length > 0;
-    const isTouched = touched[fieldName];
-
-    let className = baseClass;
-
-    if (hasError) {
-      className += ' error';
-    } else if (hasValue && isTouched) {
-      className += ' success';
+    if (isFieldValid(fieldName)) {
+      return baseClass;
     }
-
-    return className;
+    return `${baseClass} error`;
   };
 
   const isFormValid = () => {
-    const { name, email, message } = formData;
+    const requiredFields = ['name', 'email', 'message'];
+    const hasRequiredFields = requiredFields.every((field) => {
+      const value = formData[field]?.trim();
+      return value && value.length > 0;
+    });
 
-    // Check if all required fields have content
-    const hasRequiredFields =
-      name.trim().length > 0 &&
-      email.trim().length > 0 &&
-      message.trim().length > 0;
-
-    // Check if there are any actual error messages (not empty strings)
     const hasErrors = Object.values(errors).some(
       (error) => error && error.trim().length > 0,
     );
@@ -180,62 +174,49 @@ const ContactForm = () => {
   const guidelines = contactService.getFormGuidelines();
 
   return (
-    <div className="contact-form-container">
-      <div className="contact-form-wrapper">
-        <div className="contact-info">
-          <h4>Unlock Your AI Potential</h4>
+    <section className="contact-form-container">
+      <div className="contact-form-layout">
+        <aside className="contact-info">
+          <h4 className="contact-info__heading">Let&apos;s Connect</h4>
           <p className="contact-intro">
-            Are you exploring how to integrate AI into your business strategy—or
-            seeking hands‑on development of cutting‑edge AI systems? We offer a
-            comprehensive suite of services:
+            Share a little about your AI goals and our team will respond with
+            tailored next steps.
           </p>
-
-          <div className="services-preview">
-            <Card variant="service" size="equus">
-              <CardTitle>Strategic AI Consulting</CardTitle>
-              <CardDescription>
-                In-depth assessments to identify high-impact opportunities,
-                define success metrics, and align AI initiatives with your core
-                business goals
-              </CardDescription>
-            </Card>
-
-            <Card variant="service" size="equus">
-              <CardTitle>Custom AI Development</CardTitle>
-              <CardDescription>
-                End-to-end delivery—from agentic AI solutions and
-                knowledge-graph-driven architectures, to seamless integration
-                and optimization
-              </CardDescription>
-            </Card>
-
-            <Card variant="service" size="equus">
-              <CardTitle>Agentic Workflows & Graph Flows</CardTitle>
-              <CardDescription>
-                We build autonomous, multi-agent systems powered by intelligent
-                graph structures that coordinate tasks, contextual
-                decision-making, and dynamic execution without human bottlenecks
-              </CardDescription>
-            </Card>
-          </div>
 
           <div className="contact-cta">
             <p>
               <strong>Ready to transform your operations with AI?</strong>
             </p>
             <p>
-              Reach out today to discuss your vision—and let us guide you from
+              Reach out today to discuss your vision and let us guide you from
               strategy to deployment with precision, agility, and measurable
               impact.
             </p>
           </div>
 
-          <div className="contact-details">
-            <div className="contact-item">
-              <strong>Response Time:</strong> Within 24 hours
+          <div className="contact-meta">
+            <div className="contact-meta__item">
+              <span className="contact-meta__label">Response Time</span>
+              <span className="contact-meta__value">Within 24 hours</span>
+            </div>
+            <div className="contact-meta__item">
+              <span className="contact-meta__label">Email</span>
+              <a
+                className="contact-meta__link"
+                href="mailto:hello@equussystems.co"
+              >
+                info@equussystems.co
+              </a>
             </div>
           </div>
-        </div>
+          <div className="signin-invitation">
+            <p>Ready to unlock your personalised AI journey?</p>
+            <p>Join our community!</p>
+            <Link to="/auth/signin" className="signin-invitation-link">
+              Sign in or register
+            </Link>
+          </div>
+        </aside>
 
         <form onSubmit={handleSubmit} className="contact-form" noValidate>
           <div className="form-group">
@@ -361,14 +342,6 @@ const ContactForm = () => {
             </button>
           </div>
 
-          <div className="signin-invitation">
-            <p>Ready to unlock your personalised AI journey?</p>
-            <p>Join our community!</p>
-            <Link to="/auth/signin" className="signin-invitation-link">
-              Sign in or register →
-            </Link>
-          </div>
-
           {submitStatus && (
             <div
               id="submit-status"
@@ -377,14 +350,14 @@ const ContactForm = () => {
               aria-live="polite"
             >
               <div className="status-icon" aria-hidden="true">
-                {submitStatus.type === 'success' ? '✓' : '!'}
+                {submitStatus.type === 'success' ? '\u2713' : '!'}
               </div>
               <div className="status-text">{submitStatus.message}</div>
             </div>
           )}
         </form>
       </div>
-    </div>
+    </section>
   );
 };
 

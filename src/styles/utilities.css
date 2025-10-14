@@ -50,6 +50,15 @@
   color: var(--equus-text-secondary);
 }
 
+.about-list {
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+
+.about-list li::marker {
+  color: var(--equus-olive);
+}
+
 .font-branding {
   font-family: var(--equus-font-branding);
 }
@@ -119,6 +128,7 @@
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
+  overflow-y: hidden;
   box-sizing: border-box;
 }
 
@@ -595,10 +605,12 @@
 
 .animate-slide-up {
   opacity: 0;
-  transform: translateY(40px);
+  transform: translateY(24px);
   transition: opacity var(--equus-animation-duration) var(--equus-animation-timing),
               transform var(--equus-animation-duration) var(--equus-animation-timing);
   transition-delay: var(--equus-animation-delay);
+  will-change: opacity, transform;
+  contain: paint;
 }
 
 .animate-slide-up.is-visible {
@@ -608,10 +620,12 @@
 
 .animate-slide-down {
   opacity: 0;
-  transform: translateY(-40px);
+  transform: translateY(-24px);
   transition: opacity var(--equus-animation-duration) var(--equus-animation-timing),
               transform var(--equus-animation-duration) var(--equus-animation-timing);
   transition-delay: var(--equus-animation-delay);
+  will-change: opacity, transform;
+  contain: paint;
 }
 
 .animate-slide-down.is-visible {
@@ -625,6 +639,8 @@
   transition: opacity var(--equus-animation-duration) var(--equus-animation-timing),
               transform var(--equus-animation-duration) var(--equus-animation-timing);
   transition-delay: var(--equus-animation-delay);
+  will-change: opacity, transform;
+  contain: paint;
 }
 
 .animate-scale-in.is-visible {
@@ -634,10 +650,12 @@
 
 .animate-slide-left {
   opacity: 0;
-  transform: translateX(-40px);
+  transform: translateX(-24px);
   transition: opacity var(--equus-animation-duration) var(--equus-animation-timing),
               transform var(--equus-animation-duration) var(--equus-animation-timing);
   transition-delay: var(--equus-animation-delay);
+  will-change: opacity, transform;
+  contain: paint;
 }
 
 .animate-slide-left.is-visible {
@@ -647,10 +665,12 @@
 
 .animate-slide-right {
   opacity: 0;
-  transform: translateX(40px);
+  transform: translateX(24px);
   transition: opacity var(--equus-animation-duration) var(--equus-animation-timing),
               transform var(--equus-animation-duration) var(--equus-animation-timing);
   transition-delay: var(--equus-animation-delay);
+  will-change: opacity, transform;
+  contain: paint;
 }
 
 .animate-slide-right.is-visible {
