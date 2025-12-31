@@ -9,6 +9,8 @@ import { Button } from '@/components/ui/button';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import ColdStartLoader from '@/components/ui/ColdStartLoader';
 import { SkipLink } from '@/components/ui/skip-link';
+import SEOHelmet from '@/components/shared/SEOHelmet';
+import { SEO_CONFIG } from '@/utils/structuredData';
 import { useAuth } from '@/contexts/AuthContext';
 import { useColdStartAwareLoading } from '@/hooks/useColdStartAwareLoading';
 import authService from '@/services/authService';
@@ -138,48 +140,57 @@ const EmailVerification = () => {
   };
 
   return (
-    <div className="auth-container">
-      <SkipLink />
-      <div className="verification-card">
-        <div className="verification-content">
-          {getStatusIcon()}
+    <>
+      <SEOHelmet
+        title={SEO_CONFIG.auth.verifyEmail.title}
+        description={SEO_CONFIG.auth.verifyEmail.description}
+        keywords={SEO_CONFIG.auth.verifyEmail.keywords}
+        noIndex={SEO_CONFIG.auth.verifyEmail.noIndex}
+        url="https://equussystems.co/auth/verify-email"
+      />
+      <div className="auth-container">
+        <SkipLink />
+        <div className="verification-card">
+          <div className="verification-content">
+            {getStatusIcon()}
 
-          <div className="mt-md">
-            <h1 className={`verification-title ${status}`}>
-              {status === 'verifying' && 'Verifying Email...'}
-              {status === 'success' && 'Email Verified!'}
-              {status === 'error' && 'Verification Failed'}
-            </h1>
-            <p className="text-equus-muted">{message}</p>
-          </div>
+            <div className="mt-md">
+              <h1 className={`verification-title ${status}`}>
+                {status === 'verifying' && 'Verifying Email...'}
+                {status === 'success' && 'Email Verified!'}
+                {status === 'error' && 'Verification Failed'}
+              </h1>
+              <p className="text-equus-muted">{message}</p>
+            </div>
 
-          <div className="mt-md">
-            {status === 'success' && (
-              <div className="verification-redirect-notice">
-                Redirecting to sign in page in 3 seconds...
-              </div>
-            )}
+            <div className="mt-md">
+              {status === 'success' && (
+                <div className="verification-redirect-notice">
+                  Redirecting to sign in page in 3 seconds...
+                </div>
+              )}
 
-            {status === 'success' && (
-              <Link to="/auth/signin">
-                <button className="btn-primary">Continue to Sign In</button>
-              </Link>
-            )}
-
-            {status === 'error' && (
-              <div className="verification-button-group">
-                <Link to="/auth/signup">
-                  <button className="btn-secondary">Create New Account</button>
-                </Link>
+              {status === 'success' && (
                 <Link to="/auth/signin">
-                  <button className="btn-secondary">Back to Sign In</button>
+                  <button className="btn-primary">Continue to Sign In</button>
                 </Link>
-              </div>
-            )}
+              )}
+
+              {status === 'error' && (
+                <div className="verification-button-group">
+                  <Link to="/auth/signup">
+                    <button className="btn-secondary">Create New Account</button>
+                  </Link>
+                  <Link to="/auth/signin">
+                    <button className="btn-secondary">Back to Sign In</button>
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

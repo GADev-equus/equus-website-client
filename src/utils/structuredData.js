@@ -178,6 +178,18 @@ export const SEO_CONFIG = {
       keywords: 'sign up, register, create account, Equus Systems Ltd.',
       noIndex: true,
     },
+    resetPassword: {
+      title: 'Reset Password',
+      description: 'Reset your Equus Systems Ltd. account password.',
+      keywords: 'reset password, account recovery, Equus Systems Ltd.',
+      noIndex: true,
+    },
+    verifyEmail: {
+      title: 'Verify Email',
+      description: 'Verify your Equus Systems Ltd. account email address.',
+      keywords: 'email verification, account verification, Equus Systems Ltd.',
+      noIndex: true,
+    },
   },
 
   dashboard: {
@@ -188,11 +200,85 @@ export const SEO_CONFIG = {
     noIndex: true,
   },
 
+  user: {
+    dashboard: {
+      title: 'User Dashboard',
+      description:
+        'Access your Equus Systems Ltd. dashboard and account overview.',
+      keywords: 'user dashboard, Equus Systems Ltd., account overview',
+      noIndex: true,
+    },
+    profile: {
+      title: 'Edit Profile',
+      description: 'Update your Equus Systems Ltd. profile details.',
+      keywords: 'profile, account details, Equus Systems Ltd.',
+      noIndex: true,
+    },
+    settings: {
+      title: 'Account Settings',
+      description: 'Manage your Equus Systems Ltd. account settings.',
+      keywords: 'settings, account settings, Equus Systems Ltd.',
+      noIndex: true,
+    },
+    passwordChange: {
+      title: 'Change Password',
+      description: 'Update your Equus Systems Ltd. account password.',
+      keywords: 'change password, account security, Equus Systems Ltd.',
+      noIndex: true,
+    },
+  },
+
+  admin: {
+    dashboard: {
+      title: 'Admin Dashboard',
+      description: 'Administrative overview of Equus Systems Ltd.',
+      keywords: 'admin dashboard, Equus Systems Ltd., administration',
+      noIndex: true,
+    },
+    users: {
+      title: 'User Management',
+      description: 'Manage Equus Systems Ltd. user accounts.',
+      keywords: 'user management, admin, Equus Systems Ltd.',
+      noIndex: true,
+    },
+    analytics: {
+      title: 'Analytics',
+      description: 'Review Equus Systems Ltd. analytics and metrics.',
+      keywords: 'analytics, metrics, admin, Equus Systems Ltd.',
+      noIndex: true,
+    },
+    pageViews: {
+      title: 'Page Views',
+      description: 'Monitor Equus Systems Ltd. page view analytics.',
+      keywords: 'page views, analytics, admin, Equus Systems Ltd.',
+      noIndex: true,
+    },
+    subdomainRequests: {
+      title: 'Subdomain Requests',
+      description: 'Review subdomain access requests.',
+      keywords: 'subdomain requests, admin, Equus Systems Ltd.',
+      noIndex: true,
+    },
+    contacts: {
+      title: 'Contacts',
+      description: 'Review contact submissions and inquiries.',
+      keywords: 'contacts, inquiries, admin, Equus Systems Ltd.',
+      noIndex: true,
+    },
+  },
+
   notFound: {
     title: 'Page Not Found',
     description:
       'The page you are looking for could not be found. Return to Equus Systems Ltd. to explore our technology solutions.',
     keywords: '404, page not found, Equus Systems Ltd.',
+    noIndex: true,
+  },
+
+  unauthorized: {
+    title: 'Unauthorized',
+    description: 'You do not have permission to access this resource.',
+    keywords: 'unauthorized, access denied, Equus Systems Ltd.',
     noIndex: true,
   },
 };

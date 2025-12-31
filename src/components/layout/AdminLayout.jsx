@@ -7,12 +7,29 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import SEOHelmet from '@/components/shared/SEOHelmet';
+import { SEO_CONFIG } from '@/utils/structuredData';
 import { useAuth } from '@/contexts/AuthContext';
 
 const AdminLayout = ({ children, title = 'Admin Dashboard' }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
   const { user, logout } = useAuth();
+  const seoConfigByPath = {
+    '/admin/dashboard': SEO_CONFIG.admin.dashboard,
+    '/admin/users': SEO_CONFIG.admin.users,
+    '/admin/analytics': SEO_CONFIG.admin.analytics,
+    '/admin/page-views': SEO_CONFIG.admin.pageViews,
+    '/admin/subdomain-requests': SEO_CONFIG.admin.subdomainRequests,
+    '/admin/contacts': SEO_CONFIG.admin.contacts,
+  };
+  const seoConfig = seoConfigByPath[location.pathname];
+  const seoTitle = seoConfig?.title || title || 'Admin Dashboard';
+  const seoDescription =
+    seoConfig?.description || `Admin console for ${seoTitle}.`;
+  const seoKeywords = seoConfig?.keywords;
+  const seoUrl = seoConfig?.url || `https://equussystems.co${location.pathname}`;
+  const seoNoIndex = seoConfig?.noIndex ?? true;
 
   const navigation = [
     { name: 'Dashboard', href: '/admin/dashboard', icon: '📊' },
@@ -28,7 +45,15 @@ const AdminLayout = ({ children, title = 'Admin Dashboard' }) => {
   };
 
   return (
-    <div className="block lg:flex w-full h-full">
+    <>
+      <SEOHelmet
+        title={seoTitle}
+        description={seoDescription}
+        keywords={seoKeywords}
+        noIndex={seoNoIndex}
+        url={seoUrl}
+      />
+      <div className="block lg:flex w-full h-full">
       {/* Mobile menu button - Simple relative positioning */}
       <div className="lg:hidden w-full p-4 bg-background border-b border-border relative z-10">
         <div className="flex items-center justify-between">
@@ -145,7 +170,8 @@ const AdminLayout = ({ children, title = 'Admin Dashboard' }) => {
         {/* Main content area */}
         <main className="flex-1 p-6 w-full">{children}</main>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

@@ -9,7 +9,13 @@ import ContactForm from '@/components/ContactForm';
 import SEOHelmet from '@/components/shared/SEOHelmet';
 import Hero from '@/components/Hero';
 import { SEO_CONFIG } from '@/utils/structuredData';
-import { Fieldset, Card, CardTitle, CardDescription } from '@/components/ui';
+import {
+  Fieldset,
+  Card,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from '@/components/ui';
 import AnimatedSection from '@/components/ui/AnimatedSection';
 
 const Home = () => {
@@ -81,7 +87,7 @@ const Home = () => {
               <AnimatedSection animation="slide-up" delay={100}>
                 <Card variant="service" size="equus">
                   <CardTitle>Purpose-Driven Intelligence</CardTitle>
-                  <CardDescription>
+                  <CardContent>
                     <p className="text-equus-muted text-sm sm:text-base leading-relaxed mb-3">
                       Agentic systems understand objectives and pursue outcomes
                       rather than waiting for instructions.
@@ -96,14 +102,14 @@ const Home = () => {
                         needed.
                       </li>
                     </ul>
-                  </CardDescription>
+                  </CardContent>
                 </Card>
               </AnimatedSection>
 
               <AnimatedSection animation="slide-up" delay={250}>
                 <Card variant="service" size="equus">
                   <CardTitle>Partner with Equus</CardTitle>
-                  <CardDescription>
+                  <CardContent>
                     <p className="text-equus-muted text-sm sm:text-base leading-relaxed mb-4">
                       We translate these principles into solutions that make
                       complex journeys intuitive and effective for your teams.
@@ -111,14 +117,14 @@ const Home = () => {
                     <Link className="text-equus-primary underline" to="/about">
                       Read the full story
                     </Link>
-                  </CardDescription>
+                  </CardContent>
                 </Card>
               </AnimatedSection>
 
               <AnimatedSection animation="slide-up" delay={400}>
                 <Card variant="service" size="equus">
                   <CardTitle>Contextual Awareness</CardTitle>
-                  <CardDescription>
+                  <CardContent>
                     <p className="text-equus-muted text-sm sm:text-base leading-relaxed mb-3">
                       Memory and context enable smarter, more informed decisions
                       over time.
@@ -128,14 +134,14 @@ const Home = () => {
                       <li>historical context to inform future choices.</li>
                       <li>evolving knowledge that improves with experience.</li>
                     </ul>
-                  </CardDescription>
+                  </CardContent>
                 </Card>
               </AnimatedSection>
 
               <AnimatedSection animation="slide-up" delay={550}>
                 <Card variant="service" size="equus">
                   <CardTitle>Adaptive Autonomy</CardTitle>
-                  <CardDescription>
+                  <CardContent>
                     <p className="text-equus-muted text-sm sm:text-base leading-relaxed mb-3">
                       Equus systems adapt in real time, keeping teams focused on
                       outcomes rather than orchestration.
@@ -147,14 +153,14 @@ const Home = () => {
                       </li>
                       <li>learning from both success and failure.</li>
                     </ul>
-                  </CardDescription>
+                  </CardContent>
                 </Card>
               </AnimatedSection>
 
               <AnimatedSection animation="slide-up" delay={700}>
                 <Card variant="service" size="equus">
                   <CardTitle>Integrated Tool Usage</CardTitle>
-                  <CardDescription>
+                  <CardContent>
                     <p className="text-equus-muted text-sm sm:text-base leading-relaxed mb-3">
                       Our agents interact with the wider ecosystem to deliver
                       measurable outcomes.
@@ -168,7 +174,7 @@ const Home = () => {
                         learning which tools are best for specific scenarios.
                       </li>
                     </ul>
-                  </CardDescription>
+                  </CardContent>
                 </Card>
               </AnimatedSection>
             </div>

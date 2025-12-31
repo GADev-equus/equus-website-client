@@ -7,12 +7,27 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import SEOHelmet from '@/components/shared/SEOHelmet';
+import { SEO_CONFIG } from '@/utils/structuredData';
 import { useAuth } from '@/contexts/AuthContext';
 
 const UserLayout = ({ children, title = 'Dashboard' }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
   const { user, logout } = useAuth();
+  const seoConfigByPath = {
+    '/dashboard': SEO_CONFIG.user.dashboard,
+    '/profile': SEO_CONFIG.user.profile,
+    '/settings': SEO_CONFIG.user.settings,
+    '/settings/password': SEO_CONFIG.user.passwordChange,
+  };
+  const seoConfig = seoConfigByPath[location.pathname];
+  const seoTitle = seoConfig?.title || title || 'Dashboard';
+  const seoDescription =
+    seoConfig?.description || `Access your Equus Systems account for ${seoTitle}.`;
+  const seoKeywords = seoConfig?.keywords;
+  const seoUrl = seoConfig?.url || `https://equussystems.co${location.pathname}`;
+  const seoNoIndex = seoConfig?.noIndex ?? true;
 
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: '🏠' },
@@ -27,7 +42,15 @@ const UserLayout = ({ children, title = 'Dashboard' }) => {
   };
 
   return (
-    <div className="block lg:flex w-full h-full">
+    <>
+      <SEOHelmet
+        title={seoTitle}
+        description={seoDescription}
+        keywords={seoKeywords}
+        noIndex={seoNoIndex}
+        url={seoUrl}
+      />
+      <div className="block lg:flex w-full h-full">
       {/* Mobile menu button - Simple relative positioning */}
       <div className="lg:hidden w-full p-4 bg-background border-b border-border relative z-10">
         <div className="flex items-center justify-between">
@@ -155,7 +178,8 @@ const UserLayout = ({ children, title = 'Dashboard' }) => {
         {/* Main content area */}
         <main className="flex-1 p-6 w-full">{children}</main>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 
