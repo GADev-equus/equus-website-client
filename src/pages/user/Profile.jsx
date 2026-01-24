@@ -7,7 +7,13 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import UserLayout from '@/components/layout/UserLayout';
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardDescription,
+} from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -25,21 +31,21 @@ const Profile = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
-  
+
   // Use cold start aware loading for initial profile loading
   const {
     isLoading: initialLoading,
     setLoading: setInitialLoading,
     shouldShowColdStartUI: shouldShowInitialColdStartUI,
-    loadingState: initialLoadingState
+    loadingState: initialLoadingState,
   } = useColdStartAwareLoading(true);
-  
+
   // Use cold start aware loading for profile updates
   const {
     isLoading: loading,
     setLoading,
     shouldShowColdStartUI: shouldShowUpdateColdStartUI,
-    loadingState: updateLoadingState
+    loadingState: updateLoadingState,
   } = useColdStartAwareLoading(false);
 
   const form = useForm({
@@ -49,8 +55,8 @@ const Profile = () => {
       lastName: '',
       username: '',
       bio: '',
-      avatar: ''
-    }
+      avatar: '',
+    },
   });
 
   // Watch form values for validation
@@ -64,19 +70,19 @@ const Profile = () => {
     try {
       setInitialLoading(true);
       setError(null);
-      
+
       const result = await authService.getCurrentUser();
       if (result.success) {
         const userData = result.user;
         setUserProfile(userData);
-        
+
         // Populate form with current user data
         form.reset({
           firstName: userData.firstName || '',
           lastName: userData.lastName || '',
           username: userData.username || '',
           bio: userData.bio || '',
-          avatar: userData.avatar || ''
+          avatar: userData.avatar || '',
         });
       } else {
         setError('Failed to load profile data');
@@ -105,7 +111,8 @@ const Profile = () => {
 
   const validateAvatar = (value) => {
     if (!value) return true; // Avatar is optional
-    const urlRegex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+    const urlRegex =
+      /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
     if (!urlRegex.test(value)) {
       return 'Please enter a valid URL';
     }
@@ -120,7 +127,7 @@ const Profile = () => {
 
       // Only send fields that have changed or have values
       const updateData = {};
-      
+
       if (data.firstName?.trim()) updateData.firstName = data.firstName.trim();
       if (data.lastName?.trim()) updateData.lastName = data.lastName.trim();
       if (data.username?.trim()) updateData.username = data.username.trim();
@@ -134,16 +141,16 @@ const Profile = () => {
       }
 
       const result = await authService.updateProfile(updateData);
-      
+
       if (result.success) {
         setSuccess('Profile updated successfully!');
         setUserProfile(result.user);
-        
+
         // Update user context
         if (updateUser) {
           updateUser(result.user);
         }
-        
+
         // Clear success message after 3 seconds
         setTimeout(() => {
           setSuccess(null);
@@ -163,11 +170,11 @@ const Profile = () => {
     if (!userProfile) return 0;
     let completed = 0;
     const fields = ['firstName', 'lastName', 'email', 'avatar', 'bio'];
-    
-    fields.forEach(field => {
+
+    fields.forEach((field) => {
       if (userProfile[field]) completed++;
     });
-    
+
     return Math.round((completed / fields.length) * 100);
   };
 
@@ -178,7 +185,7 @@ const Profile = () => {
 
   const hasChanges = () => {
     if (!userProfile) return false;
-    
+
     return (
       watchedValues.firstName !== (userProfile.firstName || '') ||
       watchedValues.lastName !== (userProfile.lastName || '') ||
@@ -194,7 +201,7 @@ const Profile = () => {
         <div className="space-y-6">
           {shouldShowInitialColdStartUI && shouldShowInitialColdStartUI() ? (
             <div className="min-h-screen flex items-center justify-center">
-              <ColdStartLoader 
+              <ColdStartLoader
                 startTime={initialLoadingState?.coldStartTime || Date.now()}
                 size="lg"
                 className="min-h-screen"
@@ -216,9 +223,11 @@ const Profile = () => {
       <div className="space-y-4 sm:space-y-6 lg:space-y-8">
         <div className="equus-section">
           {/* Page Header */}
-          <Card >
+          <Card>
             <CardHeader>
-              <CardTitle className="text-xl sm:text-2xl">Edit Profile</CardTitle>
+              <CardTitle className="text-xl sm:text-2xl">
+                Edit Profile
+              </CardTitle>
               <CardDescription>
                 Update your personal information and profile settings
               </CardDescription>
@@ -226,14 +235,16 @@ const Profile = () => {
           </Card>
 
           {/* Profile Completion */}
-          <Card >
+          <Card>
             <CardHeader className="pb-3">
               <CardDescription>Profile Completion</CardDescription>
-              <CardTitle className="text-lg">{getProfileCompletionPercentage()}%</CardTitle>
+              <CardTitle className="text-lg">
+                {getProfileCompletionPercentage()}%
+              </CardTitle>
             </CardHeader>
             <CardContent className="pt-2">
               <div className="w-full bg-gray-200 rounded-full h-2">
-                <div 
+                <div
                   className="bg-blue-600 h-2 rounded-full transition-all duration-300"
                   style={{ width: `${getProfileCompletionPercentage()}%` }}
                 ></div>
@@ -246,19 +257,19 @@ const Profile = () => {
 
           {/* Status Messages */}
           {error && (
-            <Alert className="border-destructive">
-              <AlertDescription className="text-destructive">{error}</AlertDescription>
+            <Alert variant="destructive">
+              <AlertDescription>{error}</AlertDescription>
             </Alert>
           )}
 
           {success && (
-            <Alert className="border-green-500 bg-green-50">
-              <AlertDescription className="text-green-700">{success}</AlertDescription>
+            <Alert variant="success">
+              <AlertDescription>{success}</AlertDescription>
             </Alert>
           )}
 
           {/* Profile Form */}
-          <Card >
+          <Card>
             <CardHeader>
               <CardTitle>Personal Information</CardTitle>
               <CardDescription>
@@ -266,7 +277,10 @@ const Profile = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+              <form
+                onSubmit={form.handleSubmit(handleSubmit)}
+                className="space-y-6"
+              >
                 {/* First Name */}
                 <div className="space-y-2">
                   <Label htmlFor="firstName">First Name *</Label>
@@ -277,14 +291,18 @@ const Profile = () => {
                       required: 'First name is required',
                       minLength: {
                         value: 2,
-                        message: 'First name must be at least 2 characters'
+                        message: 'First name must be at least 2 characters',
                       },
                       maxLength: {
                         value: 50,
-                        message: 'First name must not exceed 50 characters'
-                      }
+                        message: 'First name must not exceed 50 characters',
+                      },
                     })}
-                    className={form.formState.errors.firstName ? 'border-destructive' : ''}
+                    className={
+                      form.formState.errors.firstName
+                        ? 'border-destructive'
+                        : ''
+                    }
                     placeholder="Enter your first name"
                   />
                   {form.formState.errors.firstName && (
@@ -304,14 +322,16 @@ const Profile = () => {
                       required: 'Last name is required',
                       minLength: {
                         value: 2,
-                        message: 'Last name must be at least 2 characters'
+                        message: 'Last name must be at least 2 characters',
                       },
                       maxLength: {
                         value: 50,
-                        message: 'Last name must not exceed 50 characters'
-                      }
+                        message: 'Last name must not exceed 50 characters',
+                      },
                     })}
-                    className={form.formState.errors.lastName ? 'border-destructive' : ''}
+                    className={
+                      form.formState.errors.lastName ? 'border-destructive' : ''
+                    }
                     placeholder="Enter your last name"
                   />
                   {form.formState.errors.lastName && (
@@ -328,9 +348,11 @@ const Profile = () => {
                     id="username"
                     type="text"
                     {...form.register('username', {
-                      validate: validateUsername
+                      validate: validateUsername,
                     })}
-                    className={form.formState.errors.username ? 'border-destructive' : ''}
+                    className={
+                      form.formState.errors.username ? 'border-destructive' : ''
+                    }
                     placeholder="Choose a unique username (optional)"
                   />
                   {form.formState.errors.username && (
@@ -339,7 +361,8 @@ const Profile = () => {
                     </p>
                   )}
                   <p className="text-xs text-muted-foreground">
-                    3-20 characters, letters, numbers, underscores, and hyphens only
+                    3-20 characters, letters, numbers, underscores, and hyphens
+                    only
                   </p>
                 </div>
 
@@ -351,12 +374,12 @@ const Profile = () => {
                     {...form.register('bio', {
                       maxLength: {
                         value: 500,
-                        message: 'Bio must not exceed 500 characters'
-                      }
+                        message: 'Bio must not exceed 500 characters',
+                      },
                     })}
                     className={cn(
-                      "w-full px-3 py-2 border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent resize-none",
-                      form.formState.errors.bio && "border-destructive"
+                      'w-full px-3 py-2 border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent resize-none',
+                      form.formState.errors.bio && 'border-destructive',
                     )}
                     rows={4}
                     placeholder="Tell us about yourself (optional)"
@@ -378,9 +401,11 @@ const Profile = () => {
                     id="avatar"
                     type="url"
                     {...form.register('avatar', {
-                      validate: validateAvatar
+                      validate: validateAvatar,
                     })}
-                    className={form.formState.errors.avatar ? 'border-destructive' : ''}
+                    className={
+                      form.formState.errors.avatar ? 'border-destructive' : ''
+                    }
                     placeholder="https://example.com/your-avatar.jpg (optional)"
                   />
                   {form.formState.errors.avatar && (
@@ -390,7 +415,9 @@ const Profile = () => {
                   )}
                   {watchedValues.avatar && (
                     <div className="mt-2">
-                      <p className="text-xs text-muted-foreground mb-2">Preview:</p>
+                      <p className="text-xs text-muted-foreground mb-2">
+                        Preview:
+                      </p>
                       <img
                         src={watchedValues.avatar}
                         alt="Avatar preview"
@@ -410,15 +437,24 @@ const Profile = () => {
                     disabled={loading || !isFormValid() || !hasChanges()}
                     className="flex-1 font-medium py-3"
                     style={{
-                      backgroundColor: (loading || !isFormValid() || !hasChanges()) ? '#d1d5db' : '#2563eb',
-                      color: (loading || !isFormValid() || !hasChanges()) ? '#6b7280' : '#ffffff',
+                      backgroundColor:
+                        loading || !isFormValid() || !hasChanges()
+                          ? '#d1d5db'
+                          : '#2563eb',
+                      color:
+                        loading || !isFormValid() || !hasChanges()
+                          ? '#6b7280'
+                          : '#ffffff',
                       border: '1px solid #2563eb',
                       borderRadius: '8px',
-                      cursor: (loading || !isFormValid() || !hasChanges()) ? 'not-allowed' : 'pointer',
+                      cursor:
+                        loading || !isFormValid() || !hasChanges()
+                          ? 'not-allowed'
+                          : 'pointer',
                       padding: '12px 24px',
                       fontSize: '16px',
                       fontWeight: '500',
-                      transition: 'all 0.2s ease-in-out'
+                      transition: 'all 0.2s ease-in-out',
                     }}
                     onMouseEnter={(e) => {
                       if (!loading && isFormValid() && hasChanges()) {
@@ -432,10 +468,12 @@ const Profile = () => {
                     }}
                     size="lg"
                   >
-                    {loading ? (
-                      shouldShowUpdateColdStartUI && shouldShowUpdateColdStartUI() ? 
-                        'Starting server...' : 'Updating...'
-                    ) : 'Update Profile'}
+                    {loading
+                      ? shouldShowUpdateColdStartUI &&
+                        shouldShowUpdateColdStartUI()
+                        ? 'Starting server...'
+                        : 'Updating...'
+                      : 'Update Profile'}
                   </Button>
                   <Button
                     type="button"
@@ -448,12 +486,15 @@ const Profile = () => {
                     Cancel
                   </Button>
                 </div>
-                
+
                 {/* Help text for disabled button */}
                 {(!hasChanges() || !isFormValid()) && (
                   <div className="text-sm text-muted-foreground text-center pt-2">
-                    {!hasChanges() && "Make changes to your profile to enable the update button"}
-                    {!isFormValid() && hasChanges() && "Please fix the errors above to enable the update button"}
+                    {!hasChanges() &&
+                      'Make changes to your profile to enable the update button'}
+                    {!isFormValid() &&
+                      hasChanges() &&
+                      'Please fix the errors above to enable the update button'}
                   </div>
                 )}
               </form>

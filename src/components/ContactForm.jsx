@@ -1,112 +1,76 @@
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import { useColdStartAwareLoading } from '../hooks/useColdStartAwareLoading.js';
 import contactService, { rateLimiter } from '../services/contactService.js';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from '@/components/ui/form';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import './ContactForm.css';
 
 const ContactForm = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-    subject: '',
-  });
-
-  const [errors, setErrors] = useState({});
-  const [submitStatus, setSubmitStatus] = useState(null);
-  const [touched, setTouched] = useState({});
-
   const {
     isLoading: isSubmitting,
     setLoading: setIsSubmitting,
     shouldShowColdStartUI,
   } = useColdStartAwareLoading(false);
 
-  const handleChange = useCallback(
-    (e) => {
-      const { name, value } = e.target;
-
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-
-      if (errors[name]) {
-        setErrors((prev) => ({
-          ...prev,
-          [name]: '',
-        }));
-      }
-
-      if (submitStatus) {
-        setSubmitStatus(null);
-      }
+  const form = useForm({
+    mode: 'onChange',
+    defaultValues: {
+      name: '',
+      email: '',
+      message: '',
+      subject: '',
     },
-    [errors, submitStatus],
-  );
+  });
 
-  const handleBlur = useCallback((e) => {
-    const { name, value } = e.target;
+  const guidelines = contactService.getFormGuidelines();
 
-    setTouched((prev) => ({
-      ...prev,
-      [name]: true,
-    }));
-
-    const error = contactService.validateField(name, value);
-    if (error) {
-      setErrors((prev) => ({
-        ...prev,
-        [name]: error,
-      }));
-    }
-  }, []);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async (data) => {
     if (!rateLimiter.canSubmit()) {
       const waitTime = Math.ceil(rateLimiter.getTimeUntilNextAttempt() / 1000);
-      setSubmitStatus({
-        type: 'error',
+      form.setError('root', {
         message: `Please wait ${waitTime} seconds before submitting again.`,
       });
       return;
     }
 
-    const validation = contactService.validateFormData(formData);
+    const validation = contactService.validateFormData(data);
     if (!validation.isValid) {
-      setErrors(validation.errors);
-      setSubmitStatus({
-        type: 'error',
+      Object.keys(validation.errors).forEach((field) => {
+        form.setError(field, { message: validation.errors[field] });
+      });
+      form.setError('root', {
         message: 'Please correct the errors above and try again.',
       });
       return;
     }
 
     setIsSubmitting(true);
-    setSubmitStatus(null);
-    setErrors({});
+    form.clearErrors();
 
     try {
-      const result = await contactService.submitForm(formData);
+      const result = await contactService.submitForm(data);
 
       if (result.success) {
         rateLimiter.recordAttempt();
-        setSubmitStatus({
+        form.reset();
+        form.setError('root', {
           type: 'success',
           message:
             result.message ||
             'Thank you for your message! We will get back to you soon.',
         });
-
-        setFormData({
-          name: '',
-          email: '',
-          message: '',
-          subject: '',
-        });
-        setTouched({});
 
         setTimeout(() => {
           const statusElement = document.getElementById('submit-status');
@@ -118,16 +82,14 @@ const ContactForm = () => {
           }
         }, 100);
       } else {
-        setSubmitStatus({
-          type: 'error',
+        form.setError('root', {
           message:
             result.message ||
             'Something went wrong. Please try again or contact support directly.',
         });
       }
     } catch (err) {
-      setSubmitStatus({
-        type: 'error',
+      form.setError('root', {
         message:
           err?.message ||
           'Something went wrong while submitting your request. Please try again later.',
@@ -136,42 +98,6 @@ const ContactForm = () => {
       setIsSubmitting(false);
     }
   };
-
-  const isFieldValid = (fieldName) => {
-    if (!touched[fieldName]) return true;
-    if (!errors[fieldName]) return true;
-    if (
-      typeof errors[fieldName] === 'string' &&
-      errors[fieldName].trim() === ''
-    ) {
-      return true;
-    }
-    return false;
-  };
-
-  const getInputClassName = (fieldName) => {
-    const baseClass = 'form-input';
-    if (isFieldValid(fieldName)) {
-      return baseClass;
-    }
-    return `${baseClass} error`;
-  };
-
-  const isFormValid = () => {
-    const requiredFields = ['name', 'email', 'message'];
-    const hasRequiredFields = requiredFields.every((field) => {
-      const value = formData[field]?.trim();
-      return value && value.length > 0;
-    });
-
-    const hasErrors = Object.values(errors).some(
-      (error) => error && error.trim().length > 0,
-    );
-
-    return hasRequiredFields && !hasErrors;
-  };
-
-  const guidelines = contactService.getFormGuidelines();
 
   return (
     <section className="contact-form-container">
@@ -218,144 +144,170 @@ const ContactForm = () => {
           </div>
         </aside>
 
-        <form onSubmit={handleSubmit} className="contact-form" noValidate>
-          <div className="form-group">
-            <label htmlFor="name" className="form-label">
-              Name *
-            </label>
-            <input
-              id="name"
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="contact-form"
+            noValidate
+          >
+            <FormField
+              control={form.control}
               name="name"
-              type="text"
-              value={formData.name}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder={guidelines.name.placeholder}
-              className={getInputClassName('name')}
-              aria-describedby={errors.name ? 'name-error' : undefined}
-              aria-invalid={errors.name ? 'true' : 'false'}
-              required
-              maxLength={guidelines.name.maxLength}
-            />
-            {errors.name && (
-              <div id="name-error" className="error-message" role="alert">
-                {errors.name}
-              </div>
-            )}
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="email" className="form-label">
-              Email *
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder={guidelines.email.placeholder}
-              className={getInputClassName('email')}
-              aria-describedby={errors.email ? 'email-error' : undefined}
-              aria-invalid={errors.email ? 'true' : 'false'}
-              required
-            />
-            {errors.email && (
-              <div id="email-error" className="error-message" role="alert">
-                {errors.email}
-              </div>
-            )}
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="subject" className="form-label">
-              Subject
-            </label>
-            <input
-              id="subject"
-              name="subject"
-              type="text"
-              value={formData.subject}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder={guidelines.subject.placeholder}
-              className={getInputClassName('subject')}
-              aria-describedby={errors.subject ? 'subject-error' : undefined}
-              aria-invalid={errors.subject ? 'true' : 'false'}
-              maxLength={guidelines.subject.maxLength}
-            />
-            {errors.subject && (
-              <div id="subject-error" className="error-message" role="alert">
-                {errors.subject}
-              </div>
-            )}
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="message" className="form-label">
-              Message *
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder={guidelines.message.placeholder}
-              className={getInputClassName('message')}
-              aria-describedby={
-                errors.message ? 'message-error' : 'message-counter'
-              }
-              aria-invalid={errors.message ? 'true' : 'false'}
-              required
-              rows="6"
-              maxLength={guidelines.message.maxLength}
-            />
-            <div className="message-counter" id="message-counter">
-              {formData.message.length} / {guidelines.message.maxLength}
-            </div>
-            {errors.message && (
-              <div id="message-error" className="error-message" role="alert">
-                {errors.message}
-              </div>
-            )}
-          </div>
-
-          <div className="form-actions">
-            <button
-              type="submit"
-              disabled={isSubmitting || !isFormValid()}
-              className={`submit-button ${isSubmitting ? 'loading' : ''}`}
-              aria-describedby="submit-status"
-            >
-              {isSubmitting ? (
-                <>
-                  <span className="loading-spinner" aria-hidden="true"></span>
-                  {shouldShowColdStartUI && shouldShowColdStartUI()
-                    ? 'Starting server...'
-                    : 'Sending...'}
-                </>
-              ) : (
-                'Send Message'
+              rules={{
+                required: 'Name is required',
+                minLength: {
+                  value: 2,
+                  message: 'Name must be at least 2 characters',
+                },
+                maxLength: {
+                  value: guidelines.name.maxLength,
+                  message: `Name must be less than ${guidelines.name.maxLength} characters`,
+                },
+              }}
+              render={({ field }) => (
+                <FormItem className="form-group">
+                  <FormLabel className="form-label">Name *</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      placeholder={guidelines.name.placeholder}
+                      className="auth-form-input"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage className="auth-error-message" />
+                </FormItem>
               )}
-            </button>
-          </div>
+            />
 
-          {submitStatus && (
-            <div
-              id="submit-status"
-              role="alert"
-              className={`status-message ${submitStatus.type}`}
-              aria-live="polite"
-            >
-              <div className="status-icon" aria-hidden="true">
-                {submitStatus.type === 'success' ? '\u2713' : '!'}
-              </div>
-              <div className="status-text">{submitStatus.message}</div>
+            <FormField
+              control={form.control}
+              name="email"
+              rules={{
+                required: 'Email is required',
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: 'Please enter a valid email address',
+                },
+              }}
+              render={({ field }) => (
+                <FormItem className="form-group">
+                  <FormLabel className="form-label">Email *</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="email"
+                      placeholder={guidelines.email.placeholder}
+                      className="auth-form-input"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage className="auth-error-message" />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="subject"
+              rules={{
+                maxLength: {
+                  value: guidelines.subject.maxLength,
+                  message: `Subject must be less than ${guidelines.subject.maxLength} characters`,
+                },
+              }}
+              render={({ field }) => (
+                <FormItem className="form-group">
+                  <FormLabel className="form-label">Subject</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      placeholder={guidelines.subject.placeholder}
+                      className="auth-form-input"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage className="auth-error-message" />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="message"
+              rules={{
+                required: 'Message is required',
+                minLength: {
+                  value: 10,
+                  message: 'Message must be at least 10 characters',
+                },
+                maxLength: {
+                  value: guidelines.message.maxLength,
+                  message: `Message must be less than ${guidelines.message.maxLength} characters`,
+                },
+              }}
+              render={({ field }) => (
+                <FormItem className="form-group">
+                  <FormLabel className="form-label">Message *</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder={guidelines.message.placeholder}
+                      className="auth-form-input"
+                      rows="6"
+                      {...field}
+                    />
+                  </FormControl>
+                  <div className="message-counter">
+                    {field.value.length} / {guidelines.message.maxLength}
+                  </div>
+                  <FormMessage className="auth-error-message" />
+                </FormItem>
+              )}
+            />
+
+            {form.formState.errors.root && (
+              <Alert
+                variant={
+                  form.formState.errors.root.type === 'success'
+                    ? 'success'
+                    : 'destructive'
+                }
+                className="auth-alert"
+                id="submit-status"
+              >
+                <AlertTitle>
+                  {form.formState.errors.root.type === 'success'
+                    ? 'Success'
+                    : 'Error'}
+                </AlertTitle>
+                <AlertDescription>
+                  {form.formState.errors.root.message}
+                </AlertDescription>
+              </Alert>
+            )}
+
+            <div className="form-actions">
+              <Button
+                type="submit"
+                disabled={isSubmitting || !form.formState.isValid}
+                variant="equus"
+                size="lg"
+                className="w-full"
+                aria-describedby="submit-status"
+              >
+                {isSubmitting ? (
+                  <>
+                    <span className="loading-spinner" aria-hidden="true"></span>
+                    {shouldShowColdStartUI && shouldShowColdStartUI()
+                      ? 'Starting server...'
+                      : 'Sending...'}
+                  </>
+                ) : (
+                  'Send Message'
+                )}
+              </Button>
             </div>
-          )}
-        </form>
+          </form>
+        </Form>
       </div>
     </section>
   );

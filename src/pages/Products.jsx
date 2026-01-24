@@ -6,6 +6,7 @@ import {
   CardDescription,
   CardContent,
 } from '@/components/ui';
+import { H2 } from '@/components/ui/heading';
 import DecorativeAccent from '@/components/ui/DecorativeAccent';
 import { Link } from 'react-router-dom';
 import AnimatedSection from '@/components/ui/AnimatedSection';
@@ -21,21 +22,18 @@ const Products = () => {
       />
       <div className="container-equus">
         {/* Hero section with fade-in animation */}
-        <AnimatedSection 
+        <AnimatedSection
           animation="fade-in"
           duration="slow"
           as="section"
           className="equus-section equus-section-centered pt-12 pb-8"
         >
-          <AnimatedSection 
-            animation="slide-down"
-            delay={200}
-            as="h2"
-            className="text-hero text-equus-primary font-semibold mb-6"
-          >
-            OUR PRODUCTS
+          <AnimatedSection animation="slide-down" delay={200} as="h2">
+            <H2 variant="primary" align="center" className="mb-6">
+              OUR PRODUCTS
+            </H2>
           </AnimatedSection>
-          <AnimatedSection 
+          <AnimatedSection
             animation="fade-in"
             delay={500}
             as="p"
@@ -47,23 +45,20 @@ const Products = () => {
         </AnimatedSection>
 
         {/* Products section with staggered animations */}
-        <AnimatedSection 
+        <AnimatedSection
           animation="fade-in"
           as="section"
           className="equus-section equus-section-centered"
         >
           <Fieldset legend="AI SOLUTIONS" size="lg">
             <div className="grid-equus-services">
-              <AnimatedSection 
-                animation="slide-up"
-                delay={100}
-              >
+              <AnimatedSection animation="slide-up" delay={100}>
                 <Card variant="service" size="equus" className="flex flex-col">
                   <CardTitle>AI-Powered TFL Assistant</CardTitle>
                   <CardDescription className="flex-grow">
                     Intelligent London transport assistant with real-time tube
-                    status and multi-agent AI system featuring 14 specialized line
-                    agents.
+                    status and multi-agent AI system featuring 14 specialized
+                    line agents.
                   </CardDescription>
                   <CardContent className="mt-auto pt-4">
                     <Link
@@ -75,16 +70,14 @@ const Products = () => {
                   </CardContent>
                 </Card>
               </AnimatedSection>
-              
-              <AnimatedSection 
-                animation="slide-up"
-                delay={300}
-              >
+
+              <AnimatedSection animation="slide-up" delay={300}>
                 <Card variant="service" size="equus" className="flex flex-col">
                   <CardTitle>AI Tutor Platform</CardTitle>
                   <CardDescription className="flex-grow">
-                    Personalized learning experience with intelligent tutoring and
-                    adaptive educational content powered by advanced AI models.
+                    Personalized learning experience with intelligent tutoring
+                    and adaptive educational content powered by advanced AI
+                    models.
                   </CardDescription>
                   <CardContent className="mt-auto pt-4">
                     <Link
@@ -96,11 +89,8 @@ const Products = () => {
                   </CardContent>
                 </Card>
               </AnimatedSection>
-              
-              <AnimatedSection 
-                animation="slide-up"
-                delay={500}
-              >
+
+              <AnimatedSection animation="slide-up" delay={500}>
                 <Card variant="service" size="equus">
                   <CardTitle>Enterprise Solutions</CardTitle>
                   <CardDescription>
@@ -115,48 +105,39 @@ const Products = () => {
         </AnimatedSection>
 
         {/* Features section with staggered animations */}
-        <AnimatedSection 
+        <AnimatedSection
           animation="fade-in"
           as="section"
           className="equus-section equus-section-centered"
         >
           <Fieldset legend="WHY CHOOSE EQUUS" size="lg">
             <div className="grid-equus-services">
-              <AnimatedSection 
-                animation="scale-in"
-                delay={100}
-              >
+              <AnimatedSection animation="scale-in" delay={100}>
                 <Card variant="service" size="equus">
                   <CardTitle>Fast & Reliable</CardTitle>
                   <CardDescription>
-                    High-performance solutions built with modern technologies for
-                    optimal speed and reliability.
+                    High-performance solutions built with modern technologies
+                    for optimal speed and reliability.
                   </CardDescription>
                 </Card>
               </AnimatedSection>
-              
-              <AnimatedSection 
-                animation="scale-in"
-                delay={300}
-              >
+
+              <AnimatedSection animation="scale-in" delay={300}>
                 <Card variant="service" size="equus">
                   <CardTitle>Secure by Design</CardTitle>
                   <CardDescription>
-                    Enterprise-grade security with JWT authentication, role-based
-                    access, and comprehensive protection.
+                    Enterprise-grade security with JWT authentication,
+                    role-based access, and comprehensive protection.
                   </CardDescription>
                 </Card>
               </AnimatedSection>
-              
-              <AnimatedSection 
-                animation="scale-in"
-                delay={500}
-              >
+
+              <AnimatedSection animation="scale-in" delay={500}>
                 <Card variant="service" size="equus">
                   <CardTitle>User-Focused</CardTitle>
                   <CardDescription>
-                    Intuitive interfaces designed with user experience as the top
-                    priority for maximum engagement.
+                    Intuitive interfaces designed with user experience as the
+                    top priority for maximum engagement.
                   </CardDescription>
                 </Card>
               </AnimatedSection>

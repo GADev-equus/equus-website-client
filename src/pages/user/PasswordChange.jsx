@@ -7,7 +7,13 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
 import UserLayout from '@/components/layout/UserLayout';
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardDescription,
+} from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -25,7 +31,7 @@ const PasswordChange = () => {
   const [showPasswords, setShowPasswords] = useState({
     current: false,
     new: false,
-    confirm: false
+    confirm: false,
   });
 
   const form = useForm({
@@ -33,8 +39,8 @@ const PasswordChange = () => {
     defaultValues: {
       currentPassword: '',
       newPassword: '',
-      confirmPassword: ''
-    }
+      confirmPassword: '',
+    },
   });
 
   // Watch form values for validation
@@ -69,7 +75,7 @@ const PasswordChange = () => {
 
   const getPasswordStrength = (password) => {
     if (!password) return { strength: 0, label: '', color: '' };
-    
+
     let score = 0;
     const checks = [
       password.length >= 8,
@@ -77,20 +83,22 @@ const PasswordChange = () => {
       /[A-Z]/.test(password),
       /\d/.test(password),
       /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password),
-      password.length >= 12
+      password.length >= 12,
     ];
-    
+
     score = checks.filter(Boolean).length;
-    
-    if (score < 3) return { strength: score, label: 'Weak', color: 'bg-red-500' };
-    if (score < 5) return { strength: score, label: 'Medium', color: 'bg-yellow-500' };
+
+    if (score < 3)
+      return { strength: score, label: 'Weak', color: 'bg-red-500' };
+    if (score < 5)
+      return { strength: score, label: 'Medium', color: 'bg-yellow-500' };
     return { strength: score, label: 'Strong', color: 'bg-green-500' };
   };
 
   const togglePasswordVisibility = (field) => {
-    setShowPasswords(prev => ({
+    setShowPasswords((prev) => ({
       ...prev,
-      [field]: !prev[field]
+      [field]: !prev[field],
     }));
   };
 
@@ -103,13 +111,15 @@ const PasswordChange = () => {
       const result = await authService.changePassword({
         currentPassword: data.currentPassword,
         newPassword: data.newPassword,
-        confirmPassword: data.confirmPassword
+        confirmPassword: data.confirmPassword,
       });
-      
+
       if (result.success) {
-        setSuccess('Password changed successfully! You can continue using your account with the new password.');
+        setSuccess(
+          'Password changed successfully! You can continue using your account with the new password.',
+        );
         form.reset();
-        
+
         // Redirect to settings after a delay
         setTimeout(() => {
           navigate('/settings');
@@ -127,10 +137,12 @@ const PasswordChange = () => {
 
   const isFormValid = () => {
     const { formState } = form;
-    return Object.keys(formState.errors).length === 0 && 
-           watchedValues.currentPassword && 
-           watchedValues.newPassword && 
-           watchedValues.confirmPassword;
+    return (
+      Object.keys(formState.errors).length === 0 &&
+      watchedValues.currentPassword &&
+      watchedValues.newPassword &&
+      watchedValues.confirmPassword
+    );
   };
 
   const passwordStrength = getPasswordStrength(watchedValues.newPassword);
@@ -140,9 +152,11 @@ const PasswordChange = () => {
       <div className="space-y-4 sm:space-y-6 lg:space-y-8">
         <div className="equus-section">
           {/* Page Header */}
-          <Card >
+          <Card>
             <CardHeader>
-              <CardTitle className="text-xl sm:text-2xl">Change Password</CardTitle>
+              <CardTitle className="text-xl sm:text-2xl">
+                Change Password
+              </CardTitle>
               <CardDescription>
                 Update your password to keep your account secure
               </CardDescription>
@@ -160,19 +174,19 @@ const PasswordChange = () => {
 
           {/* Status Messages */}
           {error && (
-            <Alert className="border-destructive">
-              <AlertDescription className="text-destructive">{error}</AlertDescription>
+            <Alert variant="destructive">
+              <AlertDescription>{error}</AlertDescription>
             </Alert>
           )}
 
           {success && (
-            <Alert className="border-green-500 bg-green-50">
-              <AlertDescription className="text-green-700">{success}</AlertDescription>
+            <Alert variant="success">
+              <AlertDescription>{success}</AlertDescription>
             </Alert>
           )}
 
           {/* Password Change Form */}
-          <Card >
+          <Card>
             <CardHeader>
               <CardTitle>Update Your Password</CardTitle>
               <CardDescription>
@@ -180,7 +194,10 @@ const PasswordChange = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+              <form
+                onSubmit={form.handleSubmit(handleSubmit)}
+                className="space-y-6"
+              >
                 {/* Current Password */}
                 <div className="space-y-2">
                   <Label htmlFor="currentPassword">Current Password *</Label>
@@ -189,9 +206,13 @@ const PasswordChange = () => {
                       id="currentPassword"
                       type={showPasswords.current ? 'text' : 'password'}
                       {...form.register('currentPassword', {
-                        required: 'Current password is required'
+                        required: 'Current password is required',
                       })}
-                      className={form.formState.errors.currentPassword ? 'border-destructive pr-10' : 'pr-10'}
+                      className={
+                        form.formState.errors.currentPassword
+                          ? 'border-destructive pr-10'
+                          : 'pr-10'
+                      }
                       placeholder="Enter your current password"
                     />
                     <button
@@ -218,9 +239,13 @@ const PasswordChange = () => {
                       type={showPasswords.new ? 'text' : 'password'}
                       {...form.register('newPassword', {
                         required: 'New password is required',
-                        validate: validatePassword
+                        validate: validatePassword,
                       })}
-                      className={form.formState.errors.newPassword ? 'border-destructive pr-10' : 'pr-10'}
+                      className={
+                        form.formState.errors.newPassword
+                          ? 'border-destructive pr-10'
+                          : 'pr-10'
+                      }
                       placeholder="Enter your new password"
                     />
                     <button
@@ -231,29 +256,38 @@ const PasswordChange = () => {
                       {showPasswords.new ? '🙈' : '👁️'}
                     </button>
                   </div>
-                  
+
                   {/* Password Strength Indicator */}
                   {watchedValues.newPassword && (
                     <div className="space-y-2">
                       <div className="flex items-center gap-2">
                         <div className="flex-1 bg-gray-200 rounded-full h-2">
-                          <div 
-                            className={cn("h-2 rounded-full transition-all duration-300", passwordStrength.color)}
-                            style={{ width: `${(passwordStrength.strength / 6) * 100}%` }}
+                          <div
+                            className={cn(
+                              'h-2 rounded-full transition-all duration-300',
+                              passwordStrength.color,
+                            )}
+                            style={{
+                              width: `${(passwordStrength.strength / 6) * 100}%`,
+                            }}
                           />
                         </div>
-                        <span className={cn(
-                          "text-xs font-medium",
-                          passwordStrength.label === 'Weak' && 'text-red-600',
-                          passwordStrength.label === 'Medium' && 'text-yellow-600',
-                          passwordStrength.label === 'Strong' && 'text-green-600'
-                        )}>
+                        <span
+                          className={cn(
+                            'text-xs font-medium',
+                            passwordStrength.label === 'Weak' && 'text-red-600',
+                            passwordStrength.label === 'Medium' &&
+                              'text-yellow-600',
+                            passwordStrength.label === 'Strong' &&
+                              'text-green-600',
+                          )}
+                        >
                           {passwordStrength.label}
                         </span>
                       </div>
                     </div>
                   )}
-                  
+
                   {form.formState.errors.newPassword && (
                     <p className="text-sm text-destructive">
                       {form.formState.errors.newPassword.message}
@@ -263,16 +297,22 @@ const PasswordChange = () => {
 
                 {/* Confirm New Password */}
                 <div className="space-y-2">
-                  <Label htmlFor="confirmPassword">Confirm New Password *</Label>
+                  <Label htmlFor="confirmPassword">
+                    Confirm New Password *
+                  </Label>
                   <div className="relative">
                     <Input
                       id="confirmPassword"
                       type={showPasswords.confirm ? 'text' : 'password'}
                       {...form.register('confirmPassword', {
                         required: 'Please confirm your new password',
-                        validate: validateConfirmPassword
+                        validate: validateConfirmPassword,
                       })}
-                      className={form.formState.errors.confirmPassword ? 'border-destructive pr-10' : 'pr-10'}
+                      className={
+                        form.formState.errors.confirmPassword
+                          ? 'border-destructive pr-10'
+                          : 'pr-10'
+                      }
                       placeholder="Confirm your new password"
                     />
                     <button
@@ -313,7 +353,7 @@ const PasswordChange = () => {
           </Card>
 
           {/* Password Security Tips */}
-          <Card >
+          <Card>
             <CardHeader>
               <CardTitle>Password Security Tips</CardTitle>
               <CardDescription>
@@ -347,7 +387,7 @@ const PasswordChange = () => {
           </Card>
 
           {/* Additional Security Information */}
-          <Card >
+          <Card>
             <CardHeader>
               <CardTitle>Account Security</CardTitle>
               <CardDescription>
@@ -358,35 +398,45 @@ const PasswordChange = () => {
               <div className="space-y-4">
                 <div className="flex items-center justify-between p-3 border rounded-lg">
                   <div>
-                    <h4 className="text-sm font-medium">Password Last Changed</h4>
+                    <h4 className="text-sm font-medium">
+                      Password Last Changed
+                    </h4>
                     <p className="text-xs text-muted-foreground">
-                      {user?.passwordChangedAt ? 
-                        new Date(user.passwordChangedAt).toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'short',
-                          day: 'numeric'
-                        }) : 
-                        'Never'
-                      }
+                      {user?.passwordChangedAt
+                        ? new Date(user.passwordChangedAt).toLocaleDateString(
+                            'en-US',
+                            {
+                              year: 'numeric',
+                              month: 'short',
+                              day: 'numeric',
+                            },
+                          )
+                        : 'Never'}
                     </p>
                   </div>
                   <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
                 </div>
-                
+
                 <div className="flex items-center justify-between p-3 border rounded-lg">
                   <div>
-                    <h4 className="text-sm font-medium">Two-Factor Authentication</h4>
-                    <p className="text-xs text-muted-foreground">Add an extra layer of security</p>
+                    <h4 className="text-sm font-medium">
+                      Two-Factor Authentication
+                    </h4>
+                    <p className="text-xs text-muted-foreground">
+                      Add an extra layer of security
+                    </p>
                   </div>
                   <Button variant="outline" size="sm" disabled>
                     Coming Soon
                   </Button>
                 </div>
-                
+
                 <div className="flex items-center justify-between p-3 border rounded-lg">
                   <div>
                     <h4 className="text-sm font-medium">Login Alerts</h4>
-                    <p className="text-xs text-muted-foreground">Get notified of suspicious login attempts</p>
+                    <p className="text-xs text-muted-foreground">
+                      Get notified of suspicious login attempts
+                    </p>
                   </div>
                   <Button variant="outline" size="sm" disabled>
                     Coming Soon

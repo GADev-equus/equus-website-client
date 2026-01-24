@@ -31,7 +31,6 @@ export {
 } from './dropdown-menu';
 
 // Form components
-export { FormContainer, FormField, FormActions } from './form-container';
 export {
   Form,
   FormItem,
@@ -39,7 +38,7 @@ export {
   FormControl,
   FormDescription,
   FormMessage,
-  FormField as FormFieldHookForm,
+  FormField,
 } from './form';
 
 // Fieldset components

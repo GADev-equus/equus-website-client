@@ -172,17 +172,27 @@ const EmailVerification = () => {
 
               {status === 'success' && (
                 <Link to="/auth/signin">
-                  <button className="btn-primary">Continue to Sign In</button>
+                  <Button variant="equus" size="lg">
+                    Continue to Sign In
+                  </Button>
                 </Link>
               )}
 
               {status === 'error' && (
-                <div className="verification-button-group">
-                  <Link to="/auth/signup">
-                    <button className="btn-secondary">Create New Account</button>
+                <div className="verification-button-group flex flex-col sm:flex-row gap-4">
+                  <Link to="/auth/signup" className="flex-1">
+                    <Button variant="equus" size="lg" className="w-full">
+                      Create New Account
+                    </Button>
                   </Link>
-                  <Link to="/auth/signin">
-                    <button className="btn-secondary">Back to Sign In</button>
+                  <Link to="/auth/signin" className="flex-1">
+                    <Button
+                      variant="equusSecondary"
+                      size="lg"
+                      className="w-full"
+                    >
+                      Back to Sign In
+                    </Button>
                   </Link>
                 </div>
               )}

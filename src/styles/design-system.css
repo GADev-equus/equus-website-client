@@ -35,12 +35,13 @@
   );
 
   /* Typography */
-  --equus-font-branding: 'AquireLight', 'Nunito', -apple-system,
-    BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --equus-font-display: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+  --equus-font-branding:
+    'AquireLight', 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, sans-serif;
-  --equus-font-base: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, sans-serif;
+  --equus-font-display:
+    'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --equus-font-base:
+    'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --equus-font-alt: 'Sen', 'Helvetica Neue', Arial, sans-serif;
 
   /* Custom spacing scale */
@@ -138,83 +139,16 @@ body {
   margin-top: var(--equus-spacing-sm) !important;
 }
 
-/* Consistent spacing utility classes */
-.equus-section {
-  margin-bottom: var(--equus-spacing-xxl) !important;
-}
-
 /* Enhanced card spacing for dashboard improvements */
 .equus-dashboard-grid {
   display: grid;
-  gap: var(--equus-spacing-xl) !important;
+  gap: 3rem !important;
 }
 
-.equus-card {
-  padding: var(--equus-spacing-lg) !important;
-  border-radius: var(--equus-border-radius) !important;
-  box-shadow: var(--equus-box-shadow) !important;
-}
-
-.equus-form-group {
-  margin-bottom: var(--equus-spacing-md) !important;
-}
-
-.equus-text-spacing {
-  margin-bottom: var(--equus-spacing-sm) !important;
-}
-
-/* Additional spacing utilities */
-.equus-spacing-xs {
-  margin-bottom: var(--equus-spacing-xs) !important;
-}
-.equus-spacing-sm {
-  margin-bottom: var(--equus-spacing-sm) !important;
-}
-.equus-spacing-md {
-  margin-bottom: var(--equus-spacing-md) !important;
-}
-.equus-spacing-lg {
-  margin-bottom: var(--equus-spacing-lg) !important;
-}
-.equus-spacing-xl {
-  margin-bottom: var(--equus-spacing-xl) !important;
-}
-.equus-spacing-xxl {
-  margin-bottom: var(--equus-spacing-xxl) !important;
-}
-
-/* Padding utilities */
-.equus-padding-xs {
-  padding: var(--equus-spacing-xs) !important;
-}
-.equus-padding-sm {
-  padding: var(--equus-spacing-sm) !important;
-}
-.equus-padding-md {
-  padding: var(--equus-spacing-md) !important;
-}
-.equus-padding-lg {
-  padding: var(--equus-spacing-lg) !important;
-}
-.equus-padding-xl {
-  padding: var(--equus-spacing-xl) !important;
-}
-
-/* Gap utilities for grid/flexbox */
-.equus-gap-xs {
-  gap: var(--equus-spacing-xs) !important;
-}
-.equus-gap-sm {
-  gap: var(--equus-spacing-sm) !important;
-}
-.equus-gap-md {
-  gap: var(--equus-spacing-md) !important;
-}
-.equus-gap-lg {
-  gap: var(--equus-spacing-lg) !important;
-}
-.equus-gap-xl {
-  gap: var(--equus-spacing-xl) !important;
+.equus-dashboard-grid .equus-card {
+  padding: 2rem !important;
+  border-radius: 0.625rem !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
 }
 
 .btn-accent:hover {
@@ -438,7 +372,8 @@ button:not([class*='btn-']):not([class*='status-']) {
   white-space: nowrap !important;
   border-width: 1px !important;
   border-style: solid !important;
-  transition-property: color, background-color, border-color, box-shadow !important;
+  transition-property:
+    color, background-color, border-color, box-shadow !important;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
   transition-duration: 150ms !important;
   cursor: pointer !important;

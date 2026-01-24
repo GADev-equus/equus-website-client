@@ -10,23 +10,23 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-primary text-primary-foreground shadow-xs hover:bg-primary/90',
+          'bg-equus-primary text-equus-foreground shadow-xs hover:bg-equus-primary/90',
         destructive:
-          'bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60',
+          'bg-equus-accent text-white shadow-xs hover:bg-equus-accent/90 focus-visible:ring-equus-accent/20 dark:focus-visible:ring-equus-accent/40',
         outline:
-          'border border-gray-600 bg-gray-800 text-white shadow-xs hover:bg-gray-700 hover:text-white hover:border-gray-500',
+          'border border-equus-border bg-equus-card text-equus-foreground shadow-xs hover:bg-equus-muted hover:text-equus-foreground hover:border-equus-primary',
         secondary:
-          'bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80',
+          'bg-equus-secondary text-equus-foreground shadow-xs hover:bg-equus-secondary/80',
         ghost:
-          'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
-        link: 'text-primary underline-offset-4 hover:underline',
+          'hover:bg-equus-accent/20 hover:text-equus-accent dark:hover:bg-equus-accent/10',
+        link: 'text-equus-primary underline-offset-4 hover:underline',
         // Equus brand variants
         equus:
-          'bg-[var(--equus-primary)] text-white shadow-xs hover:bg-[#2980b9] border-none',
+          'bg-equus-primary text-equus-foreground shadow-xs hover:bg-equus-primary/90',
         equusSecondary:
-          'bg-[var(--equus-secondary)] text-white shadow-xs hover:bg-[#1a252f] border-none',
+          'bg-equus-secondary text-equus-foreground shadow-xs hover:bg-equus-secondary/80',
         equusAccent:
-          'bg-[var(--equus-accent)] text-white shadow-xs hover:bg-[#c0392b] border-none',
+          'bg-equus-accent text-white shadow-xs hover:bg-equus-accent/90',
       },
       size: {
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',
@@ -38,7 +38,7 @@ const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: 'default',
+      variant: 'equus',
       size: 'default',
     },
   },

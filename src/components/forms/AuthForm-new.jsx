@@ -387,10 +387,12 @@ const AuthForm = ({
               )}
 
               <div className="auth-form-actions">
-                <button
+                <Button
                   type="submit"
                   disabled={loading || !isFormValid()}
-                  className="auth-submit-button"
+                  variant="equus"
+                  size="lg"
+                  className="w-full"
                 >
                   {loading ? (
                     <>
@@ -402,7 +404,7 @@ const AuthForm = ({
                   ) : (
                     config.submitText
                   )}
-                </button>
+                </Button>
               </div>
 
               {type === 'signup' && (

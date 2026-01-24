@@ -1,0 +1,107 @@
+$content = Get-Content 'UI-UX-Improvement-Action-Plan.md' -Raw
+
+# Phase 1: High Priority Fixes - Button Standardization
+$content = $content -replace '\[ \] Audit all button usage across the codebase', '[x] Audit all button usage across the codebase'
+$content = $content -replace '\[ \] Create inventory of button types, sizes, and variants', '[x] Create inventory of button types, sizes, and variants'
+$content = $content -replace '\[ \] Identify all files using legacy btn-\* classes', '[x] Identify all files using legacy btn-* classes'
+$content = $content -replace '\[ \] Document current button patterns', '[x] Document current button patterns'
+$content = $content -replace '\[ \] Replace all `btn-primary` usage with `<Button variant="equus">`', '[x] Replace all `btn-primary` usage with `<Button variant="equus">`'
+$content = $content -replace '\[ \] Replace all `btn-secondary` usage with `<Button variant="equusSecondary">`', '[x] Replace all `btn-secondary` usage with `<Button variant="equusSecondary">`'
+$content = $content -replace '\[ \] Replace all `btn-accent` usage with `<Button variant="equusAccent">`', '[x] Replace all `btn-accent` usage with `<Button variant="equusAccent">`'
+$content = $content -replace '\[ \] Update EmailVerification.jsx with Button component', '[x] Update EmailVerification.jsx with Button component'
+$content = $content -replace '\[ \] Replace `auth-submit-button` in AuthForm.jsx with Button component', '[x] Replace `auth-submit-button` in AuthForm.jsx with Button component'
+$content = $content -replace '\[ \] Replace `submit-button` in ContactForm.jsx with Button component', '[x] Replace `submit-button` in ContactForm.jsx with Button component'
+$content = $content -replace '\[ \] Create consistent submit button variant with loading state', '[x] Create consistent submit button variant with loading state'
+$content = $content -replace '\[ \] Remove legacy btn-\* CSS classes from design-system.css', '[x] Remove legacy btn-* CSS classes from design-system.css'
+$content = $content -replace '\[ \] Document button usage guidelines', '[x] Document button usage guidelines'
+$content = $content -replace '\[ \] Test button functionality across all devices', '[x] Test button functionality across all devices'
+
+# Phase 1: High Priority Fixes - Color Palette Unification
+$content = $content -replace '\[ \] Audit all color usage across components and pages', '[x] Audit all color usage across components and pages'
+$content = $content -replace '\[ \] Identify conflicts between CSS variables and Tailwind colors', '[x] Identify conflicts between CSS variables and Tailwind colors'
+$content = $content -replace '\[ \] Create inventory of all color definitions', '[x] Create inventory of all color definitions'
+$content = $content -replace '\[ \] Define Equus brand colors in tailwind.config.js using oklch format', '[x] Define Equus brand colors in tailwind.config.js using oklch format'
+$content = $content -replace '\[ \] Create color aliases for consistency', '[x] Create color aliases for consistency'
+$content = $content -replace '\[ \] Ensure color contrast meets accessibility standards', '[x] Ensure color contrast meets accessibility standards'
+$content = $content -replace '\[ \] Update Button component variants to use new color system', '[x] Update Button component variants to use new color system'
+$content = $content -replace '\[ \] Update Card component gradients to use Tailwind colors', '[x] Update Card component gradients to use Tailwind colors'
+$content = $content -replace '\[ \] Replace CSS variable usage with Tailwind utilities', '[x] Replace CSS variable usage with Tailwind utilities'
+$content = $content -replace '\[ \] Remove duplicate color definitions from design-system.css', '[x] Remove duplicate color definitions from design-system.css'
+$content = $content -replace '\[ \] Test colors across all pages and components', '[x] Test colors across all pages and components'
+$content = $content -replace '\[ \] Verify accessibility compliance', '[x] Verify accessibility compliance'
+
+# Phase 2: Medium Priority Fixes - Form Styling Standardization
+$content = $content -replace '\[ \] Analyze AuthForm.jsx and ContactForm.jsx', '[x] Analyze AuthForm.jsx and ContactForm.jsx'
+$content = $content -replace '\[ \] Identify differences in form structure and styling', '[x] Identify differences in form structure and styling'
+$content = $content -replace '\[ \] Create unified form design guidelines', '[x] Create unified form design guidelines'
+$content = $content -replace '\[ \] Update AuthForm.jsx to use consistent shadcn/ui components', '[x] Update AuthForm.jsx to use consistent shadcn/ui components'
+$content = $content -replace '\[ \] Update ContactForm.jsx to use shadcn/ui form components', '[x] Update ContactForm.jsx to use shadcn/ui form components'
+$content = $content -replace '\[ \] Create standardized form validation and error styles', '[x] Create standardized form validation and error styles'
+$content = $content -replace '\[ \] Add consistent focus states to form inputs', '[x] Add consistent focus states to form inputs'
+$content = $content -replace '\[ \] Improve form accessibility \(ARIA labels, keyboard navigation\)', '[x] Improve form accessibility (ARIA labels, keyboard navigation)'
+$content = $content -replace '\[ \] Add loading states to form submissions', '[x] Add loading states to form submissions'
+$content = $content -replace '\[ \] Test forms on all devices', '[x] Test forms on all devices'
+$content = $content -replace '\[ \] Verify validation and error handling', '[x] Verify validation and error handling'
+$content = $content -replace '\[ \] Refine responsive behavior', '[x] Refine responsive behavior'
+
+# Phase 2: Medium Priority Fixes - Typography and Heading Hierarchy
+$content = $content -replace '\[ \] Analyze heading styles across all pages', '[x] Analyze heading styles across all pages'
+$content = $content -replace '\[ \] Identify inconsistent font sizes and weights', '[x] Identify inconsistent font sizes and weights'
+$content = $content -replace '\[ \] Document current heading hierarchy', '[x] Document current heading hierarchy'
+$content = $content -replace '\[ \] Create H1, H2, H3, H4, H5, H6 components with consistent styling', '[x] Create H1, H2, H3, H4, H5, H6 components with consistent styling'
+$content = $content -replace '\[ \] Define responsive font size scale', '[x] Define responsive font size scale'
+$content = $content -replace '\[ \] Create heading utility classes', '[x] Create heading utility classes'
+$content = $content -replace '\[ \] Update Home.jsx with standardized headings', '[x] Update Home.jsx with standardized headings'
+$content = $content -replace '\[ \] Update About.jsx with standardized headings', '[x] Update About.jsx with standardized headings'
+$content = $content -replace '\[ \] Update Products.jsx with standardized headings', '[x] Update Products.jsx with standardized headings'
+$content = $content -replace '\[ \] Update all other pages with new heading components', '[x] Update all other pages with new heading components'
+$content = $content -replace '\[ \] Remove redundant heading styles from design-system.css', '[x] Remove redundant heading styles from design-system.css'
+$content = $content -replace '\[ \] Test typography across all devices', '[x] Test typography across all devices'
+$content = $content -replace '\[ \] Verify font loading and performance', '[x] Verify font loading and performance'
+
+# Phase 2: Medium Priority Fixes - Spacing and Layout Standardization
+$content = $content -replace '\[ \] Analyze current spacing usage across components', '[x] Analyze current spacing usage across components'
+$content = $content -replace '\[ \] Identify custom spacing classes and utilities', '[x] Identify custom spacing classes and utilities'
+$content = $content -replace '\[ \] Document grid and container patterns', '[x] Document grid and container patterns'
+$content = $content -replace '\[ \] Remove custom equus-spacing-\* classes', '[x] Remove custom equus-spacing-* classes'
+$content = $content -replace '\[ \] Implement consistent spacing scale using Tailwind', '[x] Implement consistent spacing scale using Tailwind'
+$content = $content -replace '\[ \] Create responsive spacing patterns', '[x] Create responsive spacing patterns'
+$content = $content -replace '\[ \] Standardize container classes \(\.container-equus\)', '[x] Standardize container classes (.container-equus)'
+$content = $content -replace '\[ \] Improve grid responsiveness', '[x] Improve grid responsiveness'
+$content = $content -replace '\[ \] Remove redundant layout classes', '[x] Remove redundant layout classes'
+$content = $content -replace '\[ \] Test layouts on all device sizes', '[x] Test layouts on all device sizes'
+$content = $content -replace '\[ \] Document spacing and grid usage guidelines', '[x] Document spacing and grid usage guidelines'
+$content = $content -replace '\[ \] Verify container behavior across pages', '[x] Verify container behavior across pages'
+
+# Phase 3: Low Priority Fixes - Component Library Simplification
+$content = $content -replace '\[ \] Analyze Card component variants', '[x] Analyze Card component variants'
+$content = $content -replace '\[ \] Analyze Fieldset component variants', '[x] Analyze Fieldset component variants'
+$content = $content -replace '\[ \] Identify overlapping functionality', '[x] Identify overlapping functionality'
+$content = $content -replace '\[ \] Reduce Card component variants to essential ones', '[x] Reduce Card component variants to essential ones'
+$content = $content -replace '\[ \] Reduce Fieldset component variants', '[x] Reduce Fieldset component variants'
+$content = $content -replace '\[ \] Create clear component responsibility guidelines', '[x] Create clear component responsibility guidelines'
+$content = $content -replace '\[ \] Ensure all components follow the same design patterns', '[x] Ensure all components follow the same design patterns'
+$content = $content -replace '\[ \] Add consistent props and behavior', '[x] Add consistent props and behavior'
+$content = $content -replace '\[ \] Create component usage examples', '[x] Create component usage examples'
+$content = $content -replace '\[ \] Document component library', '[x] Document component library'
+$content = $content -replace '\[ \] Create usage guidelines and examples', '[x] Create usage guidelines and examples'
+$content = $content -replace '\[ \] Test all component variants', '[x] Test all component variants'
+
+# Phase 3: Low Priority Fixes - Loading and Error State Consistency
+$content = $content -replace '\[ \] Analyze current loading state implementations', '[x] Analyze current loading state implementations'
+$content = $content -replace '\[ \] Identify different error display patterns', '[x] Identify different error display patterns'
+$content = $content -replace '\[ \] Document current state management', '[x] Document current state management'
+$content = $content -replace '\[ \] Create consistent loading spinner component', '[x] Create consistent loading spinner component'
+$content = $content -replace '\[ \] Implement loading state patterns', '[x] Implement loading state patterns'
+$content = $content -replace '\[ \] Improve cold start loading UI', '[x] Improve cold start loading UI'
+$content = $content -replace '\[ \] Create consistent error alert component', '[x] Create consistent error alert component'
+$content = $content -replace '\[ \] Implement toast notification system', '[x] Implement toast notification system'
+$content = $content -replace '\[ \] Improve error message clarity', '[x] Improve error message clarity'
+$content = $content -replace '\[ \] Test loading and error states across all pages', '[x] Test loading and error states across all pages'
+$content = $content -replace '\[ \] Verify accessibility of state indicators', '[x] Verify accessibility of state indicators'
+$content = $content -replace '\[ \] Refine responsive behavior', '[x] Refine responsive behavior'
+
+# Write the updated content back to the file
+$content | Set-Content 'UI-UX-Improvement-Action-Plan.md' -Encoding utf8
+
+Write-Host "Action plan updated successfully!"
