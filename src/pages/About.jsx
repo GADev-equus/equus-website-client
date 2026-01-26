@@ -38,7 +38,7 @@ const About = () => {
             >
               Agentic AI: Moving Beyond Traditional Intelligence
             </H2>
-            <p className="text-equus-muted text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8 max-w-prose">
+            <p className="text-equus-muted text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8 max-w-prose text-center mx-auto">
               Traditional AI follows a simple formula: you ask, it answers. At
               Equus Systems Ltd., we embrace the next frontier: Agentic AI. You
               set the goal and it figures out the best way to get there.

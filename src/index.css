@@ -58,9 +58,16 @@
   box-sizing: border-box;
 }
 
+/* Reset margins and padding but preserve essential spacing for text elements */
 * {
   margin: 0;
   padding: 0;
+}
+
+/* Restore margin for text elements to ensure proper centering */
+p {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 html {
