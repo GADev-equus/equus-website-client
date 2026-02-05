@@ -8,6 +8,7 @@
     "build": "vite build",
     "build:verify": "npm run build && ls -la dist/assets/ | grep -E '\\.[a-f0-9]{8}\\.'",
     "build:analyze": "npm run build && du -sh dist/assets/*",
+    "deploy": "npm run build && bash ../FLOWISE-CLIENT/copy_paste.sh",
     "lint": "eslint .",
     "preview": "vite preview"
   },

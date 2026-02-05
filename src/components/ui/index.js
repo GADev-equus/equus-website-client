@@ -51,6 +51,7 @@ export {
   fieldsetVariants,
   legendVariants,
 } from './fieldset';
+export { Section } from './section';
 
 // Loading components
 export { LoadingSpinner, LoadingSpinnerCenter } from './loading-spinner';

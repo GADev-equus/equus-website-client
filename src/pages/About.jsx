@@ -5,14 +5,14 @@
 
 import { Link } from 'react-router-dom';
 import SEOHelmet from '@/components/shared/SEOHelmet';
-import { Fieldset } from '@/components/ui';
+import { Section } from '@/components/ui';
 import { H2, H3 } from '@/components/ui/heading';
 import { SEO_CONFIG } from '@/utils/structuredData';
 import AnimatedSection from '@/components/ui/AnimatedSection';
 
 const About = () => {
   return (
-    <div className="container-equus py-10 sm:py-12">
+    <div className="container-equus">
       <SEOHelmet
         title={SEO_CONFIG?.about?.title || 'About Equus Systems Ltd.'}
         description={
@@ -27,8 +27,9 @@ const About = () => {
         url="https://equussystems.co/about"
       />
 
-      <Fieldset legend="ABOUT EQUUS" size="lg">
-        <article className="w-full px-4 sm:px-6 space-y-6 sm:space-y-8">
+      <div className="equus-section">
+        <Section title="ABOUT EQUUS" size="lg">
+          <article className="w-full px-4 sm:px-6 space-y-6 sm:space-y-8">
           {/* Intro with fade-in animation */}
           <AnimatedSection animation="fade-in" duration="slow" as="header">
             <H2
@@ -38,7 +39,7 @@ const About = () => {
             >
               Agentic AI: Moving Beyond Traditional Intelligence
             </H2>
-            <p className="text-equus-muted text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8 max-w-prose text-center mx-auto">
+            <p className="text-equus-muted text-sm sm:text-base leading-relaxed max-w-prose text-center mx-auto">
               Traditional AI follows a simple formula: you ask, it answers. At
               Equus Systems Ltd., we embrace the next frontier: Agentic AI. You
               set the goal and it figures out the best way to get there.
@@ -50,15 +51,14 @@ const About = () => {
             animation="slide-up"
             delay={200}
             as="section"
-            className="pl-4"
           >
             <H3 variant="primary">Purpose-Driven Intelligence</H3>
-            <p className="text-equus-muted mt-2 text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8">
+            <p className="text-equus-muted mt-2 text-sm sm:text-base leading-relaxed">
               Unlike conventional AI that waits for instructions, agentic
               systems understand objectives and pursue outcomes. They're capable
               of:
             </p>
-            <ul className="about-list list-disc ml-5 sm:ml-6 mt-2 space-y-1 text-equus-muted text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8 marker:text-equus-olive">
+            <ul className="about-list mt-2 space-y-1 text-equus-muted text-sm sm:text-base leading-relaxed marker:text-equus-olive">
               <li>interpreting goals instead of one-off prompts.</li>
               <li>decomposing complex challenges into manageable steps.</li>
               <li>
@@ -72,14 +72,13 @@ const About = () => {
             animation="slide-up"
             delay={400}
             as="section"
-            className="pl-4"
           >
             <H3 variant="primary">Integrated Tool Usage</H3>
-            <p className="text-equus-muted mt-2 text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8">
+            <p className="text-equus-muted mt-2 text-sm sm:text-base leading-relaxed">
               Agentic AI does not operate in isolation; it interacts with
               real-world tools and systems. These agents:
             </p>
-            <ul className="about-list list-disc ml-5 sm:ml-6 mt-2 space-y-1 text-equus-muted text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8 marker:text-equus-olive">
+            <ul className="about-list mt-2 space-y-1 text-equus-muted text-sm sm:text-base leading-relaxed marker:text-equus-olive">
               <li>connecting to APIs, databases, and third-party services.</li>
               <li>executing actions within digital environments.</li>
               <li>
@@ -93,13 +92,12 @@ const About = () => {
             animation="slide-up"
             delay={600}
             as="section"
-            className="pl-4"
           >
             <H3 variant="primary">Contextual Awareness with Memory</H3>
-            <p className="text-equus-muted mt-2 text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8">
+            <p className="text-equus-muted mt-2 text-sm sm:text-base leading-relaxed">
               To make smarter decisions, agentic systems remember. They retain:
             </p>
-            <ul className="about-list list-disc ml-5 sm:ml-6 mt-2 space-y-1 text-equus-muted text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8 marker:text-equus-olive">
+            <ul className="about-list mt-2 space-y-1 text-equus-muted text-sm sm:text-base leading-relaxed marker:text-equus-olive">
               <li>previous user interactions and results.</li>
               <li>historical context to inform future choices.</li>
               <li>evolving knowledge that improves with experience.</li>
@@ -111,14 +109,13 @@ const About = () => {
             animation="slide-up"
             delay={800}
             as="section"
-            className="pl-4"
           >
             <H3 variant="primary">Adaptive Autonomy</H3>
-            <p className="text-equus-muted mt-2 text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8">
+            <p className="text-equus-muted mt-2 text-sm sm:text-base leading-relaxed">
               Agentic AI is capable of independent thought and flexible action.
               This includes:
             </p>
-            <ul className="about-list list-disc ml-5 sm:ml-6 mt-2 space-y-1 text-equus-muted text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8 marker:text-equus-olive">
+            <ul className="about-list mt-2 space-y-1 text-equus-muted text-sm sm:text-base leading-relaxed marker:text-equus-olive">
               <li>
                 navigating unexpected challenges without human intervention.
               </li>
@@ -137,39 +134,27 @@ const About = () => {
             <H3 variant="primary">
               Empowering the Future with Equus Systems Ltd.
             </H3>
-            <p className="text-equus-muted text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8">
+            <p className="text-equus-muted text-sm sm:text-base leading-relaxed">
               At Equus Systems we have taken these principles and have created
               solutions that solve real problems. By building these solutions
               using Agentic AI we have made what may seem complex and difficult
-              appear simple and engaging. With this experience we can also
-              engage with businesses to explore new products and solutions. We
-              have many years of experience in software development focusing on
-              how users engage with technology and get answers to questions.
+              appear simple and engaging.
+            </p>
+            <p className="text-equus-muted text-sm sm:text-base leading-relaxed">
+              With this experience we can also engage with businesses to explore
+              new products and solutions. We have many years of experience in
+              software development focusing on how users engage with technology
+              and get answers to questions.
             </p>
             <div>
-              <Link
-                to="/#contact"
-                className="text-equus-primary underline"
-                onClick={(e) => {
-                  // Allow normal navigation, then focus on form
-                  setTimeout(() => {
-                    const nameInput = document.getElementById('name');
-                    if (nameInput) {
-                      nameInput.focus();
-                      nameInput.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'center',
-                      });
-                    }
-                  }, 100);
-                }}
-              >
+              <Link to="/#contact" className="text-equus-primary underline">
                 Get in touch with us
               </Link>
             </div>
           </AnimatedSection>
-        </article>
-      </Fieldset>
+          </article>
+        </Section>
+      </div>
     </div>
   );
 };

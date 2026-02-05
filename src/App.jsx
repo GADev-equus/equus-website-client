@@ -65,7 +65,7 @@ function App() {
         <div className={`app-container ${isDesktop ? 'desktop' : 'mobile'}`}>
           <Header />
 
-          <main className="main-content pt-16 lg:pt-0">
+          <main className="main-content pt-0 lg:pt-0">
             <div className="mobile-content-wrapper w-full max-w-[100vw] overflow-x-hidden box-border">
               <Suspense
                 fallback={

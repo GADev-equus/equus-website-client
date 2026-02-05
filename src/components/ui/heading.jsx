@@ -5,12 +5,12 @@ import { cn } from '@/lib/utils';
 const headingVariants = cva('font-display', {
   variants: {
     level: {
-      h1: 'text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight',
-      h2: 'text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight',
-      h3: 'text-2xl sm:text-3xl lg:text-4xl font-semibold leading-snug',
-      h4: 'text-xl sm:text-2xl lg:text-3xl font-semibold leading-snug',
-      h5: 'text-lg sm:text-xl lg:text-2xl font-medium leading-normal',
-      h6: 'text-base sm:text-lg lg:text-xl font-medium leading-normal',
+      h1: 'text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight',
+      h2: 'text-2xl sm:text-3xl lg:text-4xl font-semibold leading-tight',
+      h3: 'text-lg sm:text-xl lg:text-2xl font-semibold leading-snug',
+      h4: 'text-base sm:text-lg lg:text-xl font-semibold leading-snug',
+      h5: 'text-sm sm:text-base lg:text-lg font-medium leading-normal',
+      h6: 'text-xs sm:text-sm lg:text-base font-medium leading-normal',
     },
     variant: {
       default: 'text-equus-foreground',

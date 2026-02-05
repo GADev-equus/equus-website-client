@@ -10,10 +10,9 @@ import SEOHelmet from '@/components/shared/SEOHelmet';
 import Hero from '@/components/Hero';
 import { SEO_CONFIG } from '@/utils/structuredData';
 import {
-  Fieldset,
+  Section,
   Card,
   CardTitle,
-  CardDescription,
   CardContent,
 } from '@/components/ui';
 import AnimatedSection from '@/components/ui/AnimatedSection';
@@ -37,42 +36,58 @@ const Home = () => {
           as="section"
           className="equus-section equus-section-centered"
         >
-          <Fieldset legend="OUR SERVICES" size="lg">
+          <Section title="OUR SERVICES" size="lg">
             <div className="grid-equus-services">
               <AnimatedSection animation="slide-up" delay={100}>
                 <Card variant="service" size="equus">
                   <CardTitle>Agentic Workflows and Graph Flows</CardTitle>
-                  <CardDescription>
-                    We develop autonomous multi-agent systems (MAS) leveraging
-                    intelligent graph-based architectures to enable scalable
-                    task execution, dynamic coordination, contextual
-                    decision-making, and decentralized operations—removing
-                    constraints and minimizing dependence on manual processes,
-                    and enhancing overall system efficiency
-                  </CardDescription>
+                  <CardContent>
+                    <p className="text-equus-muted text-sm sm:text-base leading-relaxed mb-3">
+                      Autonomous multi-agent systems designed for scalable
+                      execution and coordination.
+                    </p>
+                    <ul className="about-list space-y-1 text-equus-muted text-sm sm:text-base leading-relaxed marker:text-equus-olive">
+                      <li>graph-based architectures for dynamic task routing.</li>
+                      <li>contextual decision-making across distributed agents.</li>
+                      <li>reduced manual effort through decentralized operations.</li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              </AnimatedSection>
+
+              <AnimatedSection animation="slide-up" delay={300}>
+                <Card variant="service" size="equus">
+                  <CardTitle>Custom AI Development</CardTitle>
+                  <CardContent>
+                    <p className="text-equus-muted text-sm sm:text-base leading-relaxed mb-3">
+                      End-to-end delivery from architecture to deployment.
+                    </p>
+                    <ul className="about-list space-y-1 text-equus-muted text-sm sm:text-base leading-relaxed marker:text-equus-olive">
+                      <li>agentic AI solution design and build.</li>
+                      <li>knowledge-graph-driven systems.</li>
+                      <li>seamless integration and optimisation.</li>
+                    </ul>
+                  </CardContent>
                 </Card>
               </AnimatedSection>
 
               <AnimatedSection animation="slide-up" delay={500}>
                 <Card variant="service" size="equus">
-                  <CardTitle>Custom AI Development</CardTitle>
-                  <CardDescription>
-                    End-to-end delivery: from agentic AI solutions and
-                    knowledge-graph-driven architectures, to seamless
-                    integration and optimisation
-                  </CardDescription>
-                </Card>
-                <Card variant="service" size="equus">
                   <CardTitle>Strategic AI Consulting</CardTitle>
-                  <CardDescription>
-                    In-depth assessments to identify high-impact opportunities,
-                    define success metrics, and align AI initiatives with your
-                    core business goals
-                  </CardDescription>
+                  <CardContent>
+                    <p className="text-equus-muted text-sm sm:text-base leading-relaxed mb-3">
+                      Assessments that turn AI ideas into measurable outcomes.
+                    </p>
+                    <ul className="about-list space-y-1 text-equus-muted text-sm sm:text-base leading-relaxed marker:text-equus-olive">
+                      <li>identify high-impact opportunities.</li>
+                      <li>define success metrics and KPIs.</li>
+                      <li>align initiatives with core business goals.</li>
+                    </ul>
+                  </CardContent>
                 </Card>
               </AnimatedSection>
             </div>
-          </Fieldset>
+          </Section>
         </AnimatedSection>
 
         {/* About section using services layout */}
@@ -82,7 +97,7 @@ const Home = () => {
           className="equus-section equus-section-centered"
           id="about"
         >
-          <Fieldset legend="ABOUT EQUUS" size="lg">
+          <Section title="ABOUT EQUUS" size="lg">
             <div className="grid-equus-services">
               <AnimatedSection animation="slide-up" delay={100}>
                 <Card variant="service" size="equus">
@@ -178,7 +193,7 @@ const Home = () => {
                 </Card>
               </AnimatedSection>
             </div>
-          </Fieldset>
+          </Section>
         </AnimatedSection>
 
         {/* Contact section with slide-up animation */}
@@ -188,11 +203,11 @@ const Home = () => {
           className="equus-section equus-section-centered"
           id="contact"
         >
-          <Fieldset legend="CONTACT US" size="lg">
+          <Section title="CONTACT US" size="lg">
             <AnimatedSection animation="slide-up" delay={200}>
               <ContactForm />
             </AnimatedSection>
-          </Fieldset>
+          </Section>
         </AnimatedSection>
       </div>
     </>

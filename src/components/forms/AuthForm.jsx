@@ -340,6 +340,7 @@ const AuthForm = ({
       <Fieldset legend={config.title.toUpperCase()} size="lg">
         <div className="auth-form-wrapper">
           <div className="auth-form-header">
+            <h1 className="sr-only">{config.title}</h1>
             <p className="auth-form-description">{config.description}</p>
           </div>
 
@@ -353,7 +354,7 @@ const AuthForm = ({
 
             {success && (
               <div className="auth-alert success">
-                <div className="auth-alert-icon">✓</div>
+                <div className="auth-alert-icon">&#10003;</div>
                 <div className="auth-alert-text">{success}</div>
               </div>
             )}
@@ -418,3 +419,4 @@ const AuthForm = ({
 };
 
 export default AuthForm;
+

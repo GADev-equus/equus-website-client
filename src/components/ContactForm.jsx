@@ -1,5 +1,5 @@
-import { useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useColdStartAwareLoading } from '../hooks/useColdStartAwareLoading.js';
 import contactService, { rateLimiter } from '../services/contactService.js';
@@ -18,11 +18,33 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import './ContactForm.css';
 
 const ContactForm = () => {
+  const location = useLocation();
   const {
     isLoading: isSubmitting,
     setLoading: setIsSubmitting,
     shouldShowColdStartUI,
   } = useColdStartAwareLoading(false);
+
+  useEffect(() => {
+    if (location.hash !== '#contact') return;
+
+    const focusFirstField = () => {
+      const firstInput = document.querySelector('input[name="name"]');
+      if (!firstInput) return;
+
+      firstInput.focus({ preventScroll: true });
+      const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)',
+      ).matches;
+      firstInput.scrollIntoView({
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+        block: 'center',
+      });
+    };
+
+    const timeoutId = window.setTimeout(focusFirstField, 100);
+    return () => window.clearTimeout(timeoutId);
+  }, [location.hash]);
 
   const form = useForm({
     mode: 'onChange',

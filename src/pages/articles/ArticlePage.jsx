@@ -2,7 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import SEOHelmet from '@/components/shared/SEOHelmet';
 import {
   Badge,
-  Fieldset,
+  Section,
   Card,
   CardTitle,
   CardDescription,
@@ -16,24 +16,26 @@ export default function ArticlePage() {
 
   if (!article) {
     return (
-      <div className="container-equus py-12">
+      <div className="container-equus">
         <SEOHelmet
           title="Article Not Found"
           description="The requested article could not be found."
         />
-        <Fieldset legend="ARTICLE" size="lg">
-          <Card variant="highlighted" size="full">
-            <CardTitle>Article not found</CardTitle>
-            <CardDescription>
-              We couldn't find the article you're looking for.
-            </CardDescription>
-            <CardContent className="mt-4">
-              <Link to="/products" className="text-equus-primary underline">
-                Back to products
-              </Link>
-            </CardContent>
-          </Card>
-        </Fieldset>
+        <div className="equus-section">
+          <Section title="ARTICLE" size="lg">
+            <Card variant="highlighted" size="full">
+              <CardTitle>Article not found</CardTitle>
+              <CardDescription>
+                We couldn't find the article you're looking for.
+              </CardDescription>
+              <CardContent className="mt-4">
+                <Link to="/products" className="text-equus-primary underline">
+                  Back to products
+                </Link>
+              </CardContent>
+            </Card>
+          </Section>
+        </div>
       </div>
     );
   }
@@ -125,11 +127,11 @@ export default function ArticlePage() {
         blocks.push({ type: 'ol', items });
         continue;
       }
-      // Unordered list (supports • or -)
-      if (/^\s*[•\-]\s+/.test(line)) {
+      // Unordered list (supports \u2022 or -)
+      if (/^\s*[\u2022\-]\s+/.test(line)) {
         const items = [];
-        while (i < lines.length && /^\s*[•\-]\s+/.test(lines[i])) {
-          items.push(lines[i].replace(/^\s*[•\-]\s+/, ''));
+        while (i < lines.length && /^\s*[\u2022\-]\s+/.test(lines[i])) {
+          items.push(lines[i].replace(/^\s*[\u2022\-]\s+/, ''));
           i++;
         }
         blocks.push({ type: 'ul', items });
@@ -175,7 +177,7 @@ export default function ArticlePage() {
             return (
               <p
                 key={idx}
-                className="text-equus-muted text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8"
+                className="text-equus-muted text-sm sm:text-base leading-relaxed"
               >
                 {renderWithTfLColors(b.text)}
               </p>
@@ -185,7 +187,7 @@ export default function ArticlePage() {
             return (
               <ul
                 key={idx}
-                className="list-disc ml-5 sm:ml-6 space-y-1 text-equus-muted text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8"
+                className="about-list space-y-1 text-equus-muted text-sm sm:text-base leading-relaxed marker:text-equus-olive"
               >
                 {b.items.map((it, i2) => (
                   <li key={i2}>{renderWithTfLColors(it)}</li>
@@ -197,7 +199,7 @@ export default function ArticlePage() {
             return (
               <ol
                 key={idx}
-                className="list-decimal ml-5 sm:ml-6 space-y-1 text-equus-muted text-[1rem] leading-7 sm:text-[1.05rem] sm:leading-8"
+                className="list-decimal ml-5 sm:ml-6 space-y-1 text-equus-muted text-sm sm:text-base leading-relaxed marker:text-equus-olive"
               >
                 {b.items.map((it, i2) => (
                   <li key={i2}>{renderWithTfLColors(it)}</li>
@@ -236,7 +238,7 @@ export default function ArticlePage() {
   };
 
   return (
-    <div className="container-equus py-10 sm:py-12">
+    <div className="container-equus">
       <SEOHelmet
         title={`${title} - Equus Systems`}
         description={excerpt || description}
@@ -245,84 +247,86 @@ export default function ArticlePage() {
         type="article"
         structuredData={structuredData}
       />
-      <Fieldset legend="BLOG" size="lg">
-        {/* Header */}
-        <header className="w-full px-4 sm:px-6">
-          <h2 className="text-hero text-white font-semibold mb-6 text-left font-display heading-underline-olive">
-            {title}
-          </h2>
-          {excerpt && (
-            <p className="mt-3 sm:mt-4 text-lg sm:text-xl md:text-2xl text-equus-muted">
-              {excerpt}
-            </p>
-          )}
-          <div className="mt-4 text-xs sm:text-sm text-gray-400 flex flex-col items-end gap-1 text-right">
-            <div className="flex items-center gap-2">
-              {author && <span>By: {author}</span>}
-              {date && (
-                <>
-                  <span>•</span>
-                  <time dateTime={date}>
-                    {new Date(date).toLocaleDateString()}
-                  </time>
-                </>
-              )}
-            </div>
-          </div>
-          {/* tags are shown in the footer next to the back-link */}
-        </header>
-
-        {/* Article Body */}
-        <article className="w-full px-4 sm:px-6 mt-6 sm:mt-8">
-          {description ? (
-            <section className="mb-6 sm:mb-8">
-              <h3 className="text-lg sm:text-xl font-semibold text-white font-display">
-                Summary
-              </h3>
-              <div className="mt-2">
-                <p className="text-base leading-7 sm:text-[1.05rem] sm:leading-8 text-equus-muted">
-                  {description}
-                </p>
-              </div>
-            </section>
-          ) : null}
-
-          {(sections || []).map((s, i) => (
-            <section key={i} className="mb-6 sm:mb-8">
-              {s.heading && (
-                <h2 className="text-lg sm:text-xl font-semibold text-white font-display">
-                  {s.heading}
-                </h2>
-              )}
-              {s.body && (
-                <div className="mt-2">{renderSectionBody(s.body)}</div>
-              )}
-            </section>
-          ))}
-
-          {/* Footer row: tags on the left (if any) and back-link on the right */}
-          <div className="mt-6 sm:mt-8 text-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-            {tags?.length ? (
-              <div className="flex flex-wrap items-center gap-2">
-                {tags.map((t) => (
-                  <Badge key={t} variant="info" size="sm">
-                    {t}
-                  </Badge>
-                ))}
-              </div>
-            ) : (
-              <span />
+      <div className="equus-section">
+        <Section title="BLOG" size="lg">
+          {/* Header */}
+          <header className="w-full px-4 sm:px-6">
+            <h1 className="text-hero text-white font-semibold mb-6 text-left font-display heading-underline-olive">
+              {title}
+            </h1>
+            {excerpt && (
+              <p className="mt-3 sm:mt-4 text-lg sm:text-xl md:text-2xl text-equus-muted">
+                {excerpt}
+              </p>
             )}
-            <Link
-              to="/products"
-              className="inline-flex items-center gap-2 text-equus-primary underline"
-            >
-              <span aria-hidden="true">←</span>
-              <span>Back to products</span>
-            </Link>
-          </div>
-        </article>
-      </Fieldset>
+            <div className="mt-4 text-xs sm:text-sm text-gray-400 flex flex-col items-end gap-1 text-right">
+              <div className="flex items-center gap-2">
+                {author && <span>By: {author}</span>}
+                {date && (
+                  <>
+                    <span>&bull;</span>
+                    <time dateTime={date}>
+                      {new Date(date).toLocaleDateString()}
+                    </time>
+                  </>
+                )}
+              </div>
+            </div>
+            {/* tags are shown in the footer next to the back-link */}
+          </header>
+
+          {/* Article Body */}
+          <article className="w-full px-4 sm:px-6 mt-6 sm:mt-8">
+            {description ? (
+              <section className="mb-6 sm:mb-8">
+                <h2 className="text-lg sm:text-xl font-semibold text-white font-display">
+                  Summary
+                </h2>
+                <div className="mt-2">
+                  <p className="text-equus-muted text-sm sm:text-base leading-relaxed">
+                    {description}
+                  </p>
+                </div>
+              </section>
+            ) : null}
+
+            {(sections || []).map((s, i) => (
+              <section key={i} className="mb-6 sm:mb-8">
+                {s.heading && (
+                  <h2 className="text-lg sm:text-xl font-semibold text-white font-display">
+                    {s.heading}
+                  </h2>
+                )}
+                {s.body && (
+                  <div className="mt-2">{renderSectionBody(s.body)}</div>
+                )}
+              </section>
+            ))}
+
+            {/* Footer row: tags on the left (if any) and back-link on the right */}
+            <div className="mt-6 sm:mt-8 text-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              {tags?.length ? (
+                <div className="flex flex-wrap items-center gap-2">
+                  {tags.map((t) => (
+                    <Badge key={t} variant="info" size="sm">
+                      {t}
+                    </Badge>
+                  ))}
+                </div>
+              ) : (
+                <span />
+              )}
+              <Link
+                to="/products"
+                className="inline-flex items-center gap-2 text-equus-primary underline"
+              >
+                <span aria-hidden="true">&larr;</span>
+                <span>Back to products</span>
+              </Link>
+            </div>
+          </article>
+        </Section>
+      </div>
     </div>
   );
 }

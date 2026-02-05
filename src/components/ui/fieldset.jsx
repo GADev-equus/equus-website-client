@@ -1,30 +1,31 @@
 import * as React from 'react';
 import { cva } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
+import { SrOnly } from './sr-only';
 
 const fieldsetVariants = cva(
-  'border !border-equus-olive/60 transition-all group relative',
+  'border border-transparent transition-all group relative',
   {
     variants: {
       variant: {
         default:
-          '!border-equus-olive/60 bg-transparent dark:!border-equus-olive/60 dark:bg-transparent',
+          'border-transparent bg-transparent dark:border-transparent dark:bg-transparent',
         outline:
-          '!border-equus-olive/60 bg-transparent dark:!border-equus-olive/60',
+          'border-transparent bg-transparent dark:border-transparent',
         filled:
-          'border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800/50',
+          'border-transparent bg-gray-50 dark:border-transparent dark:bg-gray-800/50',
         elevated:
-          'border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900',
+          'border-transparent bg-white shadow-sm dark:border-transparent dark:bg-gray-900',
         accent:
-          'border-blue-500 bg-blue-50/30 dark:border-blue-400 dark:bg-blue-950/20',
+          'border-transparent bg-blue-50/30 dark:border-transparent dark:bg-blue-950/20',
         equus:
-          'border-blue-500 bg-transparent dark:border-blue-400 dark:bg-transparent',
+          'border-transparent bg-transparent dark:border-transparent dark:bg-transparent',
         success:
-          'border-green-400 bg-green-50/50 dark:border-green-500 dark:bg-green-950/20',
+          'border-transparent bg-green-50/50 dark:border-transparent dark:bg-green-950/20',
         warning:
-          'border-amber-400 bg-amber-50/50 dark:border-amber-500 dark:bg-amber-950/20',
+          'border-transparent bg-amber-50/50 dark:border-transparent dark:bg-amber-950/20',
         error:
-          'border-red-400 bg-red-50/50 dark:border-red-500 dark:bg-red-950/20',
+          'border-transparent bg-red-50/50 dark:border-transparent dark:bg-red-950/20',
       },
       size: {
         sm: 'p-3',
@@ -104,17 +105,28 @@ const Fieldset = React.forwardRef(
       description,
       required,
       optional,
+      'aria-describedby': ariaDescribedByProp,
       ...props
     },
     ref,
   ) => {
     // Determine the actual state based on props
     const actualState = disabled ? 'disabled' : state;
+    const baseId = React.useId();
+    const legendId = legend ? `${baseId}-legend` : undefined;
+    const descriptionId = description ? `${baseId}-description` : undefined;
+    const ariaDescribedBy = [
+      ariaDescribedByProp,
+      descriptionId,
+    ]
+      .filter(Boolean)
+      .join(' ') || undefined;
 
     return (
       <fieldset
         ref={ref}
         disabled={disabled}
+        aria-describedby={ariaDescribedBy}
         className={cn(
           fieldsetVariants({ variant, size, spacing, state: actualState }),
           className,
@@ -123,6 +135,7 @@ const Fieldset = React.forwardRef(
       >
         {legend && (
           <legend
+            id={legendId}
             className={cn(
               legendVariants({
                 variant: legendVariant || variant,
@@ -134,16 +147,19 @@ const Fieldset = React.forwardRef(
           >
             <span className="flex items-center gap-2">
               {typeof legend === 'string' ? (
-                <span>
-                  {legend.split('').map((letter, index) => (
-                    <span
-                      key={index}
-                      className="font-semibold bg-gradient-to-b from-white from-50% to-gray-400 to-50% bg-clip-text text-transparent"
-                    >
-                      {letter}
-                    </span>
-                  ))}
-                </span>
+                <>
+                  <SrOnly>{legend}</SrOnly>
+                  <span aria-hidden="true">
+                    {legend.split('').map((letter, index) => (
+                      <span
+                        key={index}
+                        className="font-semibold bg-gradient-to-b from-white from-50% to-gray-400 to-50% bg-clip-text text-transparent"
+                      >
+                        {letter}
+                      </span>
+                    ))}
+                  </span>
+                </>
               ) : (
                 legend
               )}
@@ -165,7 +181,10 @@ const Fieldset = React.forwardRef(
         )}
 
         {description && (
-          <div className="text-xs text-gray-600 dark:text-gray-400 mt-2 mb-4 px-1">
+          <div
+            id={descriptionId}
+            className="text-xs text-gray-600 dark:text-gray-400 mt-2 mb-4 px-1"
+          >
             {description}
           </div>
         )}
