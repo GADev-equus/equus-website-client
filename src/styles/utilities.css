@@ -134,18 +134,18 @@
 
 /* Typography size utilities */
 .text-hero {
-  font-size: var(--equus-text-4xl);
+  font-size: var(--equus-text-3xl);
   font-family: var(--equus-font-display);
 }
 
 .text-section-title {
-  font-size: var(--equus-text-3xl);
+  font-size: var(--equus-text-2xl);
   font-family: var(--equus-font-display);
   margin-bottom: var(--equus-spacing-lg);
 }
 
 .text-card-title {
-  font-size: var(--equus-text-xl-plus);
+  font-size: var(--equus-text-xl);
   font-family: var(--equus-font-alt);
 }
 
@@ -263,7 +263,7 @@
 }
 
 .verification-title {
-  font-size: var(--equus-text-2xl);
+  font-size: var(--equus-text-xl-plus);
   font-weight: 600;
   color: var(--equus-text-primary);
   margin-bottom: var(--equus-spacing-sm);
@@ -351,7 +351,7 @@
 }
 
 .verification-title {
-  font-size: var(--equus-text-2xl);
+  font-size: var(--equus-text-xl-plus);
   font-weight: bold;
   margin-bottom: var(--equus-spacing-xs);
 }
@@ -478,12 +478,12 @@
 
 .footer-title {
   margin-bottom: 0.25rem;
-  font-size: var(--equus-text-sm-plus);
+  font-size: var(--equus-text-sm);
 }
 
 .footer-subtitle {
   margin: 0;
-  font-size: var(--equus-text-xs-plus);
+  font-size: var(--equus-text-xs);
 }
 
 .footer-stats {
@@ -520,7 +520,7 @@
 }
 
 .header-brand-title {
-  font-size: var(--equus-text-4xl);
+  font-size: var(--equus-text-3xl);
   letter-spacing: var(--equus-letter-spacing-tight);
   font-family: var(--equus-font-branding);
   margin-bottom: 0.25rem;

@@ -27,7 +27,7 @@
 
 .contact-info__heading {
   font-family: var(--equus-font-display);
-  font-size: clamp(1.35rem, 2.8vw, 1.75rem);
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
   color: var(--equus-text-light);
   margin: 0;
 }

@@ -330,7 +330,7 @@ body {
   /* Mobile typography adjustments */
   .equus-card h2,
   .equus-card h3 {
-    font-size: var(--equus-text-lg) !important;
+    font-size: var(--equus-text-base) !important;
   }
 
   /* Mobile button improvements */
@@ -471,7 +471,7 @@ button.icon:not([class*='btn-']):not([class*='status-']) {
 [data-slot='card-title'],
 .card-title:not([class*='equus-']):not([class*='status-']) {
   padding: 0.25rem !important;
-  font-size: var(--equus-text-lg-plus) !important;
+  font-size: var(--equus-text-lg) !important;
   font-weight: 600 !important;
   line-height: 1.5 !important;
 }

@@ -632,7 +632,7 @@ class SubdomainAuthGuard {
       }
       
       .auth-title {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         font-weight: 600;
         color: #1f2937;
         margin-bottom: 0.5rem;
@@ -724,7 +724,7 @@ class SubdomainAuthGuard {
       }
       
       .denied-title {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         font-weight: 600;
         color: #dc2626;
         margin-bottom: 1rem;
