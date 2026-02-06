@@ -134,23 +134,23 @@
 
 /* Typography size utilities */
 .text-hero {
-  font-size: 2rem;
+  font-size: var(--equus-text-4xl);
   font-family: var(--equus-font-display);
 }
 
 .text-section-title {
-  font-size: 1.8rem;
+  font-size: var(--equus-text-3xl);
   font-family: var(--equus-font-display);
   margin-bottom: var(--equus-spacing-lg);
 }
 
 .text-card-title {
-  font-size: 1.3rem;
+  font-size: var(--equus-text-xl-plus);
   font-family: var(--equus-font-alt);
 }
 
 .text-body-large {
-  font-size: 1.1rem;
+  font-size: var(--equus-text-lg);
   line-height: var(--equus-line-height-relaxed);
 }
 
@@ -160,7 +160,7 @@
   color: white;
   padding: var(--equus-spacing-sm) var(--equus-spacing-md);
   border-radius: var(--equus-border-radius);
-  font-size: 16px;
+  font-size: var(--equus-text-base);
   font-weight: 500;
   cursor: pointer;
   border: none;
@@ -222,7 +222,7 @@
 
 .auth-terms {
   margin-top: var(--equus-spacing-md);
-  font-size: 0.75rem;
+  font-size: var(--equus-text-xs);
   color: var(--equus-text-secondary);
   text-align: center;
 }
@@ -263,7 +263,7 @@
 }
 
 .verification-title {
-  font-size: 1.5rem;
+  font-size: var(--equus-text-2xl);
   font-weight: 600;
   color: var(--equus-text-primary);
   margin-bottom: var(--equus-spacing-sm);
@@ -351,7 +351,7 @@
 }
 
 .verification-title {
-  font-size: 1.5rem;
+  font-size: var(--equus-text-2xl);
   font-weight: bold;
   margin-bottom: var(--equus-spacing-xs);
 }
@@ -369,7 +369,7 @@
 }
 
 .verification-redirect-notice {
-  font-size: 0.875rem;
+  font-size: var(--equus-text-sm);
   color: var(--equus-text-secondary);
   margin-bottom: var(--equus-spacing-sm);
 }
@@ -443,14 +443,14 @@
 .signin-invitation p {
   margin: 0 0 0.5rem 0;
   color: var(--color-text-secondary, #666);
-  font-size: 0.95rem;
+  font-size: var(--equus-text-md);
 }
 
 .signin-invitation-link {
   color: #0056b3;
   text-decoration: none;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: var(--equus-text-base);
   transition: color 0.2s ease;
 }
 
@@ -478,17 +478,17 @@
 
 .footer-title {
   margin-bottom: 0.25rem;
-  font-size: 0.9rem;
+  font-size: var(--equus-text-sm-plus);
 }
 
 .footer-subtitle {
   margin: 0;
-  font-size: 0.8rem;
+  font-size: var(--equus-text-xs-plus);
 }
 
 .footer-stats {
   margin: 0.5rem 0 0 0;
-  font-size: 0.7rem;
+  font-size: var(--equus-text-2xs);
 }
 
 /* Header utilities */
@@ -520,7 +520,7 @@
 }
 
 .header-brand-title {
-  font-size: 2rem;
+  font-size: var(--equus-text-4xl);
   letter-spacing: var(--equus-letter-spacing-tight);
   font-family: var(--equus-font-branding);
   margin-bottom: 0.25rem;
@@ -529,7 +529,7 @@
 }
 
 .header-brand-subtitle {
-  font-size: 0.7rem;
+  font-size: var(--equus-text-2xs);
   text-align: center;
   margin: 0;
 }
@@ -549,7 +549,7 @@
 }
 
 .header-user-greeting {
-  font-size: 0.9rem;
+  font-size: var(--equus-text-sm-plus);
   opacity: 0.9;
   white-space: nowrap;
 }
@@ -560,7 +560,7 @@
   padding: 0.5rem 1rem;
   border-radius: 0.375rem;
   border: 1px solid rgba(255, 255, 255, 0.3);
-  font-size: 0.875rem;
+  font-size: var(--equus-text-sm);
   font-weight: 500;
   transition: all 0.2s ease;
   white-space: nowrap;

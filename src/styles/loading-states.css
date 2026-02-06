@@ -80,7 +80,7 @@
 
 /* Cold Start Messages */
 .cold-start-message {
-  font-size: 1.125rem;
+  font-size: var(--equus-text-lg-plus);
   font-weight: 500;
   color: #374151;
   animation: coldStartPulse 2s ease-in-out infinite;
@@ -90,11 +90,11 @@
 
 .cold-start-message.primary {
   color: #1f2937;
-  font-size: 1.25rem;
+  font-size: var(--equus-text-xl);
 }
 
 .cold-start-message.secondary {
-  font-size: 0.875rem;
+  font-size: var(--equus-text-sm);
   color: #6b7280;
   font-weight: 400;
   margin-top: 0.5rem;
@@ -140,13 +140,13 @@
   display: flex;
   justify-content: space-between;
   margin-top: 0.5rem;
-  font-size: 0.75rem;
+  font-size: var(--equus-text-xs);
   color: #6b7280;
 }
 
 /* Cold Start Time Indicator */
 .cold-start-time {
-  font-size: 0.875rem;
+  font-size: var(--equus-text-sm);
   color: #6b7280;
   font-variant-numeric: tabular-nums;
   margin-top: 0.25rem;
@@ -169,7 +169,7 @@
 }
 
 .cold-start-education p {
-  font-size: 0.75rem;
+  font-size: var(--equus-text-xs);
   color: #6b7280;
   margin: 0;
   line-height: 1.4;
@@ -185,7 +185,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.875rem;
+  font-size: var(--equus-text-sm);
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
   background-color: #f3f4f6;
@@ -271,11 +271,11 @@
   }
 
   .cold-start-message {
-    font-size: 1rem;
+    font-size: var(--equus-text-base);
   }
 
   .cold-start-message.primary {
-    font-size: 1.125rem;
+    font-size: var(--equus-text-lg-plus);
   }
 
   .cold-start-progress {

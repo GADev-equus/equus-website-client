@@ -71,7 +71,7 @@ p {
 }
 
 html {
-  font-size: 110%;
+  font-size: var(--equus-font-size-root, 110%);
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
 }
