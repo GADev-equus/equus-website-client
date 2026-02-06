@@ -30,21 +30,22 @@ const About = () => {
       <div className="equus-section">
         <Section title="ABOUT EQUUS" size="lg">
           <article className="w-full px-4 sm:px-6 space-y-6 sm:space-y-8">
-          {/* Intro with fade-in animation */}
-          <AnimatedSection animation="fade-in" duration="slow" as="header">
-            <H2
-              variant="olive"
-              align="center"
-              className="mb-4 heading-underline-olive"
-            >
-              Agentic AI: Moving Beyond Traditional Intelligence
-            </H2>
-            <p className="text-equus-muted text-sm sm:text-base leading-relaxed max-w-prose text-center mx-auto">
-              Traditional AI follows a simple formula: you ask, it answers. At
-              Equus Systems Ltd., we embrace the next frontier: Agentic AI. You
-              set the goal and it figures out the best way to get there.
-            </p>
-          </AnimatedSection>
+            {/* Intro with fade-in animation */}
+            <AnimatedSection animation="fade-in" duration="slow" as="header">
+              <H2
+                variant="olive"
+                align="center"
+                className="mb-4 heading-underline-olive"
+              >
+                Agentic AI: Moving Beyond Traditional Intelligence
+              </H2>
+              <p className="text-equus-muted text-sm sm:text-base leading-relaxed max-w-prose text-center mx-auto">
+                At Equus Systems Ltd., we embrace the next frontier: Agentic
+                AI. Traditional AI follows a simple formula: you ask, it
+                answers. You set the goal and AI figures out the best way to
+                get there.
+              </p>
+            </AnimatedSection>
 
           {/* Section 1 with slide-up animation */}
           <AnimatedSection
@@ -59,10 +60,10 @@ const About = () => {
               of:
             </p>
             <ul className="about-list mt-2 space-y-1 text-equus-muted text-sm sm:text-base leading-relaxed marker:text-equus-olive">
-              <li>interpreting goals instead of one-off prompts.</li>
-              <li>decomposing complex challenges into manageable steps.</li>
+              <li>interpreting goals instead of one-off prompts</li>
+              <li>decomposing complex challenges into manageable steps</li>
               <li>
-                persisting until the job is done, adjusting course as needed.
+                persisting until the job is done, adjusting course as needed
               </li>
             </ul>
           </AnimatedSection>
@@ -79,10 +80,10 @@ const About = () => {
               real-world tools and systems. These agents:
             </p>
             <ul className="about-list mt-2 space-y-1 text-equus-muted text-sm sm:text-base leading-relaxed marker:text-equus-olive">
-              <li>connecting to APIs, databases, and third-party services.</li>
-              <li>executing actions within digital environments.</li>
+              <li>connecting to APIs, databases and third-party services</li>
+              <li>executing actions within digital environments</li>
               <li>
-                learning over time which tools are best for specific scenarios.
+                learning over time which tools are best for specific scenarios
               </li>
             </ul>
           </AnimatedSection>
@@ -98,9 +99,9 @@ const About = () => {
               To make smarter decisions, agentic systems remember. They retain:
             </p>
             <ul className="about-list mt-2 space-y-1 text-equus-muted text-sm sm:text-base leading-relaxed marker:text-equus-olive">
-              <li>previous user interactions and results.</li>
-              <li>historical context to inform future choices.</li>
-              <li>evolving knowledge that improves with experience.</li>
+              <li>previous user interactions and results</li>
+              <li>historical context to inform future choices</li>
+              <li>evolving knowledge that improves with experience</li>
             </ul>
           </AnimatedSection>
 
@@ -117,10 +118,10 @@ const About = () => {
             </p>
             <ul className="about-list mt-2 space-y-1 text-equus-muted text-sm sm:text-base leading-relaxed marker:text-equus-olive">
               <li>
-                navigating unexpected challenges without human intervention.
+                navigating unexpected challenges without human intervention
               </li>
-              <li>adjusting strategies in real-time based on feedback.</li>
-              <li>learning from both success and failure.</li>
+              <li>adjusting strategies in real-time based on feedback</li>
+              <li>learning from both success and failure</li>
             </ul>
           </AnimatedSection>
 
@@ -129,22 +130,22 @@ const About = () => {
             animation="slide-up"
             delay={300}
             as="section"
-            className="space-y-3"
+            className="space-y-3 mt-10"
           >
             <H3 variant="primary">
               Empowering the Future with Equus Systems Ltd.
             </H3>
             <p className="text-equus-muted text-sm sm:text-base leading-relaxed">
-              At Equus Systems we have taken these principles and have created
-              solutions that solve real problems. By building these solutions
-              using Agentic AI we have made what may seem complex and difficult
-              appear simple and engaging.
+              By building these solutions using AI, we have made what may seem
+              complex and difficult, appear simple and compelling. At Equus
+              Systems Ltd., we have taken these principles and created solutions
+              that solve real problems.
             </p>
             <p className="text-equus-muted text-sm sm:text-base leading-relaxed">
-              With this experience we can also engage with businesses to explore
-              new products and solutions. We have many years of experience in
-              software development focusing on how users engage with technology
-              and get answers to questions.
+              With this experience, we can also collaborate with businesses to
+              explore new products and solutions. We have many years of
+              experience in software development focusing on how users engage
+              with technology and get answers to questions.
             </p>
             <div>
               <Link to="/#contact" className="text-equus-primary underline">

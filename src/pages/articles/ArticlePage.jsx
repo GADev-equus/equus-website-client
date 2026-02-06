@@ -9,6 +9,7 @@ import {
   CardContent,
 } from '@/components/ui';
 import { getArticleBySlug } from '@/data/articles';
+import { H2, H3 } from '@/components/ui/heading';
 
 export default function ArticlePage() {
   const { slug } = useParams();
@@ -98,8 +99,16 @@ export default function ArticlePage() {
       // Map "Elizabeth" to "Elizabeth Line" key
       const key = base === 'Elizabeth' ? 'Elizabeth Line' : base;
       const color = tflLineColors[key] || '#3498db';
+      const isNorthern = key === 'Northern';
+      const style = isNorthern
+        ? {
+            color,
+            textShadow:
+              '0 0 2px rgba(255, 255, 255, 0.95), 0 0 4px rgba(255, 255, 255, 0.7)',
+          }
+        : { color };
       parts.push(
-        <span key={parts.length} style={{ color }} className="font-semibold">
+        <span key={parts.length} style={style} className="font-semibold">
           {matchText}
         </span>,
       );
@@ -211,9 +220,9 @@ export default function ArticlePage() {
             return (
               <pre
                 key={idx}
-                className="bg-[#0f0f0f] rounded-md p-3 sm:p-4 overflow-x-auto text-[13px] sm:text-sm text-gray-200 whitespace-pre-wrap break-words"
+                className="bg-equus-secondary/30 border border-equus-border rounded-md p-3 sm:p-4 overflow-x-auto text-sm sm:text-base text-white font-mono whitespace-pre-wrap break-words"
               >
-                <code>{b.code}</code>
+                <code className="text-white">{b.code}</code>
               </pre>
             );
           }
@@ -251,27 +260,29 @@ export default function ArticlePage() {
         <Section title="BLOG" size="lg">
           {/* Header */}
           <header className="w-full px-4 sm:px-6">
-            <h1 className="text-hero text-white font-semibold mb-6 text-left font-display heading-underline-olive">
+            <H2
+              variant="olive"
+              align="left"
+              className="mb-6 heading-underline-olive"
+            >
               {title}
-            </h1>
+            </H2>
+            <div className="mt-2 text-xs sm:text-sm text-equus-muted flex flex-wrap items-center gap-2">
+              {author && <span>By: {author}</span>}
+              {date && (
+                <>
+                  <span>&bull;</span>
+                  <time dateTime={date}>
+                    {new Date(date).toLocaleDateString()}
+                  </time>
+                </>
+              )}
+            </div>
             {excerpt && (
-              <p className="mt-3 sm:mt-4 text-lg sm:text-xl md:text-2xl text-equus-muted">
+              <p className="mt-3 sm:mt-4 text-equus-muted text-sm sm:text-base leading-relaxed max-w-prose">
                 {excerpt}
               </p>
             )}
-            <div className="mt-4 text-xs sm:text-sm text-gray-400 flex flex-col items-end gap-1 text-right">
-              <div className="flex items-center gap-2">
-                {author && <span>By: {author}</span>}
-                {date && (
-                  <>
-                    <span>&bull;</span>
-                    <time dateTime={date}>
-                      {new Date(date).toLocaleDateString()}
-                    </time>
-                  </>
-                )}
-              </div>
-            </div>
             {/* tags are shown in the footer next to the back-link */}
           </header>
 
@@ -279,9 +290,7 @@ export default function ArticlePage() {
           <article className="w-full px-4 sm:px-6 mt-6 sm:mt-8">
             {description ? (
               <section className="mb-6 sm:mb-8">
-                <h2 className="text-lg sm:text-xl font-semibold text-white font-display">
-                  Summary
-                </h2>
+                <H3 variant="primary">Summary</H3>
                 <div className="mt-2">
                   <p className="text-equus-muted text-sm sm:text-base leading-relaxed">
                     {description}
@@ -292,11 +301,7 @@ export default function ArticlePage() {
 
             {(sections || []).map((s, i) => (
               <section key={i} className="mb-6 sm:mb-8">
-                {s.heading && (
-                  <h2 className="text-lg sm:text-xl font-semibold text-white font-display">
-                    {s.heading}
-                  </h2>
-                )}
+                {s.heading && <H3 variant="primary">{s.heading}</H3>}
                 {s.body && (
                   <div className="mt-2">{renderSectionBody(s.body)}</div>
                 )}

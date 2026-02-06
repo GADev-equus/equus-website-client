@@ -5,19 +5,19 @@ export const articles = [
   {
     slug: 'ai-powered-tfl-assistant',
     title:
-      'The Future of Transit: How AI Agents Are Revolutionizing London Underground Navigation',
+      'The Future of Transit: How AI Agents Are Revolutionising London Underground Navigation',
     excerpt:
       "Imagine having a personal transport expert for every single London Underground line—one who knows the quirks of the Circle Line, the shortcuts on the Northern Line, and the exact timing of the Victoria Line's high-frequency service.",
     description:
-      'Our multi-agent TFL AI system uses specialized GPT-4o agents for each Underground line, real-time TFL data, and streaming intelligence to deliver context-aware, human-in-the-loop journey planning.',
+      'Our multi-agent TFL AI system uses specialised GPT-4o agents for each Underground line, real-time TFL data, and streaming intelligence to deliver context-aware, human-in-the-loop journey planning.',
     date: '2025-07-30',
     author: 'Equus Systems',
     tags: ['AI', 'Multi-agent', 'Real-time', 'Voice', 'Whisper'],
     sections: [
       {
-        heading: 'Beyond Chatbots: The Age of Specialized AI Agents',
+        heading: 'Beyond Chatbots: The Age of Specialised AI Agents',
         body:
-          'Instead of one overwhelmed assistant, this system employs 14 specialized experts—each with deep knowledge of their specific Underground line—powered by GPT-4o.\n\n' +
+          'Instead of one overwhelmed assistant, this system employs 14 specialised experts, each with deep knowledge of their specific Underground line, powered by GPT-4o.\n\n' +
           "• Circle Line Agent: Master of Zone 1's orbital route and connection strategies\n" +
           '• Bakerloo Line Agent: Expert in the historic line from Harrow to Elephant & Castle\n' +
           '• District Line Agent: Navigator of the complex western and southwestern branches\n' +
@@ -26,9 +26,9 @@ export const articles = [
           '• Piccadilly Line Agent: Your Heathrow Airport connection authority\n' +
           '• Victoria Line Agent: High-frequency automated service expert\n' +
           '• Jubilee Line Agent: Modern line and Canary Wharf connection specialist\n' +
-          '• Metropolitan Line Agent: Historic line extending into Buckinghamshire\n' +
-          '• Hammersmith & City Agent: Cross-London connector expertise\n' +
-          '• Waterloo & City Agent: Business shuttle specialist (weekdays only)\n' +
+          '• Metropolitan Line Agent: Historic line specialist extending into Buckinghamshire\n' +
+          '• Hammersmith & City Line Agent: Cross-London connector expert\n' +
+          '• Waterloo & City Line Agent: Business shuttle specialist (weekdays only)\n' +
           "• Elizabeth Line Agent: Crossrail's newest high-capacity railway expert\n" +
           '• DLR Agent: Docklands Light Railway authority\n' +
           '• Network Status Agent: System-wide disruption and service intelligence',
@@ -36,26 +36,26 @@ export const articles = [
       {
         heading: 'The Magic of Context-Aware Intelligence',
         body:
-          'Agents understand context—passenger psychology, peak patterns, accessibility needs, and live service.\n\n' +
-          'Dynamic Agent Selection: Queries are routed to the most relevant line expert(s), often coordinating multiple agents for optimal routes and alternatives.\n' +
-          "Real-Time Intelligence Integration: Each agent has live access to TFL's official API for disruptions, status changes, and timing, enabling dynamic rerouting and precise estimates.",
+          "Real-Time Intelligence Integration: each agent has live access to TFL's official API for disruptions, status changes, and timing, enabling dynamic rerouting and precise estimates.\n" +
+          'Dynamic Agent Selection: queries are routed to the most relevant line expert(s), often coordinating multiple agents for optimal routes and alternatives.\n' +
+          'Agents understand context: passenger psychology, peak patterns, accessibility needs, and live service.',
       },
       {
-        heading: 'Streaming Intelligence: The Netflix of Transport Advice',
+        heading: 'Streaming Intelligence: The \'Netflix\' of Transport Advice',
         body:
-          "Server-Sent Events (SSE) stream responses in real time, showing the system's reasoning as it unfolds: \n" +
-          '1. Initial Analysis: Analyzing your route...\n' +
-          '2. Live Data Integration: Checking current line status...\n' +
-          '3. Alternative Evaluation: Considering options...\n' +
-          '4. Final Recommendation: Optimal route identified.',
+          '1. Initial analysis: analysing your route...\n' +
+          '2. Live data integration: checking current line status...\n' +
+          '3. Alternative evaluation: considering options...\n' +
+          '4. Final recommendation: optimal route identified.\n\n' +
+          "Server-Sent Events (SSE) stream responses in real time, showing the system's reasoning as it unfolds.",
       },
       {
         heading: 'The Human-in-the-Loop Revolution',
-        body: 'For complex journeys or multiple viable routes, the system collaborates with users to confirm preferences before delivering step-by-step guidance (e.g., Elizabeth Line vs Piccadilly Line to Heathrow).',
+        body: 'For complex journeys or multiple viable routes, the system collaborates with users to confirm preferences before delivering step-by-step guidance (e.g. Elizabeth Line vs Piccadilly Line to Heathrow).',
       },
       {
-        heading: 'Visual Intelligence: Colors That Communicate',
-        body: 'Messages are styled with official TFL colors per line (e.g., Victoria light blue, Central red), enhancing cognition in multi-line journeys. Animated typewriter effects and status indicators mirror Underground aesthetics.',
+        heading: 'Visual Intelligence: Colours That Communicate',
+        body: 'Messages are styled with official TFL colours per line (e.g. Victoria light blue, Central red), enhancing recognition in multi-line journeys. Animated typewriter effects and status indicators mirror Underground aesthetics.',
       },
       {
         heading: 'Voice-First Future: Speaking the Language of London',
@@ -63,19 +63,19 @@ export const articles = [
       },
       {
         heading: 'The Architecture Behind the Magic',
-        body: 'React 18 + Vite + Tailwind enable smooth, performant UI.\nState Management: ConversationContext, TFLContext, and AuthContext coordinate messaging, line colors/status, and secure sessions.\nReal-Time Data: Sync every 30s with TFL API, backend AI services, and user preferences.',
+        body: 'React 18 + Vite + Tailwind deliver a fast, smooth, responsive and powerful user interface (UI).\nState Management: ConversationContext, TFLContext, and AuthContext coordinate messaging, line colours/status, and secure sessions.\nReal-Time Data: Sync every 30s with TFL API, backend AI services, and user preferences.',
       },
       {
         heading: 'Security-First Design for Public Infrastructure',
-        body: 'JWT authentication with auto-refresh; strict input sanitization; robust rate limiting; and secure cross-domain configuration for public-facing reliability.',
+        body: 'JSON Web Token (JWT) authentication with auto-refresh, strict input sanitisation, robust rate limiting, and secure cross-domain configuration for public-facing reliability.',
       },
       {
         heading: 'Performance That Scales with London',
-        body: 'Code splitting and lazy loading ensure fast first paint. Caching via localStorage and HTTP improves responsiveness. Mobile-first optimization guarantees accessible touch targets and smooth scrolling.',
+        body: 'Code splitting and lazy loading ensure fast First Contentful Paint (FCP). Caching via localStorage and HTTP improves responsiveness. Mobile-first optimization guarantees accessible touch targets and smooth scrolling.',
       },
       {
-        heading: "The Future We're Building",
-        body: "What's Next:\n• Offline capabilities via service workers\n• Predictive crowd and delay intelligence\n• Enhanced accessibility with voice-guided navigation\n• Multi-modal integration (bus, rail, cycling, walking)\n• Personalized learning of travel patterns",
+        heading: 'The Future We Are Building',
+        body: '- offline capabilities via service workers\n- predictive crowd and delay intelligence\n- enhanced accessibility with voice-guided navigation\n- multi-modal integration (bus, rail, cycling, walking)\n- personalised learning of travel patterns',
       },
       {
         heading: 'Behind the Scenes: Technical Implementation',
@@ -93,7 +93,7 @@ export const articles = [
       },
       {
         heading: 'Making Complex Technology Feel Simple',
-        body: 'While the backend coordinates agents, real-time data, and state, the UI remains a clean chat interface that understands London transport—advanced tech as invisible infrastructure.',
+        body: 'The backend coordinates agents, real-time data and state, while the UI stays a clean chat interface that is fluent in London transport. Advanced technology serves as invisible infrastructure.',
       },
       {
         heading: 'Try It Yourself',

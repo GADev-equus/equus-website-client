@@ -44,7 +44,7 @@ const Products = () => {
                   <CardTitle>AI-Powered TFL Assistant</CardTitle>
                   <CardDescription className="flex-grow text-sm sm:text-base leading-relaxed">
                     Intelligent London transport assistant with real-time tube
-                    status and multi-agent AI system featuring 14 specialized
+                    status and multi-agent AI system featuring 14 specialised
                     line agents.
                   </CardDescription>
                   <CardContent className="mt-auto pt-4">
@@ -62,7 +62,7 @@ const Products = () => {
                 <Card variant="service" size="equus" className="flex flex-col">
                   <CardTitle>AI Tutor Platform</CardTitle>
                   <CardDescription className="flex-grow text-sm sm:text-base leading-relaxed">
-                    Personalized learning experience with intelligent tutoring and
+                    Personalised learning experience with intelligent tutoring and
                     adaptive educational content powered by advanced AI models.
                   </CardDescription>
                   <CardContent className="mt-auto pt-4">
@@ -80,9 +80,9 @@ const Products = () => {
                 <Card variant="service" size="equus">
                   <CardTitle>Enterprise Solutions</CardTitle>
                   <CardDescription className="text-sm sm:text-base leading-relaxed">
-                    Custom business solutions with advanced analytics, user
-                    management, and secure authentication systems for enterprise
-                    needs.
+                    Custom enterprise-grade solutions featuring advanced data
+                    analytics, centralised user management, and secure
+                    standards-compliant authentication protocols.
                   </CardDescription>
                 </Card>
               </AnimatedSection>
@@ -92,12 +92,12 @@ const Products = () => {
       </div>
 
       <div className="equus-section">
-        <Section title="WHY CHOOSE EQUUS" size="lg">
+        <Section title="WHY CHOOSE EQUUS SYSTEMS" size="lg">
           <article className="w-full px-4 sm:px-6">
             <div className="grid-equus-services">
               <AnimatedSection animation="scale-in" delay={100}>
                 <Card variant="service" size="equus">
-                  <CardTitle>Fast & Reliable</CardTitle>
+                  <CardTitle>Fast and Reliable</CardTitle>
                   <CardDescription className="text-sm sm:text-base leading-relaxed">
                     High-performance solutions built with modern technologies
                     for optimal speed and reliability.
@@ -110,7 +110,7 @@ const Products = () => {
                   <CardTitle>Secure by Design</CardTitle>
                   <CardDescription className="text-sm sm:text-base leading-relaxed">
                     Enterprise-grade security with JWT authentication, role-based
-                    access, and comprehensive protection.
+                    access and comprehensive protection.
                   </CardDescription>
                 </Card>
               </AnimatedSection>

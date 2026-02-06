@@ -49,7 +49,7 @@ const Home = () => {
                     <ul className="about-list space-y-1 text-equus-muted text-sm sm:text-base leading-relaxed marker:text-equus-olive">
                       <li>graph-based architectures for dynamic task routing.</li>
                       <li>contextual decision-making across distributed agents.</li>
-                      <li>reduced manual effort through decentralized operations.</li>
+                      <li>reduced manual effort through decentralised operations.</li>
                     </ul>
                   </CardContent>
                 </Card>
@@ -105,16 +105,16 @@ const Home = () => {
                   <CardContent>
                     <p className="text-equus-muted text-sm sm:text-base leading-relaxed mb-3">
                       Agentic systems understand objectives and pursue outcomes
-                      rather than waiting for instructions.
+                      rather than waiting for instructions:
                     </p>
                     <ul className="about-list space-y-1 text-equus-muted text-sm sm:text-base leading-relaxed marker:text-equus-olive">
-                      <li>interpreting goals instead of one-off prompts.</li>
+                      <li>interpreting goals instead of one-off prompts</li>
                       <li>
-                        decomposing complex challenges into manageable steps.
+                        decomposing complex challenges into manageable steps
                       </li>
                       <li>
                         persisting until the job is done, adjusting course as
-                        needed.
+                        needed
                       </li>
                     </ul>
                   </CardContent>
@@ -126,8 +126,10 @@ const Home = () => {
                   <CardTitle>Partner with Equus</CardTitle>
                   <CardContent>
                     <p className="text-equus-muted text-sm sm:text-base leading-relaxed mb-4">
-                      We translate these principles into solutions that make
-                      complex journeys intuitive and effective for your teams.
+                      We translate purpose-driven intelligence, contextual
+                      awareness, adaptive autonomy, and integrated tool usage
+                      into solutions that make complex journeys intuitive and
+                      effective for your teams.
                     </p>
                     <Link className="text-equus-primary underline" to="/about">
                       Read the full story
@@ -142,12 +144,12 @@ const Home = () => {
                   <CardContent>
                     <p className="text-equus-muted text-sm sm:text-base leading-relaxed mb-3">
                       Memory and context enable smarter, more informed decisions
-                      over time.
+                      over time:
                     </p>
                     <ul className="about-list space-y-1 text-equus-muted text-sm sm:text-base leading-relaxed marker:text-equus-olive">
-                      <li>previous user interactions and results.</li>
-                      <li>historical context to inform future choices.</li>
-                      <li>evolving knowledge that improves with experience.</li>
+                      <li>previous user interactions and results</li>
+                      <li>historical context to inform future choices</li>
+                      <li>evolving knowledge that improves with experience</li>
                     </ul>
                   </CardContent>
                 </Card>
@@ -158,15 +160,15 @@ const Home = () => {
                   <CardTitle>Adaptive Autonomy</CardTitle>
                   <CardContent>
                     <p className="text-equus-muted text-sm sm:text-base leading-relaxed mb-3">
-                      Equus systems adapt in real time, keeping teams focused on
-                      outcomes rather than orchestration.
+                      Equus Systems adapt in real time, keeping teams focused on
+                      outcomes rather than orchestration:
                     </p>
                     <ul className="about-list space-y-1 text-equus-muted text-sm sm:text-base leading-relaxed marker:text-equus-olive">
-                      <li>navigating unexpected challenges independently.</li>
+                      <li>navigating unexpected challenges independently</li>
                       <li>
-                        adjusting strategies in real time based on feedback.
+                        adjusting strategies in real time based on feedback
                       </li>
-                      <li>learning from both success and failure.</li>
+                      <li>learning from both success and failure</li>
                     </ul>
                   </CardContent>
                 </Card>
@@ -178,15 +180,15 @@ const Home = () => {
                   <CardContent>
                     <p className="text-equus-muted text-sm sm:text-base leading-relaxed mb-3">
                       Our agents interact with the wider ecosystem to deliver
-                      measurable outcomes.
+                      measurable outcomes:
                     </p>
                     <ul className="about-list space-y-1 text-equus-muted text-sm sm:text-base leading-relaxed marker:text-equus-olive">
                       <li>
-                        connecting to APIs, databases, and third-party services.
+                        connecting to APIs, databases, and third-party services
                       </li>
-                      <li>executing actions within digital environments.</li>
+                      <li>executing actions within digital environments</li>
                       <li>
-                        learning which tools are best for specific scenarios.
+                        learning which tools are best for specific scenarios
                       </li>
                     </ul>
                   </CardContent>
